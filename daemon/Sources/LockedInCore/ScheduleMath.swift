@@ -40,15 +40,29 @@ public enum ScheduleMath {
                       matchingPolicy: .nextTime, repeatedTimePolicy: .first, direction: .forward)
     }
 
+    /// "YYYY-MM-DD" → that Copenhagen calendar day (its start), or nil.
+    public static func day(_ ymd: String) -> Date? {
+        let p = ymd.split(separator: "-")
+        guard p.count == 3, p[0].count == 4, let y = Int(p[0]), let m = Int(p[1]), let d = Int(p[2]) else { return nil }
+        let date = calendar.date(from: DateComponents(year: y, month: m, day: d))
+        // Reject 2026-02-31 and the like (Calendar would roll it over).
+        guard let date, calendar.component(.day, from: date) == d, calendar.component(.month, from: date) == m else { return nil }
+        return date
+    }
+
     /// Occurrences of one schedule whose start day lies in [day(now) - 1, day(now) + daysAhead].
+    /// A one-time period (`date`) occurs only on that day.
     public static func occurrences(_ s: Schedule, around now: Date, daysAhead: Int = 8) -> [Interval] {
         guard s.enabled, let sm = minutes(s.start), let em = minutes(s.end), sm != em else { return [] }
         let cal = calendar
         let today = cal.startOfDay(for: now)
+        let once = s.date.flatMap(day)
+        if s.date != nil && once == nil { return [] }
         var out: [Interval] = []
-        for k in -1...daysAhead {
-            guard let day = cal.date(byAdding: .day, value: k, to: today) else { continue }
-            guard s.weekdays.contains(isoWeekday(day)) else { continue }
+        // A one-time period is computed for its own day however far ahead it lies; weekly ones within the window.
+        let days: [Date] = once.map { [$0] } ?? (-1...daysAhead).compactMap { cal.date(byAdding: .day, value: $0, to: today) }
+        for day in days {
+            if once == nil { guard s.weekdays.contains(isoWeekday(day)) else { continue } }
             let endDay = em > sm ? day : (cal.date(byAdding: .day, value: 1, to: day) ?? day)
             guard let a = wallTime(sm, on: day), let b = wallTime(em, on: endDay), b > a else { continue }
             out.append(Interval(start: a, end: b, source: "schedule:\(s.id)"))

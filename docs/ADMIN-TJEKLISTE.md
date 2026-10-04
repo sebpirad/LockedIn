@@ -36,7 +36,7 @@ Ny FileVault-gendannelsesnøgle, som **kun du** gemmer. Den gamle kan ejeren hav
 - [ ] Prøv som ejeren: `chrome://policy` viser Locked in-reglerne som *Platform / Maskine*. Profilen kan ikke fjernes uden din adgangskode.
 
 ## 4. Før første session
-- [ ] `chrome://extensions` viser **Locked in**, installeret af politik. Menulinjen viser 🔓 og ikke 🔒 ?.
+- [ ] `chrome://extensions` viser **Locked in**, indlæst fra `/Library/Application Support/LockedIn/extension`. Den er ikke installeret af politik, før den ligger i Chrome Web Store. Menulinjen viser 🔓 og ikke 🔒 ?.
 - [ ] Åbn Locked in i Chrome én gang, så daemonen ser et hjerteslag. Først derefter er vagthunden aktiv.
 
 ## 5. Opdateringer af Locked in

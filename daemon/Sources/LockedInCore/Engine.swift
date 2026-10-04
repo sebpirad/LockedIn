@@ -52,6 +52,8 @@ public final class Engine {
         }
         lastMono = mono
         clearExpiredTimer(now: now)
+        rememberLockLists(now: now)
+        if !isLocked(now) { dropPastOneOffs(now: now) }
     }
 
     /// Remaining timer seconds. The monotonic budget is authoritative: a wall clock jumping forward cannot end the
@@ -127,23 +129,153 @@ public final class Engine {
         }
     }
 
-    // MARK: Commands
+    // MARK: Block lists
 
-    public func startSession(minutes: Int, now: Date) throws {
+    /// "Locked In 1" is created from v1.0's per-site/app blocked flags (or from the catalog on a fresh install).
+    public func migrateToLists() {
+        guard !state.listsMigrated else { return }
+        if state.lists.isEmpty {
+            state.lists = [BlockList(id: Validation.newId(), name: "Locked In 1",
+                                     sites: state.sites.filter(\.blocked).map(\.id), apps: [])]
+        }
+        let first = state.lists[0].id
+        for i in state.schedules.indices where state.schedules[i].list.isEmpty { state.schedules[i].list = first }
+        if var t = state.timer, t.lists.isEmpty { t.lists = [first]; state.timer = t }
+        state.listsMigrated = true
+    }
+
+    func listId(_ requested: String?) throws -> String {
+        if state.lists.isEmpty { migrateToLists() }
+        let id = (requested?.isEmpty == false ? requested! : state.lists.first?.id) ?? ""
+        guard state.lists.contains(where: { $0.id == id }) else { throw EngineError.invalid("Vælg en liste.") }
+        return id
+    }
+
+    /// The list id of a source ("timer" or "schedule:<id>"). A timer without lists (written by 1.0) uses the first list.
+    func lists(ofSource src: String) -> [String] {
+        let first = state.lists.first?.id ?? ""
+        if src == "timer" { let l = state.timer?.lists ?? []; return l.isEmpty ? [first] : l }
+        guard let sc = state.schedules.first(where: { "schedule:\($0.id)" == src }) else { return [] }
+        return [sc.list.isEmpty ? first : sc.list]
+    }
+
+    /// Sources of the continuous lock around `now`, restricted to those that have started by `upTo`.
+    func chainSources(now: Date, upTo: Date?) -> [String] {
+        let st = status(now: now)
+        guard st.active, let since = st.activeSince, let until = st.activeUntil else { return [] }
+        let limit = min(upTo ?? until, until)
+        let all = Self.intervals(state, timerRemaining: timerRemaining(now: now), now: now)
+        var out: [String] = []
+        for iv in all where iv.start < limit && iv.end > since && !out.contains(iv.source) { out.append(iv.source) }
+        return out
+    }
+
+    /// Lists in force right now: every list that has been part of the current continuous lock so far. One lock blocks
+    /// everything from all its lists until it ends — Chrome's fail-closed rules behave the same (review 4, L4-4).
+    public func activeListIds(now: Date) -> [String] {
+        guard isLocked(now) else { return [] }
+        var seen = Set<String>()
+        let current = chainSources(now: now, upTo: now.addingTimeInterval(0.001)).flatMap { lists(ofSource: $0) }
+        let known = Set(state.lists.map(\.id))
+        let remembered = sameLock(now) ? state.lockLists : []
+        return (remembered + current).filter { known.contains($0) && seen.insert($0).inserted }
+    }
+
+    /// Remembers the running lock's lists (called on every tick and after every command).
+    public func rememberLockLists(now: Date) {
+        guard isLocked(now) else {
+            if !state.lockLists.isEmpty || state.lockListsUntil != nil { state.lockLists = []; state.lockListsUntil = nil }
+            return
+        }
+        if !sameLock(now) { state.lockLists = []; state.lockListsUntil = nil }   // review 5, R5-3
+        let ids = activeListIds(now: now)
+        if ids != state.lockLists { state.lockLists = ids }
+        if let u = status(now: now).activeUntil, u > (state.lockListsUntil ?? .distantPast) { state.lockListsUntil = u }
+    }
+
+    /// The remembered lists belong to the lock running now (it had not ended when they were recorded).
+    func sameLock(_ now: Date) -> Bool { state.lockListsUntil.map { now <= $0.addingTimeInterval(5) } ?? false }
+
+    /// Lists that may only grow right now: those of every source in the current lock, including periods that are
+    /// chained to it later (review 4, L4-2).
+    public func frozenListIds(now: Date) -> Set<String> {
+        isLocked(now) ? Set(chainSources(now: now, upTo: nil).flatMap { lists(ofSource: $0) } + (sameLock(now) ? state.lockLists : [])) : []
+    }
+
+    func activeLists(_ now: Date) -> [BlockList] {
+        let ids = activeListIds(now: now)
+        return state.lists.filter { ids.contains($0.id) }
+    }
+
+    /// Sites blocked right now (empty when unlocked).
+    public func effectiveSites(now: Date) -> [SiteRule] {
+        let ids = Set(activeLists(now).flatMap(\.sites))
+        return state.sites.filter { ids.contains($0.id) }
+    }
+
+    /// The app rules for app control: an app is closed if it is "always closed" (browsers, unknown engines) or in an
+    /// active list.
+    public func effectiveAppRules(now: Date) -> [AppRule] {
+        let ids = Set(activeLists(now).flatMap(\.apps))
+        return state.apps.map { a in var r = a; r.blocked = a.blocked || ids.contains(a.bundleId); return r }
+    }
+
+    func cleanList(name: String, sites: [String], apps: [String]) throws -> (String, [String], [String]) {
+        let n = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !n.isEmpty, n.count <= Limits.maxLabel, Validation.isSafeLabel(n) else { throw EngineError.invalid("Navnet skal være 1–40 tegn.") }
+        var seen = Set<String>()
+        let sIds = sites.filter { id in state.sites.contains { $0.id == id } && seen.insert("s" + id).inserted }
+        let aIds = apps.filter { id in state.apps.contains { $0.bundleId == id } && seen.insert("a" + id).inserted }
+        return (n, sIds, aIds)
+    }
+
+    public func addList(name: String, sites: [String], apps: [String], now: Date) throws -> BlockList {
+        guard state.lists.count < Limits.maxLists else { throw EngineError.invalid("Der kan højst være 20 lister.") }
+        let (n, sIds, aIds) = try cleanList(name: name, sites: sites, apps: apps)
+        let l = BlockList(id: Validation.newId(), name: n, sites: sIds, apps: aIds)
+        state.lists.append(l)
+        return l
+    }
+
+    /// A list in use by the running lock may only grow (rename is fine).
+    public func updateList(id: String, name: String, sites: [String], apps: [String], now: Date) throws {
+        guard let i = state.lists.firstIndex(where: { $0.id == id }) else { throw EngineError.notFound("Listen findes ikke.") }
+        let (n, sIds, aIds) = try cleanList(name: name, sites: sites, apps: apps)
+        let old = state.lists[i]
+        if frozenListIds(now: now).contains(id) && (!Set(old.sites).isSubset(of: sIds) || !Set(old.apps).isSubset(of: aIds)) {
+            throw EngineError.locked()
+        }
+        state.lists[i] = BlockList(id: id, name: n, sites: sIds, apps: aIds)
+    }
+
+    public func removeList(id: String, now: Date) throws {
+        guard let i = state.lists.firstIndex(where: { $0.id == id }) else { throw EngineError.notFound("Listen findes ikke.") }
+        if frozenListIds(now: now).contains(id) { throw EngineError.locked() }
+        guard state.lists.count > 1 else { throw EngineError.invalid("Der skal være mindst én liste.") }
+        if let sc = state.schedules.first(where: { $0.list == id }) {
+            throw EngineError.invalid("Listen bruges af \(sc.name.isEmpty ? "en planlagt periode" : sc.name).")
+        }
+        state.lists.remove(at: i)
+    }
+
+    // MARK: Sessions
+
+    public func startSession(minutes: Int, list: String? = nil, now: Date) throws {
         guard (1...1440).contains(minutes) else { throw EngineError.invalid("Vælg mellem 1 minut og 24 timer.") }
-        try lock(seconds: Double(minutes) * 60, now: now)
+        try lock(seconds: Double(minutes) * 60, list: try listId(list), now: now)
     }
 
     /// "Locked in indtil kl. 15:00": ends exactly at `until`. Only a later time is accepted, at most 24 h ahead.
-    public func startSession(until: Date, now: Date) throws {
+    public func startSession(until: Date, list: String? = nil, now: Date) throws {
         let secs = until.timeIntervalSince(now)
         guard secs >= 60 else { throw EngineError.invalid("Vælg et senere tidspunkt.") }
         guard secs <= Limits.maxSessionSeconds else { throw EngineError.invalid("En samlet lås kan højst vare 24 timer.") }
-        try lock(seconds: secs, now: now)
+        try lock(seconds: secs, list: try listId(list), now: now)
     }
 
     /// New end = max(current end, now + seconds). Never shortens; the whole continuous lock stays within 24 h.
-    private func lock(seconds secs: Double, now: Date) throws {
+    /// Starting again during a lock with another list adds that list.
+    private func lock(seconds secs: Double, list: String, now: Date) throws {
         guard secs <= Limits.maxSessionSeconds else { throw EngineError.invalid("En samlet lås kan højst vare 24 timer.") }
         let current = timerRemaining(now: now)
         var t = state.timer ?? TimerLock(endWall: now, monoRemaining: 0, startWall: now)
@@ -151,15 +283,18 @@ public final class Engine {
         t.endWall = max(t.endWall, now.addingTimeInterval(secs))
         t.monoRemaining = max(current, secs)
         if t.startWall == nil { t.startWall = now }
+        if !t.lists.contains(list) { t.lists.append(list) }
         var candidate = state
         candidate.timer = t
         try checkChains(candidate, timerRemaining: max(current, secs), now: now)
         state.timer = t
+        rememberLockLists(now: now)
     }
 
-    // Sites
+    // MARK: Sites
 
-    public func addSite(label: String, domain raw: String, now: Date) throws -> SiteRule {
+    /// Adds an own website; with `list`, also puts it on that list (always allowed — it only adds a block).
+    public func addSite(label: String, domain raw: String, list: String? = nil, now: Date) throws -> SiteRule {
         let domain = raw.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
             .trimmingCharacters(in: CharacterSet(charactersIn: "."))
         let stripped = Validation.stripWww(domain)
@@ -170,51 +305,55 @@ public final class Engine {
         guard !name.isEmpty, name.count <= Limits.maxLabel, Validation.isSafeLabel(name) else {
             throw EngineError.invalid("Navnet skal være 1–40 tegn.")
         }
-        guard state.sites.count < Limits.maxSites else { throw EngineError.invalid("Der kan højst være 200 hjemmesider.") }
         let id = "c-" + stripped   // dots kept: "a-b.c.com" and "a.b-c.com" must not collide
-        if let i = state.sites.firstIndex(where: { $0.id == id || ($0.suffixes.contains(stripped)) }) {
-            // Already there: adding again only ever strengthens it.
-            state.sites[i].blocked = true
-            return state.sites[i]
-        }
-        let site = SiteRule(id: id, label: name, builtin: false, blocked: true, mode: "full",
+        var site: SiteRule
+        if let existing = state.sites.first(where: { $0.id == id || $0.suffixes.contains(stripped) }) {
+            site = existing
+        } else {
+            guard state.sites.count < Limits.maxSites else { throw EngineError.invalid("Der kan højst være 200 hjemmesider.") }
+            site = SiteRule(id: id, label: name, builtin: false, blocked: true, mode: "full",
                             suffixes: [stripped], hostsFile: [stripped, "www." + stripped, "m." + stripped])
-        state.sites.append(site)
+            state.sites.append(site)
+        }
+        if let list, let i = state.lists.firstIndex(where: { $0.id == list }), !state.lists[i].sites.contains(site.id) {
+            state.lists[i].sites.append(site.id)
+        }
         return site
-    }
-
-    public func setSiteBlocked(id: String, blocked: Bool, now: Date) throws {
-        guard let i = state.sites.firstIndex(where: { $0.id == id }) else { throw EngineError.notFound("Hjemmesiden findes ikke.") }
-        if !blocked && state.sites[i].blocked && isLocked(now) { throw EngineError.locked() }
-        state.sites[i].blocked = blocked
     }
 
     public func removeSite(id: String, now: Date) throws {
         guard let i = state.sites.firstIndex(where: { $0.id == id }) else { throw EngineError.notFound("Hjemmesiden findes ikke.") }
-        if state.sites[i].builtin { throw EngineError.invalid("Indbyggede hjemmesider kan ikke slettes, kun slås fra.") }
-        if isLocked(now) { throw EngineError.locked() }
+        if state.sites[i].builtin { throw EngineError.invalid("Indbyggede hjemmesider kan ikke slettes.") }
+        let frozen = frozenListIds(now: now)
+        if state.lists.contains(where: { frozen.contains($0.id) && $0.sites.contains(id) }) { throw EngineError.locked() }
         state.sites.remove(at: i)
+        for j in state.lists.indices { state.lists[j].sites.removeAll { $0 == id } }
     }
 
-    // Apps
+    // MARK: Apps
 
-    public func addApp(_ app: AppRule, now: Date) throws {
+    /// Registers an app so it can go on lists; with `list`, also puts it there.
+    public func addApp(_ app: AppRule, list: String? = nil, now: Date) throws {
         guard Validation.isBundleId(app.bundleId) else { throw EngineError.invalid("Ugyldig app.") }
         if Validation.protectedBundleIds.contains(app.bundleId) {
             throw EngineError.invalid("Chrome kan ikke blokeres — Locked in kører i Chrome.")
         }
-        if let i = state.apps.firstIndex(where: { $0.bundleId == app.bundleId }) {
-            state.apps[i].blocked = true
-            return
+        if !state.apps.contains(where: { $0.bundleId == app.bundleId }) {
+            guard state.apps.count < Limits.maxApps else { throw EngineError.invalid("Der kan højst være 300 apps.") }
+            var a = app
+            // During a lock an app with a web engine is registered as "always closed": registering must never turn the
+            // unknown-engine rule into an allow (review 4, L4-1).
+            // Any app registered during a lock is "always closed" until allowed afterwards (review 5, R5-2).
+            a.blocked = app.kind == .browser || AppPolicy.knownBrowsers.contains(app.bundleId) || isLocked(now)
+            a.name = String(a.name.prefix(80))
+            state.apps.append(a)
         }
-        guard state.apps.count < Limits.maxApps else { throw EngineError.invalid("Der kan højst være 300 apps.") }
-        var a = app
-        a.blocked = true
-        a.name = String(a.name.prefix(80))
-        state.apps.append(a)
+        if let list, let i = state.lists.firstIndex(where: { $0.id == list }), !state.lists[i].apps.contains(app.bundleId) {
+            state.lists[i].apps.append(app.bundleId)
+        }
     }
 
-    /// Daemon-internal: an unknown browser/web-engine app seen during a lock is recorded as blocked (a strengthening).
+    /// Daemon-internal: an unknown browser/web-engine app seen during a lock is recorded as "always closed".
     public func recordUnknownApp(_ app: AppRule) {
         guard !state.apps.contains(where: { $0.bundleId == app.bundleId }), state.apps.count < Limits.maxApps else { return }
         var a = app
@@ -222,8 +361,9 @@ public final class Engine {
         state.apps.append(a)
     }
 
+    /// `blocked` here means "always closed during any lock" (browsers, unknown web-engine apps). `false` = "Tillad".
     public func setAppBlocked(bundleId: String, blocked: Bool, now: Date) throws {
-        guard let i = state.apps.firstIndex(where: { $0.bundleId == bundleId }) else { throw EngineError.notFound("Appen findes ikke på listen.") }
+        guard let i = state.apps.firstIndex(where: { $0.bundleId == bundleId }) else { throw EngineError.notFound("Appen findes ikke.") }
         if !blocked && (state.apps[i].kind == .browser || AppPolicy.knownBrowsers.contains(bundleId)) {
             throw EngineError.invalid("Andre browsere end Chrome er altid lukket under fokus.")
         }
@@ -232,21 +372,33 @@ public final class Engine {
     }
 
     public func removeApp(bundleId: String, now: Date) throws {
-        guard let i = state.apps.firstIndex(where: { $0.bundleId == bundleId }) else { throw EngineError.notFound("Appen findes ikke på listen.") }
-        if isLocked(now) { throw EngineError.locked() }
+        guard let i = state.apps.firstIndex(where: { $0.bundleId == bundleId }) else { throw EngineError.notFound("Appen findes ikke.") }
+        let frozen = frozenListIds(now: now)
+        if isLocked(now) && (state.apps[i].blocked || state.lists.contains(where: { frozen.contains($0.id) && $0.apps.contains(bundleId) })) {
+            throw EngineError.locked()
+        }
         state.apps.remove(at: i)
+        for j in state.lists.indices { state.lists[j].apps.removeAll { $0 == bundleId } }
     }
 
-    // Schedules
+    // MARK: Planned periods (weekly or one date)
 
-    func validate(_ s: Schedule) throws {
+    func validate(_ s: Schedule, now: Date) throws {
         guard ScheduleMath.minutes(s.start) != nil, ScheduleMath.minutes(s.end) != nil else {
             throw EngineError.invalid("Tider skal skrives som TT:MM.")
         }
         guard s.start != s.end else { throw EngineError.invalid("Start og slut kan ikke være det samme.") }
-        guard !s.weekdays.isEmpty, s.weekdays.allSatisfy({ (1...7).contains($0) }), Set(s.weekdays).count == s.weekdays.count else {
-            throw EngineError.invalid("Vælg mindst én ugedag.")
+        if let d = s.date {
+            guard ScheduleMath.day(d) != nil else { throw EngineError.invalid("Ugyldig dato.") }
+            guard let occ = ScheduleMath.occurrences(s, around: now).first, occ.end > now else {
+                throw EngineError.invalid("Vælg et senere tidspunkt.")
+            }
+        } else {
+            guard !s.weekdays.isEmpty, s.weekdays.allSatisfy({ (1...7).contains($0) }), Set(s.weekdays).count == s.weekdays.count else {
+                throw EngineError.invalid("Vælg mindst én ugedag.")
+            }
         }
+        guard state.lists.contains(where: { $0.id == s.list }) else { throw EngineError.invalid("Vælg en liste.") }
         let n = s.name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard n.count <= Limits.maxLabel, Validation.isSafeLabel(n) || n.isEmpty else {
             throw EngineError.invalid("Navnet skal være højst 40 tegn.")
@@ -257,9 +409,10 @@ public final class Engine {
         var s = input
         s.id = Validation.newId()
         s.name = s.name.trimmingCharacters(in: .whitespacesAndNewlines)
-        s.weekdays = s.weekdays.sorted()
-        try validate(s)
-        guard state.schedules.count < Limits.maxSchedules else { throw EngineError.invalid("Der kan højst være 50 faste tider.") }
+        s.weekdays = s.date == nil ? s.weekdays.sorted() : []
+        s.list = try listId(s.list)
+        try validate(s, now: now)
+        guard state.schedules.count < Limits.maxSchedules else { throw EngineError.invalid("Der kan højst være 50 planlagte perioder.") }
         var candidate = state
         candidate.schedules.append(s)
         try checkChains(candidate, timerRemaining: timerRemaining(now: now), now: now)
@@ -268,11 +421,12 @@ public final class Engine {
     }
 
     public func updateSchedule(_ input: Schedule, now: Date) throws {
-        guard let i = state.schedules.firstIndex(where: { $0.id == input.id }) else { throw EngineError.notFound("Den faste tid findes ikke.") }
+        guard let i = state.schedules.firstIndex(where: { $0.id == input.id }) else { throw EngineError.notFound("Perioden findes ikke.") }
         var s = input
         s.name = s.name.trimmingCharacters(in: .whitespacesAndNewlines)
-        s.weekdays = s.weekdays.sorted()
-        try validate(s)
+        s.weekdays = s.date == nil ? s.weekdays.sorted() : []
+        s.list = try listId(s.list)
+        try validate(s, now: now)
         if isLocked(now) && s != state.schedules[i] { throw EngineError.locked() }
         var candidate = state
         candidate.schedules[i] = s
@@ -281,9 +435,19 @@ public final class Engine {
     }
 
     public func removeSchedule(id: String, now: Date) throws {
-        guard let i = state.schedules.firstIndex(where: { $0.id == id }) else { throw EngineError.notFound("Den faste tid findes ikke.") }
+        guard let i = state.schedules.firstIndex(where: { $0.id == id }) else { throw EngineError.notFound("Perioden findes ikke.") }
         if isLocked(now) { throw EngineError.locked() }
         state.schedules.remove(at: i)
+    }
+
+    /// One-time periods that have ended are removed.
+    func dropPastOneOffs(now: Date) {
+        state.schedules.removeAll { s in
+            guard s.date != nil else { return false }
+            let occ = ScheduleMath.occurrences(s, around: now)
+            return occ.isEmpty ? ScheduleMath.day(s.date!).map { $0 < now.addingTimeInterval(-2 * 86400) } ?? true
+                               : occ.allSatisfy { $0.end < now }
+        }
     }
 
     public func heartbeat(now: Date) { state.lastHeartbeat = now }
@@ -297,6 +461,8 @@ public final class Engine {
     /// but keep the user's blocked flag. A built-in removed from the catalog is dropped only while unlocked.
     public func mergeCatalog(_ catalog: [SiteRule], now: Date) {
         let locked = isLocked(now)
+        // Decided once, before the loop: an upgrade from 1.0 adds new built-ins as options only (review 5, R5-1).
+        let upgrading = !state.listsMigrated && !state.sites.isEmpty
         for c in catalog {
             if let i = state.sites.firstIndex(where: { $0.id == c.id }) {
                 let prev = state.sites[i]
@@ -314,7 +480,10 @@ public final class Engine {
                 }
                 state.sites[i] = n
             } else {
-                state.sites.append(c)
+                var n = c
+                // An upgrade from 1.0 adds new built-ins as options, not onto the owner's existing "Locked In 1".
+                if upgrading { n.blocked = false }
+                state.sites.append(n)
             }
         }
         if !locked {
@@ -338,7 +507,4 @@ public final class Engine {
         state.appsSeeded = true
     }
 
-    // MARK: Effective block sets
-
-    public func blockedSites() -> [SiteRule] { state.sites.filter(\.blocked) }
 }

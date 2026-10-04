@@ -37,8 +37,12 @@ async function evaluate(sessionId, expression) {
   return r.result.result.value;
 }
 async function targets() { return (await send('Target.getTargets')).result.targetInfos; }
+const NO_DAEMON = ['*127.0.0.1:919*', '*localhost:919*', '*[::1]:919*'];
 async function attach(targetId) {
   const sessionId = (await send('Target.attachToTarget', { targetId, flatten: true })).result.sessionId;
+  // Belt and braces: block the real daemon's port in every target we touch.
+  await send('Network.enable', {}, sessionId).catch(() => {});
+  await send('Network.setBlockedURLs', { urls: NO_DAEMON }, sessionId).catch(() => {});
   await send('Runtime.runIfWaitingForDebugger', {}, sessionId);
   return sessionId;
 }
@@ -66,6 +70,15 @@ for (let i = 0; i < 60 && !n; i++) {
   if (!n) await sleep(250);
 }
 check(n > 0, 'dynamic rules installed during the (fake) lock', `${n} rules`);
+
+// "favicon" permission: Chrome's own favicon cache answers inside the extension (no network).
+const fav = await evaluate(swS, `(async () => {
+  const get = async (page) => new Uint8Array(await (await fetch(chrome.runtime.getURL('/_favicon/?pageUrl=' + encodeURIComponent(page) + '&size=64'))).arrayBuffer());
+  const a = await get('https://example.com/'), b = await get('https://lockedin-no-icon.invalid/');
+  return { png: a[0] === 0x89 && a[1] === 0x50, bytes: a.length, sameAsSentinel: a.length === b.length && a.every((x, i) => x === b[i]) };
+})()`).catch((e) => ({ error: e.message }));
+check(fav.png && fav.bytes > 0, '_favicon API available to the service worker (PNG)', JSON.stringify(fav));
+check(fav.sameAsSentinel, 'an unknown site gets the generic globe, identical to the sentinel (so it counts as "no icon")');
 
 // What would Chrome do with a request? (testMatchOutcome: unpacked extensions only)
 const OUTCOME = `async (url, type) => {
@@ -129,8 +142,8 @@ check(/^\d\d:\d\d:\d\d$/.test(quote.remain), 'quote page counts down', quote.rem
 const { result: { targetId: appId } } = await send('Target.createTarget', { url: `${ORIGIN}app.html` });
 const appS = await attach(appId);
 await sleep(2500);
-const app = await evaluate(appS, `({ big: document.getElementById('big').textContent, tiles: document.getElementById('tiles').children.length, sub: document.getElementById('sub').textContent, alert: document.getElementById('alert').hidden ? '' : document.getElementById('alert').textContent })`);
-check(/^\d\d:\d\d:\d\d$/.test(app.big) && app.tiles > 0 && /^Låst til/.test(app.sub), 'app.html renders the lock', JSON.stringify(app));
+const app = await evaluate(appS, `({ big: document.getElementById('big').textContent, tiles: document.getElementById('tiles').children.length, sub: document.getElementById('sub').textContent, list: document.getElementById('listStatic').textContent, alert: document.getElementById('alert').hidden ? '' : document.getElementById('alert').textContent })`);
+check(/^\d\d:\d\d:\d\d$/.test(app.big) && app.tiles > 0 && /^Låst til/.test(app.sub) && app.list === 'Locked In 1', 'app.html renders the lock and its list', JSON.stringify(app));
 check(app.alert === '', 'heartbeat 403 is not shown as an error', app.alert);
 
 // ---------- 5. heartbeat ----------

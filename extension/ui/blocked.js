@@ -3,6 +3,7 @@
 
 import { formatCountdown, shortWhen } from '../lib/time.js';
 import { pickNext } from '../lib/shuffle.js';
+import { creditParts, daDates } from '../lib/credits.js';
 
 const params = new URLSearchParams(location.search);
 const HAS_EXT = typeof chrome !== 'undefined' && !!(chrome.runtime && chrome.runtime.id);
@@ -82,20 +83,19 @@ function link(text, href) {
   return a;
 }
 
-/** One quiet line: source · translator · portrait credit with licence (required for CC BY/BY-SA). */
+/** One quiet line in Danish: source · translator · photo credit with licence (required for CC BY/BY-SA). */
 function credits(q) {
+  const c = creditParts(q, !$('portrait').hidden);
   const parts = [];
-  const src = q.source || {};
-  const srcText = [src.work, src.year, src.locator].filter(Boolean).join(', ');
-  if (srcText) parts.push([link(srcText, src.url)]);
-  const tr = q.translation;
-  if (tr && tr.translator) parts.push([document.createTextNode(`Overs. ${tr.translator}`)]);
-  const img = q.image;
-  if (img && !$('portrait').hidden) {
-    const bits = [document.createTextNode(`Portræt: ${img.creator || 'ukendt'}, `)];
-    if (img.license) bits.push(link(img.license, img.license_url));
-    if (img.commons_page) bits.push(document.createTextNode(', '), link('Wikimedia Commons', img.commons_page));
-    else if (!img.license && img.attribution) bits.splice(0, bits.length, document.createTextNode(img.attribution));
+  if (c.source) parts.push([link(c.source, (q.source || {}).url)]);
+  if (c.translator) parts.push([document.createTextNode(c.translator)]);
+  if (c.photo) {
+    const who = document.createElement('span');
+    who.textContent = c.photo.creator;
+    if (c.photo.creator !== c.photo.creatorFull) who.title = c.photo.creatorFull;
+    const bits = [document.createTextNode('Foto: '), who];
+    if (c.photo.license) bits.push(document.createTextNode(', licens '), link(c.photo.license, c.photo.licenseUrl));
+    if (c.photo.commons) bits.push(document.createTextNode(', '), link('Wikimedia Commons', c.photo.commons));
     parts.push(bits);
   }
   const out = [];
@@ -111,7 +111,7 @@ function renderQuote(q, base) {
   $('text').classList.toggle('long', text.length > 150);
   $('text').classList.toggle('xlong', text.length > 230);
   $('author').textContent = q.author;
-  $('dates').textContent = q.author_dates || '';
+  $('dates').textContent = daDates(q.author_dates);
 
   const img = q.image;
   if (img && typeof img.file === 'string' && /^(images\/)?[A-Za-z0-9._-]+$/.test(img.file) && base) {

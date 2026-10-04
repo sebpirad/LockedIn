@@ -53,6 +53,8 @@ class H(http.server.BaseHTTPRequestHandler):
             "activeUntil": None if spoof else until,
             "activeSince": None if spoof else (now - datetime.timedelta(minutes=1)).strftime(fmt), "activeSources": [] if spoof else ["timer"],
             "nextSession": None, "maxSessionMinutes": 1440, "sites": sites, "apps": [], "schedules": [],
+            "lists": [{"id": "l1", "name": "Locked In 1", "sites": [x["id"] for x in sites], "apps": []}],
+            "activeLists": [] if spoof else ["l1"],
             "enforcement": {"hosts": True, "pf": True, "appControl": True, "lastTick": now.strftime(fmt), "lastHeartbeat": None},
         })
 
@@ -71,5 +73,7 @@ class H(http.server.BaseHTTPRequestHandler):
 
 
 srv = http.server.ThreadingHTTPServer(("127.0.0.1", 0), H)
+if srv.server_address[1] == 919:  # never stand in for (or next to) the real daemon
+    sys.exit("fake daemon refuses port 919")
 print(srv.server_address[1], flush=True)
 srv.serve_forever()

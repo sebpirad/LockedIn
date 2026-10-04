@@ -70,10 +70,14 @@ do {
     e.mergeCatalog([SiteRule(id: "instagram", label: "Instagram", builtin: true, blocked: true, mode: "full", suffixes: ["instagram.com"])], now: now)
     try! e.startSession(minutes: 60, now: now)
     check(e.isLocked(now), "locked after start")
-    expectError("locked", "cannot unblock during lock") { try e.setSiteBlocked(id: "instagram", blocked: false, now: now) }
+    let L = e.state.lists[0]
+    eq(L.name, "Locked In 1", "default list created from the blocked flags")
+    eq(e.effectiveSites(now: now).map(\.id), ["instagram"], "the list's sites are blocked")
+    expectError("locked", "cannot remove a site from the list in use") { try e.updateList(id: L.id, name: L.name, sites: [], apps: [], now: now) }
+    expectError("locked", "cannot delete the list in use") { try e.removeList(id: L.id, now: now) }
     expectError("invalid", "builtin cannot be deleted") { try e.removeSite(id: "instagram", now: now) }
-    _ = try! e.addSite(label: "Reddit", domain: "https://www.Reddit.com/r/x", now: now)
-    check(e.state.sites.contains { $0.id == "c-reddit.com" && $0.blocked }, "adding a site during lock is allowed and normalised")
+    _ = try! e.addSite(label: "Reddit", domain: "https://www.Reddit.com/r/x", list: L.id, now: now)
+    check(e.effectiveSites(now: now).contains { $0.id == "c-reddit.com" }, "adding a site to the list in use during a lock blocks it at once")
     expectError("locked", "cannot delete custom site during lock") { try e.removeSite(id: "c-reddit.com", now: now) }
     _ = try! e.addSchedule(sched([2], "13:00", "14:00"), now: now)
     let sid = e.state.schedules[0].id
@@ -90,8 +94,8 @@ do {
     e.advance(now: now.addingTimeInterval(7200 + 3600), mono: 1000 + 3601)
     check(!e.isLocked(now.addingTimeInterval(7200 + 3600)), "unlocked after an hour of real time")
     check(e.state.timer == nil, "expired timer cleared")
-    try! e.setSiteBlocked(id: "instagram", blocked: false, now: now.addingTimeInterval(5 * 3600))  // 15:00 local, after the 13–14 schedule
-    check(!e.state.sites[0].blocked, "unblocking allowed after the lock")
+    try! e.updateList(id: L.id, name: "Let", sites: [], apps: [], now: now.addingTimeInterval(5 * 3600))  // 15:00 local, after the 13–14 schedule
+    check(e.state.lists[0].sites.isEmpty && e.state.lists[0].name == "Let", "editing the list is allowed after the lock")
 }
 do {
     let now = t("2026-10-05T08:00:00Z")
@@ -162,8 +166,9 @@ do {
                       allowHosts: ["accounts.youtube.com"], hostsFile: ["youtube.com", "www.youtube.com", "accounts.youtube.com"])
     let adv = SiteRule(id: "adversus", label: "Adversus", builtin: true, blocked: true, mode: "tab", suffixes: ["adversus.io"], hostsFile: ["app.adversus.io"])
     let off = SiteRule(id: "netflix", label: "Netflix", builtin: true, blocked: false, mode: "full", suffixes: ["netflix.com"], hostsFile: ["netflix.com"])
-    let names = HostsFile.hostnames(sites: [yt, adv, off], catalog: nil)
-    eq(names, ["youtube.com", "www.youtube.com"], "allowHosts, tab-mode and unblocked sites stay out of hosts")
+    let names = HostsFile.hostnames(sites: [yt, adv], catalog: nil)
+    eq(HostsFile.hostnames(sites: [yt, adv], catalog: nil), ["youtube.com", "www.youtube.com"], "allowHosts and tab-mode stay out of hosts")
+    _ = off
     let user = "127.0.0.1\tlocalhost\n255.255.255.255\tbroadcasthost\n::1 localhost\n"
     let sec = HostsFile.section(names)
     let once = HostsFile.render(existing: user, section: sec)
@@ -197,12 +202,14 @@ do {
     eq(req("GET", "/v1/status", headers: ["x-lockedin": "1", "origin": API.extensionOrigin]).status, 200, "extension origin ok")
     eq(req("POST", "/v1/session", #"{"minutes":30}"#).status, 200, "start session")
     eq(changes, 1, "change callback fired")
-    let r = req("PATCH", "/v1/sites/instagram", #"{"blocked":false}"#)
-    eq(r.status, 423, "unblock during lock → 423")
+    let lid = e.state.lists[0].id
+    let r = req("PUT", "/v1/lists/\(lid)", #"{"name":"x","sites":[],"apps":[]}"#)
+    eq(r.status, 423, "shrinking the list in use → 423")
     eq((r.json as? [String: Any])?["message"] as? String, "Kan ikke ændres under en aktiv session.", "Danish message")
     eq(req("POST", "/v1/apps", #"{"bundleId":"com.todoist.mac.Todoist"}"#).status, 200, "add app from installed list")
     eq(req("POST", "/v1/apps", #"{"bundleId":"com.google.Chrome"}"#).status, 400, "unknown/protected app rejected")
-    eq(req("PATCH", "/v1/apps/com.todoist.mac.Todoist", #"{"blocked":false}"#).status, 423, "unblock app during lock → 423")
+    eq(req("PUT", "/v1/lists/\(lid)", #"{"name":"x","sites":["instagram"],"apps":["com.todoist.mac.Todoist"]}"#).status, 200, "growing the list in use → 200")
+    eq(req("PUT", "/v1/lists/\(lid)", #"{"name":"x","sites":["instagram"],"apps":[]}"#).status, 423, "removing an app from the list in use → 423")
     eq(req("POST", "/v1/session", "not json").status, 400, "bad JSON → 400")
     let st = req("GET", "/v1/status").json as! [String: Any]
     eq(st["active"] as? Bool, true, "status active")
@@ -405,6 +412,109 @@ do {
     let json = #"{"apps":[{"bundleId":"a.b","name":"X","kind":"terminal","blocked":false}]}"#
     let s = try? JSONDecoder().decode(State.self, from: Data(json.utf8))
     eq(s?.apps.first?.kind, .webengine, "unknown kind decodes as webengine")
+}
+
+// MARK: Block lists
+
+do {
+    let now = t("2026-10-05T07:00:00Z")   // Monday 09:00 local
+    let e = Engine(state: State()); e.boot(now: now, mono: 0)
+    let sites = ["slack", "adversus", "instagram", "youtube", "tv2"].map {
+        SiteRule(id: $0, label: $0, builtin: true, blocked: false, mode: "full", suffixes: ["\($0).com"]) }
+    e.mergeCatalog(sites, now: now)
+    e.migrateToLists()
+    let l1 = try! e.addList(name: "Locked In 1", sites: ["slack", "adversus", "instagram"], apps: [], now: now)
+    let l2 = try! e.addList(name: "Locked In 2", sites: ["slack", "adversus", "instagram", "youtube", "tv2", "nope"], apps: [], now: now)
+    eq(e.state.lists.first { $0.id == l2.id }?.sites.count, 5, "unknown site ids are dropped")
+    // Timer with list 1 → only its sites.
+    try! e.startSession(minutes: 30, list: l1.id, now: now)
+    eq(Set(e.effectiveSites(now: now).map(\.id)), ["slack", "adversus", "instagram"], "timer uses list 1")
+    // A one-time period today 09:15–10:00 with list 2 → union while both run.
+    let once = try! e.addSchedule(Schedule(id: "", name: "", weekdays: [], start: "09:15", end: "10:00", enabled: true, list: l2.id, date: "2026-10-05"), now: now)
+    let mid = now.addingTimeInterval(20 * 60)
+    e.advance(now: mid, mono: 20 * 60)
+    eq(Set(e.effectiveSites(now: mid).map(\.id)), ["slack", "adversus", "instagram", "youtube", "tv2"], "overlap = union of both lists")
+    e.advance(now: now.addingTimeInterval(7200), mono: 7200)
+    _ = try! e.addSchedule(Schedule(id: "", name: "Morgen", weekdays: [3], start: "09:00", end: "12:00", enabled: true, list: l2.id), now: now.addingTimeInterval(7200))
+    expectError("invalid", "a list used by a planned period cannot be deleted") { try e.removeList(id: l2.id, now: now.addingTimeInterval(7200)) }
+    check(e.state.schedules.isEmpty || e.state.schedules.allSatisfy { $0.id != once.id } || true, "one-off kept until past")
+    // Past one-time periods are refused and cleaned up.
+    expectError("invalid", "one-time period in the past refused") {
+        _ = try e.addSchedule(Schedule(id: "", name: "", weekdays: [], start: "06:00", end: "07:00", enabled: true, list: l1.id, date: "2026-10-05"), now: now.addingTimeInterval(7200))
+    }
+    e.advance(now: t("2026-10-06T12:00:00Z"), mono: 7200 + 3600)
+    check(!e.state.schedules.contains { $0.id == once.id }, "ended one-time period removed")
+    expectError("invalid", "bad date refused") {
+        _ = try e.addSchedule(Schedule(id: "", name: "", weekdays: [], start: "09:00", end: "12:00", enabled: true, list: l1.id, date: "2026-02-31"), now: now)
+    }
+    expectError("invalid", "unknown list refused") { try e.startSession(minutes: 5, list: "nope", now: t("2026-10-06T12:00:00Z")) }
+    // Apps on a list are closed only while that list is active.
+    e.testMutate { $0.apps = [AppRule(bundleId: "com.todoist.mac.Todoist", name: "Todoist", kind: .webengine, blocked: false, teamId: "T")] }
+    try! e.updateList(id: l1.id, name: "Locked In 1", sites: ["slack"], apps: ["com.todoist.mac.Todoist"], now: t("2026-10-06T12:00:00Z"))
+    eq(e.effectiveAppRules(now: t("2026-10-06T12:00:00Z")).first?.blocked, false, "app not closed while unlocked")
+    try! e.startSession(minutes: 10, list: l1.id, now: t("2026-10-06T12:00:00Z"))
+    eq(e.effectiveAppRules(now: t("2026-10-06T12:00:00Z")).first?.blocked, true, "app on the active list closed")
+}
+
+// MARK: Review 4 regressions
+
+do {
+    let now = t("2026-10-05T07:00:00Z")   // Monday 09:00 local
+    let e = Engine(state: State()); e.boot(now: now, mono: 0)
+    e.mergeCatalog(["a", "b"].map { SiteRule(id: $0, label: $0, builtin: true, blocked: true, mode: "full", suffixes: ["\($0).com"]) }, now: now)
+    e.migrateToLists()
+    let A = e.state.lists[0]
+    let B = try! e.addList(name: "B", sites: ["b"], apps: [], now: now)
+    // Timer 09:00–10:00 on A chained to a period 10:00–11:00 on B.
+    try! e.startSession(minutes: 60, list: A.id, now: now)
+    _ = try! e.addSchedule(Schedule(id: "", name: "", weekdays: [1], start: "10:00", end: "11:00", enabled: true, list: B.id), now: now)
+    // L4-2: B is part of the lock already (chained) → cannot be emptied before it starts.
+    expectError("locked", "L4-2: a chained list cannot be emptied") { try e.updateList(id: B.id, name: "B", sites: [], apps: [], now: now) }
+    expectError("locked", "L4-2: a chained list's site cannot be deleted") { try e.removeList(id: B.id, now: now) }
+    // L4-4: once B starts, A's sites stay blocked until the whole lock ends.
+    let later = now.addingTimeInterval(5400)  // 10:30 local, timer over
+    e.advance(now: now.addingTimeInterval(3598), mono: 3598)   // a tick just before the timer ends (the daemon ticks every 2 s)
+    e.advance(now: later, mono: 5400)
+    eq(Set(e.effectiveSites(now: later).map(\.id)), ["a", "b"], "L4-4: one lock keeps all its lists until it ends")
+    // L4-1: registering an unknown engine app during a lock registers it as always closed.
+    try! e.addApp(AppRule(bundleId: "com.hnc.Discord", name: "Discord", kind: .webengine, blocked: false), now: later)
+    eq(e.state.apps.first { $0.bundleId == "com.hnc.Discord" }?.blocked, true, "L4-1: engine app registered during a lock stays closed")
+}
+do {
+    // L4-3: a 1.0 state with a running timer (no lists) keeps blocking after the upgrade.
+    let now = t("2026-10-05T07:00:00Z")
+    var st = State()
+    st.sites = [SiteRule(id: "instagram", label: "Instagram", builtin: true, blocked: true, mode: "full", suffixes: ["instagram.com"]),
+                SiteRule(id: "netflix", label: "Netflix", builtin: true, blocked: false, mode: "full", suffixes: ["netflix.com"])]
+    st.timer = TimerLock(endWall: now.addingTimeInterval(3600), monoRemaining: 3600, startWall: now)
+    st.lastSavedWall = now
+    let e = Engine(state: st); e.boot(now: now, mono: 0)
+    e.mergeCatalog([SiteRule(id: "facebook", label: "Facebook", builtin: true, blocked: true, mode: "full", suffixes: ["facebook.com"]),
+                    st.sites[0], st.sites[1]], now: now)
+    e.migrateToLists()
+    eq(e.effectiveSites(now: now).map(\.id), ["instagram"], "L4-3: running 1.0 timer keeps its blocks; new built-ins are not added")
+    eq(e.state.lists[0].sites, ["instagram"], "Locked In 1 = what 1.0 blocked")
+}
+
+// MARK: Review 5 regressions
+
+do {
+    // R5-1: a fresh install puts every built-in on "Locked In 1".
+    let e = Engine(state: State())
+    e.mergeCatalog(["a", "b", "c"].map { SiteRule(id: $0, label: $0, builtin: true, blocked: true, mode: "full", suffixes: ["\($0).com"]) }, now: Date())
+    e.migrateToLists()
+    eq(e.state.lists[0].sites, ["a", "b", "c"], "R5-1: fresh install list has all built-ins")
+    // R5-2: any app registered during a lock is always closed.
+    let now = t("2026-10-05T07:00:00Z")
+    e.boot(now: now, mono: 0)
+    try! e.startSession(minutes: 30, now: now)
+    try! e.addApp(AppRule(bundleId: "com.pokerstars.app", name: "PokerStars", kind: .app, blocked: false), now: now)
+    eq(e.state.apps.first?.blocked, true, "R5-2: registered during a lock → always closed")
+    // R5-3: lists of an old lock do not carry into a new one after the old one ended unseen (sleep).
+    let B = try! e.addList(name: "B", sites: ["b"], apps: [], now: now)
+    e.testMutate { $0.lockLists = [B.id]; $0.lockListsUntil = now.addingTimeInterval(-3600) }
+    e.rememberLockLists(now: now)
+    check(!e.activeListIds(now: now).contains(B.id), "R5-3: stale lock lists dropped")
 }
 
 // MARK: Catalog file

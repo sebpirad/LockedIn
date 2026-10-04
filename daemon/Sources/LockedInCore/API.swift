@@ -13,7 +13,7 @@ public struct EnforcementReport {
 /// Routes /v1/* to the Engine. Pure apart from the injected closures; tested without a socket.
 public final class API {
     public static let extensionOrigin = "chrome-extension://nildondjeeibacombanbjnokenmhfhie"
-    public static let version = "1.1.0"
+    public static let version = "1.2.0"
 
     let engine: Engine
     let installed: () -> [AppRule]
@@ -53,19 +53,26 @@ public final class API {
             case ("GET", "status", nil):
                 return HTTPResponse(200, status(now: now))
             case ("POST", "session", nil):
+                let list = body["list"] as? String
                 if let u = body["until"] as? String {
                     guard let d = Self.iso.date(from: u) else { return Self.bad("Ugyldigt tidspunkt.") }
-                    try engine.startSession(until: d, now: now)
+                    try engine.startSession(until: d, list: list, now: now)
                 } else if let m = body["minutes"] as? Int {
-                    try engine.startSession(minutes: m, now: now)
+                    try engine.startSession(minutes: m, list: list, now: now)
                 } else {
                     return Self.bad("Angiv minutter eller et sluttidspunkt.")
                 }
+            case ("POST", "lists", nil):
+                _ = try engine.addList(name: body["name"] as? String ?? "", sites: body["sites"] as? [String] ?? [],
+                                       apps: body["apps"] as? [String] ?? [], now: now)
+            case ("PUT", "lists", let id?):
+                try engine.updateList(id: id, name: body["name"] as? String ?? "", sites: body["sites"] as? [String] ?? [],
+                                      apps: body["apps"] as? [String] ?? [], now: now)
+            case ("DELETE", "lists", let id?):
+                try engine.removeList(id: id, now: now)
             case ("POST", "sites", nil):
-                _ = try engine.addSite(label: body["label"] as? String ?? "", domain: body["domain"] as? String ?? "", now: now)
-            case ("PATCH", "sites", let id?):
-                guard let b = body["blocked"] as? Bool else { return Self.bad("Angiv blocked.") }
-                try engine.setSiteBlocked(id: id, blocked: b, now: now)
+                _ = try engine.addSite(label: body["label"] as? String ?? "", domain: body["domain"] as? String ?? "",
+                                       list: body["list"] as? String, now: now)
             case ("DELETE", "sites", let id?):
                 try engine.removeSite(id: id, now: now)
             case ("GET", "installed", nil):
@@ -73,7 +80,7 @@ public final class API {
             case ("POST", "apps", nil):
                 guard let bid = body["bundleId"] as? String,
                       let app = installed().first(where: { $0.bundleId == bid }) else { return Self.bad("Vælg en app fra listen.") }
-                try engine.addApp(app, now: now)
+                try engine.addApp(app, list: body["list"] as? String, now: now)
             case ("PATCH", "apps", let id?):
                 guard let b = body["blocked"] as? Bool else { return Self.bad("Angiv blocked.") }
                 try engine.setAppBlocked(bundleId: id, blocked: b, now: now)
@@ -103,7 +110,8 @@ public final class API {
 
     static func schedule(_ b: [String: Any], id: String) -> Schedule {
         Schedule(id: id, name: b["name"] as? String ?? "", weekdays: b["weekdays"] as? [Int] ?? [],
-                 start: b["start"] as? String ?? "", end: b["end"] as? String ?? "", enabled: b["enabled"] as? Bool ?? true)
+                 start: b["start"] as? String ?? "", end: b["end"] as? String ?? "", enabled: b["enabled"] as? Bool ?? true,
+                 list: b["list"] as? String ?? "", date: (b["date"] as? String).flatMap { $0.isEmpty ? nil : $0 })
     }
 
     static func appJSON(_ a: AppRule) -> [String: Any] {
@@ -113,10 +121,14 @@ public final class API {
     public func status(now: Date) -> [String: Any] {
         let s = engine.status(now: now)
         let r = report()
+        let active = engine.activeListIds(now: now)
+        let effective = Set(engine.effectiveSites(now: now).map(\.id))
+        let activeApps = Set(engine.state.lists.filter { active.contains($0.id) }.flatMap(\.apps))
         let next: Any = s.next.map { iv -> [String: Any] in
             let sid = String(iv.source.dropFirst("schedule:".count))
-            return ["start": Self.ts(iv.start), "end": Self.ts(iv.end), "scheduleId": sid,
-                    "name": engine.state.schedules.first { $0.id == sid }?.name ?? ""]
+            let sc = engine.state.schedules.first { $0.id == sid }
+            return ["start": Self.ts(iv.start), "end": Self.ts(iv.end), "scheduleId": sid, "name": sc?.name ?? "",
+                    "list": sc?.list ?? "", "listName": engine.state.lists.first { $0.id == sc?.list }?.name ?? ""]
         } ?? NSNull()
         return [
             "version": Self.version,
@@ -127,13 +139,20 @@ public final class API {
             "activeSources": s.sources,
             "nextSession": next,
             "maxSessionMinutes": 1440,
+            "activeLists": active,
+            "lists": engine.state.lists.map { l -> [String: Any] in ["id": l.id, "name": l.name, "sites": l.sites, "apps": l.apps] },
+            // `blocked` = blocked right now (in an active list). Always false when unlocked.
             "sites": engine.state.sites.map { x -> [String: Any] in
-                ["id": x.id, "label": x.label, "builtin": x.builtin, "blocked": x.blocked, "mode": x.mode,
+                ["id": x.id, "label": x.label, "builtin": x.builtin, "blocked": effective.contains(x.id), "mode": x.mode,
                  "suffixes": x.suffixes, "exactHosts": x.exactHosts, "regexFilters": x.regexFilters, "allowHosts": x.allowHosts]
             },
-            "apps": engine.state.apps.map(Self.appJSON),
+            // `blocked` = always closed during any lock (browsers, unknown web-engine apps); `inActiveList` = closed now.
+            "apps": engine.state.apps.map { a -> [String: Any] in
+                var j = Self.appJSON(a); j["inActiveList"] = activeApps.contains(a.bundleId); return j
+            },
             "schedules": engine.state.schedules.map { x -> [String: Any] in
-                ["id": x.id, "name": x.name, "weekdays": x.weekdays, "start": x.start, "end": x.end, "enabled": x.enabled]
+                ["id": x.id, "name": x.name, "weekdays": x.weekdays, "start": x.start, "end": x.end, "enabled": x.enabled,
+                 "list": x.list, "date": x.date ?? NSNull()]
             },
             "enforcement": ["hosts": r.hostsOK, "pf": r.pfOK, "appControl": r.appControlOK,
                             "lastTick": Self.ts(r.lastTick), "lastHeartbeat": Self.ts(engine.state.lastHeartbeat),

@@ -135,7 +135,7 @@ export function defaultUntil(now) {
   return untilToday(now, '23:59') != null ? '23:59' : null;
 }
 
-/** Lenient clock input → "HH:MM" or null: "15", "1500", "15:00", "15.00", "9.5" (=09:05) are accepted. */
+/** Lenient clock input → "HH:MM" or null: "15", "1500", "15:00", "15.00", "9.5" (= 09:50) are accepted. */
 export function parseHHMM(input) {
   const s = String(input ?? '').trim().replace(/\s+/g, '');
   let m = /^(\d{1,2})(?:[:.](\d{1,2}))?$/.exec(s);
@@ -144,7 +144,8 @@ export function parseHHMM(input) {
     if (!d) return null;
     m = [s, d[1], d[2]];
   }
-  const hh = +m[1], mm = m[2] == null ? 0 : +m[2];
+  // One digit after the separator means tens, as a Dane writes it: "9.5" = 09:50.
+  const hh = +m[1], mm = m[2] == null ? 0 : (m[2].length === 1 ? +m[2] * 10 : +m[2]);
   if (hh > 23 || mm > 59) return null;
   return `${pad(hh)}:${pad(mm)}`;
 }

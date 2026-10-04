@@ -10,7 +10,7 @@ public enum HostsFile {
         var seen = Set<String>()
         var out: [String] = []
         func add(_ h: String) { if Validation.isDomain(h), seen.insert(h).inserted { out.append(h) } }
-        for s in sites where s.blocked && s.mode == "full" {
+        for s in sites where s.mode == "full" {
             let allow = Set(s.allowHosts)
             for h in s.hostsFile where !allow.contains(h) { add(h) }
         }

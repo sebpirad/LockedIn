@@ -40,8 +40,8 @@ Status: bygget og installeret på ejerens Mac; uafhængigt reviewet to gange (`d
 ### 2. Chrome-udvidelse (MV3)
 - **Kontrolside:**
   - stor timer og én "Start Locked in"-knap
-  - faste planer pr. ugedag
-  - listerne **Hjemmesider** og **Apps**, hvor hvert element enten er "Virker under fokus" eller "Blokeret", og hvor man kan tilføje sine egne
+  - planlagte perioder (én dato eller ugentligt), hver med en liste
+  - **lister** med hjemmesider og apps, der redigeres direkte på ikonerne (se "Lister" nederst)
   - næste session og aktive blokeringer
 - **Citatsiden:** declarativeNetRequest omdirigerer `main_frame` til `blocked.html`, før TLS-forbindelsen oprettes. Andre ressourcetyper (sub_frame, xhr, websocket, media) blokeres. Et indholdsscript tjekker igen ved `pageshow` (persisted) og ved ændringer i historikken (back/forward-cache). Ved sessionsstart lukkes og genskabes faner med blokerede sider.
 - Udvidelsen gemmer selv sessionens sluttidspunkt og fjerner aldrig regler før det. Den taler med daemonen over `127.0.0.1:919`. Svar, der vil svække en lås, ignoreres.
@@ -80,7 +80,7 @@ Locked in må aldrig ødelægge, ændre eller blokere PowerLink eller andet Powe
 - **Tilladte apps** genkendes på kodesignaturens team-id, som registreres, når appen tillades. Ved sessionsstart og hvert 15. minut verificeres de fuldt ud i baggrunden, inklusive resourcer. En ændret app regnes som ukendt (H1).
 - **Signaturkontroller caches kun ved succes.** Chrome lukkes først efter 60 sekunders sammenhængende signaturfejl, så en opdatering ikke lukker Chrome og PowerLink, medmindre Chromes signatur er ugyldig i over 60 sekunder (H3).
 - **Vagthund** (ejerens valg, M5, efter review 2 N1/N2/N10): Under en session lukkes Chrome, når alt dette gælder:
-  - konfigurationsprofilen tvinger udvidelsen ind;
+  - konfigurationsprofilen indeholder udvidelsen i `ExtensionInstallForcelist`, som også er til stede, når Chrome afviser installationen;
   - der er set mindst ét **verificeret** hjerteslag fra den rigtige Chrome, kontrolleret via forbindelsens proces;
   - der har ikke været et hjerteslag i 120 sekunders **vågen** tid, og dvale tæller ikke;
   - brugeren er aktiv ved Mac'en (HID idle under 60 sekunder);
@@ -110,3 +110,14 @@ Locked in må aldrig ødelægge, ændre eller blokere PowerLink eller andet Powe
   - **N9:** Et ur, der flyttes frem under en genstart, kan afkorte låsen. En standardkonto kan ikke ændre uret.
   - **N6:** En lokal proces kan overbelaste API'et. Det er ikke en omgåelse.
   - **N11:** Gælder kun tilstandsfiler fra version 1.0.
+
+## Lister (v1.2, ejerens ønske 2026-10-04)
+- En **liste** er et navngivet sæt hjemmesider og apps, fx "Locked In 1". Listerne erstatter til/fra-knapperne pr. side og app.
+- **Timer, Indtil og planlagte perioder** vælger hver en liste. Planlagte perioder kan være én dato (fx i morgen 09–12) eller ugentlige.
+- **Én sammenhængende lås blokerer alt fra alle sine lister, til den slutter.** Listerne i låsen må kun vokse og kan ikke slettes, før låsen er slut.
+- **Altid lukket under fokus** uanset liste: andre browsere og ukendte apps med web-motor, indtil de tillades uden for en lås.
+- **Opgradering fra 1.0:** "Locked In 1" bliver det, 1.0 blokerede. Nye indbyggede sider (TV 2, Ekstra Bladet, Se og Hør, Facebook) kommer ikke automatisk på listen. En kørende timer beholder sine blokeringer.
+- **Facebook:** `graph.facebook.com` er undtaget, og `fbcdn.net`, WhatsApp og Messenger blokeres ikke, så WhatsApp bliver ved med at virke. Det testes på Mac'en.
+
+## Udvidelsen er indlæst manuelt (TESTLOG T3, 2026-10-04)
+Chrome afviser tvangsinstallation af udvidelser uden for Web Store på en Mac uden virksomhedsstyring. Udvidelsen indlæses derfor upakket fra den root-ejede mappe `/Library/Application Support/LockedIn/extension`. **Ærlig konsekvens:** Ejeren kan fjerne den eller indlæse en anden udvidelse. Under en session lukker vagthunden Chrome, hvis LockedIn ikke svarer, men en anden udvidelse, der selv sender hjerteslag, stoppes ikke. Hosts, pf og app-kontrollen virker uanset hvad. Adversus er kun blokeret i Chrome-laget. **Plan:** Når LockedIn er udgivet som "ikke offentlig" i Chrome Web Store, kan profilen tvangsinstallere den.

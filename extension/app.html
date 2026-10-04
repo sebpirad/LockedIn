@@ -11,7 +11,6 @@
 <body>
 <div class="wrap">
   <header class="top">
-    <p id="alert" class="alert" role="status" hidden></p>
     <button id="gear" class="gear" type="button" aria-label="Indstillinger" title="Indstillinger">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.6-2-3.4-2.4 1a7.6 7.6 0 0 0-2.6-1.5L14 2.5h-4l-.4 2.5A7.6 7.6 0 0 0 7 6.5l-2.4-1-2 3.4 2 1.6a7.6 7.6 0 0 0 0 3l-2 1.6 2 3.4 2.4-1a7.6 7.6 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a7.6 7.6 0 0 0 2.6-1.5l2.4 1 2-3.4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
     </button>
@@ -23,12 +22,12 @@
       <button type="button" data-mode="until">Indtil</button>
     </div>
 
-    <div id="big" class="big">01:00:00</div>
+    <div id="big" class="big" aria-live="off">01:00:00</div>
     <p id="sub" class="sub" hidden></p>
 
     <div id="durInput" class="inputs">
       <div id="presets" class="chips" role="group" aria-label="Varighed"></div>
-      <div class="custom">
+      <div id="customRow" class="custom" hidden>
         <input id="hours" type="text" inputmode="numeric" maxlength="2" autocomplete="off" aria-label="Timer"><span>t</span>
         <input id="mins" type="text" inputmode="numeric" maxlength="2" autocomplete="off" aria-label="Minutter"><span>min</span>
       </div>
@@ -38,13 +37,37 @@
       <p id="untilErr" class="field-err" hidden>Vælg et senere tidspunkt i dag.</p>
     </div>
 
+    <div id="listLine" class="list-line">
+      <button id="listBtn" class="list-btn" type="button" aria-haspopup="menu" aria-expanded="false">
+        <span id="listName"></span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <span id="listEmpty" class="list-empty" hidden>Tom liste</span>
+      <span id="listStatic" class="list-static" hidden></span>
+      <form id="nameForm" class="name-form" hidden>
+        <input id="nameInput" maxlength="40" autocomplete="off" aria-label="Navn på listen">
+      </form>
+      <div id="listMenu" class="menu" role="menu" hidden></div>
+    </div>
+
+    <p id="alert" class="alert" role="status" hidden></p>
     <div class="actions">
       <button id="start" class="primary" type="button">Start Locked in</button>
       <button id="lockNow" class="primary" type="button" hidden>Lås nu</button>
       <button id="back" class="ghost" type="button" hidden>Tilbage</button>
-      <button id="extend" class="quiet" type="button" hidden>Forlæng</button>
     </div>
+  </main>
 
+  <div id="tapConfirm" class="confirm-bar" role="alertdialog" hidden>
+    <span id="tapText"></span>
+    <span class="actions">
+      <button id="tapYes" class="primary small" type="button">Bloker</button>
+      <button id="tapNo" class="ghost small" type="button">Annullér</button>
+    </span>
+  </div>
+  <div id="tiles" class="tiles"></div>
+
+  <div class="after">
+    <button id="extend" class="quiet" type="button" hidden>Forlæng</button>
     <div id="extendPanel" class="extend" hidden>
       <div id="extendChips" class="chips" role="group" aria-label="Forlæng med"></div>
       <div class="actions">
@@ -52,11 +75,29 @@
         <button id="extendBack" class="ghost small" type="button">Tilbage</button>
       </div>
     </div>
-  </main>
-
-  <div id="tiles" class="tiles"></div>
-  <p id="next" class="next" hidden></p>
+    <p id="next" class="next" hidden></p>
+  </div>
 </div>
+
+<dialog id="addDlg" class="sheet" aria-label="Tilføj">
+  <div class="sheet-head">
+    <div id="addKind" class="seg" role="group">
+      <button type="button" data-kind="site">Hjemmeside</button>
+      <button type="button" data-kind="app">App</button>
+    </div>
+    <button id="addClose" class="icon-btn" type="button" aria-label="Luk">×</button>
+  </div>
+  <form id="addSite" class="inline-form">
+    <input id="siteDomain" maxlength="253" placeholder="domæne.dk" autocomplete="off" spellcheck="false" aria-label="Domæne">
+    <input id="siteLabel" maxlength="40" placeholder="Navn (valgfrit)" autocomplete="off" aria-label="Navn">
+    <div class="actions left"><button id="siteSubmit" class="primary small" type="submit">Tilføj</button></div>
+    <p class="field-err" id="siteErr" hidden></p>
+  </form>
+  <div id="addApp" class="picker" hidden>
+    <input id="pickerSearch" type="search" placeholder="Søg" autocomplete="off" aria-label="Søg efter app">
+    <ul id="pickerList" class="list picker-list"></ul>
+  </div>
+</dialog>
 
 <dialog id="settings" class="drawer" aria-label="Indstillinger">
   <div class="drawer-head">
@@ -65,49 +106,37 @@
   </div>
 
   <section>
-    <h3>Hjemmesider</h3>
-    <ul id="siteList" class="list"></ul>
-    <button id="addSiteBtn" class="add" type="button">+ Tilføj hjemmeside</button>
-    <form id="addSite" class="inline-form" hidden>
-      <input id="siteLabel" maxlength="40" placeholder="Navn" autocomplete="off" aria-label="Navn">
-      <input id="siteDomain" maxlength="253" placeholder="domæne.dk" autocomplete="off" spellcheck="false" aria-label="Domæne">
-      <div class="actions left">
-        <button class="primary small" type="submit">Tilføj</button>
-        <button class="ghost small" type="button" data-cancel>Annuller</button>
+    <h3>Planlæg</h3>
+    <ul id="planList" class="list"></ul>
+    <button id="addPlanBtn" class="add" type="button">+ Planlæg</button>
+    <form id="planForm" class="inline-form" hidden>
+      <div id="planKind" class="seg" role="group">
+        <button type="button" data-kind="date">Dato</button>
+        <button type="button" data-kind="weekly">Ugentlig</button>
       </div>
-      <p class="field-err" id="siteErr" hidden></p>
-    </form>
-  </section>
-
-  <section>
-    <h3>Apps</h3>
-    <ul id="appList" class="list"></ul>
-    <button id="addAppBtn" class="add" type="button">+ Tilføj app</button>
-    <div id="picker" class="picker" hidden>
-      <input id="pickerSearch" type="search" placeholder="Søg" autocomplete="off" aria-label="Søg efter app">
-      <ul id="pickerList" class="list picker-list"></ul>
-      <div class="actions left"><button id="pickerClose" class="ghost small" type="button">Luk</button></div>
-    </div>
-  </section>
-
-  <section>
-    <h3>Faste tider</h3>
-    <ul id="schedList" class="list"></ul>
-    <button id="addSchedBtn" class="add" type="button">+ Tilføj fast tid</button>
-    <form id="schedForm" class="inline-form" hidden>
-      <input id="schedName" maxlength="40" placeholder="Navn" autocomplete="off" aria-label="Navn">
-      <div id="schedDays" class="days" role="group" aria-label="Ugedage"></div>
+      <div id="planDate" class="chips left">
+        <button type="button" class="chip" data-day="0">I dag</button>
+        <button type="button" class="chip" data-day="1">I morgen</button>
+        <input id="planDateInput" type="date" aria-label="Dato">
+      </div>
+      <div id="planDays" class="days" role="group" aria-label="Ugedage" hidden></div>
       <div class="times">
-        <input id="schedStart" class="time" type="text" inputmode="numeric" maxlength="5" value="09:00" autocomplete="off" aria-label="Fra">
+        <input id="planStart" class="time" type="text" inputmode="numeric" maxlength="5" value="09:00" autocomplete="off" aria-label="Fra">
         <span>–</span>
-        <input id="schedEnd" class="time" type="text" inputmode="numeric" maxlength="5" value="12:00" autocomplete="off" aria-label="Til">
+        <input id="planEnd" class="time" type="text" inputmode="numeric" maxlength="5" value="12:00" autocomplete="off" aria-label="Til">
       </div>
+      <div id="planLists" class="chips left" role="group" aria-label="Liste"></div>
       <div class="actions left">
-        <button class="primary small" type="submit" id="schedSave">Gem</button>
-        <button class="ghost small" type="button" data-cancel>Annuller</button>
+        <button class="primary small" type="submit">Gem</button>
+        <button class="ghost small" type="button" data-cancel>Annullér</button>
       </div>
-      <p class="field-err" id="schedErr" hidden></p>
+      <p class="field-err" id="planErr" hidden></p>
     </form>
+  </section>
+
+  <section id="appsSection" hidden>
+    <h3>Altid lukket under fokus</h3>
+    <ul id="appList" class="list"></ul>
   </section>
 </dialog>
 

@@ -1,0 +1,379 @@
+{
+  "generated": "2026-10-04",
+  "format_notes": {
+    "suffixes": "Chrome declarativeNetRequest requestDomains + URLBlocklist (dækker alle subdomæner)",
+    "hosts": "/etc/hosts eksakte navne (0.0.0.0 og ::). Ingen wildcards; verificeret 2026-10-04 at ingen af domænerne har wildcard-DNS, så kun de opregnede navne kan lukkes her",
+    "chrome_allow_exceptions": "DNR allow-regler med højere prioritet / URLAllowlist",
+    "excluded": "delte eller urelaterede domæner der bevidst er udeladt, med begrundelse"
+  },
+  "services": {
+    "tv2": {
+      "label": "TV 2 Danmark (tv2.dk, TV 2 Play, TV 2 Sport, Vejr, TV-tid)",
+      "suffixes": [
+        "tv2.dk",
+        "tv2i.dk",
+        "tv2a.dk",
+        "tv2s.dk",
+        "tv2api.dk",
+        "tv2play.dk",
+        "tv2sport.dk",
+        "tv2sporten.dk",
+        "tv2news.dk",
+        "tvtid.dk",
+        "tv.dk",
+        "charlie.dk",
+        "zulu.dk",
+        "1234.dk"
+      ],
+      "hosts": [
+        "tv2.dk",
+        "www.tv2.dk",
+        "nyheder.tv2.dk",
+        "news.tv2.dk",
+        "sport.tv2.dk",
+        "www.sport.tv2.dk",
+        "www.sporten.tv2.dk",
+        "vejr.tv2.dk",
+        "livsstil.tv2.dk",
+        "underholdning.tv2.dk",
+        "tv.tv2.dk",
+        "tvtid.tv2.dk",
+        "echo.tv2.dk",
+        "zulu.tv2.dk",
+        "mit.tv2.dk",
+        "search.tv2.dk",
+        "decks.services.tv2.dk",
+        "redirect.services.tv2.dk",
+        "stream.tv2.dk",
+        "play.tv2.dk",
+        "checkout.play.tv2.dk",
+        "beta.play.tv2.dk",
+        "tv2play.dk",
+        "www.tv2play.dk",
+        "tv2sport.dk",
+        "www.tv2sport.dk",
+        "tv2sporten.dk",
+        "tv2news.dk",
+        "tvtid.dk",
+        "www.tvtid.dk",
+        "tv.dk",
+        "charlie.dk",
+        "zulu.dk",
+        "1234.dk",
+        "cdn-free.tv2i.dk",
+        "cdn-free-external.tv2i.dk",
+        "cdn-free-eks.tv2i.dk",
+        "cdn-free-election-images.tv2i.dk",
+        "cdn-free-i2legacy.tv2i.dk",
+        "cdn-free-legacy.tv2i.dk",
+        "cdn-free-play.tv2i.dk",
+        "cdn-free-transform.tv2i.dk",
+        "cdn-free-vod.tv2i.dk",
+        "cdn-free-vod-new.tv2i.dk",
+        "free-cdn.tv2i.dk",
+        "cdn-play.tv2i.dk",
+        "cdn-play-prismic.tv2i.dk",
+        "cdn-play-avatars.tv2i.dk",
+        "cdn-play-pdl.tv2i.dk",
+        "cmd-cdn.tv2i.dk",
+        "is-cdn.tv2i.dk",
+        "pei-cdn.tv2i.dk",
+        "coreui.tv2a.dk",
+        "web.tv2a.dk",
+        "scripts.tv2a.dk",
+        "gfx.tv2a.dk",
+        "fonts.tv2a.dk",
+        "apps.tv2a.dk",
+        "banner.tv2a.dk",
+        "epg-channel-logos.tv2a.dk",
+        "weatherimages.tv2a.dk",
+        "bc-prod-vod.tv2s.dk",
+        "bc-prod-live.tv2s.dk",
+        "bc-prod-live-v2.tv2s.dk",
+        "play.tv2api.dk",
+        "cl.web.tv2api.dk",
+        "navigation-front.swat.tv2api.dk"
+      ],
+      "excluded": [
+        {
+          "domain": "tv2play.no / play.tv2.no / tv2.no",
+          "reason": "TV 2 Norge er et andet selskab end TV 2 Danmark. tv2play.no redirecter til play.tv2.no. Ikke den tjeneste ejeren mener."
+        },
+        {
+          "domain": "tv2play.com, tv2play.se, tv2.com",
+          "reason": "Urelaterede domæner (tv2play.se redirecter til et spam-site, tv2play.com og tv2.com svarer ikke med et TV 2 Danmark-site). Ikke TV 2 Danmark."
+        },
+        {
+          "domain": "tv2nord.dk, tv2east.dk, tv2kosmopol.dk (tv2lorry.dk), tv2ostjylland.dk (tv2oj.dk), tv2fyn.dk, tvmidtvest.dk, tv2bornholm.dk, tvsyd.dk",
+          "reason": "De regionale TV 2-stationer er selvstændige selskaber med egne sites; de bruger ikke tv2i/tv2a/tv2s/tv2api (målt 2026-10-04). TV 2 Danmarks nyheder linker til dem, så de kan åbnes derfra. Ejeren kan tilføje dem som egen tjeneste."
+        },
+        {
+          "domain": "tv2danmark.dk (presse.tv2danmark.dk, sr.tv2danmark.dk)",
+          "reason": "Koncernens presse-/jobside (Umbraco), ikke indholdstjenesten. Ufarlig at tilføje men nytteløs for fokus."
+        },
+        {
+          "domain": "tv2media.dk, tv2reklame.dk",
+          "reason": "Annoncesalg (tv2media.dk redirecter til tv2reklame.dk). Ikke en distraktion."
+        },
+        {
+          "domain": "tv2net.dk, tv2dev.dk, tv2intern.dk",
+          "reason": "TV 2's interne infrastruktur (kube/CMS/redirect-servere, fx aws-https-redirect-prod.tv2net.dk som www.tv2.dk er CNAME til). Ikke noget brugeren navigerer til; står kun i certifikater."
+        },
+        {
+          "domain": "zuluawards.dk, zulucomedyfestival.dk",
+          "reason": "TV 2 Zulu-event-domæner der kun redirecter til tv.tv2.dk / zulu.tv2.dk (som alligevel er blokeret). Udeladt for at holde listen kort; ufarlige at tilføje."
+        },
+        {
+          "domain": "brightcove.com / players.brightcove.net / edge.api.brightcove.com / cdn.jwplayer.com",
+          "reason": "TV 2 afspiller video via Brightcove (konto 6293768613001), men Brightcove-domænerne er delt af tusindvis af sites. Selve videosegmenterne ligger på TV 2's egne CNAME-navne bc-prod-vod/bc-prod-live(-v2).tv2s.dk, som er med."
+        },
+        {
+          "domain": "doubleclick.net, googlesyndication.com, cookielaw.org, cookiebot.com, adobedtm.com, omtrdc.net, datadoghq, hotjar, seenthis.se, relevant-digital.com, k5a.io",
+          "reason": "Tredjeparts reklame-/analyse-/samtykke-SaaS delt med mange sites."
+        },
+        {
+          "domain": "kundeservice.tv2.dk, privatliv.tv2.dk, play.kundeservice.tv2.dk (Zendesk)",
+          "reason": "Står IKKE i hosts-listen (kundeservice/abonnement er ikke en distraktion), men Chrome-suffikset tv2.dk dækker dem. Tilføj allow-undtagelser hvis ejeren skal kunne opsige/ændre abonnement under en session."
+        }
+      ],
+      "notes": [
+        "TV 2 Danmark bruger tre dedikerede CDN-domæner, alle verificeret på forsiden, artikelsider, tv-tid, echo og play.tv2.dk: tv2i.dk (billeder, Akamai: cdn-free.tv2i.dk er den store; cdn-play*.tv2i.dk er Play), tv2a.dk (JS/CSS/fonte/ikoner: coreui, web, scripts, gfx) og tv2s.dk (Brightcove-video bag egne CNAME: bc-prod-vod.tv2s.dk til afspilning, bc-prod-live til live). tv2api.dk er API/logning (play.tv2api.dk, cl.web.tv2api.dk). Alle fire er TV 2-ejede og bruges ikke af de regionale TV 2-sites eller andre medier, så suffiks-blokering giver ingen kollateral.",
+        "tv2play.dk, tv2sport.dk, tv2sporten.dk, tv2news.dk, tvtid.dk, tv.dk, charlie.dk, zulu.dk og 1234.dk er alle TV 2-ejede og redirecter til hhv. play/sport/nyheder/tvtid/echo/nyheder.tv2.dk (målt med curl 2026-10-04; alle står i TV 2's eget wildcard-certifikat). De er med så en tastet genvej ikke slipper igennem. tv.dk og 1234.dk er korte generiske navne, men de er TV 2's og har ingen anden brug.",
+        "'tv2play.*': der findes kun tv2play.dk (TV 2 Danmark). Selve afspilleren er play.tv2.dk (Next.js, API på play.tv2api.dk, billeder på cdn-play*.tv2i.dk, checkout på checkout.play.tv2.dk). Video efter login kunne ikke observeres; de kendte mønstre ligger på tv2s.dk og stream.tv2.dk (S3/CloudFront), hvis navne er med.",
+        "Uden tv2.dk, nyheder.tv2.dk og play.tv2.dk i hosts starter hverken sitet eller afspilleren, uanset om CDN-navnene er med. CDN-navnene er med for at tage billeder og indlejrede TV 2-videoer på andre sites.",
+        "Der er ingen macOS-app til TV 2 Play; web er eneste klient på Mac'en (Apple TV-appen kører ikke på Mac).",
+        "Ingen wildcard-DNS (tilfældigt navn under tv2.dk, tv2i.dk, tv2a.dk resolver ikke), så hosts-listen dækker præcis de opregnede navne. Nye sektionssubdomæner (fx ny.tv2.dk) skal tilføjes manuelt; Chrome-suffikset dækker dem automatisk.",
+        "Subdomæner fra certifikat-transparens som kun findes i cert men ikke blev set i sider (api, connect, atlas, hybrid, medialink, ovp, robot, opdatering, producent, sponsorat, priser m.fl.) er ikke i hosts; de er interne/B2B og dækkes af Chrome-suffikset."
+      ],
+      "sources": [
+        "https://tv2.dk, https://nyheder.tv2.dk, https://sport.tv2.dk, https://vejr.tv2.dk, https://tvtid.tv2.dk, https://tv.tv2.dk, https://echo.tv2.dk, https://play.tv2.dk (HTML + JS-bundles, hentet 2026-10-04)",
+        "https://api.certspotter.com/v1/issuances?domain=tv2.dk / tv2i.dk / tv2a.dk / tv2s.dk / tv2api.dk / tv2play.dk (certifikat-transparens, 2026-10-04)",
+        "curl -I af tv2play.dk, tv2sport.dk, tv2sporten.dk, tv2news.dk, tvtid.dk, tv.dk, charlie.dk, zulu.dk, 1234.dk, tv2play.no, tv2media.dk, regionale stationer (redirects)",
+        "DNS-opslag (dig) 2026-10-04 for alle hostnavne i hosts-listen"
+      ]
+    },
+    "ekstrabladet": {
+      "label": "Ekstra Bladet",
+      "suffixes": [
+        "ekstrabladet.dk",
+        "eb.dk",
+        "ekstrabladet-img.com",
+        "ekstrabladet.services"
+      ],
+      "hosts": [
+        "ekstrabladet.dk",
+        "www.ekstrabladet.dk",
+        "eb.dk",
+        "www.eb.dk",
+        "cdn.ekstrabladet-img.com",
+        "img-cdn-p.ekstrabladet.dk",
+        "static.ekstrabladet.dk",
+        "ebcontent.ekstrabladet.dk",
+        "interactive.ekstrabladet.dk",
+        "jw.video.ekstrabladet.dk",
+        "eavis.ekstrabladet.dk",
+        "tilbud.ekstrabladet.dk",
+        "casino.ekstrabladet.dk",
+        "laan.ekstrabladet.dk",
+        "salg.ekstrabladet.dk",
+        "pristjek.ekstrabladet.dk",
+        "longboat.ekstrabladet.dk",
+        "video-service.ekstrabladet.services",
+        "elements.ekstrabladet.services",
+        "user-event.ekstrabladet.services",
+        "notifications.ekstrabladet.services",
+        "dre-article.ekstrabladet.services",
+        "archive.ekstrabladet.services"
+      ],
+      "excluded": [
+        {
+          "domain": "bold.dk",
+          "reason": "Selvstændigt fodboldsite fra JP/Politikens Hus (egen redaktion, egen API api.bold.dk). Ekstra Bladets forside linker mange artikler dertil, så det kan åbnes derfra. Ejerens valg om det skal med."
+        },
+        {
+          "domain": "jppol.dk",
+          "reason": "Koncernens site (JP/Politikens Hus A/S), fælles for Politiken, JP, Bold m.fl. Ikke Ekstra Bladet."
+        },
+        {
+          "domain": "holdet.dk",
+          "reason": "Fantasy-fodboldspil linket fra forsiden; separat tjeneste."
+        },
+        {
+          "domain": "cdn.jwplayer.com / jwplayer.com",
+          "reason": "Videoafspilleren (JW Player) er delt af mange medier. Ekstra Bladets egen CNAME jw.video.ekstrabladet.dk er med som host."
+        },
+        {
+          "domain": "ebxcdn.com (applets.ebxcdn.com)",
+          "reason": "Tredjeparts widget-platform (ikke ejet af Ekstra Bladet); loades også af Se og Hør. Kun et script, ingen indhold."
+        },
+        {
+          "domain": "contimo.app, leadfamly.com, unumai.net, prenly.com, ocast.com, eb-longboat.com",
+          "reason": "Tredjeparts SaaS bag EB's CNAME-navne (paywall, quiz, tilbud, e-avis). Selve ekstrabladet.dk-navnene er blokeret; leverandørdomænerne er delt."
+        },
+        {
+          "domain": "doubleclick.net, gemius.pl, digiseg.net, cookiebot.com, fontawesome.com, googleapis.com, gstatic.com, survey-xact.dk",
+          "reason": "Reklame/måling/samtykke/skrifttyper; delt med mange sites."
+        },
+        {
+          "domain": "ekstrabladet.com, ekstrabladet.tv",
+          "reason": "Ikke Ekstra Bladet: ekstrabladet.com er et urelateret/parkeret domæne, ekstrabladet.tv redirecter til et spam-site (målt 2026-10-04)."
+        },
+        {
+          "domain": "staging.ekstrabladet.dk, test01-06.ekstrabladet.dk, longboat-test.ekstrabladet.dk, *.test-ekstrabladet.services",
+          "reason": "Test-/staging-miljøer. Dækkes af Chrome-suffikset, men er ikke i hosts."
+        }
+      ],
+      "notes": [
+        "eb.dk og www.eb.dk redirecter (301) til https://ekstrabladet.dk/; www.ekstrabladet.dk redirecter også. Ingen m.-subdomæne (m.ekstrabladet.dk resolver ikke).",
+        "Billeder: cdn.ekstrabladet-img.com (Fastly; ~970 forekomster på en artikelside) og img-cdn-p.ekstrabladet.dk. ekstrabladet-img.com har ingen apex-DNS; kun cdn.-navnet findes.",
+        "Video: jw.video.ekstrabladet.dk (CNAME til JW Player). Selve JW-CDN-navnene er delte og står ikke her.",
+        "ekstrabladet.services er EB's egne backend-API'er (GraphQL for artikler, elementer, bruger-events, notifikationer, arkiv, video-service), kaldt direkte fra sidens JS. Ejerskab sluttet fra at sitets egne bundles refererer dem og at ekstrabladet.services har wildcard-cert; verificeret at navnene resolver.",
+        "Kommercielle undersider (tilbud, casino, laan, salg, pristjek) er EB-navne der peger på eksterne leverandører (egne IP'er / ocast.com). De er med fordi forsiden linker til dem; /etc/hosts-navnene blokerer kun EB's eget navn.",
+        "Ingen wildcard-DNS under ekstrabladet.dk (tilfældigt navn resolver ikke), så hosts dækker kun de opregnede navne."
+      ],
+      "sources": [
+        "https://ekstrabladet.dk (forside + 2 artikelsider + /play, HTML og JS-bundles ebcomponents/ebplaylist/sveltelist/dynamic-bar, hentet 2026-10-04)",
+        "https://api.certspotter.com/v1/issuances?domain=ekstrabladet.dk / ekstrabladet-img.com / ekstrabladet.services",
+        "curl -I https://eb.dk, https://www.eb.dk, https://bold.dk, https://ekstrabladet.com, https://ekstrabladet.tv",
+        "DNS-opslag (dig) 2026-10-04 for alle hostnavne"
+      ]
+    },
+    "seoghoer": {
+      "label": "Se og Hør",
+      "suffixes": [
+        "seoghoer.dk"
+      ],
+      "hosts": [
+        "seoghoer.dk",
+        "www.seoghoer.dk",
+        "imgix.seoghoer.dk"
+      ],
+      "excluded": [
+        {
+          "domain": "aller.dk, allerservice.dk, aller.com, allermedia.io, cdn.aller.se, cdn.video.aller.com",
+          "reason": "Aller Medias fælles koncern-, service-, video- og CDN-domæner, delt med Femina, Billed-Bladet, Ude og Hjemme, Isabellas m.fl. Se og Hørs video-reels loades fra cdn.video.aller.com, men det domæne er fælles for hele koncernen."
+        },
+        {
+          "domain": "seoghoer.com",
+          "reason": "Parkeret/urelateret domæne (redirecter via JS til /lander). Ikke Se og Hør."
+        },
+        {
+          "domain": "cdn.jwplayer.com, jwplayer-proxy.imgix.net, spreaker.com, braintainment.com",
+          "reason": "Tredjeparts video-/podcast-/spil-leverandører delt med andre sites."
+        },
+        {
+          "domain": "ebxcdn.com (applets.ebxcdn.com)",
+          "reason": "Tredjeparts widget-script, ikke Se og Hør (loades også af Ekstra Bladet)."
+        },
+        {
+          "domain": "azurewebsites.net (allerservice2-website-prod.azurewebsites.net)",
+          "reason": "Microsofts delte hosting-domæne."
+        },
+        {
+          "domain": "doubleclick.net, googlesyndication.com, adnami.io, rubiconproject.com, readpeak.com, privacy-center.org, googletagmanager.com, aptoma.no",
+          "reason": "Reklame/måling/samtykke-SaaS; delt med mange sites."
+        }
+      ],
+      "notes": [
+        "seoghoer.dk redirecter (301) til https://www.seoghoer.dk/ (Cloudflare). Siden er Nuxt; al HTML, JS og API-kald går til www.seoghoer.dk, og alle billeder kommer fra imgix.seoghoer.dk (CNAME til imgix.net, ~31 forekomster på forsiden). Det er det eneste dedikerede CDN-navn.",
+        "Chrome-suffikset seoghoer.dk dækker også fpt.seoghoer.dk (tracking-proxy), sgtm.seoghoer.dk (server-side GTM), mails.seoghoer.dk (mail), admin./backend-prod.seoghoer.dk (CMS) og alle test-navne. De er ikke i hosts, fordi de er tracking/redaktion og ikke noget brugeren ser; uden www.seoghoer.dk og imgix.seoghoer.dk er sitet dødt.",
+        "Se og Hør har ingen egen CDN til video; reels og video går via Aller-koncernens delte domæner (udeladt) og JW Player. Blokeringen af www.seoghoer.dk fjerner siden, så de er ikke nået.",
+        "Ingen wildcard-DNS under seoghoer.dk (tilfældigt navn resolver ikke)."
+      ],
+      "sources": [
+        "https://www.seoghoer.dk (forside, en artikelside, Nuxt entry-bundle + 80 lazy chunks + _payload.json, hentet 2026-10-04)",
+        "https://api.certspotter.com/v1/issuances?domain=seoghoer.dk",
+        "curl -I https://seoghoer.dk, https://seoghoer.com",
+        "DNS-opslag (dig) 2026-10-04"
+      ]
+    },
+    "facebook": {
+      "label": "Facebook (ikke Instagram, WhatsApp eller Messenger)",
+      "suffixes": [
+        "facebook.com",
+        "fb.com",
+        "fb.me",
+        "fb.watch",
+        "fb.gg",
+        "facebook.net",
+        "facebook.dk"
+      ],
+      "hosts": [
+        "facebook.com",
+        "www.facebook.com",
+        "m.facebook.com",
+        "web.facebook.com",
+        "touch.facebook.com",
+        "mbasic.facebook.com",
+        "mobile.facebook.com",
+        "da-dk.facebook.com",
+        "l.facebook.com",
+        "lm.facebook.com",
+        "fb.com",
+        "www.fb.com",
+        "fb.me",
+        "www.fb.me",
+        "fb.watch",
+        "www.fb.watch",
+        "fb.gg",
+        "facebook.dk",
+        "connect.facebook.net"
+      ],
+      "chrome_allow_exceptions": [
+        "graph.facebook.com"
+      ],
+      "excluded": [
+        {
+          "domain": "fbcdn.net (static.xx.fbcdn.net, scontent*.fbcdn.net) og fbsbx.com (lookaside.fbsbx.com)",
+          "reason": "Delt mellem Facebook, Instagram og Messenger; WhatsApp henter også visse ressourcer derfra. Ejeren skal beholde WhatsApp. Facebook-sitet loader al JS/CSS herfra (415 forekomster på forsiden), men uden www.facebook.com/facebook.com i hosts og Chrome-suffikset får browseren aldrig HTML'en, så CDN-blokering er unødvendig."
+        },
+        {
+          "domain": "whatsapp.com, whatsapp.net, wa.me",
+          "reason": "Skal virke. WhatsApp Web (web.whatsapp.com) loader sine bundles fra static.whatsapp.net og taler med graph.whatsapp.com; målt 2026-10-04 at ingen af de 9 JS-bundles kræver facebook.com for at sende/modtage beskeder."
+        },
+        {
+          "domain": "graph.facebook.com (undtagelse i Chrome-reglen, ikke i hosts)",
+          "reason": "WhatsApp Webs bundle indeholder https://graph.facebook.com/graphql til WhatsApp Business-funktioner (kobling til annoncekonto/Facebook-side, 'AD_ACCOUNT_LINKING') og business.facebook.com/commerce til katalog. Core-chat bruger det ikke. Chrome-suffikset facebook.com ville ramme det, derfor en allow-regel med højere prioritet. Det er et rent API-endpoint (HTTP 400 uden token) uden UI, så ingen distraktion; fjern allow-reglen hvis ejeren hellere vil blokere også dette."
+        },
+        {
+          "domain": "messenger.com, m.me",
+          "reason": "Messenger er en separat tjeneste (www.messenger.com svarer 200; m.me redirecter dertil). Udeladt som bestilt. Bemærk: messenger.com logger ind via og chatter over facebook.com / edge-chat.facebook.com, så med facebook.com blokeret virker messenger.com reelt ikke i Chrome; i /etc/hosts er messenger.com stadig åbent."
+        },
+        {
+          "domain": "edge-chat.facebook.com",
+          "reason": "MQTT/chat-endpoint brugt af Facebook-chat, Messenger og Instagram-DM. Står i WhatsApp Webs sidekonfiguration (MqttWebConfig med fbid 0), men det er delt Meta-boilerplate, ikke WhatsApps besked-transport. Ikke i hosts, for at være på den sikre side for WhatsApp-desktop; Chrome-suffikset rammer det."
+        },
+        {
+          "domain": "instagram.com, cdninstagram.com, threads.net, threads.com, meta.com, meta.ai",
+          "reason": "Andre Meta-tjenester. Instagram er egen tjeneste i domains.json; Threads/Meta AI ikke bestilt."
+        },
+        {
+          "domain": "facebookmail.com, fburl.com, fbwat.ch, tfbnw.net, fbcdn.com, internalfb.com",
+          "reason": "Facebooks notifikationsmail/interne værktøjer/ubrugte domæner; ingen brugerrettet indhold, ingen grund til at blokere."
+        },
+        {
+          "domain": "developers.facebook.com, business.facebook.com (dækket af Chrome-suffikset, ikke i hosts)",
+          "reason": "Meta Business Suite / Ads Manager / udviklerportal. Bevidst ikke listet i hosts, men Chrome-suffikset facebook.com lukker dem. Hvis Powermatch annoncerer jobs via Facebook Ads Manager eller ejeren skal bruge Business Manager, skal der tilføjes en allow-regel."
+        }
+      ],
+      "notes": [
+        "Alle varianter redirecter til www.facebook.com: web.facebook.com (302), fb.com (301), fb.me/<sti> (302 til facebook.com/<sti>), fb.watch (302 til /watch/), l.facebook.com (link-shim), facebook.dk (til da-dk.facebook.com), fb.gg (til /gaming). m.facebook.com og touch.facebook.com svarer selv 200 (mobilsite). Alle står i hosts. Ingen af dem har wildcard-DNS (tilfældigt navn under facebook.com resolver ikke).",
+        "Effekt af at blokere connect.facebook.net / facebook.net: det fjerner kun Facebooks JS-SDK og Meta Pixel (fbevents.js) fra andre sites, dvs. Like/Del-knapper, indlejrede Facebook-opslag, 'Log ind med Facebook'-knapper og Facebooks annoncesporing. Sider virker ellers normalt; acceptabelt. facebook.net har ingen apex-DNS; kun connect.facebook.net er observeret i brug, derfor står kun det i hosts, mens Chrome-suffikset dækker alle subdomæner.",
+        "Tilsvarende fjerner Chrome-suffikset facebook.com på andre sites Facebook-pixel-billedet (www.facebook.com/tr), indlejrede Facebook-videoer/-opslag (iframes) og Facebook-login-dialogen. Målt 2026-10-04 at hverken app.powermatch.dk/login eller app.adversus.io indeholder Facebook-referencer i deres initiale HTML (bundles ikke gennemgået).",
+        "connect.facebook.net og static.xx.fbcdn.net er CNAME til scontent.xx.fbcdn.net. /etc/hosts og Chrome (requestDomains) matcher på det forespurgte navn, så blokering af connect.facebook.net virker uden at røre fbcdn.net.",
+        "Link-shimmen l.facebook.com / lm.facebook.com er blokeret: et l.facebook.com-link delt via andre kanaler (mail, Slack) dør også. Kendt konsekvens.",
+        "Instagram-posten i domains.json udelader facebook.com med begrundelsen 'ejeren vil beholde Facebook' (Instagram-login via Facebook og Instagram E2EE-chat via z-p42-chat-e2ee-ig.facebook.com / edge-chat.facebook.com). Når denne facebook-tjeneste er aktiv, rammes de to Instagram-funktioner også; det er uden betydning så længe Instagram selv er blokeret.",
+        "Meta har ingen macOS-app til Facebook; web er eneste klient på Mac'en. WhatsApp-desktop (native) er ikke testet direkte (kan ikke observeres her); intet i WhatsApp Webs kode eller i WhatsApps egen dokumentation af netværkskrav (whatsapp.com + whatsapp.net underdomæner) peger på facebook.com som afhængighed for chat.",
+        "facebook.com-serveren svarer 400 på curl uden browser-headers (Sec-Fetch-*); sider blev hentet med Chrome-lignende headers."
+      ],
+      "sources": [
+        "https://www.facebook.com (HTML hentet med Chrome-lignende headers, 2026-10-04)",
+        "https://web.whatsapp.com (HTML + 9 JS-bundles fra static.whatsapp.net, 2026-10-04; WAWebGraphQLConstants, MqttWebConfig)",
+        "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/facebook, /whatsapp, /meta, /messenger",
+        "https://support.keriocontrol.gfi.com/article/119272-allowing-whatsapp-content (WhatsApp kræver whatsapp.com + whatsapp.net underdomæner)",
+        "curl -I af fb.com, fb.me, fb.watch, fb.gg, facebook.dk, web./m./touch./mbasic./l./lm.facebook.com, messenger.com, m.me, connect.facebook.net, graph.facebook.com",
+        "DNS-opslag (dig) 2026-10-04"
+      ]
+    }
+  }
+}

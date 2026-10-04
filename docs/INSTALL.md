@@ -14,10 +14,16 @@ Scriptet bygger Locked in og kører alle tests. Fejler bygningen eller en test, 
 ## 2. Godkend konfigurationsprofilen
 *Systemindstillinger → Generelt → Enhedsadministration → Locked in — Chrome → Installér.*
 
-Profilen tvinger Locked in-udvidelsen ind i Chrome og slår inkognito, gæstetilstand, nye Chrome-profiler, sikker DNS og proxy fra. Din egen Chrome-profil, dine bogmærker og PowerLink røres ikke.
+Profilen slår inkognito, gæstetilstand, nye Chrome-profiler, sikker DNS og proxy fra. Den forsøger også at tvinge udvidelsen ind, men på en Mac uden virksomhedsstyring afviser Chrome det, så længe udvidelsen ikke ligger i Chrome Web Store (se trin 3). Din egen Chrome-profil, dine bogmærker og PowerLink røres ikke.
 
-## 3. Genstart Chrome
-Locked in-ikonet dukker op ved siden af PowerLink. Klik på det for at åbne Locked in.
+## 3. Indlæs udvidelsen i Chrome
+Chrome tvangsinstallerer kun udvidelser fra Chrome Web Store på en Mac, der ikke er virksomhedsstyret. Indtil LockedIn ligger i Web Store, gør du sådan:
+
+1. `chrome://extensions` → slå **Udviklertilstand** til.
+2. **Indlæs upakket** → **⌘⇧G** → `/Library/Application Support/LockedIn/extension` → **Vælg**.
+3. Klik én gang på LockedIn-ikonet.
+
+Mappen ejes af root og kan kun ændres af en administrator. Slår du udvidelsen fra under en session, lukker vagthunden Chrome efter 2 minutter.
 
 ## 4. Gør låsen rigtig
 Følg [ADMIN-TJEKLISTE.md](ADMIN-TJEKLISTE.md) sammen med den person, der skal have administratoradgangskoden. Indtil da er Locked in en friktionslås, som du selv kan bryde med `sudo`.

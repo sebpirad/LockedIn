@@ -22,6 +22,13 @@ if [ -z "$CFT" ] || [ ! -x "$CFT" ]; then
   exit 2
 fi
 
+# The real daemon closes Chrome for Testing during a real lock, so do not even start one then.
+# (Read-only GET; nothing in these tests ever sends anything else to port 919.)
+if curl -fsS -m 2 -H 'X-LockedIn: 1' http://127.0.0.1:919/v1/status 2>/dev/null \
+   | python3 -c 'import json,sys; sys.exit(0 if json.load(sys.stdin).get("active") else 1)' 2>/dev/null; then
+  echo "En rigtig LockedIn-lås kører — vent til den er slut" >&2
+  exit 3
+fi
 TMP="$(mktemp -d "${TMPDIR:-/tmp}/lockedin-load.XXXXXX")"
 DPID=""; CPID=""
 cleanup() {

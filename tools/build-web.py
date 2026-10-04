@@ -34,11 +34,12 @@ def page(title, body):
 repo = "https://github.com/sebpirad/LockedIn/blob/main"
 index = f"""
 <h1>Locked in</h1>
-<p class="lead">Fokus til Mac. Vælg en varighed eller et sluttidspunkt, og distraherende sider og apps er låst, til tiden er gået.</p>
+<p class="lead">Fokus til Mac. Vælg en liste og en varighed, et sluttidspunkt eller en planlagt periode. Så er de sider og apps låst, til tiden er gået.</p>
 <nav><a href="{repo}/docs/INSTALL.md">Installation</a><a href="citater.html">Citater</a><a href="{repo}/docs/TESTLOG.md">Testrapport</a><a href="https://github.com/sebpirad/LockedIn">Kode</a></nav>
 
 <h2>Sådan virker det</h2>
 <ul>
+<li>Gemte lister, fx "Locked In 1: Slack, Adversus, Instagram". Du vælger listen, når du starter eller planlægger.</li>
 <li>En tjeneste på Mac'en blokerer sider for hele maskinen og lukker andre browsere under fokus.</li>
 <li>Chrome-udvidelsen viser et citat i stedet for den blokerede side, også ved HTTPS.</li>
 <li>Inkognito, gæstetilstand og nye Chrome-profiler er slået fra.</li>

@@ -41,6 +41,14 @@ codesign --force --sign - "$APP" >/dev/null 2>&1 || true
 install -o root -g wheel -m 644 install/dk.lockedin.daemon.plist "$DPLIST"
 install -o root -g wheel -m 644 install/dk.lockedin.menu.plist "$APLIST"
 
+# Chrome only force-installs Web Store extensions on a Mac that is not company-managed (TESTLOG T3), so the extension
+# is also placed in a root-owned folder for "Indlæs upakket". The manifest key gives it the same id.
+sudo -u "$USER_NAME" extension/tools/pack.sh >/dev/null
+rm -rf "$SUPPORT/extension"
+cp -R dist/extension "$SUPPORT/extension"
+chown -R root:wheel "$SUPPORT/extension"
+chmod -R go-w "$SUPPORT/extension"
+
 echo "4/6  Starter tjenesten …"
 launchctl bootstrap system "$DPLIST" || { sleep 2; launchctl bootstrap system "$DPLIST"; }
 launchctl bootstrap "gui/$USER_UID" "$APLIST" 2>/dev/null || true
@@ -63,4 +71,6 @@ for app in "ExpressVPN" "Cold Turkey Blocker" "GoLogin"; do
   [ -e "/Applications/$app.app" ] && echo "     ⚠  /Applications/$app.app er installeret — skal afinstalleres (se docs/INSTALL.md)."
 done
 [ -e /Library/LaunchDaemons/com.expressvpn.expressvpnd.plist ] && echo "     ⚠  ExpressVPN's root-tjeneste findes stadig."
-echo "Færdig. Se docs/INSTALL.md for resten (standardkonto og administrator-tjekliste)."
+echo "Færdig."
+echo "Chrome: chrome://extensions → Udviklertilstand → Indlæs upakket → ⌘⇧G → $SUPPORT/extension"
+echo "(Er udvidelsen allerede indlæst derfra, så tryk bare 'Opdater' på chrome://extensions.)"

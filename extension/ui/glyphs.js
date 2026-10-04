@@ -13,6 +13,10 @@ const G = {
   viafree: `<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="#ff3a6e"/><path d="M14 16l7.5 17h1L30 16" fill="none" stroke="#fff" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="34" cy="31" r="2.6" fill="#fff"/></svg>`,
   allente: `<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="#5c1fd1"/><circle cx="22" cy="26" r="7.5" fill="none" stroke="#fff" stroke-width="3.4"/><path d="M29.5 18.5v15" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/></svg>`,
   viaplaygroup: `<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="#22114a"/><path d="M11 15l6.5 18h1.4L25 15" fill="none" stroke="#ff2e7e" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M38 20.5a7 7 0 1 0 0 7.5h-5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/></svg>`,
+  tv2: `<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="#14163a"/><text x="24" y="30" text-anchor="middle" font-family="-apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif" font-size="15" font-weight="800" fill="#fff" letter-spacing="-.2">TV 2</text><rect x="10" y="34" width="28" height="2.4" rx="1.2" fill="#e3051b"/></svg>`,
+  ekstrabladet: `<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="#e2001a"/><text x="24" y="31.5" text-anchor="middle" font-family="-apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif" font-size="21" font-weight="900" fill="#fff" letter-spacing="-1">EB</text></svg>`,
+  seoghoer: `<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="#e30613"/><text x="24" y="21.5" text-anchor="middle" font-family="-apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif" font-size="11.5" font-weight="900" fill="#fff" letter-spacing=".4">SE</text><text x="24" y="35" text-anchor="middle" font-family="-apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif" font-size="11.5" font-weight="900" fill="#ffd200" letter-spacing=".2">HØR</text></svg>`,
+  facebook: `<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="#1877f2"/><path d="M27 41V27h4.6l.7-5.4H27v-3.4c0-1.6.4-2.6 2.7-2.6h2.8v-4.8a37 37 0 0 0-4.1-.2c-4.1 0-6.9 2.5-6.9 7v3.9H17V27h4.5v14z" fill="#fff"/></svg>`,
 };
 
 const KEYS = [
@@ -24,6 +28,10 @@ const KEYS = [
   ['adversus', /adversus/],
   ['threads', /threads/],
   ['tv3', /tv3|tv 3/],
+  ['tv2', /\btv2\b|tv 2/],
+  ['ekstrabladet', /ekstra\s*bladet/],
+  ['seoghoer', /seoghoer|se og h[øo]r/],
+  ['facebook', /facebook/],
   ['viafree', /viafree/],
   ['allente', /allente/],
   ['viaplay', /viaplay/],

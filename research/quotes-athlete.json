@@ -134,6 +134,492 @@
         "creator": "Tatiana (Flickr, Moscow)",
         "attribution": "Tatiana (Flickr, Moscow), CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Roger_Federer_2015_(cropped).jpg)"
       }
+    },
+    {
+      "id": "a06",
+      "category": "athlete",
+      "text": "Those times when you don't feel like working and you're tired and you don't want to push yourself, but you do it anyway. That is actually the dream.",
+      "original": null,
+      "translation": null,
+      "author": "Kobe Bryant",
+      "author_dates": "1978–2020",
+      "theme": "discipline",
+      "source": {
+        "work": "Speech at his jersey-retirement ceremony, Staples Center, Los Angeles; as reported by Ben Golliver, 'Idol Worship: Lakers Raise Kobe Bryant's Jerseys to Rafters in Raucous Ceremony', Sports Illustrated",
+        "year": "2017",
+        "locator": "Speech delivered 18 December 2017 (halftime, Lakers v Warriors); SI article dated 19 December 2017",
+        "url": "https://www.si.com/nba/2017/12/19/kobe-bryant-los-angeles-lakers-jersey-retirement-staples-center"
+      },
+      "verification": "secondary",
+      "verification_note": "Matched verbatim in Sports Illustrated's report of the speech; I did not watch the broadcast. Outlets transcribe this passage slightly differently (e.g. 'You're too tired'), so SI's wording is used; the opening clauses about getting up early and staying up late are omitted.",
+      "image": {
+        "file": "quote-images/a06.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Kobe_Bryant_2014.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Kobe_Bryant_2014.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY-SA 2.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+        "creator": "Keith Allison",
+        "attribution": "Keith Allison, CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Kobe_Bryant_2014.jpg)"
+      }
+    },
+    {
+      "id": "a07",
+      "category": "athlete",
+      "text": "Success is peace of mind which is a direct result of self-satisfaction in knowing you made the effort to become the best that you are capable of becoming.",
+      "original": null,
+      "translation": null,
+      "author": "John Wooden",
+      "author_dates": "1910–2010",
+      "theme": "ambition",
+      "source": {
+        "work": "'The difference between winning and succeeding', TED talk (TED2001)",
+        "year": "2001",
+        "locator": "Recorded February 2001; TED's official transcript, cue at 2:54",
+        "url": "https://www.ted.com/talks/john_wooden_the_difference_between_winning_and_succeeding/transcript"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in TED's own published transcript of the talk (cue time 174.8 s); I read the transcript, not the audio. In the talk Wooden says he coined this definition in 1934.",
+      "image": {
+        "file": "quote-images/a07.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:John_Wooden_-_Southern_Campus_1960.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/06/John_Wooden_-_Southern_Campus_1960.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:John_Wooden_-_Southern_Campus_1960.jpg",
+        "creator": "Associated Students, University of California, Los Angeles (Southern Campus yearbook 1960)",
+        "attribution": "Associated Students, UCLA (Southern Campus 1960), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:John_Wooden_-_Southern_Campus_1960.jpg)"
+      }
+    },
+    {
+      "id": "a08",
+      "category": "athlete",
+      "text": "We all have dreams. But in order to make dreams into reality, it takes an awful lot of determination, dedication, self-discipline and effort.",
+      "original": null,
+      "translation": null,
+      "author": "Jesse Owens",
+      "author_dates": "1913–1980",
+      "theme": "discipline",
+      "source": {
+        "work": "Quoted in Frank Litsky, 'Superstars' (Secaucus, NJ: Derbibooks); repeated in Litsky's obituary 'Jesse Owens Dies of Cancer at 66; Hero of the 1936 Berlin Olympics', The New York Times",
+        "year": "1975",
+        "locator": "Book 1975 (page not determined); NYT obituary 1 April 1980",
+        "url": "https://archive.nytimes.com/www.nytimes.com/learning/general/onthisday/bday/0912.html"
+      },
+      "verification": "secondary",
+      "verification_note": "Exact wording matched in the New York Times' archived text of its 1980 obituary, and in the Internet Archive full-text index of Litsky's 1975 book (published in Owens's lifetime) and of 'Talking Track' (1979, a collection of Track & Field News interviews). I did not find the original occasion on which Owens said it. Circulating versions vary slightly; the 1975/1980 wording is used.",
+      "image": {
+        "file": "quote-images/a08.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Jesse_Owens_1936.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Jesse_Owens_1936.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Jesse_Owens_1936.jpg",
+        "creator": "Acme News Photos",
+        "attribution": "Acme News Photos, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Jesse_Owens_1936.jpg)"
+      }
+    },
+    {
+      "id": "a09",
+      "category": "athlete",
+      "text": "Pressure is a privilege.",
+      "original": null,
+      "translation": null,
+      "author": "Billie Jean King",
+      "author_dates": "born 1943",
+      "theme": "adversity",
+      "source": {
+        "work": "Pressure Is a Privilege: Lessons I've Learned from Life and the Battle of the Sexes, with Christine Brennan (New York: LifeTime Media)",
+        "year": "2008",
+        "locator": "Book title; the phrase also occurs in the body text (page not determined)",
+        "url": "https://archive.org/details/pressureisprivil00king"
+      },
+      "verification": "primary",
+      "verification_note": "Title confirmed from the Internet Archive's catalogue record of the 2008 LifeTime Media edition, and the exact phrase matched in that scan's full-text index. King's long-standing motto. The often-paired line 'Champions keep playing until they get it right' was rejected (see REJECTED-ATHLETE.md).",
+      "image": {
+        "file": "quote-images/a09.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Billie_Jean_King,_2016_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Billie_Jean_King%2C_2016_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY-SA 2.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+        "creator": "Gage Skidmore",
+        "attribution": "Gage Skidmore, CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Billie_Jean_King,_2016_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "a10",
+      "category": "athlete",
+      "text": "I'm not the next Usain Bolt or Michael Phelps, I'm the first Simone Biles.",
+      "original": null,
+      "translation": null,
+      "author": "Simone Biles",
+      "author_dates": "born 1997",
+      "theme": "ambition",
+      "source": {
+        "work": "Remarks after winning the Olympic all-around title, Rio de Janeiro; reported by James Masters, 'Simone Biles wins all-around gymnastic gold in Rio', CNN",
+        "year": "2016",
+        "locator": "CNN article published 11 August 2016",
+        "url": "https://www.cnn.com/2016/08/11/sport/simone-biles-usa-gymnastics-rio/index.html"
+      },
+      "verification": "secondary",
+      "verification_note": "Matched verbatim in CNN's report, attributed to Biles as direct speech ('she added'); I did not see video of her saying it. CNN's punctuation (comma between the clauses) is kept.",
+      "image": {
+        "file": "quote-images/a10.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Simone_Biles_na_Rio_2016_cropped.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/12/Simone_Biles_na_Rio_2016_cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY 3.0 BR",
+        "license_url": "https://creativecommons.org/licenses/by/3.0/br/deed.en",
+        "creator": "Fernando Frazão / Agência Brasil",
+        "attribution": "Fernando Frazão / Agência Brasil, CC BY 3.0 BR, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Simone_Biles_na_Rio_2016_cropped.jpg)"
+      }
+    },
+    {
+      "id": "a11",
+      "category": "athlete",
+      "text": "I am the happiest man in the world to be the first human to run under two hours and I can tell people that no human is limited.",
+      "original": null,
+      "translation": null,
+      "author": "Eliud Kipchoge",
+      "author_dates": "born 1984",
+      "theme": "ambition",
+      "source": {
+        "work": "Remarks after the INEOS 1:59 Challenge, Vienna; Associated Press report 'Kipchoge first under 2 hours for marathon but no record', published by PBS NewsHour",
+        "year": "2019",
+        "locator": "Run on 12 October 2019; AP/PBS article dated 12 October 2019",
+        "url": "https://www.pbs.org/newshour/world/kipchoge-first-under-2-hours-for-marathon-but-no-record"
+      },
+      "verification": "secondary",
+      "verification_note": "Matched verbatim as Kipchoge's direct speech in the AP report carried by PBS NewsHour; I did not see the broadcast. 'No human is limited' is his own long-standing motto, also used on his verified X account (@EliudKipchoge).",
+      "image": {
+        "file": "quote-images/a11.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Eliud_Kipchoge_in_Berlin_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Eliud_Kipchoge_in_Berlin_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "creator": "Desitlicheresguruweil",
+        "attribution": "Desitlicheresguruweil, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Eliud_Kipchoge_in_Berlin_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "a12",
+      "category": "athlete",
+      "text": "Limits, like fears, are often just an illusion.",
+      "original": null,
+      "translation": null,
+      "author": "Michael Jordan",
+      "author_dates": "born 1963",
+      "theme": "ambition",
+      "source": {
+        "work": "Enshrinement speech, Naismith Memorial Basketball Hall of Fame, Springfield, Massachusetts",
+        "year": "2009",
+        "locator": "Delivered 11 September 2009; the closing lines ('Never say never, because limits, like fears…'); official video uploaded by the Hall of Fame (YouTube @OfficialHoophall, id XLzBMGXfK4c)",
+        "url": "https://www.facebook.com/BBHOF/videos/limits-like-fears-are-often-just-an-illusion-michael-jordan-09hoopclassfor-the-f/331182977935734/"
+      },
+      "verification": "secondary",
+      "verification_note": "Matched verbatim in the caption of the Naismith Memorial Basketball Hall of Fame's own clip of the speech (its official Facebook page); full speech: https://www.youtube.com/watch?v=XLzBMGXfK4c (uploader OfficialHoophall, confirmed via YouTube oEmbed). I could not play the video or read its captions, so no timestamp. The opening 'Because' of the sentence is dropped.",
+      "image": {
+        "file": "quote-images/a12.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Michael_Jordan_in_2014.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Michael_Jordan_in_2014.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Michael_Jordan_in_2014.jpg",
+        "creator": "D. Myles Cullen, U.S. Department of Defense",
+        "attribution": "D. Myles Cullen (U.S. Department of Defense), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Michael_Jordan_in_2014.jpg)"
+      }
+    },
+    {
+      "id": "a13",
+      "category": "athlete",
+      "text": "Success is no accident. It is hard work, perseverance, learning, studying, sacrifice, and, most of all, love of what you are doing or learning to do.",
+      "original": null,
+      "translation": null,
+      "author": "Pelé",
+      "author_dates": "1940–2022",
+      "theme": "perseverance",
+      "source": {
+        "work": "Learning Soccer with Pelé (Philadelphia: J. B. Lippincott)",
+        "year": "1978",
+        "locator": "Page not determined",
+        "url": "https://archive.org/details/learningsoccerwi0000pel1"
+      },
+      "verification": "primary",
+      "verification_note": "The full passage matched, in overlapping pieces, in the Internet Archive's full-text index of the 1978 Lippincott edition (lending-only: text seen in search snippets, page image not). The same words also appear in another 1978 book, so the line was in print in Pelé's own instructional book at the time. Punctuation follows that edition ('sacrifice, and, most of all,').",
+      "image": {
+        "file": "quote-images/a13.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Pel%C3%A9_Schiphol_1963.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/03/Pel%C3%A9_Schiphol_1963.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY-SA 3.0 NL",
+        "license_url": "https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en",
+        "creator": "Hugo van Gelderen / Anefo (Dutch National Archives)",
+        "attribution": "Hugo van Gelderen / Anefo, Nationaal Archief, CC BY-SA 3.0 NL, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Pel%C3%A9_Schiphol_1963.jpg)"
+      }
+    },
+    {
+      "id": "a14",
+      "category": "athlete",
+      "text": "Failure is not something to be ashamed of, it's something to be powered by. Failure is the highest octane fuel your life can run on.",
+      "original": null,
+      "translation": null,
+      "author": "Abby Wambach",
+      "author_dates": "born 1980",
+      "theme": "adversity",
+      "source": {
+        "work": "Commencement address, Barnard College, New York; full text published as \"'Make Failure Your Fuel.' Read Soccer Star Abby Wambach's Barnard Commencement Address\", TIME",
+        "year": "2018",
+        "locator": "Delivered 16 May 2018; TIME text published 17 May 2018 (US time), under 'Rule No. 1'",
+        "url": "https://time.com/5281711/abby-wambach-barnard-commencement-2018-speech/"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in TIME's published full text of the address (article by Katie Reilly). I read the text, not the video.",
+      "image": {
+        "file": "quote-images/a14.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Abby_Wambach_Come_See_Me_In_The_Good_Light-31.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/53/Abby_Wambach_Come_See_Me_In_The_Good_Light-31.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "creator": "Bryan Berlin",
+        "attribution": "Bryan Berlin, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Abby_Wambach_Come_See_Me_In_The_Good_Light-31.jpg)"
+      }
+    },
+    {
+      "id": "a15",
+      "category": "athlete",
+      "text": "If you can pick up after a crushing defeat, and go on to win again, you are going to be a champion someday.",
+      "original": null,
+      "translation": null,
+      "author": "Wilma Rudolph",
+      "author_dates": "1940–1994",
+      "theme": "adversity",
+      "source": {
+        "work": "Wilma (New York: Signet / New American Library)",
+        "year": "1977",
+        "locator": "Pp. 65–66, chapter 'Introduction to Competition' (page numbers as cited by Quote Investigator; the scan's OCR also shows the page break inside the sentence)",
+        "url": "https://archive.org/details/wilma00rudo"
+      },
+      "verification": "primary",
+      "verification_note": "Matched in overlapping pieces in the Internet Archive's full-text index of the 1977 NAL edition (lending-only: text seen in search snippets, page image not). Quote Investigator (15 Feb 2021, https://quoteinvestigator.com/2021/02/15/champion/) traces the line to this autobiography and credits Rudolph; the passage recalls her losing every race at a Tuskegee meet as a teenager. The popular Rudolph lines 'The triumph can't be had without the struggle' and 'Never underestimate the power of dreams…' were rejected (see REJECTED-ATHLETE.md).",
+      "image": {
+        "file": "quote-images/a15.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Wilma_Rudolph_(1960).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/59/Wilma_Rudolph_%281960%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY-SA 3.0 NL",
+        "license_url": "https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en",
+        "creator": "Henk Lindeboom / Anefo (Nationaal Archief)",
+        "attribution": "Henk Lindeboom / Anefo, Nationaal Archief, CC BY-SA 3.0 NL, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Wilma_Rudolph_(1960).jpg)"
+      }
+    },
+    {
+      "id": "a16",
+      "category": "athlete",
+      "text": "Many people say I'm the best women's soccer player in the world. I don't think so. And because of that, someday I just might be.",
+      "original": null,
+      "translation": null,
+      "author": "Mia Hamm",
+      "author_dates": "born 1972",
+      "theme": "ambition",
+      "source": {
+        "work": "Go for the Goal: A Champion's Guide to Winning in Soccer and Life, with Aaron Heifetz (New York: HarperCollins)",
+        "year": "1999",
+        "locator": "Page not determined",
+        "url": "https://archive.org/details/goforgoalchampio0000hamm"
+      },
+      "verification": "primary",
+      "verification_note": "All three sentences matched, in overlapping exact-phrase searches, in the Internet Archive's full-text index of the 1999 HarperCollins edition (lending-only: text seen in search snippets, page image not). Every earlier IA hit for 'someday I just might be' is unrelated. The often-quoted Hamm line 'Somewhere behind the athlete you've become…' was rejected (see REJECTED-ATHLETE.md).",
+      "image": {
+        "file": "quote-images/a16.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Mia_Hamm_2010_cropped.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/88/Mia_Hamm_2010_cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY-SA 2.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+        "creator": "Rob Poetsch (Flickr); cropped by Blackcat",
+        "attribution": "Rob Poetsch, cropped by Blackcat, CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Mia_Hamm_2010_cropped.jpg)"
+      }
+    },
+    {
+      "id": "a17",
+      "category": "athlete",
+      "text": "If you put a limit on anything, you put a limit on how far you can go.",
+      "original": null,
+      "translation": null,
+      "author": "Michael Phelps",
+      "author_dates": "born 1985",
+      "theme": "ambition",
+      "source": {
+        "work": "No Limits: The Will to Succeed, with Alan Abrahamson (New York: Free Press)",
+        "year": "2008",
+        "locator": "Page not determined (first-person passage about believing he could swim 4:03)",
+        "url": "https://archive.org/details/nolimitswilltosu0000phel"
+      },
+      "verification": "primary",
+      "verification_note": "Matched in the Internet Archive's full-text index of the 2008 Free Press edition (lending-only: text seen in search snippets, page image not); the sentence sits in Phelps's own first-person narration. The widely shared 'You can't put a limit on anything. The more you dream, the farther you get.' was not found in this book and was rejected (see REJECTED-ATHLETE.md).",
+      "image": {
+        "file": "quote-images/a17.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Michael_Phelps_Rio_Olympics_2016.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Michael_Phelps_Rio_Olympics_2016.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0",
+        "creator": "Agência Brasil Fotografias",
+        "attribution": "Agência Brasil Fotografias, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Michael_Phelps_Rio_Olympics_2016.jpg)"
+      }
+    },
+    {
+      "id": "a18",
+      "category": "athlete",
+      "text": "I always wanted to be somebody.",
+      "original": null,
+      "translation": null,
+      "author": "Althea Gibson",
+      "author_dates": "1927–2003",
+      "theme": "ambition",
+      "source": {
+        "work": "I Always Wanted to Be Somebody, edited by Ed Fitzgerald (New York: Harper & Brothers)",
+        "year": "1958",
+        "locator": "Book title, and the opening sentence of chapter 1 ('We Weren't Bad, Just Mischievous')",
+        "url": "https://archive.org/details/ialwayswantedtob0000alth_r4o4"
+      },
+      "verification": "primary",
+      "verification_note": "Opening sentence matched in the Internet Archive's full-text index of the 1958 Harper edition (lending-only: text seen in search snippets, page image not). The longer line often quoted with it ('If I've made it, it's half because I was game to take a wicked amount of punishment…') is in the book a few lines later, but runs to 40 words, so only the opening sentence is used.",
+      "image": {
+        "file": "quote-images/a18.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Althea_Gibson_in_1956_by_Fred_Palumbo_(NYWTS).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Althea_Gibson_in_1956_by_Fred_Palumbo_%28NYWTS%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Althea_Gibson_in_1956_by_Fred_Palumbo_(NYWTS).jpg",
+        "creator": "Fred Palumbo, New York World-Telegram & Sun (Library of Congress); restored by Adam Cuerden",
+        "attribution": "Fred Palumbo, New York World-Telegram & Sun (Library of Congress), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Althea_Gibson_in_1956_by_Fred_Palumbo_(NYWTS).jpg)"
+      }
+    },
+    {
+      "id": "a19",
+      "category": "athlete",
+      "text": "You are never really playing an opponent. You are playing yourself, your own highest standards, and when you reach your limits, that is the real joy.",
+      "original": null,
+      "translation": null,
+      "author": "Arthur Ashe",
+      "author_dates": "1943–1993",
+      "theme": "focus",
+      "source": {
+        "work": "Arthur Ashe: Portrait in Motion, with Frank Deford (Boston: Houghton Mifflin)",
+        "year": "1975",
+        "locator": "Page not determined",
+        "url": "https://archive.org/details/arthurasheportra0000ashe"
+      },
+      "verification": "primary",
+      "verification_note": "Matched in overlapping pieces in the Internet Archive's full-text index of the 1975 Houghton Mifflin edition (lending-only: text seen in search snippets, page image not). The sentence opens 'The thing is, at any time, whoever is across the net, you are never…'; that lead-in is dropped and 'You' capitalised. The popular Ashe line 'Start where you are. Use what you have. Do what you can.' was rejected (see REJECTED-ATHLETE.md).",
+      "image": {
+        "file": "quote-images/a19.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Arthur_Ashe_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/6/60/Arthur_Ashe_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY-SA 3.0 NL",
+        "license_url": "https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en",
+        "creator": "Rob Bogaerts / Anefo (Nationaal Archief)",
+        "attribution": "Rob Bogaerts / Anefo, Nationaal Archief, CC BY-SA 3.0 NL, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Arthur_Ashe_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "a20",
+      "category": "athlete",
+      "text": "Only the disciplined ones in life are free. If you are undisciplined, you are a slave to your moods and your passions.",
+      "original": null,
+      "translation": null,
+      "author": "Eliud Kipchoge",
+      "author_dates": "born 1984",
+      "theme": "discipline",
+      "source": {
+        "work": "Quoted in Scott Cacciola, 'Eliud Kipchoge Is the Greatest Marathoner, Ever.', The New York Times",
+        "year": "2018",
+        "locator": "14 September 2018 (read via the Wayback Machine snapshot of the article)",
+        "url": "https://www.nytimes.com/2018/09/14/sports/eliud-kipchoge-marathon.html"
+      },
+      "verification": "secondary",
+      "verification_note": "Matched verbatim in the New York Times profile (checked in the Internet Archive's Wayback copy because nytimes.com blocks automated reads); the reporter gives it as the kind of thing Kipchoge says, not as an answer in that interview. Running sites (e.g. CITIUS Mag) link it to a talk he gave at the Oxford Union, which I did not watch.",
+      "image": {
+        "file": "quote-images/a20.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Eliud_Kipchoge_in_Berlin_-_2015_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Eliud_Kipchoge_in_Berlin_-_2015_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "creator": "Denis Barthel",
+        "attribution": "Denis Barthel, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Eliud_Kipchoge_in_Berlin_-_2015_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "a21",
+      "category": "athlete",
+      "text": "Champions adjust.",
+      "original": null,
+      "translation": null,
+      "author": "Billie Jean King",
+      "author_dates": "born 1943",
+      "theme": "adversity",
+      "source": {
+        "work": "Pressure Is a Privilege: Lessons I've Learned from Life and the Battle of the Sexes, with Christine Brennan (New York: LifeTime Media)",
+        "year": "2008",
+        "locator": "Title of one of the book's chapters; repeated in her own voice in the text (page not determined)",
+        "url": "https://archive.org/details/pressureisprivil00king"
+      },
+      "verification": "primary",
+      "verification_note": "Matched in the Internet Archive's full-text index of the 2008 edition: once as a chapter heading in the contents and several times in King's first-person text, including a message she recalls typing ('Champions adjust… and pressure is a privilege'). Text seen in search snippets only.",
+      "image": {
+        "file": "quote-images/a21.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:BJK_headshot_2011_5x7_300dpi.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/35/BJK_headshot_2011_5x7_300dpi.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY-SA 3.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+        "creator": "Jonathan Exley (Billie Jean King Enterprises)",
+        "attribution": "Jonathan Exley / Billie Jean King Enterprises, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:BJK_headshot_2011_5x7_300dpi.jpg)"
+      }
+    },
+    {
+      "id": "a22",
+      "category": "athlete",
+      "text": "I doubt about myself. I think the doubts are good in life.",
+      "original": null,
+      "translation": null,
+      "author": "Rafael Nadal",
+      "author_dates": "born 1986",
+      "theme": "adversity",
+      "source": {
+        "work": "Interview with Sean Gregory, \"Rafael Nadal: 'I Doubt About Myself'\", TIME",
+        "year": "2014",
+        "locator": "22 May 2014",
+        "url": "https://time.com/108222/rafael-nadal-interview/"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in TIME's interview; the article splits the two sentences with 'Nadal says', which is dropped here. Nadal's own English, not a translation; 'doubt about myself' is kept as he said it.",
+      "image": {
+        "file": "quote-images/a22.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Rafael_Nadal_January_2015.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Rafael_Nadal_January_2015.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0",
+        "creator": "Tourism Victoria (Flickr, Australia)",
+        "attribution": "Tourism Victoria, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Rafael_Nadal_January_2015.jpg)"
+      }
+    },
+    {
+      "id": "a23",
+      "category": "athlete",
+      "text": "The battles that count aren't the ones for gold medals. The struggles within yourself—the invisible, inevitable battles inside all of us—that's where it's at.",
+      "original": null,
+      "translation": null,
+      "author": "Jesse Owens",
+      "author_dates": "1913–1980",
+      "theme": "perseverance",
+      "source": {
+        "work": "Blackthink: My Life as Black Man and White Man, with Paul G. Neimark (New York: William Morrow)",
+        "year": "1970",
+        "locator": "Page not determined (the passage that ends 'Life is the real Olympics.')",
+        "url": "https://archive.org/details/blackthinkmylife00owen"
+      },
+      "verification": "primary",
+      "verification_note": "Matched in overlapping pieces in the Internet Archive's full-text index of the 1970 Morrow edition (lending-only: text seen in search snippets, page image not). In the book the sentence opens with 'Because'; it is dropped and 'The' capitalised.",
+      "image": {
+        "file": "quote-images/a23.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Jesse_Owens_1936.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Jesse_Owens_1936.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Jesse_Owens_1936.jpg",
+        "creator": "Acme News Photos",
+        "attribution": "Acme News Photos, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Jesse_Owens_1936.jpg)"
+      }
     }
   ]
 }

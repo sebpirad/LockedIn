@@ -12,7 +12,7 @@
       "id": "instagram",
       "label": "Instagram",
       "builtin": true,
-      "blocked": true,
+      "blocked": false,
       "mode": "full",
       "suffixes": [
         "instagram.com",
@@ -30,7 +30,7 @@
       "id": "youtube",
       "label": "YouTube",
       "builtin": true,
-      "blocked": true,
+      "blocked": false,
       "mode": "full",
       "suffixes": [
         "youtube.com",
@@ -51,7 +51,7 @@
       "id": "slack",
       "label": "Slack",
       "builtin": true,
-      "blocked": true,
+      "blocked": false,
       "mode": "full",
       "suffixes": [
         "slack.com",
@@ -67,7 +67,7 @@
       "id": "adversus",
       "label": "Adversus",
       "builtin": true,
-      "blocked": true,
+      "blocked": false,
       "mode": "tab",
       "suffixes": [
         "adversus.io",
@@ -81,7 +81,7 @@
       "id": "viaplay",
       "label": "Viaplay",
       "builtin": true,
-      "blocked": true,
+      "blocked": false,
       "mode": "full",
       "suffixes": [
         "viaplay.com",
@@ -116,7 +116,7 @@
       "id": "threads",
       "label": "Threads",
       "builtin": true,
-      "blocked": true,
+      "blocked": false,
       "mode": "full",
       "suffixes": [
         "threads.net",
@@ -128,9 +128,9 @@
     },
     {
       "id": "tv3",
-      "label": "TV3",
+      "label": "TV3 / Viafree / Allente",
       "builtin": true,
-      "blocked": true,
+      "blocked": false,
       "mode": "full",
       "suffixes": [
         "tv3.dk"
@@ -140,36 +140,10 @@
       "allowHosts": []
     },
     {
-      "id": "viafree",
-      "label": "Viafree",
-      "builtin": true,
-      "blocked": false,
-      "mode": "full",
-      "suffixes": [
-        "viafree.dk"
-      ],
-      "exactHosts": [],
-      "regexFilters": [],
-      "allowHosts": []
-    },
-    {
-      "id": "allente",
-      "label": "Allente",
-      "builtin": true,
-      "blocked": false,
-      "mode": "full",
-      "suffixes": [
-        "allente.dk"
-      ],
-      "exactHosts": [],
-      "regexFilters": [],
-      "allowHosts": []
-    },
-    {
       "id": "viaplaygroup",
       "label": "Viaplay Group",
       "builtin": true,
-      "blocked": true,
+      "blocked": false,
       "mode": "full",
       "suffixes": [
         "viaplaygroup.com"
@@ -179,10 +153,63 @@
       "allowHosts": []
     },
     {
+      "id": "tv2",
+      "label": "TV 2",
+      "builtin": true,
+      "blocked": false,
+      "mode": "full",
+      "suffixes": [
+        "tv2.dk"
+      ],
+      "exactHosts": [],
+      "regexFilters": [],
+      "allowHosts": []
+    },
+    {
+      "id": "ekstrabladet",
+      "label": "Ekstra Bladet",
+      "builtin": true,
+      "blocked": false,
+      "mode": "full",
+      "suffixes": [
+        "ekstrabladet.dk"
+      ],
+      "exactHosts": [],
+      "regexFilters": [],
+      "allowHosts": []
+    },
+    {
+      "id": "seoghoer",
+      "label": "Se og Hør",
+      "builtin": true,
+      "blocked": false,
+      "mode": "full",
+      "suffixes": [
+        "seoghoer.dk"
+      ],
+      "exactHosts": [],
+      "regexFilters": [],
+      "allowHosts": []
+    },
+    {
+      "id": "facebook",
+      "label": "Facebook",
+      "builtin": true,
+      "blocked": false,
+      "mode": "full",
+      "suffixes": [
+        "facebook.com",
+        "fb.com"
+      ],
+      "exactHosts": [],
+      "regexFilters": [],
+      "allowHosts": []
+    },
+    {
       "id": "c-reddit",
       "label": "Reddit",
       "builtin": false,
-      "blocked": true,
+      "blocked": false,
       "mode": "full",
       "suffixes": [
         "reddit.com"
@@ -197,12 +224,24 @@
       "bundleId": "com.tinyspeck.slackmacgap",
       "name": "Slack",
       "kind": "webengine",
-      "blocked": true
+      "blocked": false
     },
     {
       "bundleId": "org.mozilla.firefox",
       "name": "Firefox",
       "kind": "browser",
+      "blocked": true
+    },
+    {
+      "bundleId": "com.apple.Safari",
+      "name": "Safari",
+      "kind": "browser",
+      "blocked": true
+    },
+    {
+      "bundleId": "com.electron.fiddle",
+      "name": "Electron Fiddle",
+      "kind": "webengine",
       "blocked": true
     },
     {
@@ -221,7 +260,7 @@
   "schedules": [
     {
       "id": "ab12",
-      "name": "Morgenfokus",
+      "name": "",
       "weekdays": [
         1,
         2,
@@ -231,23 +270,19 @@
       ],
       "start": "09:00",
       "end": "12:00",
-      "enabled": true
+      "enabled": true,
+      "list": "l1",
+      "date": null
     },
     {
       "id": "cd34",
-      "name": "Aftenro",
-      "weekdays": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7
-      ],
-      "start": "22:00",
-      "end": "06:30",
-      "enabled": false
+      "name": "",
+      "weekdays": [],
+      "start": "09:00",
+      "end": "12:00",
+      "enabled": true,
+      "list": "l2",
+      "date": "TOMORROW"
     }
   ],
   "enforcement": {
@@ -256,5 +291,32 @@
     "appControl": true,
     "lastTick": null,
     "lastHeartbeat": null
-  }
+  },
+  "lists": [
+    {
+      "id": "l1",
+      "name": "Locked In 1",
+      "sites": [
+        "slack",
+        "adversus",
+        "instagram"
+      ],
+      "apps": []
+    },
+    {
+      "id": "l2",
+      "name": "Locked In 2",
+      "sites": [
+        "slack",
+        "adversus",
+        "instagram",
+        "youtube",
+        "tv2"
+      ],
+      "apps": [
+        "com.spotify.client"
+      ]
+    }
+  ],
+  "activeLists": []
 }

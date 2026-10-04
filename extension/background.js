@@ -4,8 +4,9 @@
 import { createApi, isValidStatus } from './lib/api.js';
 import { reduceLock, isLocked, emptyLockState } from './lib/lock.js';
 import { buildRules, rulesHash } from './lib/rules.js';
-import { findBlockedSite } from './lib/domains.js';
+import { findBlockedSite, isValidDomain } from './lib/domains.js';
 import { pickNext } from './lib/shuffle.js';
+import { findIcon, sitesNeedingIcons, iconIsFresh, sameBytes, SENTINEL_PAGE, ICON_PX, MAX_DATA_URL } from './lib/icons.js';
 
 const api = createApi();
 const VERSION = chrome.runtime.getManifest().version;
@@ -62,6 +63,7 @@ async function doSync() {
 
   if (next.lockedUntil) chrome.alarms.create(LOCK_END, { when: next.lockedUntil + 500 });
   await enforce(next.locked ? state.lockSites : []);
+  queueMissingIcons();
 }
 
 // ---------- DNR ----------
@@ -190,6 +192,102 @@ chrome.action.onClicked.addListener(async () => {
   }
 });
 
+// ---------- icons for own sites ----------
+// Only for sites that are not blocked right now; nothing is weakened to fetch an icon.
+
+function isBlockedNow(url) {
+  if (isLocked(state, Date.now()) && findBlockedSite(url, state.lockSites)) return true;
+  const sites = state.lastStatus && Array.isArray(state.lastStatus.sites) ? state.lastStatus.sites : [];
+  return !!findBlockedSite(url, sites);
+}
+
+async function fetchCapped(url, maxBytes) {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), 6000);
+  try {
+    const r = await fetch(url, { credentials: 'omit', redirect: 'follow', signal: ctrl.signal });
+    if (!r.ok) return null;
+    // A redirect may land on a blocked host: check the final URL too.
+    if (r.url && isBlockedNow(r.url)) return null;
+    const buf = await r.arrayBuffer();
+    return buf.byteLength > maxBytes ? null : { buf, type: r.headers.get('content-type') || '' };
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(t);
+  }
+}
+
+let globeBytes = null;
+async function faviconBytes(pageUrl) {
+  const u = new URL(chrome.runtime.getURL('/_favicon/'));
+  u.searchParams.set('pageUrl', pageUrl);
+  u.searchParams.set('size', String(ICON_PX));
+  const r = await fetch(u.href).catch(() => null);
+  return r && r.ok ? r.arrayBuffer() : null;
+}
+
+const iconDeps = {
+  isBlocked: isBlockedNow,
+  async faviconCache(pageUrl) {
+    const buf = await faviconBytes(pageUrl);
+    if (!buf) return null;
+    if (!globeBytes) globeBytes = await faviconBytes(SENTINEL_PAGE);
+    return sameBytes(buf, globeBytes) ? null : new Blob([buf], { type: 'image/png' });
+  },
+  async fetchText(url) {
+    const r = await fetchCapped(url, 1024 * 1024);
+    return r && /html/i.test(r.type) ? new TextDecoder().decode(r.buf) : null;
+  },
+  async fetchBlob(url) {
+    const r = await fetchCapped(url, 512 * 1024);
+    return r ? new Blob([r.buf], { type: r.type }) : null;
+  },
+  async encode(blob) {
+    let bmp;
+    try { bmp = await createImageBitmap(blob); } catch { return null; }
+    if (bmp.width < 8 || bmp.height < 8) return null;
+    const c = new OffscreenCanvas(ICON_PX, ICON_PX);
+    const g = c.getContext('2d');
+    const k = Math.min(ICON_PX / bmp.width, ICON_PX / bmp.height);
+    const w = bmp.width * k, h = bmp.height * k;
+    g.imageSmoothingQuality = 'high';
+    g.drawImage(bmp, (ICON_PX - w) / 2, (ICON_PX - h) / 2, w, h);
+    const png = new Uint8Array(await (await c.convertToBlob({ type: 'image/png' })).arrayBuffer());
+    let bin = '';
+    for (let i = 0; i < png.length; i += 0x8000) bin += String.fromCharCode(...png.subarray(i, i + 0x8000));
+    const url = 'data:image/png;base64,' + btoa(bin);
+    return url.length <= MAX_DATA_URL ? url : null;
+  },
+};
+
+let iconChain = Promise.resolve();
+function fetchIcons(domains, force) {
+  const run = iconChain.then(async () => {
+    for (const domain of domains) {
+      if (!isValidDomain(domain)) continue;
+      const { icons = {} } = await chrome.storage.local.get('icons');
+      if (!force && iconIsFresh(icons[domain], Date.now())) continue;
+      const r = await findIcon(domain, iconDeps);
+      if (r.skipped) continue; // blocked now: try again another time
+      const { icons: latest = {} } = await chrome.storage.local.get('icons');
+      latest[domain] = r.dataUrl ? { data: r.dataUrl, at: Date.now(), source: r.source } : { none: true, at: Date.now() };
+      await chrome.storage.local.set({ icons: latest });
+    }
+  });
+  iconChain = run.catch(() => {});
+  return run;
+}
+
+async function queueMissingIcons() {
+  try {
+    const { icons = {} } = await chrome.storage.local.get('icons');
+    const sites = state.lastStatus && state.lastStatus.sites;
+    const todo = sitesNeedingIcons(sites, icons, isBlockedNow, Date.now()).slice(0, 5);
+    if (todo.length) fetchIcons(todo, false);
+  } catch { /* best effort */ }
+}
+
 // ---------- messages ----------
 
 function view() {
@@ -244,6 +342,12 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       case 'blockedInfo': {
         const url = sender.tab ? targets.get(sender.tab.id) || null : null;
         return { ...view(), url };
+      }
+      case 'fetchIcon': {
+        const domain = String(msg.domain || '').toLowerCase();
+        if (!isValidDomain(domain)) return { error: 'invalid' };
+        await fetchIcons([domain], true);
+        return { ok: true };
       }
       case 'nextQuote':
         return { id: await nextQuote(Array.isArray(msg.ids) ? msg.ids.slice(0, 5000) : []) };

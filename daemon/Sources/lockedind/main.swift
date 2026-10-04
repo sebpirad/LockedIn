@@ -49,6 +49,7 @@ if !store.loadFailed {
     // First run: everything installed today is known. Browsers start blocked; apps with a web engine start allowed.
     if !engine.state.appsSeeded { engine.seedApps(installedNow.filter { $0.kind != .app }) }
     engine.fillMissingTeamIds(installedNow)
+    engine.migrateToLists()
 }
 
 // MARK: Watchdog (review 2, N1/N2/N10)
@@ -113,7 +114,7 @@ func tick() {
     var problems: [String] = []
 
     if locked {
-        let section = HostsFile.section(HostsFile.hostnames(sites: engine.blockedSites(), catalog: catalog))
+        let section = HostsFile.section(HostsFile.hostnames(sites: engine.effectiveSites(now: now), catalog: catalog))
         switch hosts.apply(section: section) {
         case .written: log("hosts opdateret (\(section.split(separator: "\n").count) linjer)"); report.hostsOK = true
         case .unchanged: report.hostsOK = true
@@ -132,7 +133,7 @@ func tick() {
                 staleSinceUptime = nil
             }
         }
-        let o = apps.enforce(rules: engine.state.apps, heartbeatOK: heartbeatOK, now: now)
+        let o = apps.enforce(rules: engine.effectiveAppRules(now: now), heartbeatOK: heartbeatOK, now: now)
         for r in o.recorded { engine.recordUnknownApp(r); dirty = true }
         for k in o.killed { log("lukket: \(k)") }
         if !o.killed.isEmpty { report.recentKills = Array((o.killed + report.recentKills).prefix(20)) }

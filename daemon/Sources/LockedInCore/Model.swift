@@ -68,14 +68,42 @@ public struct AppRule: Codable, Equatable {
 public struct Schedule: Codable, Equatable {
     public var id: String
     public var name: String
-    /// 1 = Monday … 7 = Sunday (ISO).
+    /// 1 = Monday … 7 = Sunday (ISO). Ignored when `date` is set.
     public var weekdays: [Int]
     /// "HH:MM", Europe/Copenhagen wall time. end <= start means the window crosses midnight.
     public var start: String
     public var end: String
     public var enabled: Bool
-    public init(id: String, name: String, weekdays: [Int], start: String, end: String, enabled: Bool) {
+    /// The block list this period uses.
+    public var list: String
+    /// "YYYY-MM-DD" (Copenhagen) for a one-time period, e.g. tomorrow 09–12; nil = every chosen weekday.
+    public var date: String?
+    public init(id: String, name: String, weekdays: [Int], start: String, end: String, enabled: Bool, list: String = "", date: String? = nil) {
         self.id = id; self.name = name; self.weekdays = weekdays; self.start = start; self.end = end; self.enabled = enabled
+        self.list = list; self.date = date
+    }
+    enum CodingKeys: String, CodingKey { case id, name, weekdays, start, end, enabled, list, date }
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decode(String.self, forKey: .id)
+        name = try c.decodeIfPresent(String.self, forKey: .name) ?? ""
+        weekdays = try c.decodeIfPresent([Int].self, forKey: .weekdays) ?? []
+        start = try c.decodeIfPresent(String.self, forKey: .start) ?? "00:00"
+        end = try c.decodeIfPresent(String.self, forKey: .end) ?? "00:00"
+        enabled = try c.decodeIfPresent(Bool.self, forKey: .enabled) ?? true
+        list = try c.decodeIfPresent(String.self, forKey: .list) ?? ""
+        date = try c.decodeIfPresent(String.self, forKey: .date)
+    }
+}
+
+/// A named set of sites and apps to block, e.g. "Locked In 1": Slack, Adversus, Instagram.
+public struct BlockList: Codable, Equatable {
+    public var id: String
+    public var name: String
+    public var sites: [String]   // SiteRule ids
+    public var apps: [String]    // bundle ids
+    public init(id: String, name: String, sites: [String], apps: [String]) {
+        self.id = id; self.name = name; self.sites = sites; self.apps = apps
     }
 }
 
@@ -88,8 +116,18 @@ public struct TimerLock: Codable, Equatable {
     public var monoRemaining: Double
     /// When this continuous timer lock began (extensions keep it). Used for the 24 h cap on one continuous lock.
     public var startWall: Date?
-    public init(endWall: Date, monoRemaining: Double, startWall: Date? = nil) {
-        self.endWall = endWall; self.monoRemaining = monoRemaining; self.startWall = startWall
+    /// Block lists in force for this timer (several when a session is extended with another list).
+    public var lists: [String]
+    public init(endWall: Date, monoRemaining: Double, startWall: Date? = nil, lists: [String] = []) {
+        self.endWall = endWall; self.monoRemaining = monoRemaining; self.startWall = startWall; self.lists = lists
+    }
+    enum CodingKeys: String, CodingKey { case endWall, monoRemaining, startWall, lists }
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        endWall = try c.decode(Date.self, forKey: .endWall)
+        monoRemaining = try c.decode(Double.self, forKey: .monoRemaining)
+        startWall = try c.decodeIfPresent(Date.self, forKey: .startWall)
+        lists = try c.decodeIfPresent([String].self, forKey: .lists) ?? []
     }
 }
 
@@ -103,9 +141,17 @@ public struct State: Codable, Equatable {
     public var lastSavedWall: Date = Date(timeIntervalSince1970: 0)
     public var lastHeartbeat: Date?
     public var appsSeeded: Bool = false
+    public var lists: [BlockList] = []
+    /// v1.0 used a blocked flag per site/app; it is turned into "Locked In 1" once.
+    public var listsMigrated: Bool = false
+    /// Every list that has been part of the running lock; kept until the lock ends (a timer that expires mid-chain
+    /// is forgotten, its list is not).
+    public var lockLists: [String] = []
+    /// End of the lock `lockLists` belongs to; a lock that starts after it (e.g. after sleep) starts fresh.
+    public var lockListsUntil: Date?
     public init() {}
 
-    enum CodingKeys: String, CodingKey { case schemaVersion, sites, apps, schedules, timer, lastSavedWall, lastHeartbeat, appsSeeded }
+    enum CodingKeys: String, CodingKey { case schemaVersion, sites, apps, schedules, timer, lastSavedWall, lastHeartbeat, appsSeeded, lists, listsMigrated, lockLists, lockListsUntil }
 
     /// Every field is optional on disk: a state file written by an older or newer version must still load —
     /// a decode failure would otherwise drop a running lock.
@@ -119,6 +165,10 @@ public struct State: Codable, Equatable {
         lastSavedWall = try c.decodeIfPresent(Date.self, forKey: .lastSavedWall) ?? Date(timeIntervalSince1970: 0)
         lastHeartbeat = try c.decodeIfPresent(Date.self, forKey: .lastHeartbeat)
         appsSeeded = try c.decodeIfPresent(Bool.self, forKey: .appsSeeded) ?? false
+        lists = try c.decodeIfPresent([BlockList].self, forKey: .lists) ?? []
+        listsMigrated = try c.decodeIfPresent(Bool.self, forKey: .listsMigrated) ?? false
+        lockLists = try c.decodeIfPresent([String].self, forKey: .lockLists) ?? []
+        lockListsUntil = try c.decodeIfPresent(Date.self, forKey: .lockListsUntil)
     }
 }
 
@@ -128,4 +178,5 @@ public enum Limits {
     public static let maxApps = 300
     public static let maxSchedules = 50
     public static let maxLabel = 40
+    public static let maxLists = 20
 }

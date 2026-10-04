@@ -131,6 +131,9 @@ test('parseHHMM accepts the usual ways of typing a time', () => {
   assert.equal(parseHHMM('15:00'), '15:00');
   assert.equal(parseHHMM('15.30'), '15:30');
   assert.equal(parseHHMM(' 9:05 '), '09:05');
+  assert.equal(parseHHMM('9.5'), '09:50');
+  assert.equal(parseHHMM('9:3'), '09:30');
+  assert.equal(parseHHMM('9.7'), null);
   assert.equal(parseHHMM('24:00'), null);
   assert.equal(parseHHMM('12:60'), null);
   assert.equal(parseHHMM('abc'), null);

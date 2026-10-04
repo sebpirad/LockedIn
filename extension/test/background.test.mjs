@@ -205,6 +205,19 @@ test('worker: a 403 on /v1/heartbeat is never surfaced as an error', async () =>
   assert.equal(v.lastError, null);
 });
 
+test('worker: fetchIcon never touches a site that is blocked right now', async () => {
+  const ig = site('instagram', 'full', ['instagram.com']);
+  const own = { ...site('c-example-org', 'full', ['example.org']), builtin: false, blocked: false };
+  daemon = { mode: 'up', status: { ...status(true, 30), sites: [ig, own, ...SITES] } };
+  await refresh();
+  calls.length = 0;
+  await send({ type: 'fetchIcon', domain: 'instagram.com' }, page);
+  assert.deepEqual(calls.filter(([, u]) => /instagram/.test(u)), []);
+  await send({ type: 'fetchIcon', domain: 'example.org' }, page);
+  assert.ok(calls.some(([, u]) => u === 'https://example.org/'), 'an unblocked own site is looked up');
+  assert.ok(calls.every(([, u]) => !/google|duckduckgo|favicon\.(io|im)|s2\//.test(u)), 'no third-party favicon service');
+});
+
 test('worker: nextQuote serialises and never repeats back-to-back', async () => {
   const ids = ['a', 'b', 'c'];
   const got = await Promise.all(Array.from({ length: 9 }, () => send({ type: 'nextQuote', ids }, page)));

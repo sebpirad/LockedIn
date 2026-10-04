@@ -9,12 +9,19 @@ import {
 } from '../lib/time.js';
 import { normalizeDomain } from '../lib/domains.js';
 import { extendOptions } from '../lib/extend.js';
+import { pickList, nextListName, toggleMember, lockedTarget, blockedNow } from '../lib/lists.js';
+import { cphDate, periodText, scheduleBody } from '../lib/plan.js';
+import {
+  nameCommit, deletePrompt, blockPrompt, confirmLine, idleTimer, tileLabel, appLabel, appLetters,
+  nameFromDomain, healthMessage, startBlocker, confirmArmed,
+} from '../lib/view.js';
 import { glyphFor, LOCK_ICON, monogramColor } from './glyphs.js';
 
 const params = new URLSearchParams(location.search);
 const HAS_EXT = typeof chrome !== 'undefined' && !!(chrome.runtime && chrome.runtime.id);
 const MOCK = !HAS_EXT && params.get('mock') === '1';
 const LOCK_TIP = 'Kan ikke ændres under en aktiv session';
+const BROWSER_TIP = 'Andre browsere lukkes altid under fokus';
 const PRESETS = [25, 50, 60, 120, 240];
 const EXTEND_PRESETS = [25, 60, 120];
 
@@ -47,21 +54,42 @@ if (MOCK) {
   };
 }
 
+// Per-viewer conveniences: the last used list (chrome.storage in the extension), the start mode.
 const store = {
   get(k) { try { return localStorage.getItem(k); } catch { return null; } },
   set(k, v) { try { localStorage.setItem(k, v); } catch { /* private window etc. */ } },
 };
+async function loadLastList() {
+  if (HAS_EXT) {
+    try { return (await chrome.storage.local.get('lastList')).lastList || null; } catch { return null; }
+  }
+  return store.get('li.list');
+}
+function saveLastList(id) {
+  if (HAS_EXT) chrome.storage.local.set({ lastList: id }).catch(() => {});
+  else store.set('li.list', id);
+}
 
 const ui = {
   view: null,
   mode: store.get('li.mode') === 'until' ? 'until' : 'dur',
   minutes: 60,
+  custom: false,       // "Andet" chosen: the compact h/min input is shown
   step: 'idle',        // idle | confirm
   extendOpen: false,
   extendAdd: 60,
   busy: false,
-  editingSched: null,
+  listId: null,
+  naming: null,        // null | 'new' | 'rename'
+  menuAsk: false,      // "Slet …?" showing in the menu
+  shownAt: { tap: 0, del: 0, lock: 0 }, // when each confirm appeared (double-click guard)
+  defaultName: '',
+  pendingAdd: null,    // locked: {kind, id, label} waiting for "Bloker"
+  edits: 0,            // list edits in flight (optimistic)
   installed: null,
+  icons: {},           // domain → {data} for own sites (cached by the service worker)
+  iconsRev: 0,
+  plan: { kind: 'date', date: null, weekdays: [1, 2, 3, 4, 5], list: null },
   sigs: {},
 };
 
@@ -83,10 +111,10 @@ function h(tag, attrs, ...kids) {
 const show = (id, on) => { $(id).hidden = !on; };
 
 let toastTimer;
-function toast(msg, kind = 'err') {
+function toast(msg) {
   const t = $('toast');
   t.textContent = msg;
-  t.className = 'toast ' + kind;
+  t.className = 'toast';
   t.hidden = false;
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => { t.hidden = true; }, 5000);
@@ -98,11 +126,11 @@ async function act(fn) {
   document.body.classList.add('busy');
   try {
     await fn();
-    await refresh();
+    await refresh(true);
     return true;
   } catch (e) {
     toast(e && e.message ? e.message : 'Noget gik galt');
-    await refresh();
+    await refresh(true);
     return false;
   } finally {
     ui.busy = false;
@@ -113,9 +141,15 @@ async function act(fn) {
 const status = () => (ui.view && ui.view.status) || null;
 const sites = () => (status() && status().sites) || [];
 const apps = () => (status() && status().apps) || [];
+const lists = () => (status() && status().lists) || [];
+const activeListIds = () => (status() && status().active && status().activeLists) || [];
 const schedules = () => (status() && status().schedules) || [];
 const maxMinutes = () => (status() && status().maxSessionMinutes) || 1440;
 const reachable = () => !!(ui.view && ui.view.reachable);
+const currentList = () => lists().find((l) => l.id === ui.listId) || null;
+const listName = (id) => (lists().find((l) => l.id === id) || {}).name || '';
+/** Apps that can be on a list (not "always closed"). */
+const listApps = () => apps().filter((a) => !a.blocked);
 
 function lockInfo() {
   const v = ui.view || {};
@@ -134,13 +168,10 @@ function plannedEnd(now = Date.now()) {
   return now + ui.minutes * 60000;
 }
 
-/** Extensions the daemon will accept right now (24 h cap from the lock's start). */
 function extendChoices(until, now = Date.now()) {
   const since = status() && status().active && status().activeSince ? Date.parse(status().activeSince) : NaN;
   return extendOptions({ now, until, activeSince: since, presets: EXTEND_PRESETS, maxMinutes: maxMinutes() });
 }
-
-/** The selected choice, falling back to the largest one that still fits. */
 function extendTarget(until, now = Date.now()) {
   const opts = extendChoices(until, now);
   return opts.find((o) => o.add === ui.extendAdd) || opts[opts.length - 1] || null;
@@ -149,10 +180,19 @@ function extendTarget(until, now = Date.now()) {
 // ---------- hero ----------
 
 function renderPresets() {
-  $('presets').replaceChildren(...PRESETS.map((m) => h('button', {
-    type: 'button', class: 'chip' + (ui.minutes === m ? ' on' : ''), 'aria-pressed': String(ui.minutes === m),
-    onclick: () => setMinutes(m),
-  }, formatDuration(m))));
+  const chip = (label, on, onclick) => h('button', { type: 'button', class: 'chip' + (on ? ' on' : ''), 'aria-pressed': String(on), onclick }, label);
+  $('presets').replaceChildren(
+    ...PRESETS.map((m) => chip(formatDuration(m), !ui.custom && ui.minutes === m, () => { ui.custom = false; setMinutes(m); })),
+    chip('Andet', ui.custom || !PRESETS.includes(ui.minutes), () => openCustom()),
+  );
+  show('customRow', ui.custom);
+}
+
+function openCustom() {
+  ui.custom = true;
+  setMinutes(ui.minutes);
+  $('hours').focus();
+  $('hours').select();
 }
 
 function setMinutes(m, fromInputs) {
@@ -183,10 +223,9 @@ function setMode(mode) {
 }
 
 function renderHero() {
-  const { locked } = lockInfo();
+  const { locked, until } = lockInfo();
   const confirm = !locked && ui.step === 'confirm';
   const idle = !locked && !confirm;
-  if (!locked) ui.extendOpen = false;
 
   show('modeSwitch', idle);
   for (const b of $('modeSwitch').querySelectorAll('button')) {
@@ -199,12 +238,18 @@ function renderHero() {
   show('start', idle);
   show('lockNow', confirm);
   show('back', confirm);
-  const choices = locked ? extendChoices(lockInfo().until) : [];
+  const editable = idle && ui.mode === 'dur';
+  $('big').classList.toggle('editable', editable);
+  $('big').setAttribute('role', editable ? 'button' : 'timer');
+  if (editable) { $('big').tabIndex = 0; $('big').title = 'Vælg en anden varighed'; } else { $('big').removeAttribute('tabindex'); $('big').removeAttribute('title'); }
+
+  const choices = locked ? extendChoices(until) : [];
   if (!choices.length) ui.extendOpen = false;
   else if (!choices.some((o) => o.add === ui.extendAdd)) ui.extendAdd = choices[choices.length - 1].add;
   show('extend', locked && !ui.extendOpen && choices.length > 0);
   show('extendPanel', locked && ui.extendOpen);
   document.body.classList.toggle('is-locked', locked);
+  if (!locked) ui.pendingAdd = null;
 
   $('lockNow').disabled = !reachable();
   $('extend').disabled = !reachable();
@@ -214,6 +259,8 @@ function renderHero() {
       onclick: () => { ui.extendAdd = m; renderHero(); },
     }, '+ ' + formatDuration(m))));
   }
+  renderListLine();
+  renderTapConfirm();
   tick();
 }
 
@@ -232,6 +279,7 @@ function tick() {
   const big = $('big');
   const sub = $('sub');
   if (locked) {
+    $('listEmpty').hidden = true;
     big.textContent = formatCountdown(until - now);
     big.classList.remove('dim');
     sub.textContent = `Låst til ${shortWhen(now, until)}`;
@@ -250,35 +298,429 @@ function tick() {
 
   document.title = 'Locked in';
   const end = plannedEnd(now);
-  big.textContent = formatCountdown(end == null ? 0 : end - now);
+  // Idle: a static preview in whole minutes. Only a running lock moves its seconds.
+  big.textContent = ui.mode === 'until' ? idleTimer(end == null ? 0 : end - now) : formatCountdown(ui.minutes * 60000);
   big.classList.toggle('dim', end == null);
   $('untilErr').hidden = !(ui.mode === 'until' && end == null && $('untilTime').value !== '');
-  $('start').disabled = !reachable() || end == null;
+
+  const list = currentList();
+  const blocker = startBlocker({ reachable: reachable(), end, list, hasLists: lists().length > 0 });
+  $('start').disabled = !!blocker;
+  $('listEmpty').hidden = blocker !== 'empty' || !!ui.naming;
   if (ui.step === 'confirm') {
     if (end == null) { ui.step = 'idle'; renderHero(); return; }
-    sub.textContent = `Låst til ${shortWhen(now, end)} · kan ikke stoppes`;
+    sub.textContent = confirmLine(now, end, list ? list.name : '');
     sub.hidden = false;
   } else {
     sub.hidden = true;
   }
 }
 
+// ---------- list picker ----------
+
+function selectList(id) {
+  ui.listId = id;
+  saveLastList(id);
+  ui.sigs.tiles = null;
+  closeMenu();
+  render();
+}
+
+function renderListLine() {
+  const { locked } = lockInfo();
+  const naming = !!ui.naming;
+  const confirm = !locked && ui.step === 'confirm';
+  $('listLine').hidden = confirm;
+  show('listBtn', !locked && !confirm && !naming && !!listName(ui.listId));
+  show('nameForm', !locked && !confirm && naming);
+  const inForce = activeListIds();
+  show('listStatic', locked && inForce.length > 0);
+  $('listStatic').textContent = inForce.map(listName).filter(Boolean).join(' + ');
+  $('listName').textContent = listName(ui.listId);
+  if (locked || confirm) closeMenu();
+}
+
+function closeMenu() {
+  ui.menuAsk = false;
+  $('listMenu').hidden = true;
+  $('listBtn').setAttribute('aria-expanded', 'false');
+}
+
+function renderMenu() {
+  const cur = currentList();
+  const item = (label, onclick, cls = '') => h('button', { type: 'button', role: 'menuitem', class: 'menu-item ' + cls, onclick }, h('span', { class: 'check' }), label);
+  if (ui.menuAsk && cur) {
+    $('listMenu').replaceChildren(h('div', { class: 'menu-ask' },
+      h('div', {}, deletePrompt(cur.name)),
+      h('div', { class: 'actions' },
+        h('button', { type: 'button', class: 'primary small danger-btn', onclick: (e) => { if (confirmArmed(ui.shownAt.del, performance.now(), e.detail)) deleteCurrentList(); } }, 'Slet'),
+        h('button', { type: 'button', class: 'ghost small', onclick: () => { ui.menuAsk = false; renderMenu(); } }, 'Annullér'))));
+    return;
+  }
+  const others = lists().filter((l) => l.id !== ui.listId);
+  $('listMenu').replaceChildren(
+    cur ? h('button', { type: 'button', role: 'menuitemradio', 'aria-checked': 'true', class: 'menu-item current', onclick: () => closeMenu() },
+      h('span', { class: 'check' }, '✓'), cur.name) : null,
+    ...others.map((l) => h('button', { type: 'button', role: 'menuitemradio', 'aria-checked': 'false', class: 'menu-item', onclick: () => selectList(l.id) },
+      h('span', { class: 'check' }), l.name)),
+    h('div', { class: 'menu-sep' }),
+    item('Ny liste', () => startNaming('new')),
+    item('Omdøb', () => startNaming('rename')),
+    lists().length > 1 ? item('Slet', () => { ui.menuAsk = true; ui.shownAt.del = performance.now(); renderMenu(); }, 'danger') : null,
+  );
+}
+
+function openMenu() {
+  ui.menuAsk = false;
+  renderMenu();
+  $('listMenu').hidden = false;
+  $('listBtn').setAttribute('aria-expanded', 'true');
+}
+
+function startNaming(kind) {
+  closeMenu();
+  ui.naming = kind;
+  ui.defaultName = kind === 'new' ? nextListName(lists()) : listName(ui.listId);
+  $('nameInput').value = ui.defaultName;
+  renderListLine();
+  tick();
+  $('nameInput').focus();
+  $('nameInput').select();
+}
+
+function cancelNaming() {
+  ui.naming = null;
+  renderListLine();
+  tick();
+}
+
+let committing = false;
+/** Enter and blur both save; Escape cancels (cancelNaming runs before the blur). */
+async function commitName(via) {
+  if (committing || !ui.naming) return;
+  committing = true;
+  const kind = ui.naming;
+  const cur = currentList();
+  const c = nameCommit(kind, $('nameInput').value, cur ? cur.name : '', via, ui.defaultName);
+  ui.naming = null;
+  renderListLine();
+  try {
+    if (c.op === 'create') {
+      const before = new Set(lists().map((l) => l.id));
+      if (await act(() => api.addList(c.name, [], []))) {
+        const created = lists().find((l) => !before.has(l.id));
+        if (created) selectList(created.id);
+      }
+    } else if (c.op === 'rename' && cur) {
+      await act(() => api.putList(cur.id, { name: c.name, sites: cur.sites, apps: cur.apps }));
+    }
+  } finally {
+    committing = false;
+    tick();
+  }
+}
+
+async function deleteCurrentList() {
+  const id = ui.listId;
+  closeMenu();
+  if (await act(() => api.deleteList(id))) selectList(pickList(lists(), null));
+}
+
+// ---------- icon row ----------
+
+function siteIcon(site, cls = 'glyph') {
+  const glyph = glyphFor(site);
+  if (glyph) return h('span', { class: cls, html: glyph });
+  const own = !site.builtin && site.suffixes && ui.icons[site.suffixes[0]];
+  if (own && own.data && own.data.startsWith('data:image/png;base64,')) {
+    return h('span', { class: cls }, h('img', { src: own.data, alt: '', draggable: 'false' }));
+  }
+  const m = h('span', { class: 'mono' }, (site.label || site.id || '?').trim().charAt(0).toUpperCase());
+  m.style.background = monogramColor(site.id || site.label);
+  return h('span', { class: cls }, m);
+}
+function appIcon(a, cls = 'glyph') {
+  const m = h('span', { class: 'mono' }, appLetters(a.name || a.bundleId));
+  m.style.background = monogramColor(a.bundleId || a.name);
+  return h('span', { class: cls }, m);
+}
+const badge = () => h('span', { class: 'badge', html: LOCK_ICON });
+
+let editChain = Promise.resolve();
+/** Optimistic list edit: update the local copy now, send PUTs one after the other. */
+function editList(listId, kind, id, listIsActive) {
+  const l = lists().find((x) => x.id === listId);
+  const body = toggleMember(l, kind, id, listIsActive);
+  if (!body) return;
+  Object.assign(l, { sites: body.sites, apps: body.apps });
+  ui.sigs.tiles = null;
+  renderTiles();
+  tick();
+  ui.edits++;
+  editChain = editChain
+    .then(() => api.putList(listId, { name: l.name, sites: [...l.sites], apps: [...l.apps] }))
+    .catch((e) => toast(e && e.message ? e.message : 'Noget gik galt'))
+    .finally(() => { ui.edits--; if (!ui.edits) refresh(true); });
+}
+
+function onTileTap(it, list, locked) {
+  if (!locked) { editList(list.id, it.kind, it.id, false); return; }
+  ui.pendingAdd = { kind: it.kind, id: it.id, label: it.label, list: list.id };
+  ui.shownAt.tap = performance.now();
+  renderTapConfirm();
+}
+
+function renderTapConfirm() {
+  const { locked, until } = lockInfo();
+  const p = locked ? ui.pendingAdd : null;
+  show('tapConfirm', !!p);
+  if (p) $('tapText').textContent = blockPrompt(p.label, until, Date.now());
+}
+
+function renderTiles() {
+  const { locked } = lockInfo();
+  const target = locked ? lockedTarget(activeListIds(), ui.listId) : ui.listId;
+  const list = lists().find((l) => l.id === target);
+  const now = blockedNow(status());
+  const sig = JSON.stringify([locked, target, list, sites().map((s) => [s.id, s.label, s.blocked]), apps(), ui.edits > 0 ? 'e' : '', ui.iconsRev]);
+  if (ui.sigs.tiles === sig) return;
+  ui.sigs.tiles = sig;
+
+  const isOn = (kind, id) => (locked ? now[kind].has(id) : !!list && list[kind].includes(id));
+  const orderedSites = [...sites().filter((s) => s.builtin), ...sites().filter((s) => !s.builtin)];
+  let items = [
+    ...orderedSites.map((s) => ({ kind: 'sites', id: s.id, label: tileLabel(s.label || s.id), icon: () => siteIcon(s) })),
+    ...listApps().map((a) => ({ kind: 'apps', id: a.bundleId, label: appLabel(a, sites()), icon: () => appIcon(a) })),
+  ];
+  // Locked without a list we can add to: only what is blocked, read-only.
+  if (locked && !list) items = items.filter((it) => isOn(it.kind, it.id));
+
+  const tiles = items.map((it) => {
+    const on = isOn(it.kind, it.id);
+    const icon = it.icon();
+    if (on) icon.append(badge());
+    const cls = 'tile' + (on ? ' on' : ' off');
+    const inner = [icon, h('span', { class: 'tile-label' }, it.label)];
+    if (!list || (locked && on)) return h('div', { class: cls, title: it.label }, inner);
+    return h('button', {
+      type: 'button', class: cls, 'aria-pressed': String(on), title: it.label,
+      onclick: () => onTileTap(it, list, locked),
+    }, inner);
+  });
+  if (list) {
+    tiles.push(h('button', { type: 'button', class: 'tile add-tile', title: 'Tilføj', 'aria-label': 'Tilføj hjemmeside eller app', onclick: openAdd },
+      h('span', { class: 'glyph plus' }, '+'), h('span', { class: 'tile-label' }, ' ')));
+  }
+  $('tiles').replaceChildren(...tiles);
+}
+
+// ---------- "+": own site or app straight onto the list ----------
+
+function addTargetList() {
+  const { locked } = lockInfo();
+  return locked ? lockedTarget(activeListIds(), ui.listId) : ui.listId;
+}
+
+function setAddKind(kind) {
+  for (const b of $('addKind').querySelectorAll('button')) b.classList.toggle('on', b.dataset.kind === kind);
+  show('addSite', kind === 'site');
+  show('addApp', kind === 'app');
+  if (kind === 'site') $('siteDomain').focus();
+  else { $('pickerSearch').focus(); loadInstalled(); }
+}
+
+function openAdd() {
+  const { locked, until } = lockInfo();
+  $('addSite').reset();
+  $('siteErr').hidden = true;
+  $('pickerSearch').value = '';
+  // Locked: adding blocks for the rest of the session — the button says so.
+  $('siteSubmit').textContent = locked ? `Bloker til ${shortWhen(Date.now(), until)}` : 'Tilføj';
+  $('addDlg').showModal();
+  setAddKind('site');
+}
+
+async function loadInstalled() {
+  renderPicker();
+  try {
+    const res = await api.installed();
+    ui.installed = Array.isArray(res) ? res : (res && res.apps) || [];
+  } catch (e) {
+    ui.installed = [];
+    toast(e.message);
+  }
+  renderPicker();
+}
+
+function renderPicker() {
+  const q = $('pickerSearch').value.trim().toLowerCase();
+  const list = lists().find((l) => l.id === addTargetList());
+  const onList = new Set(list ? list.apps : []);
+  const always = new Set(apps().filter((a) => a.blocked).map((a) => a.bundleId));
+  if (!ui.installed) { $('pickerList').replaceChildren(h('li', { class: 'muted' }, '…')); return; }
+  const rows = ui.installed
+    .filter((a) => a.kind !== 'browser' && !onList.has(a.bundleId) && !always.has(a.bundleId))
+    .filter((a) => !q || (a.name || '').toLowerCase().includes(q))
+    .sort((a, b) => (a.name || '').localeCompare(b.name || '', 'da'))
+    .slice(0, 300);
+  $('pickerList').replaceChildren(...rows.map((a) => h('li', {},
+    h('button', {
+      type: 'button', class: 'pick',
+      onclick: async () => { if (await act(() => api.addApp(a.bundleId, addTargetList()))) $('addDlg').close(); },
+    }, appIcon(a, 'glyph small'), h('span', { class: 'row-title' }, a.name)))));
+}
+
+function setupAdd() {
+  for (const b of $('addKind').querySelectorAll('button')) b.onclick = () => setAddKind(b.dataset.kind);
+  $('addClose').onclick = () => $('addDlg').close();
+  $('addDlg').addEventListener('click', (e) => { if (e.target === $('addDlg')) $('addDlg').close(); });
+  $('pickerSearch').addEventListener('input', renderPicker);
+  $('addSite').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const domain = normalizeDomain($('siteDomain').value);
+    if (!domain) { $('siteErr').textContent = 'Ugyldigt domæne'; $('siteErr').hidden = false; return; }
+    const label = $('siteLabel').value.trim() || nameFromDomain(domain);
+    if (await act(() => api.addSite(label, domain, addTargetList()))) {
+      $('addDlg').close();
+      requestIcon(domain);
+    }
+  });
+}
+
+// ---------- icons for own sites ----------
+
+function setIcons(map) {
+  ui.icons = map || {};
+  ui.iconsRev++;
+  ui.sigs.tiles = null;
+  renderTiles();
+}
+
+/** Ask for an icon right after adding a site. The service worker skips blocked sites. */
+function requestIcon(domain) {
+  if (MOCK) { if (api.fetchIcon) api.fetchIcon(domain).then(() => setIcons(api.icons())).catch(() => {}); return; }
+  if (HAS_EXT) chrome.runtime.sendMessage({ type: 'fetchIcon', domain }).catch(() => {});
+}
+
+async function setupIcons() {
+  if (MOCK) {
+    if (!api.icons) return;
+    setIcons(api.icons());
+    setInterval(() => { const m = api.icons(); if (JSON.stringify(m) !== JSON.stringify(ui.icons)) setIcons(m); }, 1000);
+    return;
+  }
+  if (!HAS_EXT) return;
+  try { setIcons((await chrome.storage.local.get('icons')).icons); } catch { /* none yet */ }
+  chrome.storage.onChanged.addListener((changes, area) => {
+    if (area === 'local' && changes.icons) setIcons(changes.icons.newValue);
+  });
+}
+
+// ---------- settings: Planlæg + always-closed apps ----------
+
+function lockMark(tip = LOCK_TIP) { return h('span', { class: 'lock', title: tip, html: LOCK_ICON }); }
+
+function renderPlanList(locked) {
+  const now = Date.now();
+  $('planList').replaceChildren(...schedules().map((sc) => h('li', { class: 'row' + (sc.enabled === false ? ' dim' : '') },
+    h('span', { class: 'row-title' }, periodText(sc, lists(), now)),
+    locked ? lockMark() : h('button', {
+      type: 'button', class: 'icon-btn', 'aria-label': 'Slet', title: 'Slet', disabled: ui.busy,
+      onclick: () => act(() => api.deleteSchedule(sc.id)),
+    }, '×'))));
+}
+
+function renderAppList(locked) {
+  const always = apps().filter((a) => a.blocked);
+  $('appsSection').hidden = !always.length;
+  $('appList').replaceChildren(...always.map((a) => {
+    if (a.kind === 'browser') {
+      return h('li', { class: 'row fixed', title: BROWSER_TIP },
+        appIcon(a, 'glyph small'), h('span', { class: 'row-title' }, a.name || a.bundleId), lockMark(BROWSER_TIP));
+    }
+    return h('li', { class: 'row' },
+      appIcon(a, 'glyph small'), h('span', { class: 'row-title' }, a.name || a.bundleId),
+      locked ? lockMark() : h('button', {
+        type: 'button', class: 'ghost small', disabled: ui.busy,
+        onclick: () => act(() => api.setAppBlocked(a.bundleId, false)),
+      }, 'Fjern'));
+  }));
+}
+
+function renderPlanForm() {
+  const p = ui.plan;
+  for (const b of $('planKind').querySelectorAll('button')) b.classList.toggle('on', b.dataset.kind === p.kind);
+  show('planDate', p.kind === 'date');
+  show('planDays', p.kind === 'weekly');
+  const now = Date.now();
+  for (const b of $('planDate').querySelectorAll('[data-day]')) b.classList.toggle('on', p.date === cphDate(now, +b.dataset.day));
+  $('planDateInput').min = cphDate(now, 0);
+  if ($('planDateInput').value !== (p.date || '')) $('planDateInput').value = p.date || '';
+  $('planDateInput').classList.toggle('on', !!p.date && p.date !== cphDate(now, 0) && p.date !== cphDate(now, 1));
+  $('planDays').replaceChildren(...[1, 2, 3, 4, 5, 6, 7].map((d) => {
+    const on = p.weekdays.includes(d);
+    return h('button', {
+      type: 'button', class: 'day' + (on ? ' on' : ''), 'aria-pressed': String(on),
+      onclick: () => { p.weekdays = on ? p.weekdays.filter((x) => x !== d) : [...p.weekdays, d].sort(); renderPlanForm(); },
+    }, weekdayShort(d));
+  }));
+  if (!lists().some((l) => l.id === p.list)) p.list = ui.listId || pickList(lists(), null);
+  $('planLists').replaceChildren(...lists().map((l) => h('button', {
+    type: 'button', class: 'chip' + (p.list === l.id ? ' on' : ''), 'aria-pressed': String(p.list === l.id),
+    onclick: () => { p.list = l.id; renderPlanForm(); },
+  }, l.name)));
+}
+
+function renderSettings() {
+  if (!$('settings').open) return;
+  const { locked } = lockInfo();
+  const sig = JSON.stringify([locked, ui.busy, schedules(), lists().map((l) => [l.id, l.name]), apps()]);
+  if (ui.sigs.settings === sig) return;
+  ui.sigs.settings = sig;
+  renderPlanList(locked);
+  renderAppList(locked);
+  if (!$('planForm').hidden) renderPlanForm();
+}
+
+function setupSettings() {
+  const dlg = $('settings');
+  $('gear').onclick = () => { ui.sigs.settings = null; dlg.showModal(); renderSettings(); };
+  $('settingsClose').onclick = () => dlg.close();
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+
+  const form = $('planForm');
+  const close = () => { form.hidden = true; $('addPlanBtn').hidden = false; $('planErr').hidden = true; };
+  $('addPlanBtn').onclick = () => {
+    ui.plan = { kind: 'date', date: cphDate(Date.now(), 1), weekdays: [1, 2, 3, 4, 5], list: ui.listId };
+    $('planStart').value = '09:00';
+    $('planEnd').value = '12:00';
+    $('planErr').hidden = true;
+    form.hidden = false;
+    $('addPlanBtn').hidden = true;
+    renderPlanForm();
+  };
+  for (const b of $('planKind').querySelectorAll('button')) b.onclick = () => { ui.plan.kind = b.dataset.kind; renderPlanForm(); };
+  for (const b of $('planDate').querySelectorAll('[data-day]')) b.onclick = () => { ui.plan.date = cphDate(Date.now(), +b.dataset.day); renderPlanForm(); };
+  $('planDateInput').addEventListener('change', () => { ui.plan.date = $('planDateInput').value || null; renderPlanForm(); });
+  for (const id of ['planStart', 'planEnd']) {
+    $(id).addEventListener('change', () => { const v = parseHHMM($(id).value); if (v) $(id).value = v; });
+  }
+  form.querySelector('[data-cancel]').onclick = close;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const r = scheduleBody({ ...ui.plan, start: $('planStart').value, end: $('planEnd').value }, Date.now());
+    if (r.error) { $('planErr').textContent = r.error; $('planErr').hidden = false; return; }
+    if (await act(() => api.addSchedule(r.body))) close();
+  });
+}
+
 // ---------- alert / next ----------
 
 function renderAlert() {
-  const v = ui.view;
-  let msg = '';
-  if (v && !v.reachable) {
-    msg = 'Locked in-tjenesten svarer ikke';
-  } else if (v && v.status) {
-    const e = v.status.enforcement || {};
-    const broken = [e.hosts === false && 'hosts', e.pf === false && 'netværksfilter', e.appControl === false && 'app-kontrol'].filter(Boolean);
-    const tickAt = e.lastTick ? Date.parse(e.lastTick) : null;
-    if (broken.length) msg = `Virker ikke: ${broken.join(', ')}`;
-    else if (tickAt && Date.now() - tickAt > 120000) msg = `Tjenesten har ikke tjekket siden ${formatClock(tickAt)}`;
-  }
-  $('alert').textContent = msg;
-  $('alert').hidden = !msg;
+  const m = healthMessage(ui.view, Date.now());
+  $('alert').textContent = m ? m.text : '';
+  $('alert').title = m ? m.title : '';
+  $('alert').hidden = !m;
 }
 
 function renderNext() {
@@ -289,239 +731,16 @@ function renderNext() {
   const start = Date.parse(ns.start);
   const d = dayDiff(now, start);
   const day = d === 0 ? 'i dag' : d === 1 ? 'i morgen' : weekdayName(cphParts(start).weekday);
-  $('next').textContent = `Næste: ${day} ${formatClock(start)}`;
+  const name = ns.listName || listName(ns.list);
+  $('next').textContent = `Næste: ${day} ${formatClock(start)}${name ? ' · ' + name : ''}`;
   $('next').hidden = false;
-}
-
-// ---------- site tiles ----------
-
-function siteIcon(site, cls = 'glyph') {
-  const glyph = glyphFor(site);
-  if (glyph) return h('span', { class: cls, html: glyph });
-  const el = h('span', { class: cls + ' mono' }, (site.label || site.id || '?').trim().charAt(0).toUpperCase());
-  el.style.background = monogramColor(site.id || site.label);
-  return el;
-}
-
-function renderTiles() {
-  const { locked } = lockInfo();
-  const list = locked ? sites().filter((s) => s.blocked) : sites();
-  const sig = JSON.stringify([locked, ui.busy, list.map((s) => [s.id, s.label, s.blocked])]);
-  if (ui.sigs.tiles === sig) return;
-  ui.sigs.tiles = sig;
-  const ordered = [...list.filter((s) => s.builtin), ...list.filter((s) => !s.builtin)];
-  $('tiles').replaceChildren(...ordered.map((s) => {
-    const cls = 'tile' + (s.blocked ? ' on' : ' off');
-    const inner = [siteIcon(s), h('span', { class: 'tile-label' }, s.label || s.id)];
-    if (locked) return h('div', { class: cls }, inner);
-    return h('button', {
-      type: 'button', class: cls, disabled: ui.busy, 'aria-pressed': String(!!s.blocked),
-      title: s.blocked ? `${s.label}: blokeret` : `${s.label}: tilladt`,
-      onclick: () => act(() => api.setSiteBlocked(s.id, !s.blocked)),
-    }, inner);
-  }));
-}
-
-// ---------- settings ----------
-
-function lockMark() { return h('span', { class: 'lock', title: LOCK_TIP, html: LOCK_ICON }); }
-
-function toggle(on, attrs) {
-  return h('button', { type: 'button', role: 'switch', 'aria-checked': String(!!on), class: 'switch' + (on ? ' on' : ''), ...attrs },
-    h('span', { class: 'knob' }));
-}
-
-/** Trailing control: delete button, or a lock while a session runs. */
-function trailing(locked, label, onDelete) {
-  if (locked) return lockMark();
-  if (!onDelete) return h('span', { class: 'spacer' });
-  return h('button', { type: 'button', class: 'icon-btn', 'aria-label': `Fjern ${label}`, title: 'Fjern', disabled: ui.busy, onclick: onDelete }, '×');
-}
-
-function renderSiteList(locked) {
-  $('siteList').replaceChildren(...sites().map((s) => h('li', { class: 'row' },
-    siteIcon(s, 'glyph small'),
-    h('span', { class: 'row-title' }, s.label || s.id),
-    toggle(s.blocked, {
-      disabled: (locked && s.blocked) || ui.busy, title: locked && s.blocked ? LOCK_TIP : null, 'aria-label': `Bloker ${s.label}`,
-      onclick: () => act(() => api.setSiteBlocked(s.id, !s.blocked)),
-    }),
-    trailing(locked && (s.blocked || !s.builtin), s.label, s.builtin ? null : () => act(() => api.deleteSite(s.id))),
-  )));
-}
-
-const BROWSER_TIP = 'Andre browsere lukkes altid under fokus';
-
-function renderAppList(locked) {
-  $('appList').replaceChildren(...apps().map((a) => {
-    // Other browsers are always closed during a session: no choice offered.
-    if (a.kind === 'browser') {
-      return h('li', { class: 'row fixed', title: BROWSER_TIP },
-        h('span', { class: 'app-ic' }, (a.name || '?').charAt(0).toUpperCase()),
-        h('span', { class: 'row-title' }, a.name || a.bundleId),
-        toggle(true, { disabled: true, 'aria-label': `${a.name}: ${BROWSER_TIP}` }),
-        h('span', { class: 'lock', html: LOCK_ICON }));
-    }
-    return h('li', { class: 'row' },
-      h('span', { class: 'app-ic' }, (a.name || '?').charAt(0).toUpperCase()),
-      h('span', { class: 'row-title' }, a.name || a.bundleId),
-      toggle(a.blocked, {
-        disabled: (locked && a.blocked) || ui.busy, title: locked && a.blocked ? LOCK_TIP : null, 'aria-label': `Bloker ${a.name}`,
-        onclick: () => act(() => api.setAppBlocked(a.bundleId, !a.blocked)),
-      }),
-      trailing(locked, a.name, () => act(() => api.deleteApp(a.bundleId))));
-  }));
-}
-
-function daysText(days) {
-  const d = [...new Set(days || [])].sort((a, b) => a - b);
-  if (d.length === 7) return 'Alle dage';
-  const run = d.length >= 3 && d.every((x, i) => i === 0 || x === d[i - 1] + 1);
-  return run ? `${weekdayShort(d[0])}–${weekdayShort(d[d.length - 1])}` : d.map(weekdayShort).join(', ');
-}
-
-function renderSchedList(locked) {
-  $('schedList').replaceChildren(...schedules().map((sc) => h('li', { class: 'row' + (sc.enabled ? '' : ' dim') },
-    h('span', { class: 'row-main' },
-      h('span', { class: 'row-title' }, sc.name || 'Fast tid'),
-      h('span', { class: 'row-sub' }, `${daysText(sc.weekdays)} · ${sc.start}–${sc.end}`)),
-    locked ? null : h('button', { type: 'button', class: 'icon-btn text', disabled: ui.busy, onclick: () => openSchedForm(sc) }, 'Ret'),
-    toggle(sc.enabled, {
-      disabled: locked || ui.busy, title: locked ? LOCK_TIP : null, 'aria-label': `${sc.name} aktiv`,
-      onclick: () => act(() => api.putSchedule(sc.id, { name: sc.name, weekdays: sc.weekdays, start: sc.start, end: sc.end, enabled: !sc.enabled })),
-    }),
-    trailing(locked, sc.name, () => act(() => api.deleteSchedule(sc.id))),
-  )));
-}
-
-function renderSettings() {
-  if (!$('settings').open) return;
-  const { locked } = lockInfo();
-  const sig = JSON.stringify([locked, ui.busy, sites(), apps(), schedules()]);
-  if (ui.sigs.settings === sig) return;
-  ui.sigs.settings = sig;
-  renderSiteList(locked);
-  renderAppList(locked);
-  renderSchedList(locked);
-  renderPicker();
-}
-
-function setupAddSite() {
-  const form = $('addSite');
-  const close = () => { form.hidden = true; $('addSiteBtn').hidden = false; form.reset(); $('siteErr').hidden = true; };
-  $('addSiteBtn').onclick = () => { form.hidden = false; $('addSiteBtn').hidden = true; $('siteLabel').focus(); };
-  form.querySelector('[data-cancel]').onclick = close;
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const domain = normalizeDomain($('siteDomain').value);
-    if (!domain) { $('siteErr').textContent = 'Ugyldigt domæne'; $('siteErr').hidden = false; return; }
-    const label = $('siteLabel').value.trim() || domain;
-    if (await act(() => api.addSite(label, domain))) close();
-  });
-}
-
-function closePicker() { $('picker').hidden = true; $('addAppBtn').hidden = false; }
-
-function renderPicker() {
-  if ($('picker').hidden) return;
-  const q = $('pickerSearch').value.trim().toLowerCase();
-  const have = new Set(apps().map((a) => a.bundleId));
-  if (!ui.installed) { $('pickerList').replaceChildren(h('li', { class: 'muted' }, '…')); return; }
-  const list = ui.installed
-    .filter((a) => !have.has(a.bundleId) && a.kind !== 'browser')
-    .filter((a) => !q || (a.name || '').toLowerCase().includes(q))
-    .sort((a, b) => (a.name || '').localeCompare(b.name || '', 'da'))
-    .slice(0, 300);
-  $('pickerList').replaceChildren(...list.map((a) => h('li', {},
-    h('button', {
-      type: 'button', class: 'pick',
-      onclick: async () => { if (await act(() => api.addApp(a.bundleId))) closePicker(); },
-    }, h('span', { class: 'app-ic' }, (a.name || '?').charAt(0).toUpperCase()), h('span', { class: 'row-title' }, a.name)))));
-}
-
-function setupPicker() {
-  $('addAppBtn').onclick = async () => {
-    $('pickerSearch').value = '';
-    $('picker').hidden = false;
-    $('addAppBtn').hidden = true;
-    renderPicker();
-    $('pickerSearch').focus();
-    try {
-      const res = await api.installed();
-      ui.installed = Array.isArray(res) ? res : (res && res.apps) || [];
-    } catch (e) {
-      ui.installed = [];
-      toast(e.message);
-    }
-    renderPicker();
-  };
-  $('pickerSearch').addEventListener('input', renderPicker);
-  $('pickerClose').onclick = closePicker;
-}
-
-let formDays = [];
-function renderFormDays() {
-  $('schedDays').replaceChildren(...[1, 2, 3, 4, 5, 6, 7].map((d) => {
-    const on = formDays.includes(d);
-    return h('button', {
-      type: 'button', class: 'day' + (on ? ' on' : ''), 'aria-pressed': String(on),
-      onclick: () => { formDays = on ? formDays.filter((x) => x !== d) : [...formDays, d].sort(); renderFormDays(); },
-    }, weekdayShort(d));
-  }));
-}
-
-function openSchedForm(sc) {
-  ui.editingSched = sc || 'new';
-  $('schedName').value = sc ? sc.name : '';
-  $('schedStart').value = sc ? sc.start : '09:00';
-  $('schedEnd').value = sc ? sc.end : '12:00';
-  formDays = sc ? [...sc.weekdays] : [1, 2, 3, 4, 5];
-  $('schedSave').textContent = sc ? 'Gem' : 'Tilføj';
-  $('schedErr').hidden = true;
-  renderFormDays();
-  $('schedForm').hidden = false;
-  $('addSchedBtn').hidden = true;
-  $('schedName').focus();
-}
-
-function setupSchedForm() {
-  const form = $('schedForm');
-  const close = () => { form.hidden = true; $('addSchedBtn').hidden = false; ui.editingSched = null; };
-  $('addSchedBtn').onclick = () => openSchedForm(null);
-  form.querySelector('[data-cancel]').onclick = close;
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const editing = ui.editingSched;
-    const body = {
-      name: $('schedName').value.trim(),
-      weekdays: formDays,
-      start: parseHHMM($('schedStart').value) || '',
-      end: parseHHMM($('schedEnd').value) || '',
-      enabled: editing === 'new' ? true : !!editing.enabled,
-    };
-    const err = !body.name ? 'Mangler navn'
-      : !body.weekdays.length ? 'Vælg mindst én dag'
-        : !/^\d{2}:\d{2}$/.test(body.start) || !/^\d{2}:\d{2}$/.test(body.end) ? 'Vælg tidspunkter'
-          : body.start === body.end ? 'Start og slut er ens' : '';
-    if (err) { $('schedErr').textContent = err; $('schedErr').hidden = false; return; }
-    const ok = await act(() => (editing === 'new' ? api.addSchedule(body) : api.putSchedule(editing.id, body)));
-    if (ok) close();
-  });
-}
-
-function setupSettings() {
-  const dlg = $('settings');
-  $('gear').onclick = () => { ui.sigs.settings = null; dlg.showModal(); renderSettings(); };
-  $('settingsClose').onclick = () => dlg.close();
-  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
-  setupAddSite();
-  setupPicker();
-  setupSchedForm();
 }
 
 // ---------- wiring ----------
 
 function render() {
+  const picked = pickList(lists(), ui.listId);
+  if (picked !== ui.listId && picked) { ui.listId = picked; }
   renderAlert();
   renderHero();
   renderTiles();
@@ -530,7 +749,8 @@ function render() {
 }
 
 let refreshing = null;
-async function refresh() {
+async function refresh(force) {
+  if (ui.edits && !force) return null; // don't overwrite an optimistic edit with an older status
   if (refreshing) return refreshing;
   refreshing = (async () => {
     try {
@@ -543,7 +763,8 @@ async function refresh() {
   return refreshing;
 }
 
-function setup() {
+async function setup() {
+  ui.listId = await loadLastList();
   setMinutes(60);
   const d = defaultUntil(Date.now());
   if (d) $('untilTime').value = d;
@@ -551,24 +772,54 @@ function setup() {
   $('hours').addEventListener('input', onCustomInput);
   $('mins').addEventListener('input', onCustomInput);
   for (const id of ['hours', 'mins']) $(id).addEventListener('change', () => setMinutes(ui.minutes));
+  $('big').addEventListener('click', () => { if ($('big').classList.contains('editable')) openCustom(); });
+  $('big').addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key === ' ') && $('big').classList.contains('editable')) { e.preventDefault(); openCustom(); } });
   $('untilTime').addEventListener('input', tick);
-  for (const id of ['untilTime', 'schedStart', 'schedEnd']) {
-    $(id).addEventListener('change', () => { const v = parseHHMM($(id).value); if (v) $(id).value = v; tick(); });
-  }
+  $('untilTime').addEventListener('change', () => { const v = parseHHMM($('untilTime').value); if (v) $('untilTime').value = v; tick(); });
   $('untilTime').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('start').click(); });
 
-  $('start').onclick = () => { if (plannedEnd() != null) { ui.step = 'confirm'; renderHero(); $('lockNow').focus(); } };
+  $('listBtn').onclick = (e) => { e.stopPropagation(); if ($('listMenu').hidden) openMenu(); else closeMenu(); };
+  // composedPath: a menu click re-renders the menu, so e.target may already be detached.
+  document.addEventListener('click', (e) => { if (!e.composedPath().includes($('listLine'))) closeMenu(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    closeMenu();
+    if (ui.pendingAdd) { ui.pendingAdd = null; renderTapConfirm(); }
+  });
+  $('nameForm').addEventListener('submit', (e) => { e.preventDefault(); commitName('enter'); });
+  $('nameInput').addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.preventDefault(); cancelNaming(); } });
+  $('nameInput').addEventListener('blur', () => { commitName('blur'); });
+
+  $('tapYes').onclick = (e) => {
+    if (!confirmArmed(ui.shownAt.tap, performance.now(), e.detail)) return;
+    const p = ui.pendingAdd;
+    ui.pendingAdd = null;
+    renderTapConfirm();
+    if (p && lockInfo().locked) editList(p.list, p.kind, p.id, true);
+  };
+  $('tapNo').onclick = () => { ui.pendingAdd = null; renderTapConfirm(); };
+
+  $('start').onclick = () => {
+    if ($('start').disabled) return;
+    ui.step = 'confirm';
+    ui.shownAt.lock = performance.now();
+    renderHero();
+    $('lockNow').focus();
+  };
   $('back').onclick = () => { ui.step = 'idle'; renderHero(); };
-  $('lockNow').onclick = async () => {
+  $('lockNow').onclick = async (e) => {
+    if (!confirmArmed(ui.shownAt.lock, performance.now(), e.detail)) return;
+    const list = ui.listId;
     let call;
     if (ui.mode === 'until') {
       const at = untilToday(Date.now(), parseHHMM($('untilTime').value));
       if (at == null) { toast('Vælg et senere tidspunkt i dag.'); ui.step = 'idle'; renderHero(); return; }
-      call = () => api.startUntil(isoUtc(at));
+      call = () => api.startUntil(isoUtc(at), list);
     } else {
       const minutes = ui.minutes;
-      call = () => api.startSession(minutes);
+      call = () => api.startSession(minutes, list);
     }
+    if (list) saveLastList(list);
     if (await act(call)) ui.step = 'idle';
     renderHero();
   };
@@ -576,13 +827,16 @@ function setup() {
   $('extendBack').onclick = () => { ui.extendOpen = false; renderHero(); };
   $('extendNow').onclick = async () => {
     const { until } = lockInfo();
-    if (!until) return;
-    const t = extendTarget(until);
+    const t = until && extendTarget(until);
     if (!t) return;
-    if (await act(() => api.startSession(t.minutes))) ui.extendOpen = false;
+    // Pass a list already in force: without one the daemon would add its first list to the lock.
+    const list = lockedTarget(activeListIds(), ui.listId) || undefined;
+    if (await act(() => api.startSession(t.minutes, list))) ui.extendOpen = false;
     renderHero();
   };
+  setupAdd();
   setupSettings();
+  setupIcons();
 
   render();
   refresh();

@@ -34,6 +34,9 @@ def site(id, label, suffixes, hosts=(), exact=(), regex=(), allow=(), mode="full
             "allowHosts": allow, "hostsFile": hostsfile}
 
 S = src["services"]
+extra_path = ROOT / "research/domains-extra.json"
+if extra_path.exists():
+    S = {**S, **json.loads(extra_path.read_text())["services"]}
 def from_src(key, label, mode="full"):
     v = S[key]
     return site(key, label, v.get("suffixes", []), v.get("hosts", []),
@@ -50,9 +53,17 @@ sites = [
     site("threads", "Threads", ["threads.net", "threads.com"]),
     site("tv3", "TV3 / Viafree / Allente", ["tv3.dk", "tv3play.dk", "viafree.dk", "allente.dk"]),
     site("viaplaygroup", "Viaplay Group", ["viaplaygroup.com"]),
+    # Owner 2026-10-04: TV 2, Ekstra Bladet, Se og Hør, Facebook (WhatsApp must keep working: graph.facebook.com allowed,
+    # fbcdn.net/whatsapp/messenger excluded — see research/domains-extra.json).
+    from_src("tv2", "TV 2"),
+    from_src("ekstrabladet", "Ekstra Bladet"),
+    from_src("seoghoer", "Se og Hør"),
+    from_src("facebook", "Facebook"),
 ]
 # Adversus: never anything but app/website tabs; the suffix adversus.io covers app.adversus.io.
 assert sites[3]["hostsFile"] == []
+fb = next(x for x in sites if x["id"] == "facebook")
+assert not any(h.endswith(("fbcdn.net", "whatsapp.com", "whatsapp.net", "messenger.com")) for h in fb["hostsFile"] + fb["suffixes"])
 yt = sites[1]
 assert "accounts.youtube.com" in yt["allowHosts"] and "accounts.youtube.com" not in yt["hostsFile"]
 
