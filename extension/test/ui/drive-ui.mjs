@@ -64,11 +64,18 @@ check(r.afterEnter === 'Med Enter' && r.inputHidden, 'M2: rename saves on Enter'
 // ---- empty list cannot start ----
 r = await js(`${H}
   $('listBtn').click(); await w(50); item('Ny liste').click(); await w(50); $('nameForm').requestSubmit(); await w(600);
-  const empty = { name: $('listName').textContent, tom: !$('listEmpty').hidden, disabled: $('start').disabled };
+  const labels = () => [...document.querySelectorAll('#tiles .tile-label')].map((x) => x.textContent);
+  const empty = { name: $('listName').textContent, tom: !$('listEmpty').hidden, disabled: $('start').disabled, row: labels() };
+  $('editBtn').click(); await w(100);
+  const edit = { count: labels().length, off: !!tile('Instagram') && tile('Instagram').classList.contains('off') };
   tile('Instagram').click(); await w(400);
-  return { empty, after: { tom: !$('listEmpty').hidden, disabled: $('start').disabled, badge: !!tile('Instagram').querySelector('.badge') } };`);
-check(r.empty.name === 'Locked In 3' && r.empty.tom && r.empty.disabled, 'empty list: "Tom liste" and Start disabled', JSON.stringify(r.empty));
-check(!r.after.tom && !r.after.disabled && r.after.badge, 'first tap: on the list (lock badge), Start enabled', JSON.stringify(r.after));
+  const after = { tom: !$('listEmpty').hidden, disabled: $('start').disabled, badge: !!tile('Instagram').querySelector('.badge') };
+  $('editDone').click(); await w(100);
+  return { empty, edit, after, view: labels(), viewOn: [...document.querySelectorAll('#tiles .tile.off')].length };`);
+check(r.empty.name === 'Locked In 3' && r.empty.tom && r.empty.disabled && r.empty.row.join() === 'Rediger', 'empty list: only "✎ Rediger", "Tom liste", Start disabled', JSON.stringify(r.empty));
+check(r.edit.count > 10 && r.edit.off, 'Rediger shows every site and app, off ones outlined', JSON.stringify(r.edit));
+check(!r.after.tom && !r.after.disabled && r.after.badge, 'tap in edit mode: on the list (lock badge), Start enabled', JSON.stringify(r.after));
+check(r.view.join() === 'Instagram,Rediger' && r.viewOn === 0, 'Færdig: the row shows only the list, no dimmed tiles', JSON.stringify(r.view));
 
 // ---- M3: delete asks once, names the current list ----
 r = await js(`${H}
@@ -104,12 +111,15 @@ check(r.shown && r.big === '02:15:00' && r.andet.join() === 'Andet', 'tap on tim
 // ---- M4: locked, a tap on a dimmed tile asks first ----
 await open('&locked=1&list=l1&r=m4');
 r = await js(`${H}
+  const lockedRow = [...document.querySelectorAll('#tiles .tile-label')].map((x) => x.textContent).join();
+  $('editBtn').click(); await w(100);
   tile('Netflix').click(); await w(100);
   const ask = { shown: !$('tapConfirm').hidden, text: $('tapText').textContent, on: tile('Netflix').classList.contains('on') };
   $('tapNo').click(); await w(100);
   const cancelled = { shown: !$('tapConfirm').hidden, on: tile('Netflix').classList.contains('on') };
   tile('Netflix').click(); await w(600); $('tapYes').click(); await w(700);
   const instaTag = tile('Instagram').tagName;
+  if (lockedRow !== 'Instagram,Slack,Adversus,Rediger') return { lockedRow };
   return { ask, cancelled, added: tile('Netflix').classList.contains('on'), hidden: $('tapConfirm').hidden, instaTag };`);
 check(r.ask.shown && /^Bloker Netflix til \d\d:\d\d\?$/.test(r.ask.text) && !r.ask.on, 'M4: tap asks "Bloker Netflix til HH:MM?" and adds nothing yet', r.ask.text);
 check(!r.cancelled.shown && !r.cancelled.on, 'M4: Annullér adds nothing');
@@ -129,6 +139,7 @@ async function dblclick(selectorExpr) {
 const tileExpr = (l) => `[...document.querySelectorAll('#tiles .tile')].find((t) => t.querySelector('.tile-label').textContent === '${l}')`;
 
 await open('&locked=1&list=l2&r=dbl');
+await js(`document.getElementById('editBtn').click(); return 1`);
 for (const l of ['Netflix', 'Viaplay', 'Viafree', 'Threads', 'Facebook']) {
   const exists = await js(`return !!${tileExpr(l)};`);
   if (!exists) continue;
@@ -162,6 +173,37 @@ await js(`document.getElementById('listBtn').click(); return 1`);
 await dblclick(`[...document.querySelectorAll('#listMenu .menu-item')].find((b) => b.textContent.trim().endsWith('Slet'))`);
 r = await js(`return { name: document.getElementById('listName').textContent, menuOpen: !document.getElementById('listMenu').hidden }`);
 check(r.name === 'Locked In 1', 'double-click on "Slet" does not delete', JSON.stringify(r));
+
+// ---- v1.1.1: the list dropdown (keyboard) and the plan form's list + its icons ----
+await open('&r=dd');
+r = await js(`${H} localStorage.setItem('li.list', 'l1');
+  const b = $('listBtn'); b.focus();
+  b.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true })); await w(50);
+  const first = document.activeElement.textContent;
+  document.activeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true })); await w(20);
+  const second = document.activeElement.textContent;
+  document.activeElement.click(); await w(300);
+  const chosen = { name: $('listName').textContent, menuHidden: $('listMenu').hidden, focus: document.activeElement === b,
+    row: [...document.querySelectorAll('#tiles .tile-label')].map((x) => x.textContent).join() };
+  b.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true })); await w(50);
+  document.activeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); await w(50);
+  return { first, second, chosen, escClosed: $('listMenu').hidden && document.activeElement === b };`);
+check(r.first === '✓Locked In 1' && r.second === 'Locked In 2', 'dropdown: ↓ opens on the current list, ↓ moves', JSON.stringify([r.first, r.second]));
+check(r.chosen.name === 'Locked In 2' && r.chosen.menuHidden && r.chosen.focus, 'dropdown: Enter/click selects, closes, focus returns', JSON.stringify(r.chosen));
+check(r.chosen.row === 'Instagram,YouTube,Slack,Adversus,TV 2,Spotify,Rediger', 'selecting a list shows only that list\'s icons + Rediger', r.chosen.row);
+check(r.escClosed, 'dropdown: Escape closes and returns focus');
+
+r = await js(`${H}
+  $('gear').click(); await w(300); $('addPlanBtn').click(); await w(100);
+  const before = { name: $('planListName').textContent, icons: $('planIcons').children.length };
+  $('planListBtn').click(); await w(50);
+  [...document.querySelectorAll('#planListMenu .menu-item')].find((x) => x.textContent.endsWith('Locked In 1')).click(); await w(100);
+  const after = { name: $('planListName').textContent, icons: [...$('planIcons').children].map((x) => x.title).join() };
+  $('planStart').value = '09'; $('planEnd').value = '12'; $('planForm').requestSubmit(); await w(600);
+  return { before, after, rows: [...document.querySelectorAll('#planList .row-title')].map((x) => x.textContent) };`);
+check(r.before.name === 'Locked In 2' && r.before.icons === 6, 'plan form: list dropdown starts on the current list, its icons shown', JSON.stringify(r.before));
+check(r.after.name === 'Locked In 1' && r.after.icons === 'Instagram,Slack,Adversus', 'plan form: choosing another list shows what it blocks', JSON.stringify(r.after));
+check(r.rows.includes('I morgen 09–12 · Locked In 1'), 'plan row reads "I morgen 09–12 · Locked In 1"', JSON.stringify(r.rows));
 
 // ---- daemon down: one line above Start, neutral disabled button ----
 await open('&down=1&r=down');

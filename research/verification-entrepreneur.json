@@ -1,0 +1,179 @@
+[
+ {
+  "id": "e01",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the 2012 archived Stanford text and on the live Stanford Report page (third story). Image PD-Gotfryd (LoC) OK."
+ },
+ {
+  "id": "e02",
+  "verdict": "FIX",
+  "fix": {
+   "text": "Sometimes life's gonna hit you in the head with a brick. Don't lose faith.",
+   "source.locator": "Delivered 12 June 2005; Stanford Report text as now published at the cited URL (follows the speech as delivered), second story ('love and loss')"
+  },
+  "reason": "The cited live Stanford URL now reads \"Sometimes life's gonna hit you in the head with a brick\" (the delivered wording); \"life hits you\" is only in the 2005 as-prepared text (2012 Wayback copy). Either use the delivered wording (fix given) or keep the old text and change source.url to the 2012 Wayback copy."
+ },
+ {
+  "id": "e03",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in CBS transcript ('Even if you -- the probable outcome is failure'); elision only removes the false start. The transcript says the segment aired 30 Mar 2014 as 'Fast Cars and Rocket Ships'; the web title used in source.work is also correct."
+ },
+ {
+  "id": "e04",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in CBS transcript of the script 'SpaceX' (aired 18 Mar 2012, rebroadcast 3 Jun 2012), directly after Pelley's 'pack it in' question."
+ },
+ {
+  "id": "e05",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #7213, in the Introduction and again in Chapter XIX. Image Hartsook 1919, PD-US OK."
+ },
+ {
+  "id": "e06",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim ('any one') in Gutenberg #7213, Chapter XVII 'Things in General'."
+ },
+ {
+  "id": "e07",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "QI (21 May 2013) gives this exact wording from The Story of Walt Disney (Holt 1957) p. 89, plus the 1956 Saturday Evening Post p. 67 form. Secondary but sound. IMAGE DOUBT: tagged PD-USGov-NASA, but it is a 1954 photo (NASA did not exist until 1958), probably a Disney studio photo held in NASA's archive. PD status is not certain; consider replacing."
+ },
+ {
+  "id": "e08",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim on p. 17 of the 1902 scan; only the opening 'And' is dropped. The scan is the Toronto (William Briggs) issue of the 1902 Doubleday text, same page."
+ },
+ {
+  "id": "e09",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim on p. 17 of the 1902 scan (repeated on p. 121, 'How to Win Fortune'). QI's eggs article credits Carnegie 1885."
+ },
+ {
+  "id": "e10",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the Harvard Gazette text; only 'remember this:' is dropped."
+ },
+ {
+  "id": "e11",
+  "verdict": "FIX",
+  "fix": {
+   "text": "I am a woman that came from the cotton fields of the South; I was promoted from there to the wash-tub; … and from there I promoted myself into the business of manufacturing hair goods and preparations."
+  },
+  "reason": "Wording matches the NPS/ERIC lesson (ED440033), which quotes the 1912 NNBL report pp. 154–55. The displayed 44 words exceed the 40-word limit. The fix (35 words) drops the '(laughter)' and the cook-kitchen clause with a marked elision."
+ },
+ {
+  "id": "e12",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Princeton's 'as delivered' posting (Wayback 2012), closing lines."
+ },
+ {
+  "id": "e13",
+  "verdict": "FIX",
+  "fix": {
+   "image.creator": "Sandra Baqirjazid / Ministry of Enterprise, Energy and Communications of Sweden (Flickr)",
+   "image.attribution": "Sandra Baqirjazid / Ministry of Enterprise, Energy and Communications of Sweden, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Ingvar_Kamprad_Haparanda_June_2010.jpg)"
+  },
+  "reason": "Text verbatim on p. 17 of the Inter IKEA 2018 PDF, point 9; the elision covers 32 words on the same point. Image: Commons names the photographer Sandra Baqirjazid (Ministry of Enterprise, Energy and Communications/Sandra Baqirjazid), so CC BY credit must include her."
+ },
+ {
+  "id": "e14",
+  "verdict": "FIX",
+  "fix": {
+   "image.creator": "Sandra Baqirjazid / Ministry of Enterprise, Energy and Communications of Sweden (Flickr)",
+   "image.attribution": "Sandra Baqirjazid / Ministry of Enterprise, Energy and Communications of Sweden, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Ingvar_Kamprad_Haparanda_June_2010.jpg)"
+  },
+  "reason": "Text verbatim on p. 14 of the Inter IKEA 2018 PDF, first sentence under 'Concentration – important to our success'. Same image credit fix as e13."
+ },
+ {
+  "id": "e15",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "LEGO.com calls 'Only the best is good enough' the motto; Dansk Biografisk Leksikon gives 'Det bedste er ikke for godt' as Ole Kirk's valgsprog. IMAGE DOUBT: 1957 LEGO archive photo, unknown photographer, PD-Denmark50 + PD-1996. It is free only if it counts as a 'simple photograph' (50 years from creation). As an anonymous 'photographic work' it would be protected until end-2027. Only 346×458 px."
+ },
+ {
+  "id": "e16",
+  "verdict": "FIX",
+  "fix": {
+   "source.url": "https://archive.org/download/2017-september-maersk-post-full-issue/1996-october-maersk-post-full-issue.pdf"
+  },
+  "reason": "English verbatim in Maersk Post Oct 1996 ('In 1946, Mr A.P. Møller wrote'); Danish 'Intet tab bør ramme os, som kunne undgås ved rettidig omhu' is supported by the Danish Annual Magazine 2018–19 OCR. The cited archive.org item (named '2017-september…') holds 101 issues, so link the Oct 1996 file directly. Image CC BY-SA 2.0 from Maersk's own Flickr; 509×717 px, head bowed."
+ },
+ {
+  "id": "e17",
+  "verdict": "FIX",
+  "fix": {
+   "source.locator": "Reading Group Guide at the back of the 2007 Little, Brown paperback, 'A Conversation with Arianna Huffington', answer headed 'ARIANNA:' (unnumbered back-matter page; scan page n247)"
+  },
+  "reason": "Exact phrase confirmed by search-inside, together with 'Well, fearlessness…'. It sits in the paperback's reading-group Q&A, not the main text, so the locator should say so; it may not be in the 2006 first edition."
+ },
+ {
+  "id": "e18",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Exact passage, including the quoted \"there\", on p. 7 of the 2016 Scribner scan. That is the opening section (p. 1 starts 'before the birds'; Part One begins p. 9), i.e. 'Dawn'. Image CC BY-SA 4.0 OK, but it is a dark, blurry 1999 snapshot (501×732) with another person's pointing finger in frame."
+ },
+ {
+  "id": "e19",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Exact sentence on p. 172 of the 1985 Random House scan. Search-inside confirms 'I never dreamed about success' is absent, so that rejection holds."
+ },
+ {
+  "id": "e20",
+  "verdict": "FIX",
+  "fix": {
+   "source.locator": "Chapter 'Running a Successful Company: Ten Rules That Worked for Me', Rule 10, p. 249"
+  },
+  "reason": "Exact text on p. 249 of the 1992 Doubleday scan, in Rule 10. The book has no heading 'Ten Rules for Building a Business'; its contents list 'Running a Successful Company: Ten Rules That Worked for Me' (starts p. 246)."
+ },
+ {
+  "id": "e21",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Both sentences on p. 35 of the 1995 Viking scan, opening of 'Lessons from the Computer Industry' (ch. 3). Image CC BY 3.0 de OK."
+ },
+ {
+  "id": "e22",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Both sentences on p. 13 of the 1965 Bodley Head scan."
+ },
+ {
+  "id": "e23",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Heading 'DO NOT SCATTER YOUR POWERS' and the next sentence are verbatim in Gutenberg #8581. 30 words."
+ },
+ {
+  "id": "e24",
+  "verdict": "FIX",
+  "fix": {
+   "source.year": "1911 (IBM's page says 1915, which cannot be right for an NCR meeting: Watson had left NCR and was running CTR from 1914)"
+  },
+  "reason": "Wording verbatim on ibm.com/history/think. That page places the NCR Dayton meeting 'that morning in 1915', but Watson became general manager of CTR in 1914, so an NCR sales meeting in 1915 is impossible; the usual date is 1911. Image: CC0 (Smithsonian NPG) OK."
+ },
+ {
+  "id": "e25",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "QI (11 Jun 2019) gives French p. 308 (Laffont 1971) and English p. 255 (Little, Brown 1972, tr. Markmann) exactly as stated, and credits Chanel on Haedrich's testimony. Image CC BY 4.0 (LA Times/UCLA) OK."
+ },
+ {
+  "id": "e26",
+  "verdict": "FIX",
+  "fix": {
+   "source.locator": "Introduction (unnumbered front matter, second page of the Introduction; scan page n9). Chapter 1 'Just Do It!' starts on p. 1"
+  },
+  "reason": "The sentence is confirmed (OCR '1' for 'I') on page n9. That is the page after the Introduction heading (n8) and before chapter 1 starts on p. 1, so it is in the Introduction, not chapter 1."
+ }
+]

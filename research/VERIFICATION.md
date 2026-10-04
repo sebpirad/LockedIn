@@ -261,3 +261,36 @@ Short quotation is low-risk, but decorative full-screen display is not clearly c
 | q098 | Simone Weil | FIX | verified | OK | DOUBTFUL (PD-ID-France) | Verified: "Absolutely unmixed attention is prayer." in Gravity and Grace (Routledge & Kegan Paul 1952, Crawford tr., p. 106) — https://archive.org/details/gravitygrace0000weil_z8j5; identical sentence in the US Wills tr. (Putnam 1952). Image: 1943 ID-pass photo, unknown photographer, PD rests on "ID photos lack originality" (PD-ID-France) + PD-1996 — thin. Matched against: (none) |
 | q099 | Thomas Edison | FIX | verbatim (as quoted by Rosanoff) | OK per QI | PD OK (US) | QI page (https://quoteinvestigator.com/2012/12/14/genius-ratio/) has NO "1927 letter" — that claim in source.work and the note is unsupported. QI's evidence: 1901 newspaper credits Edison with 1/99; Dyer & Martin, Edison: His Life and Inventions (1910) vol. 2 p. 607; M. A. Rosanoff, "Edison in His Laboratory", Harper's Magazine vol. 165 (Sept 1932) p. 406 — an article, not an interview. Matched against: https://quoteinvestigator.com/2012/12/14/genius-ratio/ |
 | q100 | Miyamoto Musashi | FIX | verified (Harris) | OK | PD-Art OK, provenance weak | Verified in A Book of Five Rings, tr. Victor Harris (Overlook Press, NY 1974), p. 66 — https://archive.org/details/bookoffiverings00miyarich; Harris continues "Next, in order to beat more skilful men…", which covers the Japanese "後は上手に勝つ". Japanese given in modernised spelling (not manuscript-checked). Image source is a shop listing of a reproduction print; self-portrait attribution is traditional. Text rights: Harris 1974 translation in copyright. Matched against: (none) |
+
+## Entrepreneurs
+
+Independent check of `research/quotes-entrepreneur.json` (26 entries, e01–e26), run 2026-10-04. Verdicts and exact fixes are in `research/verification-entrepreneur.json`.
+
+| Verdict | Count |
+|---|---|
+| PASS | 17 |
+| FIX | 9 |
+| REJECT | 0 |
+
+**REJECT: none.** Every line was found in the cited source, or in the secondary source named for it (QI for e07 and e25, the NPS lesson for e11, IBM for e24). None of them is listed under "Misattributed" on Wikiquote.
+
+**FIX**
+- **e02**: the cited live Stanford page now gives the delivered wording, "Sometimes life's gonna hit you in the head with a brick". "Life hits you" survives only in the 2005 as-prepared text. Either use the delivered wording (given) or point `source.url` at the 2012 Wayback copy.
+- **e11**: 44 words, over the limit. Shortened to 35 with a marked elision.
+- **e13, e14**: Commons names photographer Sandra Baqirjazid. Add her to the CC BY credit.
+- **e16**: the archive.org link points to a 101-issue item. Link the Oct 1996 file directly.
+- **e17**: the quote is in the paperback's Reading Group Guide ("A Conversation with Arianna Huffington"), not the main text.
+- **e20**: the book has no heading "Ten Rules for Building a Business". The quote is under "Running a Successful Company: Ten Rules That Worked for Me", Rule 10, p. 249.
+- **e24**: IBM's page dates the NCR meeting to 1915, but Watson left NCR for CTR in 1914. Year changed to 1911.
+- **e26**: the quote is in the Introduction (unnumbered), not chapter 1.
+
+**Page numbers found (optional to add):** e18 p. 7, e19 p. 172, e21 p. 35, e22 p. 13 (Bodley Head 1965), e08/e09 p. 17 (confirmed).
+
+**Doubtful images**
+- **e07 Disney**: tagged PD-USGov-NASA, but the photo is from 1954, before NASA existed. It is likely a Disney studio photo held in NASA's archive, so its PD status is uncertain. Consider replacing it.
+- **e15 Ole Kirk Christiansen**: a 1957 LEGO archive photo by an unknown photographer, tagged PD-Denmark50. That holds only if it counts as a "simple photograph". If it counts as a photographic work, it is protected until end-2027. It is also tiny (346×458).
+- **e18 Phil Knight**: the licence (CC BY-SA 4.0) is fine, but the photo is a dark, blurry snapshot with someone else's finger in the frame.
+- **e16 A.P. Møller**: CC BY-SA 2.0 from Maersk's own Flickr. It is small and his head is bowed. The resized copies of e16 and e18 must stay CC BY-SA.
+- All other images match Commons for licence, creator and source. Each one depicts the right person, and every local file exists with the Commons aspect ratio.
+
+**Method:** Gutenberg texts (#7213, #8581), the CBS, Harvard, Stanford (live and Wayback), Princeton (Wayback), IBM, LEGO, lex.dk and QI pages, the Inter IKEA PDF, and the archive.org OCR for Carnegie, ERIC ED440033 and Maersk Post were all searched by script. Lending-only books were checked with archive.org search-inside. Only true/false results and page numbers were read, never the surrounding text.

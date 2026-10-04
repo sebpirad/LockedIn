@@ -250,3 +250,39 @@ M1–M5 are each small changes: CSS tokens, one blur handler, a two-step delete,
 ## Verdict, round 2: **CHANGES REQUIRED** (one item)
 
 Everything from round 1 is fixed or acceptably deferred (S1 icons, S2 Viaplay Group, N6, N8–N10), and the page is clearly better. Badges and rings make the lists understandable, and the alerts and confirmations read naturally. One regression is left, R1: the locked-state confirm can be passed with a double-click. Once R1's two-part fix is in, this is **APPROVED** from my side with no further round needed. The minor items are optional.
+
+---
+
+# Runde 3 (v1.1.1, list dropdown, 2026-10-04)
+
+**How it was tested.** I used the same method: the built-in browser at 800×900 and 375×812, 1280×820 headless captures, and the DOM scan for `#5d616b` text and controls under 40 px. The scope is the owner's approved sketch: mode switch → timer → duration chips → list dropdown → that list's icons + "✎ Rediger" → Start, and the same dropdown with read-only icons in Planlæg. No files were edited apart from appending this section.
+
+## What I checked
+
+| State | Result |
+|---|---|
+| **Layout order** | Matches the sketch exactly (1280×820: switch, timer, chips, a 200×44 "Locked In 1 ⌄" dropdown, Instagram/Slack/Adversus + Rediger, Start, "Næste"). The idle screen is now the calmest it has been, with three icons instead of eighteen. |
+| **Switching lists** | Choosing "Locked In 2" shows exactly its six icons (YouTube, Slack, Adversus, Netflix after my edit, TV 2, Spotify) + Rediger. Ny liste / Omdøb / Slet are still in the same menu, now aligned under the check column. |
+| **Keyboard** | ↓ opens the menu with focus on "✓ Locked In 1"; ↓ moves; Enter selects and returns focus to the button; Esc closes and refocuses. In the drawer, Esc closes only the plan dropdown, not the drawer. |
+| **Rediger mode** | It shows every tile with lock badges on the members, then "+ Tilføj" and "✓ Færdig". Toggling worked (Netflix on, Instagram off, applied at once). Færdig returns to the filtered view and puts focus back on Rediger. |
+| **Empty list** | "Tom liste" now sits on its own centred line under the dropdown (my round-2 nit is fixed). Only "Rediger" is shown and Start is neutral grey, so the next step is obvious. |
+| **Locked** | The timer, "Låst til 18:50", "Locked In 2" and only the blocked icons + Rediger. That is calm and unambiguous. |
+| **R1 (round 2)** | **FIXED.** In locked Rediger mode, double-clicking Viaplay showed the confirm bar as a fixed overlay at the bottom. Nothing moved, and Viaplay stayed *off*. A deliberate single click on "Bloker" (after 0.5 s) blocked it. The same 500 ms / `detail > 1` guard is on "Lås nu" and on the delete confirm. Double-clicking where Start was did not lock. |
+| **Planning form** | The "Locked In 1" dropdown is followed by 28 px read-only icons with tooltips. Switching to "Locked In 2" by keyboard updated them to six. |
+| **Phone (375)** | No horizontal scroll. The chips wrap 4 + 2 (balanced). The dropdown is centred. The idle screen fits. |
+| **Contrast / targets** | The DOM scan in idle and Rediger mode found 0 text nodes in `#5d616b` and 0 controls under 40×40. |
+| **Earlier approved items** | M1–M5, S3–S11 and the round-2 fixes all still hold. Service-down and broken alerts are unchanged and still sit right above Start. |
+
+## Findings
+
+**R2 (should-fix, small).** After "Start Locked in", the confirm step keeps showing a live "✎ Rediger" tile for up to 5 s, until the next refresh. `start.onclick` clears `ui.sigs.tiles` but never calls `renderTiles()`. Clicking that tile opens the full edit grid *inside* the confirmation step. This is not harmful (unlocked edits are reversible), but the step should be a read-only summary. Fix: call `renderTiles()` in `start.onclick`, as `back.onclick` already does.
+
+**Nice (optional):**
+- **Phone, Rediger mode.** The grid pushes "Færdig" and Start below the fold (Start top at 888 px on an 812 px screen). Also let a tap on the dropdown, or Esc, leave edit mode, or put Færdig right after the dropdown on narrow screens.
+- **Dropdown accessible name.** The button's accessible name is "Liste", which hides the visible value "Locked In 1" from screen readers (WCAG 2.5.3). Use `aria-label="Liste: Locked In 1"`, or `aria-labelledby` pointing at a hidden "Liste" plus `#listName`.
+- **Planning form, empty list.** An empty list shows no icons and no text, so a user can schedule a session that blocks nothing. Show "Tom liste" in `#planIcons`, as on the main page.
+- **Færdig tile.** The ✓ in the same ringed tile style reads a little like another toggle. A ghost text button `Færdig` would separate "done" from "choices". This is optional and the owner's sketch is respected either way.
+
+## Verdict, round 3: **APPROVED**
+
+The dropdown matches the owner's sketch, works with mouse and keyboard, and makes the main screen markedly simpler. The round-2 regression R1 is fixed and none of the earlier fixes regressed. R2 is a one-line polish item that does not block release.

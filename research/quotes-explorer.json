@@ -1,0 +1,305 @@
+{
+  "quotes": [
+    {
+      "id": "x01",
+      "category": "explorer",
+      "text": "Victory awaits him who has everything in order—luck, people call it. Defeat is certain for him who has neglected to take the necessary precautions in time; this is called bad luck.",
+      "original": "Seier venter den, som har alt i orden — held kalder man det. Nederlag er en absolut følge for den, som har forsømt at ta de nødvendige forholdsregler i tide — uheld kaldes det.",
+      "translation": {
+        "translator": "A. G. Chater",
+        "edition": "The South Pole: An Account of the Norwegian Antarctic Expedition in the \"Fram,\" 1910–1912, Vol. I (London: John Murray)",
+        "year": 1912
+      },
+      "author": "Roald Amundsen",
+      "author_dates": "1872–1928",
+      "theme": "discipline",
+      "source": {
+        "work": "Sydpolen: Den norske sydpolsfærd med Fram 1910–1912 (The South Pole)",
+        "year": "1912",
+        "locator": "Norwegian: Bind 1, p. 506 (Kristiania: Jacob Dybwad, 1912); English: Chater tr., Vol. I, Chapter IX 'The End of the Winter'",
+        "url": "https://www.gutenberg.org/ebooks/3414"
+      },
+      "verification": "primary",
+      "verification_note": "English matched verbatim in Chater's translation (Project Gutenberg #3414, Vol. I, Ch. IX; also in #4229). Norwegian original read from the National Library of Norway's OCR of the 1912 first edition, Bind 1 p. 506 (nb.no item ed55ef6f9348da975c792694c5591851); the OCR prints 'iorden', given here as 'i orden'.",
+      "image": {
+        "file": "quote-images/x01.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Roald_Amundsen_cph.3b17878.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Roald_Amundsen_cph.3b17878.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Roald_Amundsen_cph.3b17878.jpg",
+        "creator": "Lomen Bros., Nome, Alaska (Library of Congress, cph.3b17878)",
+        "attribution": "Lomen Bros., Nome, Alaska (Library of Congress, cph.3b17878), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Roald_Amundsen_cph.3b17878.jpg)"
+      }
+    },
+    {
+      "id": "x02",
+      "category": "explorer",
+      "text": "I have always thought that the much-praised “line of retreat” is a snare for people who wish to reach their goal.",
+      "original": null,
+      "translation": null,
+      "author": "Fridtjof Nansen",
+      "author_dates": "1861–1930",
+      "theme": "focus",
+      "source": {
+        "work": "Adventure (rectorial address, University of St Andrews, 3 November 1926), in Adventure, and Other Papers (London: Hogarth Press / L. & Virginia Woolf)",
+        "year": "1927",
+        "locator": "'Adventure', p. 26",
+        "url": "https://archive.org/details/adventureotherpa0000frid_y6y6"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in the Internet Archive full text of the 1927 Hogarth Press edition (page header 26). Nansen delivered the address in English, so no translation is involved. The popular companion lines 'Never stop because you are afraid…' and 'The difficult is what takes a little time…' were NOT found in this text and are not used.",
+      "image": {
+        "file": "quote-images/x02.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Fridtjof_Nansen_LOC_03377u-3.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Fridtjof_Nansen_LOC_03377u-3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Fridtjof_Nansen_LOC_03377u-3.jpg",
+        "creator": "Henry Van der Weyde (via Library of Congress)",
+        "attribution": "Henry Van der Weyde (via Library of Congress), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Fridtjof_Nansen_LOC_03377u-3.jpg)"
+      }
+    },
+    {
+      "id": "x03",
+      "category": "explorer",
+      "text": "We took risks, we knew we took them; things have come out against us, and therefore we have no cause for complaint, but bow to the will of Providence, determined still to do our best to the last.",
+      "original": null,
+      "translation": null,
+      "author": "Robert Falcon Scott",
+      "author_dates": "1868–1912",
+      "theme": "adversity",
+      "source": {
+        "work": "Scott's Last Expedition, Vol. I: Being the Journals of Captain R. F. Scott (arranged by Leonard Huxley; London: Smith, Elder & Co.)",
+        "year": "1913",
+        "locator": "'Message to the Public', written in the tent, March 1912",
+        "url": "https://www.gutenberg.org/ebooks/11579"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Project Gutenberg #11579 (Vol. I), 'Message to the Public'. This is the published 1913 text; Scott's manuscript (British Library) differs from the printed journals in places.",
+      "image": {
+        "file": "quote-images/x03.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Scott_of_the_Antarctic_(bw)_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/7/72/Scott_of_the_Antarctic_%28bw%29_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Scott_of_the_Antarctic_(bw)_(cropped).jpg",
+        "creator": "Henry Maull and John Fox (Maull & Fox); frontispiece of The Voyage of the Discovery, 1905",
+        "attribution": "Henry Maull and John Fox (Maull & Fox); frontispiece of The Voyage of the Discovery, 1905, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Scott_of_the_Antarctic_(bw)_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "x04",
+      "category": "explorer",
+      "text": "Now for the run home and a desperate struggle. I wonder if we can do it.",
+      "original": null,
+      "translation": null,
+      "author": "Robert Falcon Scott",
+      "author_dates": "1868–1912",
+      "theme": "perseverance",
+      "source": {
+        "work": "Scott's Last Expedition, Vol. I: Being the Journals of Captain R. F. Scott (arranged by Leonard Huxley; London: Smith, Elder & Co.)",
+        "year": "1913",
+        "locator": "Journal entry of Wednesday, 17 January 1912, at the South Pole",
+        "url": "https://www.gutenberg.org/ebooks/11579"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Project Gutenberg #11579 (Vol. I), within the entry headed 'Wednesday, January 17' (the day the party reached the Pole). Published 1913 text.",
+      "image": {
+        "file": "quote-images/x04.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Robert_Falcon_Scott_c1900.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/06/Robert_Falcon_Scott_c1900.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Robert_Falcon_Scott_c1900.jpg",
+        "creator": "J. Thomson (1837–1921)",
+        "attribution": "J. Thomson (1837–1921), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Robert_Falcon_Scott_c1900.jpg)"
+      }
+    },
+    {
+      "id": "x05",
+      "category": "explorer",
+      "text": "A man must shape himself to a new mark directly the old one goes to ground.",
+      "original": null,
+      "translation": null,
+      "author": "Ernest Shackleton",
+      "author_dates": "1874–1922",
+      "theme": "adversity",
+      "source": {
+        "work": "South: The Story of Shackleton's Last Expedition, 1914–1917 (London: William Heinemann)",
+        "year": "1919",
+        "locator": "Chapter IV, 'Loss of the Endurance'",
+        "url": "https://www.gutenberg.org/ebooks/5199"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Project Gutenberg #5199, Chapter IV. Written after the Endurance had to be abandoned in the Weddell Sea pack (October 1915).",
+      "image": {
+        "file": "quote-images/x05.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Ernest_Shackleton_before_1909.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Ernest_Shackleton_before_1909.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Ernest_Shackleton_before_1909.jpg",
+        "creator": "George Charles Beresford (restoration by Adam Cuerden); National Library of Norway",
+        "attribution": "George Charles Beresford (restoration by Adam Cuerden); National Library of Norway, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Ernest_Shackleton_before_1909.jpg)"
+      }
+    },
+    {
+      "id": "x06",
+      "category": "explorer",
+      "text": "Difficulties are just things to overcome after all.",
+      "original": null,
+      "translation": null,
+      "author": "Ernest Shackleton",
+      "author_dates": "1874–1922",
+      "theme": "perseverance",
+      "source": {
+        "work": "The Heart of the Antarctic: Being the Story of the British Antarctic Expedition 1907–1909 (Toronto: Musson, 1910 edition of the 1909 Heinemann text)",
+        "year": "1909",
+        "locator": "Chapter XIII, 'On the Great Glacier' — diary passage of December 1908 (nearest preceding date heading: December 11), ascending the Beardmore Glacier",
+        "url": "https://archive.org/details/cihm_79268"
+      },
+      "verification": "primary",
+      "verification_note": "Matched in the Internet Archive full text of the 1910 Musson (Toronto) edition, Chapter XIII. The OCR has no comma before 'after all'; often quoted as '…overcome, after all.' Not found in South (1919).",
+      "image": {
+        "file": "quote-images/x06.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Ernest_Shackleton,_portrait_photo_by_Frank_Hurley,_1916.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Ernest_Shackleton%2C_portrait_photo_by_Frank_Hurley%2C_1916.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Ernest_Shackleton,_portrait_photo_by_Frank_Hurley,_1916.jpg",
+        "creator": "Frank Hurley (expedition photographer, Imperial Trans-Antarctic Expedition)",
+        "attribution": "Frank Hurley (expedition photographer, Imperial Trans-Antarctic Expedition), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Ernest_Shackleton,_portrait_photo_by_Frank_Hurley,_1916.jpg)"
+      }
+    },
+    {
+      "id": "x07",
+      "category": "explorer",
+      "text": "The lure of the Arctic is tugging at my heart, to me the trail is calling!",
+      "original": null,
+      "translation": null,
+      "author": "Matthew Henson",
+      "author_dates": "1866–1955",
+      "theme": "ambition",
+      "source": {
+        "work": "A Negro Explorer at the North Pole (New York: Frederick A. Stokes)",
+        "year": "1912",
+        "locator": "Chapter XXI, 'Etah to New York — Coming of Mail and Reporters — Home!' (closing pages)",
+        "url": "https://www.gutenberg.org/ebooks/20923"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Project Gutenberg #20923, Chapter XXI. It is the closing clause of a longer sentence; the first word is capitalised here.",
+      "image": {
+        "file": "quote-images/x07.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Matthew_Henson_1910.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/81/Matthew_Henson_1910.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Matthew_Henson_1910.jpg",
+        "creator": "Unknown photographer (Library of Congress, cph.3g07503)",
+        "attribution": "Unknown photographer (Library of Congress, cph.3g07503), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Matthew_Henson_1910.jpg)"
+      }
+    },
+    {
+      "id": "x08",
+      "category": "explorer",
+      "text": "It is well known that the chief characteristic of Commander Peary is persistency which, coupled with fortitude, is the secret of his success.",
+      "original": null,
+      "translation": null,
+      "author": "Matthew Henson",
+      "author_dates": "1866–1955",
+      "theme": "perseverance",
+      "source": {
+        "work": "A Negro Explorer at the North Pole (New York: Frederick A. Stokes)",
+        "year": "1912",
+        "locator": "Chapter I, 'The Early Years: Schoolboy, Cabin-Boy, Seaman, and Lieutenant Peary's Expeditions'",
+        "url": "https://www.gutenberg.org/ebooks/20923"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Project Gutenberg #20923, Chapter I (Henson's own first-person narrative, not Peary's foreword or Booker T. Washington's introduction). Henson is describing Peary, so the line is about persistence in general only by extension.",
+      "image": {
+        "file": "quote-images/x08.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Matthew_Henson_NYWTS.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/05/Matthew_Henson_NYWTS.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Matthew_Henson_NYWTS.jpg",
+        "creator": "Roger Higgins, New York World-Telegram & Sun (Library of Congress, NYWT&S collection)",
+        "attribution": "Roger Higgins, New York World-Telegram & Sun (Library of Congress, NYWT&S collection), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Matthew_Henson_NYWTS.jpg)"
+      }
+    },
+    {
+      "id": "x09",
+      "category": "explorer",
+      "text": "I always have a comfortable feeling that nothing is impossible if one applies a certain amount of energy in the right direction.",
+      "original": null,
+      "translation": null,
+      "author": "Nellie Bly",
+      "author_dates": "1864–1922",
+      "theme": "perseverance",
+      "source": {
+        "work": "Around the World in Seventy-Two Days (New York: Pictorial Weeklies Company)",
+        "year": "1890",
+        "locator": "Chapter I, 'A Proposal to Girdle the Earth'",
+        "url": "https://digital.library.upenn.edu/women/bly/world/world.html"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in the University of Pennsylvania 'A Celebration of Women Writers' transcription of the 1890 book, Chapter I. (Project Gutenberg #20975 is an audiobook only.)",
+      "image": {
+        "file": "quote-images/x09.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Nellie_Bly_2.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Nellie_Bly_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Nellie_Bly_2.jpg",
+        "creator": "H. J. Myers, photographer (Library of Congress, cph.3b22819)",
+        "attribution": "H. J. Myers, photographer (Library of Congress, cph.3b22819), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Nellie_Bly_2.jpg)"
+      }
+    },
+    {
+      "id": "x10",
+      "category": "explorer",
+      "text": "If you want to do it, you can do it. The question is, do you want to do it?",
+      "original": null,
+      "translation": null,
+      "author": "Nellie Bly",
+      "author_dates": "1864–1922",
+      "theme": "discipline",
+      "source": {
+        "work": "Around the World in Seventy-Two Days (New York: Pictorial Weeklies Company)",
+        "year": "1890",
+        "locator": "Chapter I, 'A Proposal to Girdle the Earth'",
+        "url": "https://digital.library.upenn.edu/women/bly/world/world.html"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in the UPenn transcription of the 1890 book, Chapter I, where Bly says this is her reply ('Nonsense! …') whenever she is told something is too late to be done; the opening 'Nonsense!' is omitted here.",
+      "image": {
+        "file": "quote-images/x10.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Nellie_Bly_-_Myers,_N.Y._LCCN89711960.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Nellie_Bly_-_Myers%2C_N.Y._LCCN89711960.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Nellie_Bly_-_Myers,_N.Y._LCCN89711960.jpg",
+        "creator": "H. J. Myers, photographer (Library of Congress, LCCN 89711960)",
+        "attribution": "H. J. Myers, photographer (Library of Congress, LCCN 89711960), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Nellie_Bly_-_Myers,_N.Y._LCCN89711960.jpg)"
+      }
+    },
+    {
+      "id": "x11",
+      "category": "explorer",
+      "text": "Courage is the price that Life exacts for granting peace.",
+      "original": null,
+      "translation": null,
+      "author": "Amelia Earhart",
+      "author_dates": "1897–1937",
+      "theme": "adversity",
+      "source": {
+        "work": "20 Hrs. 40 Min.: Our Flight in the Friendship (New York: G. P. Putnam's Sons)",
+        "year": "1928",
+        "locator": "Opening line of her poem 'Courage', printed in the book's front matter",
+        "url": "https://www.gutenberg.org/ebooks/73448"
+      },
+      "verification": "primary",
+      "verification_note": "Matched in Project Gutenberg #73448 (front matter, before Chapter I). In the poem the line ends with a comma and continues; it is closed with a full stop here. The poem is Earhart's own (written 1927). Popular Earhart lines ('The most difficult thing is the decision to act…', 'The most effective way to do it, is to do it') were not found in this book and are not used.",
+      "image": {
+        "file": "quote-images/x11.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Amelia_Earhart,_1928.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/87/Amelia_Earhart%2C_1928.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Amelia_Earhart,_1928.jpg",
+        "creator": "Wide World Photos",
+        "attribution": "Wide World Photos, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Amelia_Earhart,_1928.jpg)"
+      }
+    }
+  ]
+}

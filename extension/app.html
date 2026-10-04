@@ -38,7 +38,7 @@
     </div>
 
     <div id="listLine" class="list-line">
-      <button id="listBtn" class="list-btn" type="button" aria-haspopup="menu" aria-expanded="false">
+      <button id="listBtn" class="select-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Liste">
         <span id="listName"></span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <span id="listEmpty" class="list-empty" hidden>Tom liste</span>
@@ -48,6 +48,8 @@
       </form>
       <div id="listMenu" class="menu" role="menu" hidden></div>
     </div>
+
+    <div id="tiles" class="tiles"></div>
 
     <p id="alert" class="alert" role="status" hidden></p>
     <div class="actions">
@@ -64,7 +66,6 @@
       <button id="tapNo" class="ghost small" type="button">Annullér</button>
     </span>
   </div>
-  <div id="tiles" class="tiles"></div>
 
   <div class="after">
     <button id="extend" class="quiet" type="button" hidden>Forlæng</button>
@@ -125,7 +126,13 @@
         <span>–</span>
         <input id="planEnd" class="time" type="text" inputmode="numeric" maxlength="5" value="12:00" autocomplete="off" aria-label="Til">
       </div>
-      <div id="planLists" class="chips left" role="group" aria-label="Liste"></div>
+      <div id="planDD" class="dd">
+        <button id="planListBtn" class="select-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Liste">
+          <span id="planListName"></span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div id="planListMenu" class="menu left" role="menu" hidden></div>
+      </div>
+      <div id="planIcons" class="mini-icons" aria-label="Det blokeres"></div>
       <div class="actions left">
         <button class="primary small" type="submit">Gem</button>
         <button class="ghost small" type="button" data-cancel>Annullér</button>

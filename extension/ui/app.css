@@ -112,7 +112,20 @@ input.time { font-variant-numeric: tabular-nums; }
 .quiet:hover:not(:disabled) { color: var(--text); background: var(--surface); }
 .extend { display: flex; flex-direction: column; align-items: center; gap: 12px; }
 
-/* list picker */
+/* list picker: a select-style dropdown */
+.select-btn {
+  display: inline-flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 200px; max-width: 100%;
+  min-height: 44px; padding: 0 14px 0 16px; border-radius: 12px; border: 1px solid var(--line-2); background: var(--surface);
+  color: var(--text); font-size: 16px; font-weight: 550; text-align: left;
+}
+.select-btn:hover { border-color: var(--ring); }
+.select-btn[aria-expanded="true"] { border-color: var(--ring); background: var(--surface-2); }
+.select-btn .caret { width: 10px; height: 6px; color: var(--muted); flex: none; }
+.select-btn > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dd { position: relative; align-self: flex-start; }
+.menu.left { left: 0; transform: none; }
+.mini-icons { display: flex; flex-wrap: wrap; gap: 6px; min-height: 28px; }
+
 .list-line { position: relative; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0 4px; min-height: 40px; }
 .list-btn {
   display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 0; border-radius: 999px;
@@ -155,6 +168,7 @@ input.time { font-variant-numeric: tabular-nums; }
   display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;
   max-width: 760px; width: 100%; margin: 0 auto;
 }
+.hero .tiles { margin: -4px auto 2px; }
 .tiles > .tile { width: 88px; }
 .tile {
   display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 4px;
@@ -182,6 +196,9 @@ button.tile:hover { background: var(--surface); }
   box-shadow: 0 0 0 2px var(--bg);
 }
 .badge svg { width: 10px; height: 10px; }
+.glyph.tool { border-radius: 11px; box-shadow: 0 0 0 1.5px var(--ring); color: var(--muted); font: 400 20px/1 var(--sans); }
+.tool-tile .tile-label, .add-tile .tile-label { color: var(--muted); }
+.tool-tile:hover .glyph.tool, .tool-tile:hover .tile-label { color: var(--text); }
 .glyph.plus { border-radius: 11px; box-shadow: 0 0 0 1.5px var(--ring); color: var(--muted); font: 300 24px/1 var(--display); }
 .add-tile:hover .glyph.plus { color: var(--text); }
 .after { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 14px; }

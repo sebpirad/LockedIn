@@ -16,6 +16,7 @@ import {
   nameFromDomain, healthMessage, startBlocker, confirmArmed,
 } from '../lib/view.js';
 import { glyphFor, LOCK_ICON, monogramColor } from './glyphs.js';
+import { dropdown } from './dropdown.js';
 
 const params = new URLSearchParams(location.search);
 const HAS_EXT = typeof chrome !== 'undefined' && !!(chrome.runtime && chrome.runtime.id);
@@ -84,6 +85,7 @@ const ui = {
   menuAsk: false,      // "Slet …?" showing in the menu
   shownAt: { tap: 0, del: 0, lock: 0 }, // when each confirm appeared (double-click guard)
   defaultName: '',
+  editing: false,      // "✎ Rediger": all icons shown, tap toggles
   pendingAdd: null,    // locked: {kind, id, label} waiting for "Bloker"
   edits: 0,            // list edits in flight (optimistic)
   installed: null,
@@ -250,6 +252,7 @@ function renderHero() {
   show('extendPanel', locked && ui.extendOpen);
   document.body.classList.toggle('is-locked', locked);
   if (!locked) ui.pendingAdd = null;
+  if (confirm && ui.editing) { ui.editing = false; ui.sigs.tiles = null; renderTiles(); }
 
   $('lockNow').disabled = !reachable();
   $('extend').disabled = !reachable();
@@ -270,6 +273,7 @@ function tick() {
   const { locked, until } = lockInfo();
   if (lastLocked !== null && lastLocked !== locked) {
     lastLocked = locked;
+    ui.editing = false;
     render();
     refresh();
     return;
@@ -320,9 +324,10 @@ function tick() {
 
 function selectList(id) {
   ui.listId = id;
+  ui.editing = false;
   saveLastList(id);
   ui.sigs.tiles = null;
-  closeMenu();
+  closeMenu(true);
   render();
 }
 
@@ -340,10 +345,10 @@ function renderListLine() {
   if (locked || confirm) closeMenu();
 }
 
-function closeMenu() {
+let listDD = null;
+function closeMenu(refocus) {
   ui.menuAsk = false;
-  $('listMenu').hidden = true;
-  $('listBtn').setAttribute('aria-expanded', 'false');
+  if (listDD) listDD.close(refocus);
 }
 
 function renderMenu() {
@@ -359,22 +364,20 @@ function renderMenu() {
   }
   const others = lists().filter((l) => l.id !== ui.listId);
   $('listMenu').replaceChildren(
-    cur ? h('button', { type: 'button', role: 'menuitemradio', 'aria-checked': 'true', class: 'menu-item current', onclick: () => closeMenu() },
+    cur ? h('button', { type: 'button', role: 'menuitemradio', 'aria-checked': 'true', class: 'menu-item current', onclick: () => closeMenu(true) },
       h('span', { class: 'check' }, '✓'), cur.name) : null,
     ...others.map((l) => h('button', { type: 'button', role: 'menuitemradio', 'aria-checked': 'false', class: 'menu-item', onclick: () => selectList(l.id) },
       h('span', { class: 'check' }), l.name)),
     h('div', { class: 'menu-sep' }),
     item('Ny liste', () => startNaming('new')),
     item('Omdøb', () => startNaming('rename')),
-    lists().length > 1 ? item('Slet', () => { ui.menuAsk = true; ui.shownAt.del = performance.now(); renderMenu(); }, 'danger') : null,
+    lists().length > 1 ? item('Slet', () => {
+      ui.menuAsk = true;
+      ui.shownAt.del = performance.now();
+      renderMenu();
+      $('listMenu').querySelector('.menu-ask button:last-child')?.focus(); // focus "Annullér", the safe choice
+    }, 'danger') : null,
   );
-}
-
-function openMenu() {
-  ui.menuAsk = false;
-  renderMenu();
-  $('listMenu').hidden = false;
-  $('listBtn').setAttribute('aria-expanded', 'true');
 }
 
 function startNaming(kind) {
@@ -481,8 +484,9 @@ function renderTiles() {
   const { locked } = lockInfo();
   const target = locked ? lockedTarget(activeListIds(), ui.listId) : ui.listId;
   const list = lists().find((l) => l.id === target);
+  const editing = ui.editing && !!list;
   const now = blockedNow(status());
-  const sig = JSON.stringify([locked, target, list, sites().map((s) => [s.id, s.label, s.blocked]), apps(), ui.edits > 0 ? 'e' : '', ui.iconsRev]);
+  const sig = JSON.stringify([locked, target, list, editing, ui.step, sites().map((s) => [s.id, s.label, s.blocked]), apps(), ui.edits > 0 ? 'e' : '', ui.iconsRev]);
   if (ui.sigs.tiles === sig) return;
   ui.sigs.tiles = sig;
 
@@ -492,26 +496,41 @@ function renderTiles() {
     ...orderedSites.map((s) => ({ kind: 'sites', id: s.id, label: tileLabel(s.label || s.id), icon: () => siteIcon(s) })),
     ...listApps().map((a) => ({ kind: 'apps', id: a.bundleId, label: appLabel(a, sites()), icon: () => appIcon(a) })),
   ];
-  // Locked without a list we can add to: only what is blocked, read-only.
-  if (locked && !list) items = items.filter((it) => isOn(it.kind, it.id));
+  // Normal view: only what the list blocks (or, locked, what is blocked now). Edit mode: everything.
+  if (!editing) items = items.filter((it) => isOn(it.kind, it.id));
 
   const tiles = items.map((it) => {
     const on = isOn(it.kind, it.id);
     const icon = it.icon();
-    if (on) icon.append(badge());
+    if (editing && on) icon.append(badge());
     const cls = 'tile' + (on ? ' on' : ' off');
     const inner = [icon, h('span', { class: 'tile-label' }, it.label)];
-    if (!list || (locked && on)) return h('div', { class: cls, title: it.label }, inner);
+    if (!editing || (locked && on)) return h('div', { class: cls, title: it.label }, inner);
     return h('button', {
       type: 'button', class: cls, 'aria-pressed': String(on), title: it.label,
       onclick: () => onTileTap(it, list, locked),
     }, inner);
   });
-  if (list) {
+  if (list && editing) {
     tiles.push(h('button', { type: 'button', class: 'tile add-tile', title: 'Tilføj', 'aria-label': 'Tilføj hjemmeside eller app', onclick: openAdd },
-      h('span', { class: 'glyph plus' }, '+'), h('span', { class: 'tile-label' }, ' ')));
+      h('span', { class: 'glyph plus' }, '+'), h('span', { class: 'tile-label' }, 'Tilføj')));
+    tiles.push(h('button', { type: 'button', id: 'editDone', class: 'tile tool-tile', onclick: () => setEditing(false) },
+      h('span', { class: 'glyph tool' }, '✓'), h('span', { class: 'tile-label' }, 'Færdig')));
+  } else if (list && (locked || ui.step !== 'confirm')) {
+    tiles.push(h('button', { type: 'button', id: 'editBtn', class: 'tile tool-tile', 'aria-label': `Rediger ${list.name}`, onclick: () => setEditing(true) },
+      h('span', { class: 'glyph tool' }, '✎'), h('span', { class: 'tile-label' }, 'Rediger')));
   }
+  $('tiles').classList.toggle('editing', editing);
   $('tiles').replaceChildren(...tiles);
+}
+
+function setEditing(on) {
+  ui.editing = on;
+  if (!on) { ui.pendingAdd = null; renderTapConfirm(); }
+  ui.sigs.tiles = null;
+  renderTiles();
+  const focusId = on ? 'editDone' : 'editBtn';
+  $(focusId)?.focus({ preventScroll: true });
 }
 
 // ---------- "+": own site or app straight onto the list ----------
@@ -665,11 +684,24 @@ function renderPlanForm() {
     }, weekdayShort(d));
   }));
   if (!lists().some((l) => l.id === p.list)) p.list = ui.listId || pickList(lists(), null);
-  $('planLists').replaceChildren(...lists().map((l) => h('button', {
-    type: 'button', class: 'chip' + (p.list === l.id ? ' on' : ''), 'aria-pressed': String(p.list === l.id),
-    onclick: () => { p.list = l.id; renderPlanForm(); },
-  }, l.name)));
+  const l = lists().find((x) => x.id === p.list);
+  $('planListName').textContent = l ? l.name : '';
+  // What this period will block, read-only.
+  const mini = l ? [
+    ...sites().filter((x) => l.sites.includes(x.id)).map((x) => [siteIcon(x, 'glyph small'), tileLabel(x.label)]),
+    ...apps().filter((a) => l.apps.includes(a.bundleId)).map((a) => [appIcon(a, 'glyph small'), a.name]),
+  ] : [];
+  $('planIcons').replaceChildren(...mini.map(([icon, label]) => { icon.title = label; return icon; }));
 }
+
+function renderPlanMenu() {
+  const p = ui.plan;
+  $('planListMenu').replaceChildren(...lists().map((l) => h('button', {
+    type: 'button', role: 'menuitemradio', 'aria-checked': String(p.list === l.id), class: 'menu-item' + (p.list === l.id ? ' current' : ''),
+    onclick: () => { p.list = l.id; planDD.close(true); renderPlanForm(); },
+  }, h('span', { class: 'check' }, p.list === l.id ? '✓' : ''), l.name)));
+}
+let planDD = null;
 
 function renderSettings() {
   if (!$('settings').open) return;
@@ -778,9 +810,8 @@ async function setup() {
   $('untilTime').addEventListener('change', () => { const v = parseHHMM($('untilTime').value); if (v) $('untilTime').value = v; tick(); });
   $('untilTime').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('start').click(); });
 
-  $('listBtn').onclick = (e) => { e.stopPropagation(); if ($('listMenu').hidden) openMenu(); else closeMenu(); };
-  // composedPath: a menu click re-renders the menu, so e.target may already be detached.
-  document.addEventListener('click', (e) => { if (!e.composedPath().includes($('listLine'))) closeMenu(); });
+  listDD = dropdown({ root: $('listLine'), button: $('listBtn'), menu: $('listMenu'), render: () => { ui.menuAsk = false; renderMenu(); } });
+  planDD = dropdown({ root: $('planDD'), button: $('planListBtn'), menu: $('planListMenu'), render: renderPlanMenu });
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
     closeMenu();
@@ -802,11 +833,14 @@ async function setup() {
   $('start').onclick = () => {
     if ($('start').disabled) return;
     ui.step = 'confirm';
+    ui.editing = false;
+    ui.sigs.tiles = null;
     ui.shownAt.lock = performance.now();
     renderHero();
+    renderTiles();   // the confirmation is a read-only summary: no "Rediger" (design review round 3, R2)
     $('lockNow').focus();
   };
-  $('back').onclick = () => { ui.step = 'idle'; renderHero(); };
+  $('back').onclick = () => { ui.step = 'idle'; ui.sigs.tiles = null; renderHero(); renderTiles(); };
   $('lockNow').onclick = async (e) => {
     if (!confirmArmed(ui.shownAt.lock, performance.now(), e.detail)) return;
     const list = ui.listId;
