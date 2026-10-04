@@ -307,7 +307,7 @@ check(r.rows.includes('I morgen 09–12 · Locked In 1'), 'plan row reads "I mor
 await open('&down=1&r=down');
 r = await js(`${H} const a = $('alert'); const s = $('start');
   return { text: a.textContent, hidden: a.hidden, before: a.nextElementSibling.contains(s), disabled: s.disabled, bg: getComputedStyle(s).backgroundColor };`);
-check(!r.hidden && r.before && r.disabled && r.text === "Locked in kører ikke lige nu — genstart Mac'en", 'down: one line directly above a disabled Start', r.text);
+check(!r.hidden && r.before && r.disabled && r.text === "LockedIn kører ikke lige nu — genstart Mac'en", 'down: one line directly above a disabled Start', r.text);
 check(r.bg === 'rgb(25, 28, 33)', 'down: disabled Start is neutral grey', r.bg);
 
 // ---- touch targets ----

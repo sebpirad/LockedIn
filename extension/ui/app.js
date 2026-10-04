@@ -51,7 +51,7 @@ if (MOCK) {
   api = createApi();
   backend = {
     async refresh() {
-      if (!HAS_EXT) throw new Error('Åbn siden fra Locked in-udvidelsen.');
+      if (!HAS_EXT) throw new Error('Åbn siden fra LockedIn-udvidelsen.');
       const v = await chrome.runtime.sendMessage({ type: 'refresh' });
       if (!v || v.error) throw new Error((v && v.error) || 'Ingen forbindelse til udvidelsen');
       return v;
@@ -303,7 +303,7 @@ function tick() {
     big.classList.remove('dim');
     sub.textContent = `Låst til ${shortWhen(now, until)}`;
     sub.hidden = false;
-    document.title = `${formatCountdown(until - now)} · Locked in`;
+    document.title = `${formatCountdown(until - now)} · LockedIn`;
     const choices = extendChoices(until, now);
     const offered = ui.extendOpen ? $('extendChips').children.length : (!$('extend').hidden ? 1 : 0);
     if ((choices.length > 0) !== (offered > 0) || (ui.extendOpen && choices.length !== offered)) renderHero();
@@ -315,7 +315,7 @@ function tick() {
     return;
   }
 
-  document.title = 'Locked in';
+  document.title = 'LockedIn';
   if (ui.mode === 'until' && !(ui.until && untilToday(now, untilText()) != null)) { ensureUntil(now); renderUntil(); }
   const end = plannedEnd(now);
   // Idle: a static preview in whole minutes. Only a running lock moves its seconds.

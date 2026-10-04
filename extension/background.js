@@ -1,4 +1,4 @@
-// Locked in — service worker: syncs with lockedind and enforces the lock in Chrome.
+// LockedIn — service worker: syncs with lockedind and enforces the lock in Chrome.
 // Never imports anything from dev/ — the UI mock cannot reach the blocking logic.
 
 import { createApi, isValidStatus } from './lib/api.js';
@@ -51,7 +51,7 @@ async function doSync() {
   try {
     const s = await api.status();
     if (isValidStatus(s)) status = s;
-    else error = 'Ugyldigt svar fra Locked in-tjenesten';
+    else error = 'Ugyldigt svar fra LockedIn-tjenesten';
   } catch (e) {
     error = e.message;
   }
@@ -158,7 +158,13 @@ chrome.tabs.onRemoved.addListener((tabId) => {
 
 // ---------- heartbeat / alarms ----------
 
+// At most one heartbeat per 20 s, however many LockedIn tabs (new-tab pages) poll: each heartbeat makes the
+// daemon look up the calling process (review 4, v1.1.4 check). The watchdog allows 120 s.
+let lastHeartbeat = 0;
 function heartbeat() {
+  const now = Date.now();
+  if (now - lastHeartbeat < 20000) return Promise.resolve();
+  lastHeartbeat = now;
   try {
     return api.heartbeat(VERSION).catch(() => {});
   } catch {

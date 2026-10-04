@@ -32,3 +32,15 @@ test('only blocked.html is web-accessible; nothing from dev/ is referenced', () 
   assert.ok(!JSON.stringify(m).includes('dev/'));
   assert.deepEqual(m.host_permissions, ['<all_urls>', 'http://127.0.0.1:919/*']);
 });
+
+test('v1.1.4: named "LockedIn", and a new tab shows app.html', () => {
+  assert.equal(m.name, 'LockedIn');
+  assert.equal(m.action.default_title, 'LockedIn');
+  assert.deepEqual(m.chrome_url_overrides, { newtab: 'app.html' });
+  const app = fs.readFileSync(new URL('../app.html', import.meta.url), 'utf8');
+  const blocked = fs.readFileSync(new URL('../blocked.html', import.meta.url), 'utf8');
+  assert.match(app, /<title>LockedIn<\/title>/);
+  assert.match(blocked, /<title>LockedIn<\/title>/);
+  assert.match(app, />Start Locked in</); // the owner's button text stays
+  assert.doesNotMatch(app, /\bautofocus\b/); // a new tab keeps focus in the address bar
+});

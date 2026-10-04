@@ -10,7 +10,7 @@ export class ApiError extends Error {
   }
 }
 
-const UNREACHABLE = 'Locked in-tjenesten svarer ikke';
+const UNREACHABLE = 'LockedIn-tjenesten svarer ikke';
 
 export function createApi({ base = DAEMON, fetchImpl = (...a) => fetch(...a), timeoutMs = 4000 } = {}) {
   async function call(method, path, body) {
@@ -39,7 +39,7 @@ export function createApi({ base = DAEMON, fetchImpl = (...a) => fetch(...a), ti
     if (!res.ok) {
       const msg = data && typeof data.message === 'string' && data.message
         ? data.message
-        : `Locked in-tjenesten svarede med fejl ${res.status}`;
+        : `LockedIn-tjenesten svarede med fejl ${res.status}`;
       throw new ApiError(res.status, (data && data.error) || 'http_' + res.status, msg);
     }
     return data;

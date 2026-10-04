@@ -164,19 +164,27 @@ test('worker: fail-closed lifecycle against a fake daemon', async () => {
   assert.equal(v.locked, false);
   assert.equal(dynamicRules.length, 0);
 
-  // 9. heartbeat on every alarm and on every poll — also when /v1/status fails
+  // 9. heartbeat: every 30 s alarm sends one; polls in between (open pages every 5 s) are throttled
+  //    to one per 20 s; a failing /v1/status never stops it.
   daemon = { mode: 'up', status: status(false) };
   calls.length = 0;
+  now += 30000;
   await Promise.all(listeners.alarm.map((fn) => fn({ name: 'tick' })));
-  assert.equal(beats(), 1);
+  assert.equal(beats(), 1, 'alarm → heartbeat');
+  for (let i = 0; i < 3; i++) { now += 5000; await refresh(); }
+  assert.equal(beats(), 1, 'polls within 20 s do not repeat it');
+  now += 5000;
   await refresh();
-  await refresh();
-  assert.equal(beats(), 3);
+  assert.equal(beats(), 2, 'the next poll after 20 s sends one');
+  now += 30000;
+  await Promise.all(listeners.alarm.map((fn) => fn({ name: 'tick' })));
+  assert.equal(beats(), 3, 'every 30 s alarm sends one');
   daemon = { mode: 'broken' };
   delivered.length = 0;
+  now += 30000;
   v = await refresh();
   assert.equal(v.reachable, false);
-  assert.deepEqual(delivered, [{ extensionVersion: '1.0.0' }]);
+  assert.deepEqual(delivered, [{ extensionVersion: '1.0.0' }], 'sent even when /v1/status fails');
 });
 
 test('worker: M3 probe — mid-lock "inactive" + allowHosts instagram.com keeps instagram blocked', async () => {
@@ -199,6 +207,7 @@ test('worker: M3 probe — mid-lock "inactive" + allowHosts instagram.com keeps 
 test('worker: a 403 on /v1/heartbeat is never surfaced as an error', async () => {
   daemon = { mode: 'up', status: status(false), heartbeat403: true };
   delivered.length = 0;
+  now += 30000; // past the 20 s throttle, so a heartbeat is really sent (and refused)
   const v = await refresh();
   assert.equal(delivered.length, 1);
   assert.equal(v.reachable, true);

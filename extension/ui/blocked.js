@@ -139,7 +139,7 @@ function showEnded() {
     $('backLink').textContent = `Fortsæt til ${u.hostname.replace(/^www\./, '')}`;
     $('backWrap').hidden = false;
   }
-  document.title = 'Locked in';
+  document.title = 'LockedIn';
 }
 
 let checking = false;
@@ -160,7 +160,7 @@ function tick() {
   if (left <= 0) { recheck(); return; }
   $('remain').textContent = formatCountdown(left);
   $('remain').title = `Låst til ${shortWhen(Date.now(), info.lockedUntil)}`;
-  document.title = `${formatCountdown(left)} · Locked in`;
+  document.title = `${formatCountdown(left)} · LockedIn`;
 }
 
 async function main() {

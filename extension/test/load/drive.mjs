@@ -146,6 +146,14 @@ const app = await evaluate(appS, `({ big: document.getElementById('big').textCon
 check(/^\d\d:\d\d:\d\d$/.test(app.big) && app.tiles > 0 && /^Låst til/.test(app.sub) && app.list === 'Locked In 1', 'app.html renders the lock and its list', JSON.stringify(app));
 check(app.alert === '', 'heartbeat 403 is not shown as an error', app.alert);
 
+// ---------- 4b. a new tab shows LockedIn (chrome_url_overrides.newtab) ----------
+const { result: { targetId: ntId } } = await send('Target.createTarget', { url: 'chrome://newtab/' });
+await sleep(2000);
+const ntS = await attach(ntId);
+const nt = await evaluate(ntS, `({ href: location.href, title: document.title, big: !!document.getElementById('big'), focusInPage: document.hasFocus() && document.activeElement !== document.body })`).catch((e) => ({ error: e.message }));
+check(nt.href === `${ORIGIN}app.html` && /LockedIn$/.test(nt.title) && nt.big, 'new tab (⌘T) shows the LockedIn page', JSON.stringify(nt));
+check(nt.focusInPage === false, 'the new-tab page does not take focus from the address bar', JSON.stringify(nt));
+
 // ---------- 5. heartbeat ----------
 const hits = await (await fetch(`http://127.0.0.1:${daemonPort}/__hits`)).json();
 const beats = hits.filter(([m, p]) => m === 'POST' && p === '/v1/heartbeat');

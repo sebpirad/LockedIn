@@ -49,7 +49,7 @@ test('tile labels: short catalog labels, distinct app tiles', () => {
 });
 
 test('health line is plain Danish; detail only in the tooltip', () => {
-  assert.equal(healthMessage({ reachable: false }, NOW).text, "Locked in kører ikke lige nu — genstart Mac'en");
+  assert.equal(healthMessage({ reachable: false }, NOW).text, "LockedIn kører ikke lige nu — genstart Mac'en");
   const m = healthMessage({ reachable: true, status: { enforcement: { pf: false, lastTick: new Date(NOW).toISOString() } } }, NOW);
   assert.equal(m.text, "Blokeringen virker ikke helt — genstart Mac'en");
   assert.match(m.title, /netværksfilter/);

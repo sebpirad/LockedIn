@@ -58,7 +58,7 @@ export function nameFromDomain(domain) {
  */
 export function healthMessage(view, now) {
   if (!view) return null;
-  if (!view.reachable) return { text: 'Locked in kører ikke lige nu — genstart Mac\'en', title: '' };
+  if (!view.reachable) return { text: 'LockedIn kører ikke lige nu — genstart Mac\'en', title: '' };
   const e = (view.status && view.status.enforcement) || {};
   const broken = [e.hosts === false && 'hosts', e.pf === false && 'netværksfilter', e.appControl === false && 'app-kontrol'].filter(Boolean);
   const tickAt = e.lastTick ? Date.parse(e.lastTick) : null;

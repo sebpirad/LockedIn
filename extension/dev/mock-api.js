@@ -31,7 +31,7 @@ export async function createMockApi(params = new URLSearchParams()) {
   const listById = (id) => s.lists.find((l) => l.id === id) || (() => { throw new ApiError(404, 'not_found', 'Listen findes ikke.'); })();
   const guard = async () => {
     await new Promise((r) => setTimeout(r, 80));
-    if (down) throw new ApiError(0, 'unreachable', 'Locked in-tjenesten svarer ikke');
+    if (down) throw new ApiError(0, 'unreachable', 'LockedIn-tjenesten svarer ikke');
   };
 
   function lockUntil(t, list) {

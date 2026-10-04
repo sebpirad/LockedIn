@@ -214,3 +214,35 @@ No code blocker remains. Round 5's R5-1 and R5-2 are fixed, and nothing found we
 2. "Opdater" the unpacked extension at `chrome://extensions` after install; heartbeats keep arriving (`lastHeartbeat` moves).
 3. Favicons appear for `x.com` and do not trigger a request to a blocked host during a session (check the extension's service-worker network log).
 4. Still open from earlier rounds: App Nap and wake with the watchdog, a Chrome auto-update during a session, pf after a reboot, and the standard account vs. the profile and "Allow in the Background".
+
+---
+
+# v1.1.4 check (extension, diff since f29aa72, ~17:30 local)
+Method:
+- `node --test` 104/104.
+- The live daemon (1.2.0) answered `active:false`, so `test/load-in-chrome.sh` was run: **ALL CHECKS PASSED**, including "new tab (⌘T) shows the LockedIn page" (`chrome://newtab/` → `chrome-extension://…/app.html`) and no manifest errors.
+
+**Changes.** The name "LockedIn" (manifest, titles, messages; the button still says "Start Locked in") and `"chrome_url_overrides": {"newtab": "app.html"}`. **No new permissions:** the permission list is unchanged and an override is not a permission.
+
+| Concern | Verdict | Evidence |
+|---|---|---|
+| Manifest valid | OK | Loads in Chrome for Testing; `manifest.test.mjs` asserts the override, the names and that `app.html` has no `autofocus`. |
+| Toolbar icon open/focus | OK | `tabs.query({url: app.html*})` does not match new tabs (their tab URL stays `chrome://newtab/`), so the icon still opens or focuses its own control tab. |
+| blocked.html / DNR redirects | OK | Unchanged. `blockedSiteFor` ignores the extension origin and non-http URLs, and the sweep skips `chrome://newtab/`. |
+| bfcache content script | OK | Not injected into `chrome://` or extension pages; nothing changed. |
+| PowerLink | OK (not read) | Its traffic and DNR rules are untouched. Only one extension can own the new-tab page; if another one already overrides it, Chrome keeps one. I did not open PowerLink's files (rule). |
+| Omnibox focus | OK in code | No `autofocus`, and every `.focus()` call in `app.js` follows a user action. Chrome gives the address bar focus first on overridden new tabs. Headless cannot prove it; real-Mac item. |
+| Polling per page | OK, with a **LOW** note | `setInterval(refresh, 5000)` lives in each open `app.html` and dies when the tab is closed or navigated (typing a URL in the new tab stops it). |
+
+**LOW note on polling.** Each `refresh` calls `sync()` in the worker. `sync()` coalesces the status GETs but sends **one heartbeat per call, uncoalesced**. In the daemon every heartbeat runs `lsof` plus a full `tick()`.
+- N idle new-tab pages therefore cost about N heartbeats and N extra ticks per 5 s. Throttling of hidden tabs lowers this after a while.
+- Not a storm for a handful of tabs, but wasteful now that every ⌘T is an app page.
+- Fix: skip `refresh` while `document.hidden`, and rate-limit `heartbeat()` in the worker to one per 10–20 s whoever asks.
+
+### Verdict: **SHIP**
+No blocker. The polling note can follow.
+
+### Real-Mac only
+1. ⌘T in Chrome 154: the address bar has focus and you can type a URL at once.
+2. Chrome's "Is this the new tab page you expected? Keep / Change back" bubble. For a non-policy extension, **"Change back" disables LockedIn**. During a session the watchdog then closes Chrome after ~2.5 min of activity. Check whether the bubble appears for the unpacked install, and tell the owner to choose "Keep".
+3. With 5–10 idle new tabs open, `/Library/Logs/LockedIn/lockedind.log` and Activity Monitor show no noticeable daemon CPU.
