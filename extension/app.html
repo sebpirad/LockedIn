@@ -27,14 +27,17 @@
 
     <div id="durInput" class="inputs">
       <div id="presets" class="chips" role="group" aria-label="Varighed"></div>
-      <div id="customRow" class="custom" hidden>
-        <input id="hours" type="text" inputmode="numeric" maxlength="2" autocomplete="off" aria-label="Timer"><span>t</span>
-        <input id="mins" type="text" inputmode="numeric" maxlength="2" autocomplete="off" aria-label="Minutter"><span>min</span>
+      <div id="customRow" class="clock-row" hidden>
+        <div id="durH" class="dd clock"><button id="durHBtn" class="select-btn compact" type="button"><span id="durHVal"></span><span class="unit">t</span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="durHMenu" class="menu combo-menu" hidden></div></div>
+        <div id="durM" class="dd clock"><button id="durMBtn" class="select-btn compact" type="button"><span id="durMVal"></span><span class="unit">min</span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="durMMenu" class="menu combo-menu" hidden></div></div>
       </div>
     </div>
     <div id="untilInput" class="inputs" hidden>
-      <input id="untilTime" class="time" type="text" inputmode="numeric" maxlength="5" placeholder="15:00" autocomplete="off" aria-label="Indtil kl.">
-      <p id="untilErr" class="field-err" hidden>Vælg et senere tidspunkt i dag.</p>
+      <div class="clock-row">
+        <div id="untH" class="dd clock"><button id="untHBtn" class="select-btn compact" type="button"><span id="untHVal"></span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="untHMenu" class="menu combo-menu" hidden></div></div>
+        <span class="sep">:</span>
+        <div id="untM" class="dd clock"><button id="untMBtn" class="select-btn compact" type="button"><span id="untMVal"></span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="untMMenu" class="menu combo-menu" hidden></div></div>
+      </div>
     </div>
 
     <div id="listLine" class="list-line">
@@ -122,9 +125,9 @@
       </div>
       <div id="planDays" class="days" role="group" aria-label="Ugedage" hidden></div>
       <div class="times">
-        <input id="planStart" class="time" type="text" inputmode="numeric" maxlength="5" value="09:00" autocomplete="off" aria-label="Fra">
-        <span>–</span>
-        <input id="planEnd" class="time" type="text" inputmode="numeric" maxlength="5" value="12:00" autocomplete="off" aria-label="Til">
+        <div id="planSH" class="dd clock"><button id="planSHBtn" class="select-btn compact" type="button"><span id="planSHVal"></span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="planSHMenu" class="menu combo-menu" hidden></div></div><span class="sep">:</span><div id="planSM" class="dd clock"><button id="planSMBtn" class="select-btn compact" type="button"><span id="planSMVal"></span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="planSMMenu" class="menu combo-menu" hidden></div></div>
+        <span class="sep">–</span>
+        <div id="planEH" class="dd clock"><button id="planEHBtn" class="select-btn compact" type="button"><span id="planEHVal"></span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="planEHMenu" class="menu combo-menu" hidden></div></div><span class="sep">:</span><div id="planEM" class="dd clock"><button id="planEMBtn" class="select-btn compact" type="button"><span id="planEMVal"></span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="planEMMenu" class="menu combo-menu" hidden></div></div>
       </div>
       <div id="planDD" class="dd">
         <button id="planListBtn" class="select-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Liste">

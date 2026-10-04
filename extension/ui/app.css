@@ -83,7 +83,7 @@ input::placeholder { color: var(--subtle); }
 input:focus { border-color: var(--ring); }
 input.time { font-variant-numeric: tabular-nums; }
 #untilTime { font-size: 22px; min-height: 48px; text-align: center; width: 120px; }
-.times input { width: 80px; text-align: center; }
+
 .field-err { margin: 0; color: var(--bad); font-size: 14px; }
 
 .alert { margin: 0; color: var(--text); font-size: 14px; }
@@ -123,6 +123,17 @@ input.time { font-variant-numeric: tabular-nums; }
 .select-btn .caret { width: 10px; height: 6px; color: var(--muted); flex: none; }
 .select-btn > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .dd { position: relative; align-self: flex-start; }
+/* clock pickers: [ 2 t ▾ ] [ 30 min ▾ ] and [ 19 ▾ ] : [ 00 ▾ ] */
+.clock-row { display: flex; align-items: center; justify-content: center; gap: 8px; }
+.dd.clock { align-self: auto; }
+.select-btn.compact { min-width: 0; gap: 8px; padding: 0 12px 0 14px; font-variant-numeric: tabular-nums; }
+.select-btn.compact .unit { color: var(--muted); font-weight: 400; margin-left: -4px; }
+.select-btn:disabled { color: var(--subtle); cursor: not-allowed; }
+.sep { color: var(--muted); font-size: 18px; }
+.menu.combo-menu { min-width: 88px; width: max-content; max-height: 248px; overflow-y: auto; overscroll-behavior: contain; scroll-padding: 6px; }
+.combo-menu .opt { justify-content: center; font-variant-numeric: tabular-nums; flex: none; }
+.combo-menu .opt.current { background: var(--line); font-weight: 600; }
+.combo-menu .opt:focus-visible { outline-offset: -2px; }
 .menu.left { left: 0; transform: none; }
 .mini-icons { display: flex; flex-wrap: wrap; gap: 6px; min-height: 28px; }
 

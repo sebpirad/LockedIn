@@ -286,3 +286,55 @@ Everything from round 1 is fixed or acceptably deferred (S1 icons, S2 Viaplay Gr
 ## Verdict, round 3: **APPROVED**
 
 The dropdown matches the owner's sketch, works with mouse and keyboard, and makes the main screen markedly simpler. The round-2 regression R1 is fixed and none of the earlier fixes regressed. R2 is a one-line polish item that does not block release.
+
+---
+
+# Runde 4 (v1.1.3, clock-style pickers, 2026-10-04)
+
+**How it was tested.** I used the same method: the built-in browser at 800×900 and 375×812 with real key presses (not inserted text), the DOM scan, and a node check of `lib/clock.js` for late-evening times (Copenhagen). The test ran at 18:15 local time. No files were edited apart from appending this section.
+
+## What I checked
+
+| Area | Result |
+|---|---|
+| **Chips** | Exactly "30 min · 1 time · 2 timer · 4 timer · Andet". On phone they wrap 3 + 2. |
+| **Andet** | Shows `[1 t ▾] [00 min ▾]` (44 px tall, the same `select-btn` style as the list dropdown) with focus on the hours. Typing "2" filtered to 2, 20–24; Enter chose 2. Tab to minutes and typing "4" gave 40/45; ↓ and Enter chose 45, giving a timer of 02:45:00. Edge cases: 24 t leaves only "00"; 0 t drops "00" and moves to 05. |
+| **Indtil** | Shows `[18 ▾] : [30 ▾]` with a default of the next quarter hour. The hours list held only 18–23, and the minutes for 18 only 20–55: earlier times are *left out* rather than greyed, which is cleaner and still meets "only later times today". Typing "19" filtered to just 19; Enter gave 19:30 (timer 01:14:00, static in whole minutes). |
+| **Planlæg** | Shows `[09 ▾]:[00 ▾] – [12 ▾]:[00 ▾]` on one line, also at 375 px (330 px wide). Typing "7" gave 07. |
+| **Keyboard / wheel** | ↑/↓/Home/End move, Enter chooses and refocuses the button, Esc closes. The mouse wheel scrolled the 25-hour list (scrollTop 0 → 300) without scrolling the page (`overscroll-behavior: contain`). Each list opens scrolled to and focused on the current value. |
+| **Contrast / targets** | The DOM scan with pickers open found 0 text in `#5d616b` and 0 controls under 40×40. Options are 40 px rows. The "t" and "min" units and the ":" separator use `--muted` (6.2:1). |
+| **Consistency** | Same button, border, caret and menu as the list dropdown. The current option is marked with a filled row and bold text instead of ✓, which suits a narrow numeric list. Acceptable. |
+| **Regressions** | None. The list dropdown keyboard path, R1 (a double-click on Viaplay while locked still leaves it *off*), and the round-3 R2 (the confirm step now shows only Instagram/Slack/Adversus, with no Rediger) all hold. |
+
+## Findings
+
+### R3 (MUST-FIX). Typing a digit with no match turns the picker into an empty box that Esc cannot close
+**Reproduce:**
+- Indtil hour picker at 18:15: press "9" (09 is gone and nothing else starts with 9).
+- Andet minute picker: press "7".
+- Planlæg minute pickers: press "7".
+
+**Result:** the menu shrinks to an empty 14 px sliver under the button and focus drops to `<body>`, because the focused option was hidden. Esc, Enter and Tab no longer reach the menu's key handler, so the sliver stays open until the user clicks elsewhere. This breaks the keyboard path the owner asked for. "Typing filters/jumps" must never leave the user with nothing.
+**Fix (`ui/combo.js`):** never apply a filter with zero hits.
+```js
+function type(ch) {
+  const now = performance.now();
+  const base = now - typedAt > 900 ? '' : query;
+  typedAt = now;
+  const opts = getOptions();
+  if (filterOptions(opts, base + ch).length) query = base + ch;
+  else if (filterOptions(opts, ch).length) query = ch;
+  else return;                        // no match: ignore the key, keep the current list and focus
+  applyQuery();
+}
+```
+As a safety net, put the `Escape` handling on `root` (or `document` while the menu is open), not only on `menu`, so a lost focus can never strand an open picker.
+
+### Nice (optional)
+- **23:40–23:54.** `defaultUntilQuarter()` returns `null` once the next quarter hour is under 5 minutes away. The pickers then show "-- : --" disabled even though 23:45/23:50/23:55 are still valid in the lists. Fall back to the first available option. When nothing is left today, show a one-line `Ikke flere tider i dag — brug Varighed` under the pickers instead of silent "--".
+- **Accessible names.** The pickers' accessible names are "Timer", "Minutter" and "Indtil kl., time", which hide the visible value from screen readers. This is the same issue as the list dropdown. Use e.g. `aria-label="Timer: 2"`.
+- **No visible query.** Nothing on screen shows what has been typed. That is fine for one or two digits; no change needed unless the owner asks.
+
+## Verdict, round 4: **CHANGES REQUIRED** (one item)
+
+The pickers are what the owner asked for: compact, clean, consistent with the list dropdown, fully usable with mouse, wheel and keyboard, and limited to later times today. One defect blocks approval: R3, where a non-matching digit leaves an empty, un-closable box. With the small `type()` change above it is **APPROVED** from my side without another full round.

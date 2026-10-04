@@ -5,7 +5,7 @@
 import { createApi } from '../lib/api.js';
 import {
   formatClock, formatCountdown, formatDuration, weekdayShort, weekdayName, dayDiff, cphParts,
-  shortWhen, isoUtc, untilToday, defaultUntil, parseHHMM,
+  shortWhen, isoUtc, untilToday,
 } from '../lib/time.js';
 import { normalizeDomain } from '../lib/domains.js';
 import { extendOptions } from '../lib/extend.js';
@@ -17,13 +17,17 @@ import {
 } from '../lib/view.js';
 import { glyphFor, LOCK_ICON, monogramColor } from './glyphs.js';
 import { dropdown } from './dropdown.js';
+import { combo } from './combo.js';
+import {
+  DURATION_CHIPS, durHourOptions, durMinuteOptions, clampDuration, splitDuration,
+  untilHourOptions, untilMinuteOptions, defaultUntilQuarter, fixUntilMinute, MINUTE_STEPS,
+} from '../lib/clock.js';
 
 const params = new URLSearchParams(location.search);
 const HAS_EXT = typeof chrome !== 'undefined' && !!(chrome.runtime && chrome.runtime.id);
 const MOCK = !HAS_EXT && params.get('mock') === '1';
 const LOCK_TIP = 'Kan ikke ændres under en aktiv session';
 const BROWSER_TIP = 'Andre browsere lukkes altid under fokus';
-const PRESETS = [25, 50, 60, 120, 240];
 const EXTEND_PRESETS = [25, 60, 120];
 
 let api;
@@ -75,7 +79,8 @@ const ui = {
   view: null,
   mode: store.get('li.mode') === 'until' ? 'until' : 'dur',
   minutes: 60,
-  custom: false,       // "Andet" chosen: the compact h/min input is shown
+  custom: false,       // "Andet" chosen: the hour/minute pickers are shown
+  until: null,         // "Indtil": {hour, minute}
   step: 'idle',        // idle | confirm
   extendOpen: false,
   extendAdd: 60,
@@ -91,7 +96,7 @@ const ui = {
   installed: null,
   icons: {},           // domain → {data} for own sites (cached by the service worker)
   iconsRev: 0,
-  plan: { kind: 'date', date: null, weekdays: [1, 2, 3, 4, 5], list: null },
+  plan: { kind: 'date', date: null, weekdays: [1, 2, 3, 4, 5], list: null, start: '09:00', end: '12:00' },
   sigs: {},
 };
 
@@ -166,7 +171,7 @@ function lockInfo() {
 
 /** Planned end of a new session, or null when "Indtil" has no valid time. */
 function plannedEnd(now = Date.now()) {
-  if (ui.mode === 'until') return untilToday(now, parseHHMM($('untilTime').value));
+  if (ui.mode === 'until') return ui.until ? untilToday(now, untilText()) : null;
   return now + ui.minutes * 60000;
 }
 
@@ -181,46 +186,56 @@ function extendTarget(until, now = Date.now()) {
 
 // ---------- hero ----------
 
+const pad2 = (n) => String(n).padStart(2, '0');
+const untilText = () => (ui.until ? `${pad2(ui.until.hour)}:${pad2(ui.until.minute)}` : '');
+
 function renderPresets() {
   const chip = (label, on, onclick) => h('button', { type: 'button', class: 'chip' + (on ? ' on' : ''), 'aria-pressed': String(on), onclick }, label);
+  const isChip = DURATION_CHIPS.some((c) => c.minutes === ui.minutes);
   $('presets').replaceChildren(
-    ...PRESETS.map((m) => chip(formatDuration(m), !ui.custom && ui.minutes === m, () => { ui.custom = false; setMinutes(m); })),
-    chip('Andet', ui.custom || !PRESETS.includes(ui.minutes), () => openCustom()),
+    ...DURATION_CHIPS.map((c) => chip(c.label, !ui.custom && ui.minutes === c.minutes, () => { ui.custom = false; setMinutes(c.minutes); })),
+    chip('Andet', ui.custom || !isChip, () => openCustom()),
   );
   show('customRow', ui.custom);
+  const d = splitDuration(ui.minutes, maxMinutes());
+  $('durHVal').textContent = String(d.hours);
+  $('durMVal').textContent = pad2(d.minutes);
 }
 
 function openCustom() {
   ui.custom = true;
   setMinutes(ui.minutes);
-  $('hours').focus();
-  $('hours').select();
+  $('durHBtn').focus();
 }
 
-function setMinutes(m, fromInputs) {
+function setMinutes(m) {
   ui.minutes = Math.max(1, Math.min(maxMinutes(), Math.round(m) || 0));
-  if (!fromInputs) {
-    $('hours').value = Math.floor(ui.minutes / 60);
-    $('mins').value = ui.minutes % 60;
-  }
   renderPresets();
   tick();
 }
 
-function onCustomInput() {
-  const hrs = Math.max(0, Math.min(24, parseInt($('hours').value, 10) || 0));
-  let mins = Math.max(0, Math.min(59, parseInt($('mins').value, 10) || 0));
-  if (hrs === 24) mins = 0;
-  setMinutes(hrs * 60 + mins, true);
+function setDuration(hours, minutes) {
+  setMinutes(clampDuration(hours, minutes, maxMinutes()).total);
+}
+
+/** Keep "Indtil" on a time that is still later today; default = next quarter hour ≥ 5 min ahead. */
+function ensureUntil(now = Date.now()) {
+  if (ui.until && untilToday(now, untilText()) != null) return;
+  const d = defaultUntilQuarter(now);
+  ui.until = d ? { hour: d.hour, minute: d.minute } : null;
+}
+
+function renderUntil() {
+  $('untHVal').textContent = ui.until ? pad2(ui.until.hour) : '--';
+  $('untMVal').textContent = ui.until ? pad2(ui.until.minute) : '--';
+  $('untHBtn').disabled = !ui.until;
+  $('untMBtn').disabled = !ui.until;
 }
 
 function setMode(mode) {
   ui.mode = mode;
   store.set('li.mode', mode);
-  if (mode === 'until' && untilToday(Date.now(), parseHHMM($('untilTime').value)) == null) {
-    const d = defaultUntil(Date.now());
-    if (d) $('untilTime').value = d;
-  }
+  if (mode === 'until') { ensureUntil(); renderUntil(); }
   renderHero();
 }
 
@@ -301,11 +316,11 @@ function tick() {
   }
 
   document.title = 'Locked in';
+  if (ui.mode === 'until' && !(ui.until && untilToday(now, untilText()) != null)) { ensureUntil(now); renderUntil(); }
   const end = plannedEnd(now);
   // Idle: a static preview in whole minutes. Only a running lock moves its seconds.
   big.textContent = ui.mode === 'until' ? idleTimer(end == null ? 0 : end - now) : formatCountdown(ui.minutes * 60000);
   big.classList.toggle('dim', end == null);
-  $('untilErr').hidden = !(ui.mode === 'until' && end == null && $('untilTime').value !== '');
 
   const list = currentList();
   const blocker = startBlocker({ reachable: reachable(), end, list, hasLists: lists().length > 0 });
@@ -692,6 +707,14 @@ function renderPlanForm() {
     ...apps().filter((a) => l.apps.includes(a.bundleId)).map((a) => [appIcon(a, 'glyph small'), a.name]),
   ] : [];
   $('planIcons').replaceChildren(...mini.map(([icon, label]) => { icon.title = label; return icon; }));
+  renderPlanTimes();
+}
+
+function renderPlanTimes() {
+  const [sh, sm] = ui.plan.start.split(':');
+  const [eh, em] = ui.plan.end.split(':');
+  $('planSHVal').textContent = sh; $('planSMVal').textContent = sm;
+  $('planEHVal').textContent = eh; $('planEMVal').textContent = em;
 }
 
 function renderPlanMenu() {
@@ -723,9 +746,7 @@ function setupSettings() {
   const form = $('planForm');
   const close = () => { form.hidden = true; $('addPlanBtn').hidden = false; $('planErr').hidden = true; };
   $('addPlanBtn').onclick = () => {
-    ui.plan = { kind: 'date', date: cphDate(Date.now(), 1), weekdays: [1, 2, 3, 4, 5], list: ui.listId };
-    $('planStart').value = '09:00';
-    $('planEnd').value = '12:00';
+    ui.plan = { kind: 'date', date: cphDate(Date.now(), 1), weekdays: [1, 2, 3, 4, 5], list: ui.listId, start: '09:00', end: '12:00' };
     $('planErr').hidden = true;
     form.hidden = false;
     $('addPlanBtn').hidden = true;
@@ -734,13 +755,20 @@ function setupSettings() {
   for (const b of $('planKind').querySelectorAll('button')) b.onclick = () => { ui.plan.kind = b.dataset.kind; renderPlanForm(); };
   for (const b of $('planDate').querySelectorAll('[data-day]')) b.onclick = () => { ui.plan.date = cphDate(Date.now(), +b.dataset.day); renderPlanForm(); };
   $('planDateInput').addEventListener('change', () => { ui.plan.date = $('planDateInput').value || null; renderPlanForm(); });
-  for (const id of ['planStart', 'planEnd']) {
-    $(id).addEventListener('change', () => { const v = parseHHMM($(id).value); if (v) $(id).value = v; });
+  // Start/end: the same hour:minute pickers as "Indtil" (any time of day).
+  const HOURS = Array.from({ length: 24 }, (_, i) => ({ value: i, label: pad2(i) }));
+  const MINS = MINUTE_STEPS.map((m) => ({ value: m, label: pad2(m) }));
+  const part = (key, i) => +ui.plan[key].split(':')[i];
+  const setPart = (key, i, v) => { const t = ui.plan[key].split(':'); t[i] = pad2(v); ui.plan[key] = t.join(':'); renderPlanTimes(); };
+  for (const [id, key, i, opts, label] of [['planSH', 'start', 0, HOURS, 'Fra, time'], ['planSM', 'start', 1, MINS, 'Fra, minut'],
+    ['planEH', 'end', 0, HOURS, 'Til, time'], ['planEM', 'end', 1, MINS, 'Til, minut']]) {
+    combo({ root: $(id), button: $(id + 'Btn'), menu: $(id + 'Menu'), label,
+      getOptions: () => opts, getValue: () => part(key, i), onSelect: (v) => setPart(key, i, v) });
   }
   form.querySelector('[data-cancel]').onclick = close;
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const r = scheduleBody({ ...ui.plan, start: $('planStart').value, end: $('planEnd').value }, Date.now());
+    const r = scheduleBody({ ...ui.plan }, Date.now());
     if (r.error) { $('planErr').textContent = r.error; $('planErr').hidden = false; return; }
     if (await act(() => api.addSchedule(r.body))) close();
   });
@@ -798,17 +826,24 @@ async function refresh(force) {
 async function setup() {
   ui.listId = await loadLastList();
   setMinutes(60);
-  const d = defaultUntil(Date.now());
-  if (d) $('untilTime').value = d;
+  ensureUntil();
+  renderUntil();
   for (const b of $('modeSwitch').querySelectorAll('button')) b.onclick = () => setMode(b.dataset.mode);
-  $('hours').addEventListener('input', onCustomInput);
-  $('mins').addEventListener('input', onCustomInput);
-  for (const id of ['hours', 'mins']) $(id).addEventListener('change', () => setMinutes(ui.minutes));
+  const cur = () => splitDuration(ui.minutes, maxMinutes());
+  combo({ root: $('durH'), button: $('durHBtn'), menu: $('durHMenu'), label: 'Timer',
+    getOptions: () => durHourOptions(maxMinutes()), getValue: () => cur().hours,
+    onSelect: (h) => setDuration(h, cur().minutes) });
+  combo({ root: $('durM'), button: $('durMBtn'), menu: $('durMMenu'), label: 'Minutter',
+    getOptions: () => durMinuteOptions(cur().hours, maxMinutes()), getValue: () => cur().minutes,
+    onSelect: (m) => setDuration(cur().hours, m) });
+  combo({ root: $('untH'), button: $('untHBtn'), menu: $('untHMenu'), label: 'Indtil kl., time',
+    getOptions: () => untilHourOptions(Date.now()), getValue: () => ui.until && ui.until.hour,
+    onSelect: (hr) => { const m = fixUntilMinute(hr, ui.until ? ui.until.minute : 0, Date.now()); if (m != null) ui.until = { hour: hr, minute: m }; renderUntil(); tick(); } });
+  combo({ root: $('untM'), button: $('untMBtn'), menu: $('untMMenu'), label: 'Indtil kl., minut',
+    getOptions: () => (ui.until ? untilMinuteOptions(ui.until.hour, Date.now()) : []), getValue: () => ui.until && ui.until.minute,
+    onSelect: (m) => { if (ui.until) ui.until = { hour: ui.until.hour, minute: m }; renderUntil(); tick(); } });
   $('big').addEventListener('click', () => { if ($('big').classList.contains('editable')) openCustom(); });
   $('big').addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key === ' ') && $('big').classList.contains('editable')) { e.preventDefault(); openCustom(); } });
-  $('untilTime').addEventListener('input', tick);
-  $('untilTime').addEventListener('change', () => { const v = parseHHMM($('untilTime').value); if (v) $('untilTime').value = v; tick(); });
-  $('untilTime').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('start').click(); });
 
   listDD = dropdown({ root: $('listLine'), button: $('listBtn'), menu: $('listMenu'), render: () => { ui.menuAsk = false; renderMenu(); } });
   planDD = dropdown({ root: $('planDD'), button: $('planListBtn'), menu: $('planListMenu'), render: renderPlanMenu });
@@ -846,7 +881,7 @@ async function setup() {
     const list = ui.listId;
     let call;
     if (ui.mode === 'until') {
-      const at = untilToday(Date.now(), parseHHMM($('untilTime').value));
+      const at = ui.until ? untilToday(Date.now(), untilText()) : null;
       if (at == null) { toast('Vælg et senere tidspunkt i dag.'); ui.step = 'idle'; renderHero(); return; }
       call = () => api.startUntil(isoUtc(at), list);
     } else {

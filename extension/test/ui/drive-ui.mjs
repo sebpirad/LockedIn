@@ -102,11 +102,107 @@ r = await js(`${H} document.querySelector('#modeSwitch [data-mode=until]').click
   return { a, b };`);
 check(r.a.endsWith(':00') && r.a === r.b, 'Indtil idle: static whole minutes', `${r.a} → ${r.b}`);
 
-// ---- Andet: custom duration via chip or the timer ----
-r = await js(`${H} $('big').click(); await w(50);
-  const shown = !$('customRow').hidden; $('hours').value = '2'; $('mins').value = '15'; $('hours').dispatchEvent(new Event('input')); await w(50);
-  return { shown, big: $('big').textContent, andet: [...document.querySelectorAll('#presets .chip.on')].map((c) => c.textContent) };`);
-check(r.shown && r.big === '02:15:00' && r.andet.join() === 'Andet', 'tap on timer opens "Andet"', JSON.stringify(r));
+// ---- v1.1.3: chips + clock-style pickers, driven with real key presses ----
+const KEYS = { ArrowDown: 40, ArrowUp: 38, Enter: 13, Escape: 27, Backspace: 8 };
+async function press(key) {
+  const isDigit = /^[0-9]$/.test(key);
+  const base = isDigit ? { key, code: 'Digit' + key, windowsVirtualKeyCode: 48 + +key, text: key }
+    : { key, code: key, windowsVirtualKeyCode: KEYS[key], ...(key === 'Enter' ? { text: '\r' } : {}) };
+  await send('Input.dispatchKeyEvent', { type: isDigit || key === 'Enter' ? 'keyDown' : 'rawKeyDown', ...base }, S);
+  await send('Input.dispatchKeyEvent', { type: 'keyUp', ...base }, S);
+  await sleep(60);
+}
+const typeKeys = async (str) => { for (const ch of str) await press(ch); };
+const state = () => js(`const $ = (id) => document.getElementById(id); const f = document.activeElement;
+  const menu = f && f.closest('.combo-menu');
+  return { big: $('big').textContent, focus: f ? (f.id || f.textContent) : '', open: [...document.querySelectorAll('.combo-menu')].some((m) => !m.hidden),
+    visible: menu ? [...menu.querySelectorAll('[role=option]:not([hidden])')].map((b) => b.textContent) : [],
+    inView: menu ? (() => { const r = f.getBoundingClientRect(), m = menu.getBoundingClientRect(); return r.top >= m.top - 1 && r.bottom <= m.bottom + 1; })() : null,
+    scrollTop: menu ? menu.scrollTop : null,
+    durH: $('durHVal').textContent, durM: $('durMVal').textContent, untH: $('untHVal').textContent, untM: $('untMVal').textContent };`);
+
+await open('&r=clock');
+r = await js(`localStorage.setItem('li.mode', 'dur'); location.reload(); return 1`).catch(() => 1);
+await sleep(1000);
+r = await js(`return { chips: [...document.querySelectorAll('#presets .chip')].map((c) => c.textContent + (c.classList.contains('on') ? '*' : '')), big: document.getElementById('big').textContent,
+  inputs: document.querySelectorAll('#durInput input, #untilInput input, input[type=time]').length }`);
+check(r.chips.join() === '30 min,1 time*,2 timer,4 timer,Andet' && r.big === '01:00:00', 'chips: 30 min · 1 time · 2 timer · 4 timer · Andet; default 1 time', JSON.stringify(r));
+check(r.inputs === 0, 'no text boxes and no <input type=time> for duration/time');
+
+await js(`document.getElementById('big').click(); return 1`);
+r = await state();
+check(r.focus === 'durHBtn' && r.durH === '1' && r.durM === '00', 'tap on the timer opens "Andet" with [1 t] [00 min]', JSON.stringify(r));
+await press('Enter');
+r = await state();
+check(r.open && r.focus === '1' && r.inView, 'Enter opens the hours list on the current value', JSON.stringify(r));
+await typeKeys('2');
+r = await state();
+check(r.visible.join() === '2,20,21,22,23,24' && r.focus === '2', 'typing "2" narrows to 2, 20–24', JSON.stringify(r.visible));
+await press('Enter');
+r = await state();
+check(!r.open && r.big === '02:00:00' && r.focus === 'durHBtn', 'Enter chooses 2 t, closes, timer shows 02:00:00', JSON.stringify(r));
+
+await js(`document.getElementById('durMBtn').focus(); return 1`);
+await press('ArrowDown');
+await typeKeys('4');
+r = await state();
+check(r.visible.join() === '40,45' && r.focus === '40', 'minutes: typing "4" → 40, 45', JSON.stringify(r.visible));
+await press('ArrowDown');
+await press('Enter');
+r = await state();
+check(r.big === '02:45:00' && r.durM === '45', '↓ then Enter → 2 t 45 min', JSON.stringify(r));
+
+await js(`document.getElementById('durHBtn').focus(); return 1`);
+await press('ArrowDown');
+await typeKeys('24');
+await press('Enter');
+r = await state();
+check(r.big === '24:00:00' && r.durH === '24' && r.durM === '00', '24 t caps the minutes at 00', JSON.stringify(r));
+await js(`document.getElementById('durHBtn').focus(); return 1`);
+await press('ArrowDown');
+r = await state();
+check(r.scrollTop > 0 && r.inView && r.focus === '24', 'opens scrolled to the current value (24)', JSON.stringify(r));
+await press('Escape');
+r = await state();
+check(!r.open && r.focus === 'durHBtn' && r.big === '24:00:00', 'Escape closes without changing anything', JSON.stringify(r));
+
+// mouse/trackpad scrolling inside the list
+await js(`document.getElementById('durHBtn').focus(); return 1`);
+await press('ArrowUp');
+const box = await js(`const m = [...document.querySelectorAll('.combo-menu')].find((x) => !x.hidden).getBoundingClientRect(); return { x: m.x + m.width / 2, y: m.y + m.height / 2 };`);
+const before = (await state()).scrollTop;
+await send('Input.dispatchMouseEvent', { type: 'mouseWheel', x: box.x, y: box.y, deltaX: 0, deltaY: -300 }, S);
+await sleep(300);
+const after = (await state()).scrollTop;
+check(after < before, 'the list scrolls with the mouse wheel', `${before} → ${after}`);
+await press('Escape');
+
+// Indtil
+await js(`document.querySelector('#modeSwitch [data-mode=until]').click(); return 1`);
+r = await js(`const opts = (await (async () => { document.getElementById('untHBtn').click(); await new Promise((x) => setTimeout(x, 80));
+    const o = [...document.querySelectorAll('#untHMenu [role=option]')].map((b) => +b.textContent); document.getElementById('untHBtn').click(); return o; })());
+  const p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Copenhagen', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
+  const nowMin = +p.find((x) => x.type === 'hour').value * 60 + +p.find((x) => x.type === 'minute').value;
+  const h = +document.getElementById('untHVal').textContent, m = +document.getElementById('untMVal').textContent;
+  return { opts, nowHour: Math.floor(nowMin / 60), ahead: h * 60 + m - nowMin, quarter: m % 15 === 0 };`);
+if (r.opts.length) {
+  check(r.opts[0] >= r.nowHour && r.opts.every((x) => x >= r.nowHour), 'Indtil: earlier hours are not offered', JSON.stringify(r.opts));
+  check(r.quarter && r.ahead >= 5 && r.ahead <= 20, 'Indtil default: next whole quarter ≥ 5 min ahead', JSON.stringify(r));
+  await js(`document.getElementById('untHBtn').focus(); return 1`);
+  await press('ArrowDown');
+  await typeKeys('23');
+  await press('Enter');
+  await js(`document.getElementById('untMBtn').focus(); return 1`);
+  await press('ArrowDown');
+  await typeKeys('4');
+  await press('Enter');
+  r = await state();
+  const r2 = await js(`const a = document.getElementById('big').textContent; await new Promise((x) => setTimeout(x, 1200)); return { a, b: document.getElementById('big').textContent, start: !document.getElementById('start').disabled }`);
+  check(r.untH === '23' && r.untM === '40' && r2.a.endsWith(':00') && r2.a === r2.b && r2.start, 'Indtil: typed 23 : 4 → 23:40, static timer, Start enabled', JSON.stringify({ ...r, ...r2 }));
+} else {
+  console.log('SKIP  Indtil checks: no time left today');
+}
+await js(`document.querySelector('#modeSwitch [data-mode=dur]').click(); return 1`);
 
 // ---- M4: locked, a tap on a dimmed tile asks first ----
 await open('&locked=1&list=l1&r=m4');
@@ -199,7 +295,9 @@ r = await js(`${H}
   $('planListBtn').click(); await w(50);
   [...document.querySelectorAll('#planListMenu .menu-item')].find((x) => x.textContent.endsWith('Locked In 1')).click(); await w(100);
   const after = { name: $('planListName').textContent, icons: [...$('planIcons').children].map((x) => x.title).join() };
-  $('planStart').value = '09'; $('planEnd').value = '12'; $('planForm').requestSubmit(); await w(600);
+  const times = [$('planSHVal'), $('planSMVal'), $('planEHVal'), $('planEMVal')].map((x) => x.textContent).join('');
+  if (times !== '09001200') return { before, after, rows: ['times ' + times] };
+  $('planForm').requestSubmit(); await w(600);
   return { before, after, rows: [...document.querySelectorAll('#planList .row-title')].map((x) => x.textContent) };`);
 check(r.before.name === 'Locked In 2' && r.before.icons === 6, 'plan form: list dropdown starts on the current list, its icons shown', JSON.stringify(r.before));
 check(r.after.name === 'Locked In 1' && r.after.icons === 'Instagram,Slack,Adversus', 'plan form: choosing another list shows what it blocks', JSON.stringify(r.after));
