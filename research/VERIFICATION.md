@@ -294,3 +294,96 @@ Independent check of `research/quotes-entrepreneur.json` (26 entries, e01–e26)
 - All other images match Commons for licence, creator and source. Each one depicts the right person, and every local file exists with the Commons aspect ratio.
 
 **Method:** Gutenberg texts (#7213, #8581), the CBS, Harvard, Stanford (live and Wayback), Princeton (Wayback), IBM, LEGO, lex.dk and QI pages, the Inter IKEA PDF, and the archive.org OCR for Carnegie, ERIC ED440033 and Maersk Post were all searched by script. Lending-only books were checked with archive.org search-inside. Only true/false results and page numbers were read, never the surrounding text.
+
+## Explorers
+
+Independent check of `research/quotes-explorer.json` (24 entries, x01–x24), run 2026-10-04. Verdicts and exact fixes are in `research/verification-explorer.json`.
+
+| Verdict | Count |
+|---|---|
+| PASS | 19 |
+| FIX | 4 |
+| REJECT | 1 |
+
+Every display line was found verbatim (punctuation aside) in the cited source by the person it is credited to. None is in a Wikiquote "Misattributed" or "Disputed" section, and Quote Investigator has no article on any of them. Both Amundsen originals were confirmed on nb.no: Sydpolen B. 1 p. 506 and B. 2 p. 62 (Dybwad 1912).
+
+**REJECT**
+- **x13 Gertrude Bell**: genuine (first sentence of *The Desert and the Sown*, ch. I), but off-theme. It is about the exhilaration of leaving "an elaborate social order" for wild travel, which on a blocked-site screen reads as escapism. The image is weak too: the face is small, and the licence tag (PD-art|PD-anon-1923) does not fit an anonymous photo whose early publication is not documented.
+
+**FIX**
+- **x02 Nansen**: the page is **p. 27**, not 26. Page numbers in the Hogarth scan are footers. The "26" just before the sentence in the OCR is the foot of p. 26; the sentence opens p. 27.
+- **x19 Nansen**: the page is **p. 19**, not 18 (same footer mistake).
+- **x06 Shackleton**: two fixes.
+  - **Source.** The cited scan is the 1910 Musson one-volume edition, where the line is in ch. XIII. In the 1909 Heinemann first edition it is **Vol. I, ch. XXII "On the Great Glacier", p. 321**, under 11 December. The URL now points to the 1909 scan.
+  - **Image.** The photo is by Frank Hurley, who died in 1962. Commons tags it only {{PD-old}}, which is wrong. It was the frontispiece of *South* (London, 1919), so it may be protected in the UK and EU until the end of 2032. Replace it with the x05 Beresford portrait and re-download (or copy) `quote-images/x06.jpg`.
+- **x08 Henson**: the chapter title is "…Lieutenant Peary's Body-Servant — First Trips to the Arctic", not "…Peary's Expeditions".
+
+**Page numbers confirmed or found (optional):** x12 p. 7, x24 p. 12, x17 p. 381, x18 p. 20 (Dodd, Mead 1911).
+
+**Context notes (all kept as PASS)**
+- x10 drops the opening "Nonsense!".
+- x23 drops a leading "That".
+- x07 is the final clause of a sentence.
+
+  All three are acceptable at the start of a quote and keep the meaning.
+- x11: the book prints the verses without the title "Courage", and the comma is closed to a full stop.
+- x15 is wry: the only reward is the egg itself, not money or fame. The meaning is intact, but the line is oblique out of context.
+- Weak but acceptable fit: x07 (the pull of the trail), x14 ("Intellectual Passion") and x04 (sombre).
+
+**Doubtful images**
+- **x06 Hurley (†1962)**: replace it, as above.
+- **x08 Henson** (NYWT&S, Roger Higgins, 1953): PD rests on the newspaper's dedication of its rights to the Library of Congress, not on an expired term. This is acceptable. The photo is landscape, and Henson holds a portrait of Peary, so two faces are in the frame.
+- **x13 Bell**: see REJECT.
+- **"PD-US only" is acceptable** for x01 (Lomen Bros., Nome 1920), x07, x11 (Wide World 1928, PD-Pre1978) and x21. All are US works, so they are PD in the EU by the rule of the shorter term.
+- x19 (Studio Phebus, before 1927, PD-Norway50) is anonymous and more than 70 years old, so it is fine.
+- x05 has an odd PD-Norway50 tag, but Beresford died in 1938, so it is PD-old anyway.
+- x22 is PD-Australia (1914). It also carries a CC BY 2.0 tag, but PD is enough.
+- x24's Commons source is a third-party mirror of the official NASA portrait. Low risk.
+- **Quality:**
+  - x14 (428×570) and x15 (586×400, landscape, with a small figure) are tiny originals.
+  - x20 shows Amundsen full-length in furs, in profile, with his face barely visible.
+  - x10 is a faded cabinet card.
+  - x18 is full-length on a mount with handwriting.
+- All 24 local files exist and match the Commons aspect ratio. Every `original_url` matches the Commons API, and every image depicts the right person (contact sheet checked).
+
+**Text-rights advisory (not counted as FIX):** Cherry-Garrard died in 1959, so x14 and x15 are protected in the EU/UK until the end of 2029. Mawson died in 1958, so x22 is protected until the end of 2028. Both are short quotations. Henson died in 1955, so his text has been free in the EU since 1 January 2026. The NASA oral histories (x12, x24) are US-government transcripts.
+
+**Method:** I downloaded the Gutenberg texts (#3414, #3415, #4229, #5199, #6137, #6750, #11579, #14363, #18975, #20923, #63731, #73448) and the following sources:
+- the UPenn Bly transcription;
+- the NASA oral-history PDFs and the ALSJ pages;
+- the archive.org OCR, with djvu.xml word coordinates for the page numbers, for the Nansen *Adventure*, the Musson and 1909 Heinemann *Heart of the Antarctic*, and Peck.
+
+I searched them by script after normalising for punctuation, OCR line-break hyphens and case. I printed only true/false, offsets, chapter headings and page numbers, never the surrounding text. I checked the Norwegian on the nb.no content-fragment API, read the Wikiquote wikitext sections, and searched Quote Investigator through its search API. For the images I used the Commons `imageinfo|extmetadata` API, the page wikitext and a contact sheet of the local files. Cache: `/private/tmp/claude-501/-Users-sebastianpirad-powerlink/92b58899-467c-424a-8ed1-d3636b2fd856/scratchpad/vx/`.
+
+## Athletes
+
+Independent check of `research/quotes-athlete.json` (23 entries, a01–a23), run 2026-10-04. Verdicts are in `research/verification-athlete.json`. No entry had missing fields.
+
+| Verdict | Count |
+|---|---|
+| PASS | 22 |
+| FIX | 1 |
+| REJECT | 0 |
+
+**REJECT: none.** I was strict about the faked names. None of the lines is the Nike "Failure" script, an anthology-only Kobe, Ali or Phelps line, or a Wikiquote "Misattributed" item:
+- **Jordan**: a02 is on p. 12 of his 1994 book; a12 is in the official Hall of Fame video transcript.
+- **Kobe** (a06): from the Sports Illustrated report of his jersey-retirement speech.
+- **Ali** (a03): Quote Investigator traces it to 1977.
+- **Pelé** (a13): his own introduction to the 1978 book, p. 7.
+- **Phelps** (a17): his 2008 book, p. 14.
+
+Search-inside also confirms one of the researcher's rejections: the popular Phelps line ("You can't put a limit on anything…") is not in No Limits.
+
+**FIX**
+- **a06 Kobe Bryant**: the shown text starts 18 words into his sentence, without marking the cut. Add a leading "…".
+
+**Page numbers found (optional to add):** a02 p. 12, a08 Superstars p. 253, a13 p. 7, a16 p. 3, a17 p. 14, a18 p. 1, a19 p. 45, a21 pp. 119/150/168, a23 p. 150.
+
+**Notes and doubtful images**
+- **a02 Jordan photo**: a CC BY-SA 3.0 "self" upload by Commons user Cavic, credited as Steve Lipofsky. The file has no VRT ticket, so it relies on Cavic being Lipofsky. The licence risk is moderate.
+- **a12**: the official YouTube upload (XLzBMGXfK4c) is a better public source than the Facebook clip, which needs a login. The image is only 398×568.
+- **a13**: consider adding "with Julio Mazzei" to the source.
+- **CC BY-SA images** (a02, a04–a06, a09, a11, a13, a14–a16, a19–a21): the resized copies must stay CC BY-SA with credit.
+- All 22 unique images match Commons for licence, creator and source. Each one depicts the right person, and every local file exists with the Commons aspect ratio.
+
+**Method:** Dartmouth, SI, TED, CNN, PBS and the NYT archive were searched by script. TIME, the NYT 2018 article (Wayback), Quote Investigator and the YouTube transcript were checked in a browser by script. The ten archive.org books were checked with search-inside. Only true/false results and page numbers were read, never the surrounding text.

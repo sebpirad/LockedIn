@@ -5,7 +5,7 @@
 set -eu
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
-SRC_JSON="$ROOT/research/quotes.json"
+SRC_JSON="$ROOT/research/quotes-final.json"; [ -f "$SRC_JSON" ] || SRC_JSON="$ROOT/research/quotes.json"
 SRC_IMG="$ROOT/research/quote-images"
 DST="$ROOT/extension/quotes"
 

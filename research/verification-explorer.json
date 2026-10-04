@@ -1,0 +1,165 @@
+[
+ {
+  "id": "x01",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Chater's translation (Gutenberg #3414 and #4229), Vol. I, Ch. IX 'The End of the Winter'. Norwegian confirmed on nb.no: every phrase of the original is on p. 506 of Sydpolen B. 1 (Dybwad 1912, 528 pp.) and of the second 1912 copy (catalogued as Gyldendal). Context is about preparation, so meaning is kept. Image is a Lomen Bros. photo from Nome, 1920, tagged PD-US-1923 only. It is a US work, so it is also PD in the EU by the rule of the shorter term."
+ },
+ {
+  "id": "x02",
+  "verdict": "FIX",
+  "fix": {
+   "source.locator": "'Adventure', p. 27",
+   "verification_note": "Matched verbatim in the Internet Archive full text of the 1927 Hogarth Press edition, top of p. 27 (scan leaf 30; the page numbers are footers, so the '26' just before the sentence in the OCR is the foot of p. 26). Nansen delivered the address in English, so no translation is involved. The popular companion lines 'Never stop because you are afraid…' and 'The difficult is what takes a little time…' were NOT found in this text and are not used."
+  },
+  "reason": "Verbatim in the 1927 Hogarth text (archive.org), but on p. 27, not p. 26. Page numbers in this scan are footers. The '26' that comes just before the sentence in the OCR is the foot of p. 26; the sentence opens leaf 30 (p. 27), right under the running head. Context (no retreat, burning boats) supports the meaning. Not on Wikiquote; no QI entry. Image: Van der Weyde (died 1924), PD, OK."
+ },
+ {
+  "id": "x03",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #11579, 'Message to the Public'. It is 38 words (≤40). Listed under 'Quotes' on Wikiquote. Image: Maull (died 1914) & Fox (died 1907), PD-old-100, OK."
+ },
+ {
+  "id": "x04",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #11579, in the entry headed 'Wednesday, January 17'. Fits adversity, though it is sombre given the outcome. Image: John Thomson (died 1921), OK."
+ },
+ {
+  "id": "x05",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #5199, Ch. IV 'Loss of the Endurance', after the ship is abandoned. Image: Beresford (died 1938). The PD-Norway50 tag is odd, but the photo is PD-old anyway. Creator matches Commons."
+ },
+ {
+  "id": "x06",
+  "verdict": "FIX",
+  "fix": {
+   "source.work": "The Heart of the Antarctic: Being the Story of the British Antarctic Expedition 1907–1909, Vol. I (London: William Heinemann)",
+   "source.locator": "Vol. I, Chapter XXII, 'On the Great Glacier', p. 321 — diary passage under December 11 (1908), ascending the Beardmore Glacier (Chapter XIII in the 1910 one-volume Musson edition)",
+   "source.url": "https://archive.org/details/heartofantarctic01shacuoft",
+   "verification_note": "Matched in the Internet Archive OCR of the 1909 Heinemann first edition, Vol. I, Ch. XXII, p. 321 (scan leaf 572), and in the 1910 Toronto Musson one-volume edition (cihm_79268), where it is Ch. XIII. Neither text has a comma before 'after all'; often quoted as '…overcome, after all.' Not found in South (1919).",
+   "image.commons_page": "https://commons.wikimedia.org/wiki/File:Ernest_Shackleton_before_1909.jpg",
+   "image.original_url": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Ernest_Shackleton_before_1909.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "image.license": "Public domain",
+   "image.license_url": "https://commons.wikimedia.org/wiki/File:Ernest_Shackleton_before_1909.jpg",
+   "image.creator": "George Charles Beresford (restoration by Adam Cuerden); National Library of Norway",
+   "image.attribution": "George Charles Beresford (restoration by Adam Cuerden); National Library of Norway, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Ernest_Shackleton_before_1909.jpg)"
+  },
+  "reason": "The wording is right; it is in the 1909 Heinemann first edition too, with no comma. Two problems. (1) The cited copy is the 1910 Musson one-volume edition, where it is Ch. XIII. In the 1909 Heinemann text the JSON claims, it is Vol. I, Ch. XXII 'On the Great Glacier', p. 321, under 11 December. (2) The image is by Frank Hurley, who died in 1962, and Commons tags it only {{PD-old}}, which is wrong. The photo was the frontispiece of South (London, 1919), so it may be protected in the UK and EU until the end of 2032. Replace it with the x05 Beresford portrait (copy x05.jpg to x06.jpg, or re-download)."
+ },
+ {
+  "id": "x07",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #20923, Ch. XXI, the closing clause of a longer sentence. Capitalising the first word is acceptable. The fit (ambition) is weak; it is about the pull of the trail. Image: 1910, LoC, US work, PD."
+ },
+ {
+  "id": "x08",
+  "verdict": "FIX",
+  "fix": {
+   "source.locator": "Chapter I, 'The Early Years: Schoolboy, Cabin-Boy, Seaman, and Lieutenant Peary's Body-Servant — First Trips to the Arctic'"
+  },
+  "reason": "Verbatim in Gutenberg #20923. It is in Henson's own Ch. I, after the Foreword and the Introduction. The chapter title in the locator is wrong. Image: NYWT&S 1953 (Roger Higgins), PD by the newspaper's rights dedication to LoC. Acceptable. It is landscape, and Henson is holding a portrait of Peary, so two faces are in the frame."
+ },
+ {
+  "id": "x09",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the UPenn transcription, Ch. I 'A Proposal to Girdle the Earth'. It is Bly's own narration. Image: H. J. Myers c.1890, LoC, OK."
+ },
+ {
+  "id": "x10",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the UPenn transcription, Ch. I. It is Bly's own reply when told something is too late or impossible, in the same paragraph as x09. The leading 'Nonsense!' is dropped, which is acceptable at the start of a quote. Image: Myers cabinet card (Commons' 'Artist' field names the LoC collection; the card itself is signed Myers). It is faded and the face is small."
+ },
+ {
+  "id": "x11",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #73448, in Marion Perkins's Introduction (before Ch. I); the comma is closed to a full stop. The book prints the verses without the title 'Courage'. The line is in Wikiquote's sourced 'Quotes' section, not under Disputed or Misattributed. Image: Wide World 1928, PD-Pre1978 (US, no notice), OK. Earhart is also q096, so 2 in total."
+ },
+ {
+  "id": "x12",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim on PDF p. 7 of NASA's transcript (22 Oct 2002, San Diego, Rebecca Wright). It is in Ride's answer, not the question. Image: NASA, PD-USGov, OK."
+ },
+ {
+  "id": "x13",
+  "verdict": "REJECT",
+  "fix": null,
+  "reason": "Verbatim (Gutenberg #63731, first sentence of Ch. I), but off-theme. It celebrates the thrill of escaping 'an elaborate social order' for wild travel, not discipline, focus, ambition, adversity or perseverance, and on a blocked-site screen it reads as escapism. The image is also weak: tagged PD-art|PD-anon-1923 although it is a photograph with no documented early publication (UK unpublished-anonymous rule runs to 2039), and the face is small."
+ },
+ {
+  "id": "x14",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #14363, Ch. XIX 'Never Again'. The fit is weak-to-fair (ambition): passion turned into action. Text rights: Cherry-Garrard died in 1959, so his text is still protected in the EU/UK until the end of 2029 (short quote). Image: Ponting (died 1935), PD, but only 428×570 px."
+ },
+ {
+  "id": "x15",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #14363, closing paragraph of Ch. XIX (about 2,200 characters before the Glossary). Its tone is wry: the only reward is the thing itself, not money or fame. The qualifier is part of the quote, so the meaning is not changed, but it is oblique without context. Same text-rights note as x14 (EU/UK until 2029). Image: Ponting, PD, but tiny (586×400 landscape, small figure at a typewriter)."
+ },
+ {
+  "id": "x16",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim on the NASA ALSJ page, stamped 109:24:23 Armstrong (current ALSJ timing; the next entry is 109:24:48). The '(a)' is the Journal's. Not under Wikiquote's Misattributed section. Image: NASA S69-31741, PD."
+ },
+ {
+  "id": "x17",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #6750, Letter XXIX 'Crater House, Kilauea, June 4th'. Gutenberg's last page marker before it is {381}, so p. 381 is confirmed. Image: 1891 frontispiece, PD-old-70, OK."
+ },
+ {
+  "id": "x18",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the 1911 Dodd, Mead OCR (archive.org), Ch. II 'The Voyage'. Optional: the page is 20 (scan leaf 32, printed '20'). Image: LoC 1911, PD. Full-length on a mount with handwriting, small face."
+ },
+ {
+  "id": "x19",
+  "verdict": "FIX",
+  "fix": {
+   "source.locator": "'Adventure', p. 19",
+   "verification_note": "Matched verbatim in the Internet Archive full text of the 1927 Hogarth Press edition, p. 19 (scan leaf 22; the page numbers are footers, so the '18' just before the sentence in the OCR is the foot of p. 18). Delivered in English; no translation involved."
+  },
+  "reason": "Verbatim in the 1927 Hogarth text, but on p. 19, not p. 18 (scan leaf 22, footer '19'; the '18' before it in the OCR is the foot of p. 18). The sentence opens a paragraph, is not in quotation marks and is not rebutted, so it is Nansen's own view. Image: Studio Phebus before 1927, PD-Norway50. Unknown studio photographer and 70+ years old, so it is fine in the EU too."
+ },
+ {
+  "id": "x20",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Chater Vol. II, Ch. XI 'Through the Mountains' (Gutenberg #3415/#4229). Norwegian confirmed on nb.no, Sydpolen B. 2 (Dybwad 1912) p. 62. The context is the planned killing of the dogs, which matches the note; the meaning holds. Image: Wilse (died 1949), PD in the EU since 2020. It is full-length in furs, face in profile and barely visible."
+ },
+ {
+  "id": "x21",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #18975, Ch. XXXII 'We Reach the Pole'. Framed as his diary words at Camp Jesup. Image: 1909 US photogravure, PD. 'Hampton' is the magazine publisher, not the photographer, and Commons' deathyear=1920 is Peary's own; still PD."
+ },
+ {
+  "id": "x22",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #6137, Ch. XIII 'Toil and Tribulation', the last chapter of Vol. I per the contents; crevasse context. Text rights: Mawson died in 1958, so his text is protected in the EU/UK until the end of 2028 (short quote). Image: PD-Australia (1914) plus cc-by-2.0; the photographer is unknown and SLSA is the holder."
+ },
+ {
+  "id": "x23",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the Apollo 17 ALSJ, stamped 170:41:00 Cernan. The source has a leading 'That' (after '…what history will record.'), dropped here without an ellipsis. That is acceptable at the start of a quote and keeps the meaning. Listed under 'Quotes' on Wikiquote. Image: NASA S71-51308, PD."
+ },
+ {
+  "id": "x24",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim on PDF p. 12 of NASA's transcript (12 Mar 2008, Columbus; Ross-Nazzal), in Sullivan's answer. No negation around it. Image: official NASA portrait, PD-USGov-NASA. Commons' source is a third-party mirror (the NASA original is gone). Low risk."
+ }
+]

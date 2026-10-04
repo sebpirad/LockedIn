@@ -1,0 +1,142 @@
+[
+ {
+  "id": "a01",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim on p. 14 of the July 1940 Rotarian scan (article starts p. 12 under Ruth's byline). QI (2014/03/07, 'ruth-give') gives 'Bat It Out!', p. 14, and finds crediting Ruth reasonable despite possible ghostwriting. Image PD-US OK."
+ },
+ {
+  "id": "a02",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "All three sentences together on p. 12 of the 1994 HarperSanFrancisco scan (search-inside). This is not the Nike 'Failure' ad script. IMAGE NOTE: CC BY-SA 3.0 'self' upload by Commons user Cavic, credited as Steve Lipofsky, with no VRT ticket; it relies on the uploader being Lipofsky."
+ },
+ {
+  "id": "a03",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "QI (23 Jun 2019) cites Lincicome, Fort Lauderdale News, 14 Apr 1977, p. 6D, and concludes Ali should receive credit. Secondary, correctly labelled. Image PD-NYWT&S (1967) OK."
+ },
+ {
+  "id": "a04",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim on Dartmouth's page in the 'It's only a point' lesson; the source ends the sentence with '...'."
+ },
+ {
+  "id": "a05",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim on Dartmouth's page in the 'Effortless is a myth' lesson; only the opening 'But' is dropped."
+ },
+ {
+  "id": "a06",
+  "verdict": "FIX",
+  "fix": {
+   "text": "… those times when you don't feel like working and you're tired and you don't want to push yourself, but you do it anyway. That is actually the dream."
+  },
+  "reason": "SI has every word, but the display text starts mid-sentence: 18 words of Bryant's sentence precede 'those times', so as shown it is a fragment with an unmarked cut. SI also puts 'Bryant said' between the two sentences, which is fine to drop. The fix marks the elision."
+ },
+ {
+  "id": "a07",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in TED's own transcript; Wooden dates the definition to 1934 in the talk. Image PD-US-not-renewed (1960 yearbook) OK."
+ },
+ {
+  "id": "a08",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the NYT 1980 obituary, under 'On the value of sport:', and on p. 253 of Litsky's Superstars (1975), in the Owens entry. The original occasion is unknown, but it was in print in Owens's lifetime from a reporter who covered him. Secondary label correct. Image (Acme 1936, US trials) PD-Pre1978 OK."
+ },
+ {
+  "id": "a09",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Book title and King's recurring phrase; in the body text from p. 11 on in the 2008 LifeTime Media scan."
+ },
+ {
+  "id": "a10",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in CNN's report directly after 'she added'. Image CC BY 3.0 BR (Agência Brasil) OK."
+ },
+ {
+  "id": "a11",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim as direct speech in the AP report on PBS NewsHour (Vienna, 12 Oct 2019)."
+ },
+ {
+  "id": "a12",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "The closing words of the speech, confirmed in the transcript of the official full-speech video (YouTube XLzBMGXfK4c, uploader OfficialHoophall, 23:23; segment 163 of 166, right after 'never say never'). The cited Facebook clip needs a login; the YouTube link in the locator is the better public source. Image PD-USGov (DoD 2014), only 398×568 px."
+ },
+ {
+  "id": "a13",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Full passage on p. 7 of the 1978 Lippincott scan, in Pelé's first-person introduction (p. 5 speaks of 'my father' and Dondinho). The title page also names Julio Mazzei; consider adding 'with Julio Mazzei' to source.work. Image CC BY-SA 3.0 NL (Anefo) OK."
+ },
+ {
+  "id": "a14",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in TIME's full text under 'Rule No. 1' (published 18 May 2018 00:07 UTC, i.e. 17 May US time). Image CC BY-SA 4.0 OK."
+ },
+ {
+  "id": "a15",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "QI (15 Feb 2021) gives this exact wording from Wilma (Signet/NAL 1977), 'Introduction to Competition', pp. 65–66, and credits Rudolph. Image CC BY-SA 3.0 NL (Anefo) OK."
+ },
+ {
+  "id": "a16",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "All three sentences together on p. 3 of the 1999 HarperCollins scan."
+ },
+ {
+  "id": "a17",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Exact sentence on p. 14 of the 2008 Free Press scan, in Phelps's narration with no quotation marks before it. Search-inside confirms the popular 'You can't put a limit on anything…' is not in the book, so that rejection holds."
+ },
+ {
+  "id": "a18",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Opening sentence of chapter 1 on p. 1 of the 1958 Harper scan (the running head on odd pages is 'We Weren't Bad, Just Mischievous'). Image PD-NYWT&S (Palumbo 1956) OK."
+ },
+ {
+  "id": "a19",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Full sentence, with the dropped lead-in 'whoever is across the net,', on p. 45 of the 1975 Houghton Mifflin scan."
+ },
+ {
+  "id": "a20",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the NYT profile (Wayback 2018 copy), introduced as what Kipchoge says. Secondary label correct."
+ },
+ {
+  "id": "a21",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "A chapter title in the contents of Pressure Is a Privilege (2008), repeated in the text on pp. 119, 150 and 168. Image CC BY-SA 3.0 with VRT ticket 2013010110006591 OK."
+ },
+ {
+  "id": "a22",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Both sentences in TIME (22 May 2014), split by 'Nadal says'."
+ },
+ {
+  "id": "a23",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Full passage on p. 150 of the 1970 Morrow scan, with 'Because' and 'Life is the real Olympics' on the same page. Wikiquote also cites Blackthink."
+ }
+]

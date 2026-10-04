@@ -4,7 +4,7 @@
       "id": "x01",
       "category": "explorer",
       "text": "Victory awaits him who has everything in order—luck, people call it. Defeat is certain for him who has neglected to take the necessary precautions in time; this is called bad luck.",
-      "original": "Seier venter den, som har alt i orden — held kalder man det. Nederlag er en absolut følge for den, som har forsømt at ta de nødvendige forholdsregler i tide — uheld kaldes det.",
+      "original": "Seier venter den, som har alt iorden — held kalder man det. Nederlag er en absolut følge for den, som har forsømt at ta de nødvendige forholdsregler i tide — uheld kaldes det.",
       "translation": {
         "translator": "A. G. Chater",
         "edition": "The South Pole: An Account of the Norwegian Antarctic Expedition in the \"Fram,\" 1910–1912, Vol. I (London: John Murray)",
@@ -20,7 +20,7 @@
         "url": "https://www.gutenberg.org/ebooks/3414"
       },
       "verification": "primary",
-      "verification_note": "English matched verbatim in Chater's translation (Project Gutenberg #3414, Vol. I, Ch. IX; also in #4229). Norwegian original read from the National Library of Norway's OCR of the 1912 first edition, Bind 1 p. 506 (nb.no item ed55ef6f9348da975c792694c5591851); the OCR prints 'iorden', given here as 'i orden'.",
+      "verification_note": "English matched verbatim in Chater's translation (Project Gutenberg #3414, Vol. I, Ch. IX; also in #4229). Norwegian read from the National Library of Norway's OCR of two 1912 copies of Bind 1, both p. 506 (nb.no items 613860012cc885eaaf2f21fa23430ce0, Jacob Dybwad, and ed55ef6f9348da975c792694c5591851); both print the period spelling 'iorden'.",
       "image": {
         "file": "quote-images/x01.jpg",
         "commons_page": "https://commons.wikimedia.org/wiki/File:Roald_Amundsen_cph.3b17878.jpg",
@@ -286,11 +286,11 @@
       "source": {
         "work": "20 Hrs. 40 Min.: Our Flight in the Friendship (New York: G. P. Putnam's Sons)",
         "year": "1928",
-        "locator": "Opening line of her poem 'Courage', printed in the book's front matter",
+        "locator": "Opening line of her poem 'Courage', printed in Marion Perkins's Introduction to the book (Perkins says Earhart handed her the verses the year before)",
         "url": "https://www.gutenberg.org/ebooks/73448"
       },
       "verification": "primary",
-      "verification_note": "Matched in Project Gutenberg #73448 (front matter, before Chapter I). In the poem the line ends with a comma and continues; it is closed with a full stop here. The poem is Earhart's own (written 1927). Popular Earhart lines ('The most difficult thing is the decision to act…', 'The most effective way to do it, is to do it') were not found in this book and are not used.",
+      "verification_note": "Matched in Project Gutenberg #73448 (Introduction by Marion Perkins, before Chapter I). In the poem the line ends with a comma and continues; it is closed with a full stop here. Attribution rests on Perkins's account in the book and the poem's long association with Earhart; the manuscript was not seen. Popular Earhart lines ('The most difficult thing is the decision to act…', 'The most effective way to do it, is to do it') were not found in this book and are not used.",
       "image": {
         "file": "quote-images/x11.jpg",
         "commons_page": "https://commons.wikimedia.org/wiki/File:Amelia_Earhart,_1928.jpg",
@@ -299,6 +299,361 @@
         "license_url": "https://commons.wikimedia.org/wiki/File:Amelia_Earhart,_1928.jpg",
         "creator": "Wide World Photos",
         "attribution": "Wide World Photos, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Amelia_Earhart,_1928.jpg)"
+      }
+    },
+    {
+      "id": "x12",
+      "category": "explorer",
+      "text": "I don’t even remember having specific goals, other than to fly in space!",
+      "original": null,
+      "translation": null,
+      "author": "Sally Ride",
+      "author_dates": "1951–2012",
+      "theme": "ambition",
+      "source": {
+        "work": "NASA Johnson Space Center Oral History Project, interview by Rebecca Wright (San Diego, 22 October 2002)",
+        "year": "2002",
+        "locator": "Transcript p. 7, answering what her goals were on becoming an astronaut candidate",
+        "url": "https://www.nasa.gov/wp-content/uploads/2024/11/ridesk-10-22-02.pdf"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in NASA's official transcript PDF (page 7). NASA oral-history transcripts are US-government works. The widely shared Ride lines ('All adventures, especially into new territory, are scary', 'You can't be what you can't see') were not found in her NASA oral histories and are not used.",
+      "image": {
+        "file": "quote-images/x12.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Sally_Ride_(1984).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Sally_Ride_%281984%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Sally_Ride_(1984).jpg",
+        "creator": "NASA (retouched by Coffeeandcrumbs)",
+        "attribution": "NASA (retouched by Coffeeandcrumbs), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Sally_Ride_(1984).jpg)"
+      }
+    },
+    {
+      "id": "x13",
+      "category": "explorer",
+      "text": "To those bred under an elaborate social order few such moments of exhilaration can come as that which stands at the threshold of wild travel.",
+      "original": null,
+      "translation": null,
+      "author": "Gertrude Bell",
+      "author_dates": "1868–1926",
+      "theme": "ambition",
+      "source": {
+        "work": "Syria: The Desert & the Sown (London: William Heinemann)",
+        "year": "1907",
+        "locator": "Chapter I, opening sentence",
+        "url": "https://www.gutenberg.org/ebooks/63731"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Project Gutenberg #63731, first sentence of Chapter I.",
+      "image": {
+        "file": "quote-images/x13.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:BellK_218_Gertrude_Bell_in_Iraq_in_1909_age_41.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/84/BellK_218_Gertrude_Bell_in_Iraq_in_1909_age_41.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:BellK_218_Gertrude_Bell_in_Iraq_in_1909_age_41.jpg",
+        "creator": "Unknown photographer (Gertrude Bell Archive, Newcastle University)",
+        "attribution": "Unknown photographer (Gertrude Bell Archive, Newcastle University), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:BellK_218_Gertrude_Bell_in_Iraq_in_1909_age_41.jpg)"
+      }
+    },
+    {
+      "id": "x14",
+      "category": "explorer",
+      "text": "Exploration is the physical expression of the Intellectual Passion.",
+      "original": null,
+      "translation": null,
+      "author": "Apsley Cherry-Garrard",
+      "author_dates": "1886–1959",
+      "theme": "ambition",
+      "source": {
+        "work": "The Worst Journey in the World: Antarctic 1910–1913 (London: Constable)",
+        "year": "1922",
+        "locator": "Chapter XIX, 'Never Again' (closing pages of the book)",
+        "url": "https://www.gutenberg.org/ebooks/14363"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Project Gutenberg #14363, Chapter XIX.",
+      "image": {
+        "file": "quote-images/x14.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Apsley_Cherry-Garrard.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/10/Apsley_Cherry-Garrard.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Apsley_Cherry-Garrard.jpg",
+        "creator": "Herbert Ponting (British Antarctic Expedition 1910–13, Ponting Collection P2005/5/814)",
+        "attribution": "Herbert Ponting (British Antarctic Expedition 1910–13, Ponting Collection P2005/5/814), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Apsley_Cherry-Garrard.jpg)"
+      }
+    },
+    {
+      "id": "x15",
+      "category": "explorer",
+      "text": "If you march your Winter Journeys you will have your reward, so long as all you want is a penguin’s egg.",
+      "original": null,
+      "translation": null,
+      "author": "Apsley Cherry-Garrard",
+      "author_dates": "1886–1959",
+      "theme": "perseverance",
+      "source": {
+        "work": "The Worst Journey in the World: Antarctic 1910–1913 (London: Constable)",
+        "year": "1922",
+        "locator": "Chapter XIX, 'Never Again' (closing pages of the book)",
+        "url": "https://www.gutenberg.org/ebooks/14363"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Project Gutenberg #14363, closing paragraphs of Chapter XIX, just before the Glossary. 'Winter Journey' refers to his 1911 midwinter sledge trip to Cape Crozier for emperor-penguin eggs.",
+      "image": {
+        "file": "quote-images/x15.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Apsley_Cherry-Garrard_%26_typewriter.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Apsley_Cherry-Garrard_%26_typewriter.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Apsley_Cherry-Garrard_%26_typewriter.jpg",
+        "creator": "Herbert Ponting (British Antarctic Expedition 1910–13, Ponting Collection P2005/5/475)",
+        "attribution": "Herbert Ponting (British Antarctic Expedition 1910–13, Ponting Collection P2005/5/475), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Apsley_Cherry-Garrard_%26_typewriter.jpg)"
+      }
+    },
+    {
+      "id": "x16",
+      "category": "explorer",
+      "text": "That's one small step for (a) man; one giant leap for mankind.",
+      "original": null,
+      "translation": null,
+      "author": "Neil Armstrong",
+      "author_dates": "1930–2012",
+      "theme": "ambition",
+      "source": {
+        "work": "Apollo 11 air-to-ground transmission, as corrected in the Apollo 11 Lunar Surface Journal (NASA, ed. Eric M. Jones), 'One Small Step'",
+        "year": "1969",
+        "locator": "Mission elapsed time 109:24:23, 20 July 1969 (21 July UTC), as Armstrong stepped off the LM footpad",
+        "url": "https://www.nasa.gov/wp-content/uploads/static/history//alsj/a11/a11.step.html"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim on NASA's Apollo 11 Lunar Surface Journal page (timestamp 109:24:23). The '(a)' is the Journal's bracketing: the article is not clearly audible in the recording, and Armstrong said he intended it. The app may prefer to display it without the brackets.",
+      "image": {
+        "file": "quote-images/x16.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Neil_Armstrong_pose.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Neil_Armstrong_pose.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Neil_Armstrong_pose.jpg",
+        "creator": "NASA (photo S69-31741)",
+        "attribution": "NASA (photo S69-31741), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Neil_Armstrong_pose.jpg)"
+      }
+    },
+    {
+      "id": "x17",
+      "category": "explorer",
+      "text": "But what are cuts, bruises, fatigue, and singed eyelashes, in comparison with the awful sublimities I have witnessed to-day?",
+      "original": null,
+      "translation": null,
+      "author": "Isabella Bird",
+      "author_dates": "1831–1904",
+      "theme": "adversity",
+      "source": {
+        "work": "The Hawaiian Archipelago: Six Months Among the Palm Groves, Coral Reefs, and Volcanoes of the Sandwich Islands (London: John Murray)",
+        "year": "1875",
+        "locator": "Letter XXIX, 'Crater House, Kilauea, June 4th' (p. 381 in the edition transcribed by Project Gutenberg), after descending into the Kilauea crater",
+        "url": "https://www.gutenberg.org/ebooks/6750"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Project Gutenberg #6750, Letter XXIX.",
+      "image": {
+        "file": "quote-images/x17.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Isabella_L._Bird.png",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Isabella_L._Bird.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Isabella_L._Bird.png",
+        "creator": "Frontispiece of Journeys in Persia and Kurdistan, vol. 1 (London: John Murray, 1891)",
+        "attribution": "Frontispiece of Journeys in Persia and Kurdistan, vol. 1 (London: John Murray, 1891), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Isabella_L._Bird.png)"
+      }
+    },
+    {
+      "id": "x18",
+      "category": "explorer",
+      "text": "If the first attempt fails of course we must try again.",
+      "original": null,
+      "translation": null,
+      "author": "Annie Smith Peck",
+      "author_dates": "1850–1935",
+      "theme": "perseverance",
+      "source": {
+        "work": "A Search for the Apex of America: High Mountain Climbing in Peru and Bolivia, Including the Conquest of Huascarán (New York: Dodd, Mead and Company)",
+        "year": "1911",
+        "locator": "Chapter II, 'The Voyage' — on how many attempts the climb might take",
+        "url": "https://archive.org/details/asearchforapexa00peckgoog"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in the Internet Archive full text of the 1911 Dodd, Mead edition (Google scan). Chapter located from the OCR headings; page number not read.",
+      "image": {
+        "file": "quote-images/x18.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Miss_Annie_S._Peck,_full-length_portrait,_facing_slightly_right_LCCN97504565.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Miss_Annie_S._Peck%2C_full-length_portrait%2C_facing_slightly_right_LCCN97504565.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Miss_Annie_S._Peck,_full-length_portrait,_facing_slightly_right_LCCN97504565.jpg",
+        "creator": "Unknown photographer, 1911 (Library of Congress, LCCN 97504565)",
+        "attribution": "Unknown photographer, 1911 (Library of Congress, LCCN 97504565), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Miss_Annie_S._Peck,_full-length_portrait,_facing_slightly_right_LCCN97504565.jpg)"
+      }
+    },
+    {
+      "id": "x19",
+      "category": "explorer",
+      "text": "The old beaten tracks do not take us to our goal.",
+      "original": null,
+      "translation": null,
+      "author": "Fridtjof Nansen",
+      "author_dates": "1861–1930",
+      "theme": "ambition",
+      "source": {
+        "work": "Adventure (rectorial address, University of St Andrews, 3 November 1926), in Adventure, and Other Papers (London: Hogarth Press / L. & Virginia Woolf)",
+        "year": "1927",
+        "locator": "'Adventure', p. 18",
+        "url": "https://archive.org/details/adventureotherpa0000frid_y6y6"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in the Internet Archive full text of the 1927 Hogarth Press edition (page inferred from the OCR running heads, 18). Delivered in English; no translation involved.",
+      "image": {
+        "file": "quote-images/x19.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Fridtjof_Nansen_(1861-1930)_portrait.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Fridtjof_Nansen_%281861-1930%29_portrait.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Fridtjof_Nansen_(1861-1930)_portrait.jpg",
+        "creator": "Studio Phebus (National Library of Norway)",
+        "attribution": "Studio Phebus (National Library of Norway), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Fridtjof_Nansen_(1861-1930)_portrait.jpg)"
+      }
+    },
+    {
+      "id": "x20",
+      "category": "explorer",
+      "text": "We had agreed to shrink from nothing in order to reach our goal.",
+      "original": "Vi var enige om intet at sky for at række vort maal.",
+      "translation": {
+        "translator": "A. G. Chater",
+        "edition": "The South Pole: An Account of the Norwegian Antarctic Expedition in the \"Fram,\" 1910–1912, Vol. II (London: John Murray)",
+        "year": 1912
+      },
+      "author": "Roald Amundsen",
+      "author_dates": "1872–1928",
+      "theme": "focus",
+      "source": {
+        "work": "Sydpolen: Den norske sydpolsfærd med Fram 1910–1912 (The South Pole)",
+        "year": "1912",
+        "locator": "Norwegian: Bind 2, p. 62 (Kristiania: Jacob Dybwad, 1912); English: Chater tr., Vol. II, Chapter XI 'Through the Mountains'",
+        "url": "https://www.gutenberg.org/ebooks/3415"
+      },
+      "verification": "primary",
+      "verification_note": "English matched verbatim in Chater's translation (Project Gutenberg #3415, Vol. II, Ch. XI). Norwegian read from the National Library of Norway's OCR of the 1912 first edition (Jacob Dybwad), Bind 2 p. 62 (nb.no item 4d9dd2313d769c24af2b10ef8264e912). Context: written at the 'Butcher's Shop' camp, where the surplus dogs were killed as planned.",
+      "image": {
+        "file": "quote-images/x20.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Amundsen-in-ice.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Amundsen-in-ice.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Amundsen-in-ice.jpg",
+        "creator": "Anders Beer Wilse (frontispiece of The South Pole, Vol. II)",
+        "attribution": "Anders Beer Wilse (frontispiece of The South Pole, Vol. II), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Amundsen-in-ice.jpg)"
+      }
+    },
+    {
+      "id": "x21",
+      "category": "explorer",
+      "text": "The Pole at last. The prize of three centuries. My dream and goal for twenty years. Mine at last!",
+      "original": null,
+      "translation": null,
+      "author": "Robert E. Peary",
+      "author_dates": "1856–1920",
+      "theme": "perseverance",
+      "source": {
+        "work": "The North Pole: Its Discovery in 1909 under the Auspices of the Peary Arctic Club (New York: Frederick A. Stokes)",
+        "year": "1910",
+        "locator": "Chapter XXXII, 'We Reach the Pole' — the words Peary says he wrote in his diary on waking at Camp Jesup, 6 April 1909",
+        "url": "https://www.gutenberg.org/ebooks/18975"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Project Gutenberg #18975, Chapter XXXII. This is the book's printed version of the diary entry; the manuscript diary was not checked and is said to word it differently. Whether Peary actually reached the Pole is disputed; only his wording is claimed here.",
+      "image": {
+        "file": "quote-images/x21.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Robert_Peary_by_Hampton,_1909.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Robert_Peary_by_Hampton%2C_1909.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Robert_Peary_by_Hampton,_1909.jpg",
+        "creator": "Benjamin B. Hampton (photogravure, 1909)",
+        "attribution": "Benjamin B. Hampton (photogravure, 1909), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Robert_Peary_by_Hampton,_1909.jpg)"
+      }
+    },
+    {
+      "id": "x22",
+      "category": "explorer",
+      "text": "New power seemed to come as I addressed myself to one last tremendous effort.",
+      "original": null,
+      "translation": null,
+      "author": "Douglas Mawson",
+      "author_dates": "1882–1958",
+      "theme": "perseverance",
+      "source": {
+        "work": "The Home of the Blizzard: Being the Story of the Australasian Antarctic Expedition, 1911–1914 (London: William Heinemann)",
+        "year": "1915",
+        "locator": "Vol. I, Chapter XIII, 'Toil and Tribulation' — climbing out of a crevasse on his solo return journey, January 1913",
+        "url": "https://www.gutenberg.org/ebooks/6137"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Project Gutenberg #6137, Chapter XIII (Mawson's own first-person narrative).",
+      "image": {
+        "file": "quote-images/x22.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Douglas_Mawson,_1914.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/26/Douglas_Mawson%2C_1914.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Douglas_Mawson,_1914.jpg",
+        "creator": "State Library of South Australia (studio portrait, 1914)",
+        "attribution": "State Library of South Australia (studio portrait, 1914), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Douglas_Mawson,_1914.jpg)"
+      }
+    },
+    {
+      "id": "x23",
+      "category": "explorer",
+      "text": "America's challenge of today has forged man's destiny of tomorrow.",
+      "original": null,
+      "translation": null,
+      "author": "Eugene Cernan",
+      "author_dates": "1934–2017",
+      "theme": "ambition",
+      "source": {
+        "work": "Apollo 17 air-to-ground transmission, Apollo 17 Lunar Surface Journal (NASA, ed. Eric M. Jones), 'EVA-3 Closeout'",
+        "year": "1972",
+        "locator": "Mission elapsed time 170:41:00, 14 December 1972 (UTC), Cernan's farewell remarks before climbing into the LM as the last person on the Moon",
+        "url": "https://apollojournals.org/alsj/a17/a17.clsout3.html"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in the Apollo 17 Lunar Surface Journal (now hosted at apollojournals.org; formerly on nasa.gov) and in NASA's own article '50 Years Ago: Apollo 17 Lands at Taurus-Littrow' (nasa.gov/history). In the transmission it is preceded by '…what I believe history will record. That…'.",
+      "image": {
+        "file": "quote-images/x23.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Cernan_s71-51308_(3x4_cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Cernan_s71-51308_%283x4_cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Cernan_s71-51308_(3x4_cropped).jpg",
+        "creator": "NASA (photo S71-51308)",
+        "attribution": "NASA (photo S71-51308), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Cernan_s71-51308_(3x4_cropped).jpg)"
+      }
+    },
+    {
+      "id": "x24",
+      "category": "explorer",
+      "text": "You can just focus on the task, and you're just living in the suit.",
+      "original": null,
+      "translation": null,
+      "author": "Kathryn D. Sullivan",
+      "author_dates": "b. 1951",
+      "theme": "focus",
+      "source": {
+        "work": "NASA Johnson Space Center Oral History Project, interview by Jennifer Ross-Nazzal (Columbus, Ohio, 12 March 2008)",
+        "year": "2008",
+        "locator": "Transcript p. 12, on spacewalking: after training, the suit is so familiar that only the task remains",
+        "url": "https://www.nasa.gov/wp-content/uploads/2025/02/sullivankd-3-12-08.pdf"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in NASA's official transcript PDF (page 12). Sullivan was the first American woman to walk in space (STS-41G, 1984). NASA oral-history transcripts are US-government works.",
+      "image": {
+        "file": "quote-images/x24.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Kathryn_D._Sullivan.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Kathryn_D._Sullivan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Kathryn_D._Sullivan.jpg",
+        "creator": "NASA (official astronaut portrait)",
+        "attribution": "NASA (official astronaut portrait), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Kathryn_D._Sullivan.jpg)"
       }
     }
   ]

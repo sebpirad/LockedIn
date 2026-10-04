@@ -1,13 +1,13 @@
 [
   {
-    "id": "q001",
-    "text": "Every moment think steadily as a Roman and a man to do what thou hast in hand with perfect and simple dignity, and feeling of affection, and freedom, and justice, and to give thyself relief from all other thoughts.",
+    "id": "q003",
+    "text": "No longer talk at all about the kind of man that a good man ought to be, but be such.",
     "author": "Marcus Aurelius",
     "author_dates": "121–180 CE",
     "source": {
-      "work": "Meditations (Τὰ εἰς ἑαυτόν)",
+      "work": "Meditations",
       "year": "c. 170–180 CE",
-      "locator": "Book II, §5",
+      "locator": "Book X, §16",
       "url": "https://www.gutenberg.org/ebooks/15877"
     },
     "translation": {
@@ -16,7 +16,7 @@
       "year": 1862
     },
     "image": {
-      "file": "images/q001.jpg",
+      "file": "images/q003.jpg",
       "license": "CC BY-SA 4.0",
       "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
       "creator": "Daniel Martin",
@@ -50,818 +50,213 @@
     }
   },
   {
-    "id": "q003",
-    "text": "No longer talk at all about the kind of man that a good man ought to be, but be such.",
-    "author": "Marcus Aurelius",
-    "author_dates": "121–180 CE",
+    "id": "q055",
+    "text": "The credit belongs to the man who is actually in the arena, whose face is marred by dust and sweat and blood; who strives valiantly; who errs, who comes short again and again.",
+    "author": "Theodore Roosevelt",
+    "author_dates": "1858–1919",
     "source": {
-      "work": "Meditations",
-      "year": "c. 170–180 CE",
-      "locator": "Book X, §16",
-      "url": "https://www.gutenberg.org/ebooks/15877"
-    },
-    "translation": {
-      "translator": "George Long",
-      "edition": "The Thoughts of the Emperor M. Aurelius Antoninus (London: Bell & Daldy)",
-      "year": 1862
-    },
-    "image": {
-      "file": "images/q003.jpg",
-      "license": "CC BY-SA 4.0",
-      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
-      "creator": "Daniel Martin",
-      "attribution": "Daniel Martin, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:MSR-ra-61-b-1-DM.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:MSR-ra-61-b-1-DM.jpg"
-    }
-  },
-  {
-    "id": "q004",
-    "text": "Nothing great is produced suddenly, since not even the grape or the fig is.",
-    "author": "Epictetus",
-    "author_dates": "c. 50–c. 135 CE",
-    "source": {
-      "work": "Discourses (recorded by Arrian)",
-      "year": "c. 108 CE",
-      "locator": "Book I, ch. 15 ('What philosophy promises')",
-      "url": "https://www.gutenberg.org/ebooks/10661"
-    },
-    "translation": {
-      "translator": "George Long",
-      "edition": "The Discourses of Epictetus, with the Encheiridion and Fragments (London: George Bell & Sons)",
-      "year": 1877
-    },
-    "image": {
-      "file": "images/q004.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "William Sonmans / Michael Burghers",
-      "attribution": "William Sonmans / Michael Burghers, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Epicteti_Enchiridion_Latinis_versibus_adumbratum_(Oxford_1715)_frontispiece_(cropped).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Epicteti_Enchiridion_Latinis_versibus_adumbratum_(Oxford_1715)_frontispiece_(cropped).jpg"
-    }
-  },
-  {
-    "id": "q005",
-    "text": "Every habit and faculty is maintained and increased by the corresponding actions: the habit of walking by walking, the habit of running by running. If you would be a good reader, read; if a writer, write.",
-    "author": "Epictetus",
-    "author_dates": "c. 50–c. 135 CE",
-    "source": {
-      "work": "Discourses (recorded by Arrian)",
-      "year": "c. 108 CE",
-      "locator": "Book II, ch. 18 ('How we should struggle against appearances')",
-      "url": "https://www.gutenberg.org/ebooks/10661"
-    },
-    "translation": {
-      "translator": "George Long",
-      "edition": "The Discourses of Epictetus, with the Encheiridion and Fragments (London: George Bell & Sons)",
-      "year": 1877
-    },
-    "image": {
-      "file": "images/q005.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "William Sonmans / Michael Burghers",
-      "attribution": "William Sonmans / Michael Burghers, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Epicteti_Enchiridion_Latinis_versibus_adumbratum_(Oxford_1715)_frontispiece_(cropped).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Epicteti_Enchiridion_Latinis_versibus_adumbratum_(Oxford_1715)_frontispiece_(cropped).jpg"
-    }
-  },
-  {
-    "id": "q006",
-    "text": "The journey of a thousand li commenced with a single step.",
-    "author": "Laozi (traditional attribution)",
-    "author_dates": "trad. 6th century BCE",
-    "source": {
-      "work": "Tao Te Ching (道德經)",
-      "year": "c. 4th century BCE (compiled)",
-      "locator": "Chapter 64, §1",
-      "url": "https://www.gutenberg.org/ebooks/216"
-    },
-    "translation": {
-      "translator": "James Legge",
-      "edition": "The Sacred Books of the East, vol. 39: The Texts of Taoism, Part I (Oxford: Clarendon Press)",
-      "year": 1891
-    },
-    "image": {
-      "file": "images/q006.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Zhang Lu",
-      "attribution": "Zhang Lu, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Zhang_Lu-Laozi_Riding_an_Ox_(cropped).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Zhang_Lu-Laozi_Riding_an_Ox_(cropped).jpg"
-    }
-  },
-  {
-    "id": "q007",
-    "text": "He who overcomes others is strong; he who overcomes himself is mighty.",
-    "author": "Laozi (traditional attribution)",
-    "author_dates": "trad. 6th century BCE",
-    "source": {
-      "work": "Tao Te Ching (道德經)",
-      "year": "c. 4th century BCE (compiled)",
-      "locator": "Chapter 33, §1",
-      "url": "https://www.gutenberg.org/ebooks/216"
-    },
-    "translation": {
-      "translator": "James Legge",
-      "edition": "The Sacred Books of the East, vol. 39: The Texts of Taoism, Part I (Oxford: Clarendon Press)",
-      "year": 1891
-    },
-    "image": {
-      "file": "images/q007.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Zhang Lu",
-      "attribution": "Zhang Lu, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Zhang_Lu-Laozi_Riding_an_Ox_(cropped).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Zhang_Lu-Laozi_Riding_an_Ox_(cropped).jpg"
-    }
-  },
-  {
-    "id": "q008",
-    "text": "The prosecution of learning may be compared to what may happen in raising a mound. If there want but one basket of earth to complete the work, and I stop, the stopping is my own work.",
-    "author": "Confucius",
-    "author_dates": "551–479 BCE",
-    "source": {
-      "work": "Analects (論語)",
-      "year": "compiled 5th–3rd century BCE",
-      "locator": "Book IX (Tsze Han), ch. 18 (ch. 19 in some numberings)",
-      "url": "https://www.gutenberg.org/ebooks/3330"
-    },
-    "translation": {
-      "translator": "James Legge",
-      "edition": "The Chinese Classics, vol. 1: Confucian Analects (London/Hong Kong)",
-      "year": 1861
-    },
-    "image": {
-      "file": "images/q008.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Anonymous Chinese painter of the Western Han period",
-      "attribution": "Anonymous Chinese painter of the Western Han period, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Confucius,_fresco_from_a_Western_Han_tomb_of_Dongping_County,_Shandong_province,_China.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Confucius,_fresco_from_a_Western_Han_tomb_of_Dongping_County,_Shandong_province,_China.jpg"
-    }
-  },
-  {
-    "id": "q009",
-    "text": "The superior man wishes to be slow in his speech and earnest in his conduct.",
-    "author": "Confucius",
-    "author_dates": "551–479 BCE",
-    "source": {
-      "work": "Analects (論語)",
-      "year": "compiled 5th–3rd century BCE",
-      "locator": "Book IV (Le Jin), ch. 24",
-      "url": "https://www.gutenberg.org/ebooks/3330"
-    },
-    "translation": {
-      "translator": "James Legge",
-      "edition": "The Chinese Classics, vol. 1: Confucian Analects (London/Hong Kong)",
-      "year": 1861
-    },
-    "image": {
-      "file": "images/q009.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Anonymous Chinese painter of the Western Han period",
-      "attribution": "Anonymous Chinese painter of the Western Han period, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Confucius,_fresco_from_a_Western_Han_tomb_of_Dongping_County,_Shandong_province,_China.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Confucius,_fresco_from_a_Western_Han_tomb_of_Dongping_County,_Shandong_province,_China.jpg"
-    }
-  },
-  {
-    "id": "q010",
-    "text": "If one man conquer in battle a thousand times thousand men, and if another conquer himself, he is the greatest of conquerors.",
-    "author": "The Buddha (as recorded in the Pali Canon)",
-    "author_dates": "trad. c. 5th century BCE",
-    "source": {
-      "work": "Dhammapada",
-      "year": "compiled c. 3rd century BCE",
-      "locator": "Verse 103 (ch. VIII, 'The Thousands')",
-      "url": "https://www.gutenberg.org/ebooks/2017"
-    },
-    "translation": {
-      "translator": "F. Max Müller",
-      "edition": "The Sacred Books of the East, vol. 10: The Dhammapada (Oxford: Clarendon Press)",
-      "year": 1881
-    },
-    "image": {
-      "file": "images/q010.jpg",
-      "license": "CC BY-SA 3.0",
-      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
-      "creator": "พระมหาเทวประภาส วชิรญาณเมธี (ผู้ถ่าย-ปล่อยสัญญาอนุญาตภาพให้นำไปใช้ได้เพื่อการศึกษาโดยอยู่ภา่ยใต้ cc-by-sa-3.0) ผู้สร้างสรรค์ผลงาน/ส่งข้อมูลเก็บในคลังข้อมูลเสรีวิกิมีเดียคอมมอนส์ - เทวประภาส มากคล้าย",
-      "attribution": "พระมหาเทวประภาส วชิรญาณเมธี (ผู้ถ่าย-ปล่อยสัญญาอนุญาตภาพให้นำไปใช้ได้เพื่อการศึกษาโดยอยู่ภา่ยใต้ cc-by-sa-3.0) ผู้สร้างสรรค์ผลงาน/ส่งข้อมูลเก็บในคลังข้อมูลเสรีวิกิมีเดียคอมมอนส์ - เทวประภาส มากคล้าย, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Buddha_in_Sarnath_Museum_(Dhammajak_Mutra).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Buddha_in_Sarnath_Museum_(Dhammajak_Mutra).jpg"
-    }
-  },
-  {
-    "id": "q011",
-    "text": "Earnestness is the path of immortality (Nirvana), thoughtlessness the path of death. Those who are in earnest do not die, those who are thoughtless are as if dead already.",
-    "author": "The Buddha (as recorded in the Pali Canon)",
-    "author_dates": "trad. c. 5th century BCE",
-    "source": {
-      "work": "Dhammapada",
-      "year": "compiled c. 3rd century BCE",
-      "locator": "Verse 21 (ch. II, 'On Earnestness')",
-      "url": "https://www.gutenberg.org/ebooks/2017"
-    },
-    "translation": {
-      "translator": "F. Max Müller",
-      "edition": "The Sacred Books of the East, vol. 10: The Dhammapada (Oxford: Clarendon Press)",
-      "year": 1881
-    },
-    "image": {
-      "file": "images/q011.jpg",
-      "license": "CC BY-SA 3.0",
-      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
-      "creator": "พระมหาเทวประภาส วชิรญาณเมธี (ผู้ถ่าย-ปล่อยสัญญาอนุญาตภาพให้นำไปใช้ได้เพื่อการศึกษาโดยอยู่ภา่ยใต้ cc-by-sa-3.0) ผู้สร้างสรรค์ผลงาน/ส่งข้อมูลเก็บในคลังข้อมูลเสรีวิกิมีเดียคอมมอนส์ - เทวประภาส มากคล้าย",
-      "attribution": "พระมหาเทวประภาส วชิรญาณเมธี (ผู้ถ่าย-ปล่อยสัญญาอนุญาตภาพให้นำไปใช้ได้เพื่อการศึกษาโดยอยู่ภา่ยใต้ cc-by-sa-3.0) ผู้สร้างสรรค์ผลงาน/ส่งข้อมูลเก็บในคลังข้อมูลเสรีวิกิมีเดียคอมมอนส์ - เทวประภาส มากคล้าย, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Buddha_in_Sarnath_Museum_(Dhammajak_Mutra).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Buddha_in_Sarnath_Museum_(Dhammajak_Mutra).jpg"
-    }
-  },
-  {
-    "id": "q012",
-    "text": "Do thine allotted task! Work is more excellent than idleness; The body's life proceeds not, lacking work.",
-    "author": "Bhagavad Gita (words of Krishna)",
-    "author_dates": "composed c. 2nd century BCE–2nd century CE",
-    "source": {
-      "work": "Bhagavad Gita (Mahabharata, Bhishma Parva)",
-      "year": "c. 2nd c. BCE–2nd c. CE",
-      "locator": "Chapter III, verse 8",
-      "url": "https://www.gutenberg.org/ebooks/2388"
-    },
-    "translation": {
-      "translator": "Sir Edwin Arnold",
-      "edition": "The Song Celestial; or, Bhagavad-Gîtâ (London: Trübner)",
-      "year": 1885
-    },
-    "image": {
-      "file": "images/q012.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Anonymous",
-      "attribution": "Anonymous, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Krishna_and_Arjun_on_the_chariot,_Mahabharata,_18th-19th_century,_India.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Krishna_and_Arjun_on_the_chariot,_Mahabharata,_18th-19th_century,_India.jpg"
-    }
-  },
-  {
-    "id": "q013",
-    "text": "Just as iron rusts unless it is used, and water putrifies or, in cold, turns to ice, so our intellect spoils unless it is kept in use.",
-    "author": "Leonardo da Vinci",
-    "author_dates": "1452–1519",
-    "source": {
-      "work": "Notebooks (Codex Atlanticus)",
-      "year": "c. 1490s–1510s",
-      "locator": "Richter no. 1177 (within the 'Philosophical Maxims / Morals' section)",
-      "url": "https://www.gutenberg.org/ebooks/5000"
-    },
-    "translation": {
-      "translator": "Jean Paul Richter",
-      "edition": "The Literary Works of Leonardo da Vinci (London: Sampson Low)",
-      "year": 1883
-    },
-    "image": {
-      "file": "images/q013.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Attributed to Francesco Melzi",
-      "attribution": "Attributed to Francesco Melzi, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Francesco_Melzi_-_Portrait_of_Leonardo_(colour_correction).png)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Francesco_Melzi_-_Portrait_of_Leonardo_(colour_correction).png"
-    }
-  },
-  {
-    "id": "q014",
-    "text": "I have learned that success is to be measured not so much by the position that one has reached in life as by the obstacles which he has overcome while trying to succeed.",
-    "author": "Booker T. Washington",
-    "author_dates": "1856–1915",
-    "source": {
-      "work": "Up from Slavery: An Autobiography",
-      "year": "1901",
-      "locator": "Chapter II, 'Boyhood Days'",
-      "url": "https://www.gutenberg.org/ebooks/2376"
+      "work": "'Citizenship in a Republic', speech at the Sorbonne, Paris (23 April 1910)",
+      "year": "1910",
+      "locator": "'The Man in the Arena' passage",
+      "url": "https://en.wikisource.org/wiki/Citizenship_in_a_Republic"
     },
     "translation": null,
     "image": {
-      "file": "images/q014.jpg",
+      "file": "images/q055.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Harris & Ewing",
-      "attribution": "Harris & Ewing, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Booker_T_Washington_retouched_flattened-crop.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Booker_T_Washington_retouched_flattened-crop.jpg"
+      "creator": "Pach Brothers (1904); restoration by Adam Cuerden",
+      "attribution": "Pach Brothers, 1904 (restored by Adam Cuerden), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Theodore_Roosevelt_by_the_Pach_Bros_(4x5_cropped)_(2).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Theodore_Roosevelt_by_the_Pach_Bros_(4x5_cropped)_(2).jpg"
     }
   },
   {
-    "id": "q015",
-    "text": "Blessed is he who has found his work; let him ask no other blessedness.",
-    "author": "Thomas Carlyle",
-    "author_dates": "1795–1881",
+    "id": "q079",
+    "text": "Never give in, never give in, never, never, never—in nothing, great or small, large or petty—never give in except to convictions of honour and good sense.",
+    "author": "Winston Churchill",
+    "author_dates": "1874–1965",
     "source": {
-      "work": "Past and Present",
-      "year": "1843",
-      "locator": "Book III, ch. XI, 'Labour'",
-      "url": "https://www.gutenberg.org/ebooks/26159"
+      "work": "Speech at Harrow School",
+      "year": "1941 (29 October)",
+      "locator": "International Churchill Society transcript",
+      "url": "https://winstonchurchill.org/resources/speeches/1941-1945-war-leader/never-give-in/"
     },
     "translation": null,
     "image": {
-      "file": "images/q015.jpg",
+      "file": "images/q079.jpg",
+      "license": "Public domain (PD-UKGov)",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "creator": "British Government (Imperial War Museum NYP 45063)",
+      "attribution": "British Government / Imperial War Museum, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Churchill_portrait_NYP_45063.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Churchill_portrait_NYP_45063.jpg"
+    }
+  },
+  {
+    "id": "q091",
+    "text": "Always bear in mind that your own resolution to succeed, is more important than any other one thing.",
+    "author": "Abraham Lincoln",
+    "author_dates": "1809–1865",
+    "source": {
+      "work": "Letter to Isham Reavis, Springfield",
+      "year": "1855 (5 November)",
+      "locator": "Collected Works of Abraham Lincoln, ed. Roy P. Basler, vol. 2, p. 327 (page from memory — verify)",
+      "url": "https://quod.lib.umich.edu/l/lincoln/lincoln2/1:346?rgn=div1;view=fulltext"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/q091.jpg",
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "creator": "Alexander Gardner",
+      "attribution": "Alexander Gardner, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Abraham_Lincoln_O-77_matte_collodion_print.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Abraham_Lincoln_O-77_matte_collodion_print.jpg"
+    }
+  },
+  {
+    "id": "q080",
+    "text": "If there is no struggle there is no progress.",
+    "author": "Frederick Douglass",
+    "author_dates": "1818–1895",
+    "source": {
+      "work": "'West India Emancipation' (The Significance of Emancipation in the West Indies), address at Canandaigua, New York",
+      "year": "1857 (3 August)",
+      "locator": "Frederick Douglass Papers Project digital edition, item 10509",
+      "url": "https://frederickdouglasspapersproject.com/s/digitaledition/item/10509"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/q080.jpg",
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "creator": "George Kendall Warren",
+      "attribution": "George Kendall Warren, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frederick_Douglass_(circa_1879)_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Frederick_Douglass_(circa_1879)_(cropped).jpg"
+    }
+  },
+  {
+    "id": "q090",
+    "text": "Strength does not come from physical capacity. It comes from an indomitable will.",
+    "author": "Mahatma Gandhi",
+    "author_dates": "1869–1948",
+    "source": {
+      "work": "'The Doctrine of the Sword', Young India",
+      "year": "1920 (11 August)",
+      "locator": "Young India, 11 Aug 1920; Collected Works of Mahatma Gandhi vol. 18 (CWMG volume number not confirmed)",
+      "url": "https://www.mkgandhi.org/nonviolence/D_sword.php"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/q090.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
       "creator": "Elliott & Fry",
-      "attribution": "Elliott & Fry, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Thomas_Carlyle_lm.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Thomas_Carlyle_lm.jpg"
+      "attribution": "Elliott & Fry, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Mahatma-Gandhi,_studio,_1931.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Mahatma-Gandhi,_studio,_1931.jpg"
     }
   },
   {
-    "id": "q016",
-    "text": "Great works are performed not by strength, but perseverance.",
-    "author": "Samuel Johnson",
-    "author_dates": "1709–1784",
+    "id": "q095",
+    "text": "You must do the thing you think you cannot do.",
+    "author": "Eleanor Roosevelt",
+    "author_dates": "1884–1962",
     "source": {
-      "work": "The History of Rasselas, Prince of Abissinia",
-      "year": "1759",
-      "locator": "Chapter XIII (Imlac speaking)",
-      "url": "https://www.gutenberg.org/ebooks/652"
+      "work": "You Learn by Living",
+      "year": "1960",
+      "locator": "Chapter 'Fear—the Great Enemy' (p. 29–30 in the 1960 Harper edition — page not seen)",
+      "url": "https://quoteinvestigator.com/2013/08/09/scare/"
     },
     "translation": null,
     "image": {
-      "file": "images/q016.jpg",
+      "file": "images/q095.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "creator": "FDR Presidential Library & Museum",
+      "attribution": "FDR Presidential Library & Museum, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Eleanor_Roosevelt_at_the_United_Nations,_circa_1946-1947_(3x4_cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Eleanor_Roosevelt_at_the_United_Nations,_circa_1946-1947_(3x4_cropped).jpg"
+    }
+  },
+  {
+    "id": "q086",
+    "text": "Deeds, not words, was to be our permanent motto.",
+    "author": "Emmeline Pankhurst",
+    "author_dates": "1858–1928",
+    "source": {
+      "work": "My Own Story",
+      "year": "1914",
+      "locator": "Book I, ch. III (founding of the WSPU, 1903)",
+      "url": "https://www.gutenberg.org/ebooks/34856"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/q086.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Joshua Reynolds",
-      "attribution": "Joshua Reynolds, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Samuel_Johnson_by_Joshua_Reynolds.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Samuel_Johnson_by_Joshua_Reynolds.jpg"
+      "creator": "Matzene, Chicago (Nov. 1913); restoration by Adam Cuerden",
+      "attribution": "Matzene, Chicago, 1913 (restored by Adam Cuerden), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Emmeline_Pankhurst,_seated_(1913).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Emmeline_Pankhurst,_seated_(1913).jpg"
     }
   },
   {
-    "id": "q017",
-    "text": "Procrastination is the thief of time.",
-    "author": "Edward Young",
-    "author_dates": "1683–1765",
+    "id": "q059",
+    "text": "Action is the only medium man has for receiving and appropriating truth.",
+    "author": "Jane Addams",
+    "author_dates": "1860–1935",
     "source": {
-      "work": "The Complaint, or Night-Thoughts on Life, Death, & Immortality",
-      "year": "1742",
-      "locator": "Night I, line 393",
-      "url": "https://www.gutenberg.org/ebooks/33156"
+      "work": "Twenty Years at Hull-House",
+      "year": "1910",
+      "locator": "Chapter VI, 'Subjective Necessity for Social Settlements'",
+      "url": "https://www.gutenberg.org/ebooks/1325"
     },
     "translation": null,
     "image": {
-      "file": "images/q017.jpg",
+      "file": "images/q059.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Joseph Highmore",
-      "attribution": "Joseph Highmore, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Joseph_Highmore_(1692-1780)_-_Edward_Young_(1683%E2%80%931765)_-_ASC-132_-_All_Souls_College.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Joseph_Highmore_(1692-1780)_-_Edward_Young_(1683%E2%80%931765)_-_ASC-132_-_All_Souls_College.jpg"
+      "creator": "Bain News Service (c. 1924–26); restoration by Adam Cuerden",
+      "attribution": "Bain News Service (restored by Adam Cuerden), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Jane_Addams_-_Bain_News_Service.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Jane_Addams_-_Bain_News_Service.jpg"
     }
   },
   {
-    "id": "q018",
-    "text": "Habit is habit, and not to be flung out of the window by any man, but coaxed down-stairs a step at a time.",
-    "author": "Mark Twain",
-    "author_dates": "1835–1910",
+    "id": "q097",
+    "text": "Failure is impossible.",
+    "author": "Susan B. Anthony",
+    "author_dates": "1820–1906",
     "source": {
-      "work": "The Tragedy of Pudd'nhead Wilson",
-      "year": "1894",
-      "locator": "Chapter VI epigraph ('Pudd'nhead Wilson's Calendar')",
-      "url": "https://www.gutenberg.org/ebooks/102"
+      "work": "Remarks at her 86th birthday celebration, Washington, D.C. (National American Woman Suffrage Association)",
+      "year": "1906 (15 February)",
+      "locator": "History of Woman Suffrage, vol. 5, ch. 6 (quoting Harper, Life and Work of Susan B. Anthony, vol. 3)",
+      "url": "https://en.wikisource.org/wiki/History_of_Woman_Suffrage/Volume_5/Chapter_6"
     },
     "translation": null,
     "image": {
-      "file": "images/q018.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "A.F. Bradley, New York",
-      "attribution": "A.F. Bradley, New York, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Mark_Twain_by_AF_Bradley_(cropped_2).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Mark_Twain_by_AF_Bradley_(cropped_2).jpg"
-    }
-  },
-  {
-    "id": "q019",
-    "text": "I'm not afraid of storms, for I'm learning how to sail my ship.",
-    "author": "Louisa May Alcott",
-    "author_dates": "1832–1888",
-    "source": {
-      "work": "Little Women (Part Second, 1869)",
-      "year": "1868–69",
-      "locator": "Chapter 44 ('My Lord and Lady'), spoken by Amy",
-      "url": "https://www.gutenberg.org/ebooks/514"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q019.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Adam Cuerden",
-      "attribution": "Adam Cuerden, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Louisa_May_Alcott,_c._1870_-_Warren%27s_Portraits,_Boston.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Louisa_May_Alcott,_c._1870_-_Warren%27s_Portraits,_Boston.jpg"
-    }
-  },
-  {
-    "id": "q020",
-    "text": "Nothing contributes so much to tranquillise the mind as a steady purpose—a point on which the soul may fix its intellectual eye.",
-    "author": "Mary Shelley",
-    "author_dates": "1797–1851",
-    "source": {
-      "work": "Frankenstein; or, The Modern Prometheus",
-      "year": "1818",
-      "locator": "Letter 1 (Walton to Mrs. Saville)",
-      "url": "https://www.gutenberg.org/ebooks/84"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q020.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Richard Rothwell",
-      "attribution": "Richard Rothwell, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Mary_Wollstonecraft_Shelley_Rothwell.tif)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Mary_Wollstonecraft_Shelley_Rothwell.tif"
-    }
-  },
-  {
-    "id": "q021",
-    "text": "Patience, Firmness, and Perseverance were my only weapons; and these I resolved to use to the utmost.",
-    "author": "Anne Brontë",
-    "author_dates": "1820–1849",
-    "source": {
-      "work": "Agnes Grey",
-      "year": "1847",
-      "locator": "Chapter III, 'A Few More Lessons'",
-      "url": "https://www.gutenberg.org/ebooks/767"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q021.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Charlotte Brontë",
-      "attribution": "Charlotte Brontë, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:AnneBronte.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:AnneBronte.jpg"
-    }
-  },
-  {
-    "id": "q022",
-    "text": "Isn't it nice to think that tomorrow is a new day with no mistakes in it yet?",
-    "author": "L. M. Montgomery",
-    "author_dates": "1874–1942",
-    "source": {
-      "work": "Anne of Green Gables",
-      "year": "1908",
-      "locator": "Chapter XXI, 'A New Departure in Flavorings'",
-      "url": "https://www.gutenberg.org/ebooks/45"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q022.jpg",
+      "file": "images/q097.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
       "creator": "Unknown author",
-      "attribution": "Unknown author, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:LMM_signed_photo.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:LMM_signed_photo.jpg"
+      "attribution": "Unknown author, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:SB_Anthony_from_RoRaWW.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:SB_Anthony_from_RoRaWW.jpg"
     }
   },
   {
-    "id": "q023",
-    "text": "I care for myself. The more solitary, the more friendless, the more unsustained I am, the more I will respect myself.",
-    "author": "Charlotte Brontë",
-    "author_dates": "1816–1855",
+    "id": "q069",
+    "text": "The Habits of a vigorous mind are formed in contending with difficulties. … Great necessities call out great virtues.",
+    "author": "Abigail Adams",
+    "author_dates": "1744–1818",
     "source": {
-      "work": "Jane Eyre: An Autobiography",
-      "year": "1847",
-      "locator": "Chapter XXVII",
-      "url": "https://www.gutenberg.org/ebooks/1260"
+      "work": "Letter to John Quincy Adams, 19 January 1780",
+      "year": "1780",
+      "locator": "Adams Family Correspondence, vol. 3 (ADMS-04-03-02-0207)",
+      "url": "https://www.masshist.org/publications/adams-papers/index.php/view/ADMS-04-03-02-0207"
     },
     "translation": null,
     "image": {
-      "file": "images/q023.jpg",
+      "file": "images/q069.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Branwell Brontë",
-      "attribution": "Branwell Brontë, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Charlotte_Bront%C3%AB_by_Patrick_Branwell_Bront%C3%AB_restored.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Charlotte_Bront%C3%AB_by_Patrick_Branwell_Bront%C3%AB_restored.jpg"
-    }
-  },
-  {
-    "id": "q024",
-    "text": "The strongest principle of growth lies in human choice.",
-    "author": "George Eliot",
-    "author_dates": "1819–1880",
-    "source": {
-      "work": "Daniel Deronda",
-      "year": "1876",
-      "locator": "Book VI, Chapter XLII (Mordecai speaking)",
-      "url": "https://www.gutenberg.org/ebooks/7469"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q024.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "replica by François D’Albert Durade (1804–1886)",
-      "attribution": "replica by François D’Albert Durade (1804–1886), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:George_Eliot,_por_Fran%C3%A7ois_D%27Albert_Durade.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:George_Eliot,_por_Fran%C3%A7ois_D%27Albert_Durade.jpg"
-    }
-  },
-  {
-    "id": "q025",
-    "text": "There is nothing stronger than those two: patience and time, they will do it all.",
-    "author": "Leo Tolstoy",
-    "author_dates": "1828–1910",
-    "source": {
-      "work": "War and Peace",
-      "year": "1869",
-      "locator": "Book Ten, ch. XVI (Maude); Russian vol. 3, part 2, ch. XVI — Kutuzov to Prince Andrew",
-      "url": "https://www.gutenberg.org/ebooks/2600"
-    },
-    "translation": {
-      "translator": "Louise and Aylmer Maude",
-      "edition": "War and Peace (Oxford University Press, World's Classics)",
-      "year": 1922
-    },
-    "image": {
-      "file": "images/q025.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Sergei Prokudin-Gorskii",
-      "attribution": "Sergei Prokudin-Gorskii, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Leo_Tolstoy_1908_Portrait_(3x4_cropped).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Leo_Tolstoy_1908_Portrait_(3x4_cropped).jpg"
-    }
-  },
-  {
-    "id": "q026",
-    "text": "If a man knows the wherefore of his existence, then the manner of it can take care of itself.",
-    "author": "Friedrich Nietzsche",
-    "author_dates": "1844–1900",
-    "source": {
-      "work": "Twilight of the Idols (Götzen-Dämmerung)",
-      "year": "1889",
-      "locator": "'Maxims and Missiles' (Sprüche und Pfeile), §12",
-      "url": "https://www.gutenberg.org/ebooks/52263"
-    },
-    "translation": {
-      "translator": "Anthony M. Ludovici",
-      "edition": "The Twilight of the Idols, in The Complete Works of Friedrich Nietzsche, vol. 16, ed. Oscar Levy (Edinburgh & London: T. N. Foulis)",
-      "year": 1911
-    },
-    "image": {
-      "file": "images/q026.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Friedrich Hermann Hartmann",
-      "attribution": "Friedrich Hermann Hartmann, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Nietzsche187a.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Nietzsche187a.jpg"
-    }
-  },
-  {
-    "id": "q027",
-    "text": "If each year should see one fault rooted out from us, we should go quickly on to perfection.",
-    "author": "Thomas à Kempis",
-    "author_dates": "c. 1380–1471",
-    "source": {
-      "work": "The Imitation of Christ (De Imitatione Christi)",
-      "year": "c. 1418–1427",
-      "locator": "Book I, ch. XI, §5",
-      "url": "https://www.gutenberg.org/ebooks/1653"
-    },
-    "translation": {
-      "translator": "William Benham",
-      "edition": "The Imitation of Christ (London)",
-      "year": 1874
-    },
-    "image": {
-      "file": "images/q027.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "zeitgenössischer Maler",
-      "attribution": "zeitgenössischer Maler, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Thomas_von_Kempen_JS.JPG)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Thomas_von_Kempen_JS.JPG"
-    }
-  },
-  {
-    "id": "q028",
-    "text": "Diligence is the mother of good fortune, and indolence, its opposite, never yet attained the object of an honest ambition.",
-    "author": "Miguel de Cervantes",
-    "author_dates": "1547–1616",
-    "source": {
-      "work": "Don Quixote, Part II",
-      "year": "1615",
-      "locator": "Part II, ch. XLIII (Don Quixote's counsels to Sancho)",
-      "url": "https://www.gutenberg.org/ebooks/996"
-    },
-    "translation": {
-      "translator": "John Ormsby",
-      "edition": "The Ingenious Gentleman Don Quixote of La Mancha (London: Smith, Elder)",
-      "year": 1885
-    },
-    "image": {
-      "file": "images/q028.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Attributed to Juan de Jáuregui",
-      "attribution": "Attributed to Juan de Jáuregui, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Cervantes_J%C3%A1uregui.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Cervantes_J%C3%A1uregui.jpg"
-    }
-  },
-  {
-    "id": "q029",
-    "text": "There is time enough for everything, in the course of the day, if you do but one thing at once; but there is not time enough in the year, if you will do two things at a time.",
-    "author": "Philip Stanhope, 4th Earl of Chesterfield",
-    "author_dates": "1694–1773",
-    "source": {
-      "work": "Letters to His Son",
-      "year": "1747 (publ. 1774)",
-      "locator": "Letter IX, London, April 14, O.S. 1747",
-      "url": "https://www.gutenberg.org/ebooks/3361"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q029.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Allan Ramsay",
-      "attribution": "Allan Ramsay, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Philip_Dormer_Stanhope,_4th_Earl_of_Chesterfield_by_Allan_Ramsay.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Philip_Dormer_Stanhope,_4th_Earl_of_Chesterfield_by_Allan_Ramsay.jpg"
-    }
-  },
-  {
-    "id": "q030",
-    "text": "If you have great talents, industry will improve them: if you have but moderate abilities, industry will supply their deficiency.",
-    "author": "Sir Joshua Reynolds",
-    "author_dates": "1723–1792",
-    "source": {
-      "work": "Discourses on Art",
-      "year": "1769",
-      "locator": "Discourse II (delivered 11 Dec 1769)",
-      "url": "https://www.gutenberg.org/ebooks/2176"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q030.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Joshua Reynolds",
-      "attribution": "Joshua Reynolds, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Sir_Joshua_Reynolds_-_Self-Portrait_-_Google_Art_Project_(2315517).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Sir_Joshua_Reynolds_-_Self-Portrait_-_Google_Art_Project_(2315517).jpg"
-    }
-  },
-  {
-    "id": "q031",
-    "text": "Work is no disgrace: it is idleness which is a disgrace.",
-    "author": "Hesiod",
-    "author_dates": "fl. c. 700 BCE",
-    "source": {
-      "work": "Works and Days",
-      "year": "c. 700 BCE",
-      "locator": "Line 311",
-      "url": "https://www.gutenberg.org/ebooks/348"
-    },
-    "translation": {
-      "translator": "Hugh G. Evelyn-White",
-      "edition": "Hesiod, the Homeric Hymns and Homerica (Loeb Classical Library)",
-      "year": 1914
-    },
-    "image": {
-      "file": "images/q031.jpg",
-      "license": "CC BY-SA 4.0",
-      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
-      "creator": "Yair Haklai",
-      "attribution": "Yair Haklai, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bust_of_Hesiod_(%3F)-Ancient_Roman_busts_in_the_Neues_Museum.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Bust_of_Hesiod_(%3F)-Ancient_Roman_busts_in_the_Neues_Museum.jpg"
-    }
-  },
-  {
-    "id": "q032",
-    "text": "Between us and Goodness the gods have placed the sweat of our brows: long and steep is the path that leads to her, and it is rough at the first; but when a man has reached the top, then is she easy to reach.",
-    "author": "Hesiod",
-    "author_dates": "fl. c. 700 BCE",
-    "source": {
-      "work": "Works and Days",
-      "year": "c. 700 BCE",
-      "locator": "Lines 289–292",
-      "url": "https://www.gutenberg.org/ebooks/348"
-    },
-    "translation": {
-      "translator": "Hugh G. Evelyn-White",
-      "edition": "Hesiod, the Homeric Hymns and Homerica (Loeb Classical Library)",
-      "year": 1914
-    },
-    "image": {
-      "file": "images/q032.jpg",
-      "license": "CC BY-SA 4.0",
-      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
-      "creator": "Yair Haklai",
-      "attribution": "Yair Haklai, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bust_of_Hesiod_(%3F)-Ancient_Roman_busts_in_the_Neues_Museum.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Bust_of_Hesiod_(%3F)-Ancient_Roman_busts_in_the_Neues_Museum.jpg"
-    }
-  },
-  {
-    "id": "q033",
-    "text": "The beginning is the most important part of any work.",
-    "author": "Plato",
-    "author_dates": "c. 428–348 BCE",
-    "source": {
-      "work": "Republic",
-      "year": "c. 375 BCE",
-      "locator": "Book II, 377a–b (Socrates speaking)",
-      "url": "https://www.gutenberg.org/ebooks/1497"
-    },
-    "translation": {
-      "translator": "Benjamin Jowett",
-      "edition": "The Dialogues of Plato (Oxford: Clarendon Press)",
-      "year": 1871
-    },
-    "image": {
-      "file": "images/q033.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Marie-Lan Nguyen",
-      "attribution": "Marie-Lan Nguyen, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Plato_Silanion_Musei_Capitolini_MC1377.png)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Plato_Silanion_Musei_Capitolini_MC1377.png"
-    }
-  },
-  {
-    "id": "q034",
-    "text": "To travel hopefully is a better thing than to arrive, and the true success is to labour.",
-    "author": "Robert Louis Stevenson",
-    "author_dates": "1850–1894",
-    "source": {
-      "work": "'El Dorado', in Virginibus Puerisque, and Other Papers",
-      "year": "1881",
-      "locator": "Essay 'El Dorado' (final sentence)",
-      "url": "https://www.gutenberg.org/ebooks/386"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q034.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Henry Walter Barnett",
-      "attribution": "Henry Walter Barnett, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Robert_Louis_Stevenson_by_Henry_Walter_Barnett_bw.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Robert_Louis_Stevenson_by_Henry_Walter_Barnett_bw.jpg"
-    }
-  },
-  {
-    "id": "q035",
-    "text": "If you can fill the unforgiving minute / With sixty seconds' worth of distance run, / Yours is the Earth and everything that's in it.",
-    "author": "Rudyard Kipling",
-    "author_dates": "1865–1936",
-    "source": {
-      "work": "'If—', in Rewards and Fairies",
-      "year": "1910",
-      "locator": "Poem 'If—', final stanza",
-      "url": "https://www.gutenberg.org/ebooks/556"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q035.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Elliott & Fry",
-      "attribution": "Elliott & Fry, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Rudyard_Kipling_(portrait).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Rudyard_Kipling_(portrait).jpg"
-    }
-  },
-  {
-    "id": "q036",
-    "text": "It is not enough to know, we must also apply; it is not enough to will, we must also do.",
-    "author": "Johann Wolfgang von Goethe",
-    "author_dates": "1749–1832",
-    "source": {
-      "work": "Maxims and Reflections (from Wilhelm Meisters Wanderjahre)",
-      "year": "1829",
-      "locator": "Saunders no. 324 (numbering adjacent to the text in Gutenberg #33670 — verify)",
-      "url": "https://www.gutenberg.org/ebooks/33670"
-    },
-    "translation": {
-      "translator": "T. Bailey Saunders",
-      "edition": "The Maxims and Reflections of Goethe (London: Macmillan)",
-      "year": 1893
-    },
-    "image": {
-      "file": "images/q036.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Joseph Karl Stieler",
-      "attribution": "Joseph Karl Stieler, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Goethe_(Stieler_1828).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Goethe_(Stieler_1828).jpg"
-    }
-  },
-  {
-    "id": "q037",
-    "text": "In the fields of observation, chance only favours the mind which is prepared.",
-    "author": "Louis Pasteur",
-    "author_dates": "1822–1895",
-    "source": {
-      "work": "Inaugural lecture, Faculty of Sciences, Lille",
-      "year": "1854 (7 December)",
-      "locator": "Quoted in Vallery-Radot, The Life of Pasteur, ch. IV (1855–1859)",
-      "url": "https://www.gutenberg.org/ebooks/60956"
-    },
-    "translation": {
-      "translator": "Mrs. R. L. Devonshire",
-      "edition": "René Vallery-Radot, The Life of Pasteur (London: Constable / New York: Doubleday)",
-      "year": 1902
-    },
-    "image": {
-      "file": "images/q037.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Paul Nadar",
-      "attribution": "Paul Nadar, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Louis_Pasteur,_foto_av_Paul_Nadar,_Crisco_edit.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Louis_Pasteur,_foto_av_Paul_Nadar,_Crisco_edit.jpg"
+      "creator": "Gilbert Stuart",
+      "attribution": "Gilbert Stuart, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Abigail_Adams_by_Gilbert_Stuart.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Abigail_Adams_by_Gilbert_Stuart.jpg"
     }
   },
   {
@@ -878,27 +273,6 @@
     "translation": null,
     "image": {
       "file": "images/q038.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Joseph-Siffred Duplessis",
-      "attribution": "Joseph-Siffred Duplessis, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Joseph_Siffrein_Duplessis_-_Benjamin_Franklin_-_Google_Art_Project.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Joseph_Siffrein_Duplessis_-_Benjamin_Franklin_-_Google_Art_Project.jpg"
-    }
-  },
-  {
-    "id": "q039",
-    "text": "Lose no time; be always employ'd in something useful; cut off all unnecessary actions.",
-    "author": "Benjamin Franklin",
-    "author_dates": "1706–1790",
-    "source": {
-      "work": "The Autobiography of Benjamin Franklin",
-      "year": "written 1784",
-      "locator": "Part II, list of thirteen virtues, no. 6 ('Industry')",
-      "url": "https://www.gutenberg.org/ebooks/20203"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q039.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
       "creator": "Joseph-Siffred Duplessis",
@@ -928,322 +302,95 @@
     }
   },
   {
-    "id": "q041",
-    "text": "All the misfortunes of men arise from one thing only, that they are unable to stay quietly in their own chamber.",
-    "author": "Blaise Pascal",
-    "author_dates": "1623–1662",
+    "id": "q067",
+    "text": "Determine never to be idle. No person will have occasion to complain of the want of time, who never loses any. It is wonderful how much may be done, if we are always doing.",
+    "author": "Thomas Jefferson",
+    "author_dates": "1743–1826",
     "source": {
-      "work": "Pensées",
-      "year": "1670 (posthumous)",
-      "locator": "'Diversion' (Brunschvicg 139 / Lafuma 136)",
-      "url": "https://www.gutenberg.org/ebooks/46921"
+      "work": "Letter to Martha Jefferson, Marseilles, 5 May 1787",
+      "year": "1787",
+      "locator": "Papers of Thomas Jefferson, vol. 11 (Founders Online 01-11-02-0327)",
+      "url": "https://founders.archives.gov/documents/Jefferson/01-11-02-0327"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/q067.jpg",
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "creator": "Rembrandt Peale",
+      "attribution": "Rembrandt Peale, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Official_Presidential_portrait_of_Thomas_Jefferson_(by_Rembrandt_Peale,_1800).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Official_Presidential_portrait_of_Thomas_Jefferson_(by_Rembrandt_Peale,_1800).jpg"
+    }
+  },
+  {
+    "id": "q087",
+    "text": "I came, I saw, I conquered.",
+    "author": "Julius Caesar",
+    "author_dates": "100–44 BCE",
+    "source": {
+      "work": "Inscription displayed at his Pontic triumph (46 BCE), reported by Suetonius",
+      "year": "47–46 BCE",
+      "locator": "Suetonius, Divus Julius 37.2",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Suetonius/12Caesars/Julius*.html"
     },
     "translation": {
-      "translator": "C. Kegan Paul",
-      "edition": "The Thoughts of Blaise Pascal, from the text of Auguste Molinier (London: Kegan Paul, Trench & Co.)",
-      "year": 1885
+      "translator": "J. C. Rolfe",
+      "edition": "Suetonius, Lives of the Caesars, vol. I (Loeb Classical Library)",
+      "year": 1914
     },
     "image": {
-      "file": "images/q041.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "unknown; a copy of the painting of François II Quesnel, which was made for Gérard Edelinck en 1691[réf. nécessaire].",
-      "attribution": "unknown; a copy of the painting of François II Quesnel, which was made for Gérard Edelinck en 1691[réf. nécessaire]., Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Blaise_Pascal_Versailles.JPG)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Blaise_Pascal_Versailles.JPG"
+      "file": "images/q087.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "creator": "Ángel M. Felicísimo from Mérida, España",
+      "attribution": "Ángel M. Felicísimo, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Retrato_de_Julio_C%C3%A9sar_(26724093101)_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Retrato_de_Julio_C%C3%A9sar_(26724093101)_(cropped).jpg"
     }
   },
   {
-    "id": "q042",
-    "text": "Our life is frittered away by detail. … Simplicity, simplicity, simplicity!",
-    "author": "Henry David Thoreau",
-    "author_dates": "1817–1862",
+    "id": "q088",
+    "text": "That is done quickly enough which is done well enough.",
+    "author": "Augustus",
+    "author_dates": "63 BCE–14 CE",
     "source": {
-      "work": "Walden; or, Life in the Woods",
-      "year": "1854",
-      "locator": "Chapter 2, 'Where I Lived, and What I Lived For'",
-      "url": "https://www.gutenberg.org/ebooks/205"
+      "work": "Favourite saying, reported by Suetonius",
+      "year": "c. 121 CE (Suetonius)",
+      "locator": "Suetonius, Divus Augustus 25.4",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Suetonius/12Caesars/Augustus*.html"
     },
-    "translation": null,
+    "translation": {
+      "translator": "J. C. Rolfe",
+      "edition": "Suetonius, Lives of the Caesars, vol. I (Loeb Classical Library)",
+      "year": 1914
+    },
     "image": {
-      "file": "images/q042.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Benjamin D. Maxham active 1848 - 1858",
-      "attribution": "Benjamin D. Maxham active 1848 - 1858, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Benjamin_D._Maxham_-_Henry_David_Thoreau_-_Restored.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Benjamin_D._Maxham_-_Henry_David_Thoreau_-_Restored.jpg"
+      "file": "images/q088.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "creator": "Justin Benttinen",
+      "attribution": "Justin Benttinen, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Augustus_of_Prima_Porta.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Augustus_of_Prima_Porta.jpg"
     }
   },
   {
-    "id": "q043",
-    "text": "I went to the woods because I wished to live deliberately, to front only the essential facts of life, and see if I could not learn what it had to teach.",
-    "author": "Henry David Thoreau",
-    "author_dates": "1817–1862",
+    "id": "q014",
+    "text": "I have learned that success is to be measured not so much by the position that one has reached in life as by the obstacles which he has overcome while trying to succeed.",
+    "author": "Booker T. Washington",
+    "author_dates": "1856–1915",
     "source": {
-      "work": "Walden; or, Life in the Woods",
-      "year": "1854",
-      "locator": "Chapter 2, 'Where I Lived, and What I Lived For'",
-      "url": "https://www.gutenberg.org/ebooks/205"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q043.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Benjamin D. Maxham active 1848 - 1858",
-      "attribution": "Benjamin D. Maxham active 1848 - 1858, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Benjamin_D._Maxham_-_Henry_David_Thoreau_-_Restored.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Benjamin_D._Maxham_-_Henry_David_Thoreau_-_Restored.jpg"
-    }
-  },
-  {
-    "id": "q044",
-    "text": "I would go and look at a stone-cutter hammering away at his rock perhaps a hundred times without as much as a crack showing in it. Yet at the hundred and first blow it would split in two, and I knew it was not that blow that did it, but all that had gone before.",
-    "author": "Jacob A. Riis",
-    "author_dates": "1849–1914",
-    "source": {
-      "work": "The Making of an American",
+      "work": "Up from Slavery: An Autobiography",
       "year": "1901",
-      "locator": "Chapter X",
-      "url": "https://www.gutenberg.org/ebooks/6125"
+      "locator": "Chapter II, 'Boyhood Days'",
+      "url": "https://www.gutenberg.org/ebooks/2376"
     },
     "translation": null,
     "image": {
-      "file": "images/q044.jpg",
+      "file": "images/q014.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Pirie MacDonald",
-      "attribution": "Pirie MacDonald, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Jacob_Riis_2.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Jacob_Riis_2.jpg"
-    }
-  },
-  {
-    "id": "q045",
-    "text": "Made weak by time and fate, but strong in will / To strive, to seek, to find, and not to yield.",
-    "author": "Alfred, Lord Tennyson",
-    "author_dates": "1809–1892",
-    "source": {
-      "work": "'Ulysses', in Poems (2 vols.)",
-      "year": "1842",
-      "locator": "Final two lines",
-      "url": "https://www.gutenberg.org/ebooks/8601"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q045.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Elliott & Fry",
-      "attribution": "Elliott & Fry, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Alfred,_Lord_Tennyson_by_Elliott_%26_Fry_-_Original.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Alfred,_Lord_Tennyson_by_Elliott_%26_Fry_-_Original.jpg"
-    }
-  },
-  {
-    "id": "q046",
-    "text": "Does the road wind up-hill all the way? / Yes, to the very end. / Will the day's journey take the whole long day? / From morn to night, my friend.",
-    "author": "Christina Rossetti",
-    "author_dates": "1830–1894",
-    "source": {
-      "work": "'Up-Hill', in Goblin Market and Other Poems",
-      "year": "1862",
-      "locator": "First stanza",
-      "url": "https://www.gutenberg.org/ebooks/16950"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q046.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Dante Gabriel Rossetti",
-      "attribution": "Dante Gabriel Rossetti, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Christina_Rossetti_3.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Christina_Rossetti_3.jpg"
-    }
-  },
-  {
-    "id": "q047",
-    "text": "No coward soul is mine, / No trembler in the world's storm-troubled sphere.",
-    "author": "Emily Brontë",
-    "author_dates": "1818–1848",
-    "source": {
-      "work": "'No coward soul is mine'",
-      "year": "written 1846 (publ. 1850)",
-      "locator": "First two lines; printed by Charlotte Brontë as 'the last lines my sister Emily ever wrote'",
-      "url": "https://www.gutenberg.org/ebooks/1019"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q047.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Branwell Brontë",
-      "attribution": "Branwell Brontë, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Emily_Bront%C3%AB_by_Patrick_Branwell_Bront%C3%AB_restored.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Emily_Bront%C3%AB_by_Patrick_Branwell_Bront%C3%AB_restored.jpg"
-    }
-  },
-  {
-    "id": "q048",
-    "text": "We never know how high we are / Till we are called to rise; / And then, if we are true to plan, / Our statures touch the skies.",
-    "author": "Emily Dickinson",
-    "author_dates": "1830–1886",
-    "source": {
-      "work": "'Aspiration' (J1176), in Poems by Emily Dickinson, Third Series, ed. Mabel Loomis Todd",
-      "year": "1896",
-      "locator": "Part I ('Life'), no. XIV, first stanza",
-      "url": "https://www.gutenberg.org/ebooks/12242"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q048.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Unknown author",
-      "attribution": "Unknown author, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Black-white_photograph_of_Emily_Dickinson2.png)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Black-white_photograph_of_Emily_Dickinson2.png"
-    }
-  },
-  {
-    "id": "q049",
-    "text": "Do the thing, and you shall have the power.",
-    "author": "Ralph Waldo Emerson",
-    "author_dates": "1803–1882",
-    "source": {
-      "work": "'Compensation', in Essays: First Series",
-      "year": "1841",
-      "locator": "Essay III, 'Compensation'",
-      "url": "https://www.gutenberg.org/ebooks/2944"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q049.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Josiah Johnson Hawes",
-      "attribution": "Josiah Johnson Hawes, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Ralph_Waldo_Emerson_by_Josiah_Johnson_Hawes_1857.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Ralph_Waldo_Emerson_by_Josiah_Johnson_Hawes_1857.jpg"
-    }
-  },
-  {
-    "id": "q050",
-    "text": "Perhaps the most valuable result of all education is the ability to make yourself do the thing you have to do, when it ought to be done, whether you like it or not.",
-    "author": "Thomas Henry Huxley",
-    "author_dates": "1825–1895",
-    "source": {
-      "work": "'Technical Education' (address, 1877), in Science and Culture, and Other Essays",
-      "year": "1877 (publ. 1881)",
-      "locator": "Essay 'Technical Education'",
-      "url": "https://www.gutenberg.org/ebooks/52344"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q050.jpg",
-      "license": "CC BY 4.0",
-      "license_url": "https://creativecommons.org/licenses/by/4.0",
-      "creator": "Unknown author",
-      "attribution": "Unknown author, CC BY 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Thomas_Henry_Huxley._Photograph_by_Lock_%26_Whitfield._Wellcome_V0026596.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Thomas_Henry_Huxley._Photograph_by_Lock_%26_Whitfield._Wellcome_V0026596.jpg"
-    }
-  },
-  {
-    "id": "q051",
-    "text": "Seize the very first possible opportunity to act on every resolution you make.",
-    "author": "William James",
-    "author_dates": "1842–1910",
-    "source": {
-      "work": "The Principles of Psychology, vol. 1",
-      "year": "1890",
-      "locator": "Chapter IV, 'Habit' (third maxim)",
-      "url": "https://www.gutenberg.org/ebooks/57628"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q051.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Notman Studios (photographer)",
-      "attribution": "Notman Studios (photographer), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:William_James_b1842c.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:William_James_b1842c.jpg"
-    }
-  },
-  {
-    "id": "q052",
-    "text": "Keep the faculty of effort alive in you by a little gratuitous exercise every day.",
-    "author": "William James",
-    "author_dates": "1842–1910",
-    "source": {
-      "work": "The Principles of Psychology, vol. 1",
-      "year": "1890",
-      "locator": "Chapter IV, 'Habit' (final maxim)",
-      "url": "https://www.gutenberg.org/ebooks/57628"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q052.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Notman Studios (photographer)",
-      "attribution": "Notman Studios (photographer), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:William_James_b1842c.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:William_James_b1842c.jpg"
-    }
-  },
-  {
-    "id": "q053",
-    "text": "My experience is what I agree to attend to.",
-    "author": "William James",
-    "author_dates": "1842–1910",
-    "source": {
-      "work": "The Principles of Psychology, vol. 1",
-      "year": "1890",
-      "locator": "Chapter XI, 'Attention'",
-      "url": "https://www.gutenberg.org/ebooks/57628"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q053.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Notman Studios (photographer)",
-      "attribution": "Notman Studios (photographer), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:William_James_b1842c.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:William_James_b1842c.jpg"
-    }
-  },
-  {
-    "id": "q054",
-    "text": "I wish to preach, not the doctrine of ignoble ease, but the doctrine of the strenuous life, the life of toil and effort, of labor and strife.",
-    "author": "Theodore Roosevelt",
-    "author_dates": "1858–1919",
-    "source": {
-      "work": "'The Strenuous Life', speech to the Hamilton Club, Chicago (10 April 1899)",
-      "year": "1899",
-      "locator": "In The Strenuous Life: Essays and Addresses (1900), title essay, opening",
-      "url": "https://www.gutenberg.org/ebooks/58821"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q054.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Adam Cuerden",
-      "attribution": "Adam Cuerden, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Theodore_Roosevelt_by_the_Pach_Bros_(4x5_cropped)_(2).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Theodore_Roosevelt_by_the_Pach_Bros_(4x5_cropped)_(2).jpg"
-    }
-  },
-  {
-    "id": "q055",
-    "text": "The credit belongs to the man who is actually in the arena, whose face is marred by dust and sweat and blood; who strives valiantly; who errs, who comes short again and again.",
-    "author": "Theodore Roosevelt",
-    "author_dates": "1858–1919",
-    "source": {
-      "work": "'Citizenship in a Republic', speech at the Sorbonne, Paris (23 April 1910)",
-      "year": "1910",
-      "locator": "'The Man in the Arena' passage",
-      "url": "https://en.wikisource.org/wiki/Citizenship_in_a_Republic"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q055.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Adam Cuerden",
-      "attribution": "Adam Cuerden, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Theodore_Roosevelt_by_the_Pach_Bros_(4x5_cropped)_(2).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Theodore_Roosevelt_by_the_Pach_Bros_(4x5_cropped)_(2).jpg"
+      "creator": "Harris & Ewing",
+      "attribution": "Harris & Ewing, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Booker_T_Washington_retouched_flattened-crop.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Booker_T_Washington_retouched_flattened-crop.jpg"
     }
   },
   {
@@ -1268,91 +415,74 @@
     }
   },
   {
-    "id": "q057",
-    "text": "Optimism is the faith that leads to achievement; nothing can be done without hope.",
-    "author": "Helen Keller",
-    "author_dates": "1880–1968",
+    "id": "q081",
+    "text": "Arise, awake, and stop not till the goal is reached.",
+    "author": "Swami Vivekananda",
+    "author_dates": "1863–1902",
     "source": {
-      "work": "Optimism: An Essay",
-      "year": "1903",
-      "locator": "Part III, 'The Practice of Optimism'",
-      "url": "https://www.gutenberg.org/ebooks/31622"
+      "work": "Lectures from Colombo to Almora: \"The Mission of the Vedanta\" (Kumbakonam, 1897), Complete Works vol. 3",
+      "year": "1897",
+      "locator": "Complete Works, vol. 3 (rendering Katha Upanishad 1.3.14)",
+      "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_3/Lectures_from_Colombo_to_Almora/The_Mission_of_the_Vedanta"
     },
     "translation": null,
     "image": {
-      "file": "images/q057.jpg",
+      "file": "images/q081.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Unknown author",
-      "attribution": "Unknown author, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Helen_Keller_(circa_1904).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Helen_Keller_(circa_1904).jpg"
+      "creator": "Unknown photographer (Chicago, September 1893)",
+      "attribution": "Unknown photographer, Chicago, 1893, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Swami_Vivekananda-1893-09-signed.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Swami_Vivekananda-1893-09-signed.jpg"
     }
   },
   {
-    "id": "q058",
-    "text": "The people must know before they can act, and there is no educator to compare with the press.",
-    "author": "Ida B. Wells",
-    "author_dates": "1862–1931",
+    "id": "q004",
+    "text": "Nothing great … is produced suddenly, since not even the grape or the fig is.",
+    "author": "Epictetus",
+    "author_dates": "c. 50–c. 135 CE",
     "source": {
-      "work": "Southern Horrors: Lynch Law in All Its Phases",
-      "year": "1892",
-      "locator": "Final chapter, 'Self-Help'",
-      "url": "https://www.gutenberg.org/ebooks/14975"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q058.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Adam Cuerden",
-      "attribution": "Adam Cuerden, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Mary_Garrity_-_Ida_B._Wells-Barnett_-_Google_Art_Project_-_restoration_crop.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Mary_Garrity_-_Ida_B._Wells-Barnett_-_Google_Art_Project_-_restoration_crop.jpg"
-    }
-  },
-  {
-    "id": "q059",
-    "text": "Action is the only medium man has for receiving and appropriating truth.",
-    "author": "Jane Addams",
-    "author_dates": "1860–1935",
-    "source": {
-      "work": "Twenty Years at Hull-House",
-      "year": "1910",
-      "locator": "Chapter VI, 'Subjective Necessity for Social Settlements'",
-      "url": "https://www.gutenberg.org/ebooks/1325"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q059.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Adam Cuerden",
-      "attribution": "Adam Cuerden, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Jane_Addams_-_Bain_News_Service.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Jane_Addams_-_Bain_News_Service.jpg"
-    }
-  },
-  {
-    "id": "q060",
-    "text": "I was taught that the way of progress is neither swift nor easy.",
-    "author": "Marie Curie",
-    "author_dates": "1867–1934",
-    "source": {
-      "work": "Autobiographical Notes, in Pierre Curie",
-      "year": "1923",
-      "locator": "Autobiographical Notes, ch. I",
-      "url": "https://www.gutenberg.org/ebooks/69617"
+      "work": "Discourses (recorded by Arrian)",
+      "year": "c. 108 CE",
+      "locator": "Book I, ch. 15 ('What philosophy promises')",
+      "url": "https://www.gutenberg.org/ebooks/10661"
     },
     "translation": {
-      "translator": "Charlotte Kellogg and Vernon Kellogg",
-      "edition": "Marie Curie, Pierre Curie, with Autobiographical Notes (New York: Macmillan)",
-      "year": 1923
+      "translator": "George Long",
+      "edition": "The Discourses of Epictetus, with the Encheiridion and Fragments (London: George Bell & Sons)",
+      "year": 1877
     },
     "image": {
-      "file": "images/q060.jpg",
+      "file": "images/q004.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Henri Manuel",
-      "attribution": "Henri Manuel, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Marie_Curie_c._1920s.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Marie_Curie_c._1920s.jpg"
+      "creator": "William Sonmans / Michael Burghers",
+      "attribution": "William Sonmans / Michael Burghers, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Epicteti_Enchiridion_Latinis_versibus_adumbratum_(Oxford_1715)_frontispiece_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Epicteti_Enchiridion_Latinis_versibus_adumbratum_(Oxford_1715)_frontispiece_(cropped).jpg"
+    }
+  },
+  {
+    "id": "q064",
+    "text": "We become just by doing just acts, temperate by doing temperate acts, brave by doing brave acts.",
+    "author": "Aristotle",
+    "author_dates": "384–322 BCE",
+    "source": {
+      "work": "Nicomachean Ethics",
+      "year": "c. 340 BCE",
+      "locator": "Book II, ch. 1 (1103a34–b2)",
+      "url": "https://classics.mit.edu/Aristotle/nicomachaen.2.ii.html"
+    },
+    "translation": {
+      "translator": "W. D. Ross",
+      "edition": "Aristotle, Ethica Nicomachea (Oxford: Clarendon Press)",
+      "year": 1908
+    },
+    "image": {
+      "file": "images/q064.jpg",
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "creator": "Photo: Jastrow (Marie-Lan Nguyen), 2006, public domain; bust: Roman copy after Lysippos",
+      "attribution": "After Lysippos, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Aristotle_Altemps_Inv8575.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Aristotle_Altemps_Inv8575.jpg"
     }
   },
   {
@@ -1406,78 +536,149 @@
     }
   },
   {
-    "id": "q063",
-    "text": "Everywhere means nowhere.",
-    "author": "Seneca",
-    "author_dates": "c. 4 BCE–65 CE",
+    "id": "q007",
+    "text": "He who overcomes others is strong; he who overcomes himself is mighty.",
+    "author": "Laozi (traditional attribution)",
+    "author_dates": "trad. 6th century BCE",
     "source": {
-      "work": "Moral Letters to Lucilius",
-      "year": "c. 65 CE",
-      "locator": "Letter 2 ('On discursiveness in reading'), §2",
-      "url": "https://en.wikisource.org/wiki/Moral_letters_to_Lucilius/Letter_2"
+      "work": "Tao Te Ching (道德經)",
+      "year": "c. 4th century BCE (compiled)",
+      "locator": "Chapter 33, §1",
+      "url": "https://www.gutenberg.org/ebooks/216"
     },
     "translation": {
-      "translator": "Richard M. Gummere",
-      "edition": "Seneca, Ad Lucilium Epistulae Morales, vol. I (Loeb Classical Library)",
-      "year": 1917
+      "translator": "James Legge",
+      "edition": "The Sacred Books of the East, vol. 39: The Texts of Taoism, Part I (Oxford: Clarendon Press)",
+      "year": 1891
     },
     "image": {
-      "file": "images/q063.jpg",
-      "license": "CC BY-SA 3.0",
-      "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
-      "creator": "Calidius",
-      "attribution": "Calidius, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_07.jpg"
+      "file": "images/q007.jpg",
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "creator": "Zhang Lu",
+      "attribution": "Zhang Lu, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Zhang_Lu-Laozi_Riding_an_Ox_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Zhang_Lu-Laozi_Riding_an_Ox_(cropped).jpg"
     }
   },
   {
-    "id": "q064",
-    "text": "We become just by doing just acts, temperate by doing temperate acts, brave by doing brave acts.",
-    "author": "Aristotle",
-    "author_dates": "384–322 BCE",
+    "id": "q036",
+    "text": "It is not enough to know, we must also apply; it is not enough to will, we must also do.",
+    "author": "Johann Wolfgang von Goethe",
+    "author_dates": "1749–1832",
     "source": {
-      "work": "Nicomachean Ethics",
-      "year": "c. 340 BCE",
-      "locator": "Book II, ch. 1 (1103a34–b2)",
-      "url": "https://classics.mit.edu/Aristotle/nicomachaen.2.ii.html"
+      "work": "Maxims and Reflections (from Wilhelm Meisters Wanderjahre)",
+      "year": "1829",
+      "locator": "Saunders no. 324 (numbering adjacent to the text in Gutenberg #33670 — verify)",
+      "url": "https://www.gutenberg.org/ebooks/33670"
     },
     "translation": {
-      "translator": "W. D. Ross",
-      "edition": "Aristotle, Ethica Nicomachea (Oxford: Clarendon Press)",
-      "year": 1908
+      "translator": "T. Bailey Saunders",
+      "edition": "The Maxims and Reflections of Goethe (London: Macmillan)",
+      "year": 1893
     },
     "image": {
-      "file": "images/q064.jpg",
+      "file": "images/q036.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "After Lysippos",
-      "attribution": "After Lysippos, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Aristotle_Altemps_Inv8575.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Aristotle_Altemps_Inv8575.jpg"
+      "creator": "Joseph Karl Stieler",
+      "attribution": "Joseph Karl Stieler, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Goethe_(Stieler_1828).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Goethe_(Stieler_1828).jpg"
     }
   },
   {
-    "id": "q065",
-    "text": "For they can conquer, who believe they can.",
-    "author": "Virgil",
-    "author_dates": "70–19 BCE",
+    "id": "q037",
+    "text": "In the fields of observation, chance only favours the mind which is prepared.",
+    "author": "Louis Pasteur",
+    "author_dates": "1822–1895",
     "source": {
-      "work": "Aeneid",
-      "year": "c. 19 BCE",
-      "locator": "Book V, line 231 (Latin); the boat race",
-      "url": "https://www.gutenberg.org/ebooks/228"
+      "work": "Inaugural lecture, Faculty of Sciences, Lille",
+      "year": "1854 (7 December)",
+      "locator": "Quoted in Vallery-Radot, The Life of Pasteur, ch. IV (1855–1859)",
+      "url": "https://www.gutenberg.org/ebooks/60956"
     },
     "translation": {
-      "translator": "John Dryden",
-      "edition": "The Works of Virgil (London: Jacob Tonson)",
-      "year": 1697
+      "translator": "Mrs. R. L. Devonshire",
+      "edition": "René Vallery-Radot, The Life of Pasteur (London: Constable / New York: Doubleday)",
+      "year": 1902
     },
     "image": {
-      "file": "images/q065.jpg",
+      "file": "images/q037.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Boyd Dwyer",
-      "attribution": "Boyd Dwyer, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Virgil_mosaic_in_the_Bardo_National_Museum_(Tunis)_(12241228546).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Virgil_mosaic_in_the_Bardo_National_Museum_(Tunis)_(12241228546).jpg"
+      "creator": "Paul Nadar",
+      "attribution": "Paul Nadar, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Louis_Pasteur,_foto_av_Paul_Nadar,_Crisco_edit.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Louis_Pasteur,_foto_av_Paul_Nadar,_Crisco_edit.jpg"
+    }
+  },
+  {
+    "id": "q060",
+    "text": "I was taught that the way of progress is neither swift nor easy.",
+    "author": "Marie Curie",
+    "author_dates": "1867–1934",
+    "source": {
+      "work": "Autobiographical Notes, in Pierre Curie",
+      "year": "1923",
+      "locator": "Autobiographical Notes, ch. I",
+      "url": "https://www.gutenberg.org/ebooks/69617"
+    },
+    "translation": {
+      "translator": "Charlotte Kellogg and Vernon Kellogg",
+      "edition": "Marie Curie, Pierre Curie, with Autobiographical Notes (New York: Macmillan)",
+      "year": 1923
+    },
+    "image": {
+      "file": "images/q060.jpg",
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "creator": "Henri Manuel",
+      "attribution": "Henri Manuel, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Marie_Curie_c._1920s.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Marie_Curie_c._1920s.jpg"
+    }
+  },
+  {
+    "id": "q099",
+    "text": "Genius is one per cent inspiration, ninety-nine per cent perspiration.",
+    "author": "Thomas Edison",
+    "author_dates": "1847–1931",
+    "source": {
+      "work": "M. A. Rosanoff, \"Edison in His Laboratory\", Harper's Magazine vol. 165 (Sept. 1932), p. 406; earlier in Dyer & Martin, Edison: His Life and Inventions (1910), vol. 2, p. 607",
+      "year": "1932",
+      "locator": "Quote Investigator, 'Genius is one percent inspiration…' (14 Dec 2012)",
+      "url": "https://quoteinvestigator.com/2012/12/14/genius-ratio/"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/q099.jpg",
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "creator": "Louis Bachrach, Bachrach Studios, restored by Michel Vuijlsteke",
+      "attribution": "Louis Bachrach, Bachrach Studios, restored by Michel Vuijlsteke, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Thomas_Edison2.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Thomas_Edison2.jpg"
+    }
+  },
+  {
+    "id": "q013",
+    "text": "Just as iron rusts unless it is used, and water putrifies or, in cold, turns to ice, so our intellect spoils unless it is kept in use.",
+    "author": "Leonardo da Vinci",
+    "author_dates": "1452–1519",
+    "source": {
+      "work": "Notebooks (Codex Atlanticus)",
+      "year": "c. 1490s–1510s",
+      "locator": "Richter no. 1177 (within the 'Philosophical Maxims / Morals' section)",
+      "url": "https://www.gutenberg.org/ebooks/5000"
+    },
+    "translation": {
+      "translator": "Jean Paul Richter",
+      "edition": "The Literary Works of Leonardo da Vinci (London: Sampson Low)",
+      "year": 1883
+    },
+    "image": {
+      "file": "images/q013.jpg",
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "creator": "Attributed to Francesco Melzi",
+      "attribution": "Attributed to Francesco Melzi, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Francesco_Melzi_-_Portrait_of_Leonardo_(colour_correction).png)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Francesco_Melzi_-_Portrait_of_Leonardo_(colour_correction).png"
     }
   },
   {
@@ -1502,493 +703,158 @@
     }
   },
   {
-    "id": "q067",
-    "text": "Determine never to be idle. No person will have occasion to complain of the want of time, who never loses any. It is wonderful how much may be done, if we are always doing.",
-    "author": "Thomas Jefferson",
-    "author_dates": "1743–1826",
+    "id": "q051",
+    "text": "Seize the very first possible opportunity to act on every resolution you make.",
+    "author": "William James",
+    "author_dates": "1842–1910",
     "source": {
-      "work": "Letter to Martha Jefferson, Marseilles, 5 May 1787",
-      "year": "1787",
-      "locator": "Papers of Thomas Jefferson, vol. 11 (Founders Online 01-11-02-0327)",
-      "url": "https://founders.archives.gov/documents/Jefferson/01-11-02-0327"
+      "work": "The Principles of Psychology, vol. 1",
+      "year": "1890",
+      "locator": "Chapter IV, 'Habit' (third maxim)",
+      "url": "https://www.gutenberg.org/ebooks/57628"
     },
     "translation": null,
     "image": {
-      "file": "images/q067.jpg",
+      "file": "images/q051.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Rembrandt Peale",
-      "attribution": "Rembrandt Peale, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Official_Presidential_portrait_of_Thomas_Jefferson_(by_Rembrandt_Peale,_1800).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Official_Presidential_portrait_of_Thomas_Jefferson_(by_Rembrandt_Peale,_1800).jpg"
+      "creator": "Notman Studios (photographer)",
+      "attribution": "Notman Studios (photographer), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:William_James_b1842c.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:William_James_b1842c.jpg"
     }
   },
   {
-    "id": "q068",
-    "text": "Learning is not attained by chance, it must be sought for with ardour and attended to with diligence.",
-    "author": "Abigail Adams",
-    "author_dates": "1744–1818",
+    "id": "q092",
+    "text": "Purity of heart is to will one thing.",
+    "author": "Søren Kierkegaard",
+    "author_dates": "1813–1855",
     "source": {
-      "work": "Letter to John Quincy Adams, 20 March 1780",
-      "year": "1780",
-      "locator": "Adams Family Correspondence, vol. 3 (Adams Papers digital edition ADMS-04-03-02-0240)",
-      "url": "https://www.masshist.org/publications/adams-papers/index.php/view/ADMS-04-03-02-0240"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q068.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Gilbert Stuart",
-      "attribution": "Gilbert Stuart, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Abigail_Adams_by_Gilbert_Stuart.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Abigail_Adams_by_Gilbert_Stuart.jpg"
-    }
-  },
-  {
-    "id": "q069",
-    "text": "The Habits of a vigorous mind are formed in contending with difficulties. … Great necessities call out great virtues.",
-    "author": "Abigail Adams",
-    "author_dates": "1744–1818",
-    "source": {
-      "work": "Letter to John Quincy Adams, 19 January 1780",
-      "year": "1780",
-      "locator": "Adams Family Correspondence, vol. 3 (ADMS-04-03-02-0207)",
-      "url": "https://www.masshist.org/publications/adams-papers/index.php/view/ADMS-04-03-02-0207"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q069.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Gilbert Stuart",
-      "attribution": "Gilbert Stuart, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Abigail_Adams_by_Gilbert_Stuart.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Abigail_Adams_by_Gilbert_Stuart.jpg"
-    }
-  },
-  {
-    "id": "q070",
-    "text": "It is not eminent talent that is required to ensure success in any pursuit, so much as purpose,—not merely the power to achieve, but the will to labour energetically and perseveringly.",
-    "author": "Samuel Smiles",
-    "author_dates": "1812–1904",
-    "source": {
-      "work": "Self-Help; with Illustrations of Character and Conduct",
-      "year": "1859",
-      "locator": "Chapter VIII, 'Energy and Courage'",
-      "url": "https://www.gutenberg.org/ebooks/935"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q070.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "George Reid",
-      "attribution": "George Reid, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Samuel_Smiles_by_Sir_George_Reid.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Samuel_Smiles_by_Sir_George_Reid.jpg"
-    }
-  },
-  {
-    "id": "q071",
-    "text": "Build on resolve, and not upon regret, / The structure of thy future.",
-    "author": "Ella Wheeler Wilcox",
-    "author_dates": "1850–1919",
-    "source": {
-      "work": "'Resolve', in Poems of Passion",
-      "year": "1883",
-      "locator": "Opening lines",
-      "url": "https://www.gutenberg.org/ebooks/16776"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q071.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Bain News Service, publisher",
-      "attribution": "Bain News Service, publisher, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Ella_W._Wilcox_LCCN2014709802_(cropped).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Ella_W._Wilcox_LCCN2014709802_(cropped).jpg"
-    }
-  },
-  {
-    "id": "q072",
-    "text": "Let us, then, be up and doing, / With a heart for any fate; / Still achieving, still pursuing, / Learn to labor and to wait.",
-    "author": "Henry Wadsworth Longfellow",
-    "author_dates": "1807–1882",
-    "source": {
-      "work": "'A Psalm of Life', in Voices of the Night",
-      "year": "1838 (book 1839)",
-      "locator": "Final stanza",
-      "url": "https://www.gutenberg.org/ebooks/1365"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q072.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Julia Margaret Cameron",
-      "attribution": "Julia Margaret Cameron, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Henry_Wadsworth_Longfellow,_photographed_by_Julia_Margaret_Cameron_in_1868.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Henry_Wadsworth_Longfellow,_photographed_by_Julia_Margaret_Cameron_in_1868.jpg"
-    }
-  },
-  {
-    "id": "q073",
-    "text": "The heights by great men reached and kept / Were not attained by sudden flight, / But they, while their companions slept, / Were toiling upward in the night.",
-    "author": "Henry Wadsworth Longfellow",
-    "author_dates": "1807–1882",
-    "source": {
-      "work": "'The Ladder of St. Augustine', in The Courtship of Miles Standish and Other Poems (Birds of Passage)",
-      "year": "1858",
-      "locator": "Stanza 10",
-      "url": "https://www.gutenberg.org/ebooks/1365"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q073.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Julia Margaret Cameron",
-      "attribution": "Julia Margaret Cameron, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Henry_Wadsworth_Longfellow,_photographed_by_Julia_Margaret_Cameron_in_1868.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Henry_Wadsworth_Longfellow,_photographed_by_Julia_Margaret_Cameron_in_1868.jpg"
-    }
-  },
-  {
-    "id": "q074",
-    "text": "I am the master of my fate: / I am the captain of my soul.",
-    "author": "William Ernest Henley",
-    "author_dates": "1849–1903",
-    "source": {
-      "work": "'Invictus' (untitled 'Out of the night that covers me' in A Book of Verses)",
-      "year": "written 1875, publ. 1888",
-      "locator": "Final two lines",
-      "url": "https://en.wikisource.org/wiki/Oxford_Book_of_English_Verse_1250-1900/Invictus"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q074.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "not stated",
-      "attribution": "not stated, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:William_Ernest_Henley%60s_Portrait.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:William_Ernest_Henley%60s_Portrait.jpg"
-    }
-  },
-  {
-    "id": "q075",
-    "text": "Our doubts are traitors, / And make us lose the good we oft might win / By fearing to attempt.",
-    "author": "William Shakespeare",
-    "author_dates": "1564–1616",
-    "source": {
-      "work": "Measure for Measure",
-      "year": "c. 1603–04 (First Folio 1623)",
-      "locator": "Act I, Scene 4 (Lucio to Isabella)",
-      "url": "https://www.gutenberg.org/ebooks/100"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q075.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Attributed to John Taylor",
-      "attribution": "Attributed to John Taylor, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:William_Shakespeare_by_John_Taylor,_edited.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:William_Shakespeare_by_John_Taylor,_edited.jpg"
-    }
-  },
-  {
-    "id": "q076",
-    "text": "There is a tide in the affairs of men, / Which, taken at the flood, leads on to fortune; / Omitted, all the voyage of their life / Is bound in shallows and in miseries.",
-    "author": "William Shakespeare",
-    "author_dates": "1564–1616",
-    "source": {
-      "work": "Julius Caesar",
-      "year": "c. 1599 (First Folio 1623)",
-      "locator": "Act IV, Scene 3 (Brutus)",
-      "url": "https://www.gutenberg.org/ebooks/100"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q076.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Attributed to John Taylor",
-      "attribution": "Attributed to John Taylor, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:William_Shakespeare_by_John_Taylor,_edited.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:William_Shakespeare_by_John_Taylor,_edited.jpg"
-    }
-  },
-  {
-    "id": "q077",
-    "text": "For the great doesn't happen through impulse alone, and is a succession of little things that are brought together.",
-    "author": "Vincent van Gogh",
-    "author_dates": "1853–1890",
-    "source": {
-      "work": "Letter to Theo van Gogh, The Hague, 22 October 1882",
-      "year": "1882",
-      "locator": "Letter 274 (Brieven 1990 274; Complete Letters 237)",
-      "url": "https://vangoghletters.org/vg/letters/let274/letter.html"
+      "work": "Opbyggelige Taler i forskjellig Aand (Upbuilding Discourses in Various Spirits), Part One",
+      "year": "1847",
+      "locator": "Title and thesis of the first part ('En Leiligheds-Tale')",
+      "url": "https://www.religion-online.org/book/purity-of-heart-is-to-will-one-thing/"
     },
     "translation": {
-      "translator": "Van Gogh Museum / Huygens ING translation team",
-      "edition": "Vincent van Gogh – The Letters, ed. Leo Jansen, Hans Luijten & Nienke Bakker (Amsterdam & The Hague; online edition vangoghletters.org)",
-      "year": 2009
+      "translator": "Douglas V. Steere",
+      "edition": "Purity of Heart Is to Will One Thing (New York: Harper & Brothers)",
+      "year": 1938
     },
     "image": {
-      "file": "images/q077.jpg",
+      "file": "images/q092.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Vincent van Gogh",
-      "attribution": "Vincent van Gogh, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_(454045).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_(454045).jpg"
+      "creator": "Niels Christian Kierkegaard (sketch, c. 1840); Royal Danish Library",
+      "attribution": "Niels Christian Kierkegaard, c. 1840 (Royal Danish Library), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:S%C3%B8ren_Kierkegaard_(1813-1855)_-_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:S%C3%B8ren_Kierkegaard_(1813-1855)_-_(cropped).jpg"
     }
   },
   {
-    "id": "q078",
-    "text": "If something in you yourself says 'you aren't a painter'—IT'S THEN THAT YOU SHOULD PAINT, old chap, and that voice will be silenced too.",
-    "author": "Vincent van Gogh",
-    "author_dates": "1853–1890",
+    "id": "q094",
+    "text": "Problems worthy / of attack / prove their worth / by hitting back.",
+    "author": "Piet Hein",
+    "author_dates": "1905–1996",
     "source": {
-      "work": "Letter to Theo van Gogh, Nieuw-Amsterdam, 28 October 1883",
-      "year": "1883",
-      "locator": "Letter 400 (Brieven 1990 401; Complete Letters 336)",
-      "url": "https://vangoghletters.org/vg/letters/let400/letter.html"
-    },
-    "translation": {
-      "translator": "Van Gogh Museum / Huygens ING translation team",
-      "edition": "Vincent van Gogh – The Letters, ed. Leo Jansen, Hans Luijten & Nienke Bakker (Amsterdam & The Hague; online edition vangoghletters.org)",
-      "year": 2009
-    },
-    "image": {
-      "file": "images/q078.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Vincent van Gogh",
-      "attribution": "Vincent van Gogh, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_(454045).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_(454045).jpg"
-    }
-  },
-  {
-    "id": "q079",
-    "text": "Never give in, never give in, never, never, never—in nothing, great or small, large or petty—never give in except to convictions of honour and good sense.",
-    "author": "Winston Churchill",
-    "author_dates": "1874–1965",
-    "source": {
-      "work": "Speech at Harrow School",
-      "year": "1941 (29 October)",
-      "locator": "International Churchill Society transcript",
-      "url": "https://winstonchurchill.org/resources/speeches/1941-1945-war-leader/never-give-in/"
+      "work": "'Problems', in Grooks",
+      "year": "1966",
+      "locator": "Grooks (MIT Press, 1966), p. [10]",
+      "url": "https://archive.org/details/grooksbypiethein0000piet"
     },
     "translation": null,
     "image": {
-      "file": "images/q079.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Unknown author",
-      "attribution": "Unknown author, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Sir_Winston_Churchill_-_19086236948_(restored).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Sir_Winston_Churchill_-_19086236948_(restored).jpg"
+      "file": "images/q094.jpg",
+      "license": "CC BY 3.0",
+      "license_url": "https://creativecommons.org/licenses/by/3.0",
+      "creator": "André Savik",
+      "attribution": "André Savik, CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Piet_Hein_and_H.C._Andersen_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Piet_Hein_and_H.C._Andersen_(cropped).jpg"
     }
   },
   {
-    "id": "q080",
-    "text": "If there is no struggle there is no progress.",
-    "author": "Frederick Douglass",
-    "author_dates": "1818–1895",
+    "id": "q041",
+    "text": "All the misfortunes of men arise from one thing only, that they are unable to stay quietly in their own chamber.",
+    "author": "Blaise Pascal",
+    "author_dates": "1623–1662",
     "source": {
-      "work": "'West India Emancipation' (The Significance of Emancipation in the West Indies), address at Canandaigua, New York",
-      "year": "1857 (3 August)",
-      "locator": "Frederick Douglass Papers Project digital edition, item 10509",
-      "url": "https://frederickdouglasspapersproject.com/s/digitaledition/item/10509"
+      "work": "Pensées",
+      "year": "1670 (posthumous)",
+      "locator": "'Diversion' (Brunschvicg 139 / Lafuma 136)",
+      "url": "https://www.gutenberg.org/ebooks/46921"
+    },
+    "translation": {
+      "translator": "C. Kegan Paul",
+      "edition": "The Thoughts of Blaise Pascal, from the text of Auguste Molinier (London: Kegan Paul, Trench & Co.)",
+      "year": 1885
+    },
+    "image": {
+      "file": "images/q041.jpg",
+      "license": "Public domain",
+      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "creator": "unknown; a copy of the painting of François II Quesnel, which was made for Gérard Edelinck en 1691[réf. nécessaire].",
+      "attribution": "unknown; a copy of the painting of François II Quesnel, which was made for Gérard Edelinck en 1691[réf. nécessaire]., Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Blaise_Pascal_Versailles.JPG)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Blaise_Pascal_Versailles.JPG"
+    }
+  },
+  {
+    "id": "q042",
+    "text": "Our life is frittered away by detail. … Simplicity, simplicity, simplicity!",
+    "author": "Henry David Thoreau",
+    "author_dates": "1817–1862",
+    "source": {
+      "work": "Walden; or, Life in the Woods",
+      "year": "1854",
+      "locator": "Chapter 2, 'Where I Lived, and What I Lived For'",
+      "url": "https://www.gutenberg.org/ebooks/205"
     },
     "translation": null,
     "image": {
-      "file": "images/q080.jpg",
+      "file": "images/q042.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "George Kendall Warren",
-      "attribution": "George Kendall Warren, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frederick_Douglass_(circa_1879)_(cropped).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Frederick_Douglass_(circa_1879)_(cropped).jpg"
+      "creator": "Benjamin D. Maxham active 1848 - 1858",
+      "attribution": "Benjamin D. Maxham active 1848 - 1858, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Benjamin_D._Maxham_-_Henry_David_Thoreau_-_Restored.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Benjamin_D._Maxham_-_Henry_David_Thoreau_-_Restored.jpg"
     }
   },
   {
-    "id": "q081",
-    "text": "Arise, awake, and stop not till the goal is reached.",
-    "author": "Swami Vivekananda",
-    "author_dates": "1863–1902",
+    "id": "q019",
+    "text": "I'm not afraid of storms, for I'm learning how to sail my ship.",
+    "author": "Louisa May Alcott",
+    "author_dates": "1832–1888",
     "source": {
-      "work": "Conversations and Dialogues (recorded by Sharat Chandra Chakravarty), Complete Works vol. 6",
-      "year": "c. 1898–1901 (publ. posthumously)",
-      "locator": "Complete Works, vol. 6, 'Conversations and Dialogues' X",
-      "url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_6/Conversations_and_Dialogues/X"
+      "work": "Little Women (Part Second, 1869)",
+      "year": "1868–69",
+      "locator": "Chapter 44 ('My Lord and Lady'), spoken by Amy",
+      "url": "https://www.gutenberg.org/ebooks/514"
     },
     "translation": null,
     "image": {
-      "file": "images/q081.jpg",
+      "file": "images/q019.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "The original uploader was Dziewa at English Wikipedia.",
-      "attribution": "The original uploader was Dziewa at English Wikipedia., Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Swami_Vivekananda-1893-09-signed.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Swami_Vivekananda-1893-09-signed.jpg"
+      "creator": "Warren's Portraits, Boston (c. 1870); restoration by Adam Cuerden",
+      "attribution": "Warren's Portraits, Boston, c. 1870 (restored by Adam Cuerden), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Louisa_May_Alcott,_c._1870_-_Warren%27s_Portraits,_Boston.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Louisa_May_Alcott,_c._1870_-_Warren%27s_Portraits,_Boston.jpg"
     }
   },
   {
-    "id": "q082",
-    "text": "Life is short, and Art long; the crisis fleeting; experience perilous, and decision difficult.",
-    "author": "Hippocrates (Hippocratic Corpus)",
-    "author_dates": "c. 460–c. 370 BCE",
+    "id": "q021",
+    "text": "Patience, Firmness, and Perseverance were my only weapons; and these I resolved to use to the utmost.",
+    "author": "Anne Brontë",
+    "author_dates": "1820–1849",
     "source": {
-      "work": "Aphorisms",
-      "year": "c. 400 BCE",
-      "locator": "Section I, Aphorism 1",
-      "url": "https://classics.mit.edu/Hippocrates/aphorisms.1.i.html"
-    },
-    "translation": {
-      "translator": "Francis Adams",
-      "edition": "The Genuine Works of Hippocrates (London: Sydenham Society)",
-      "year": 1849
-    },
-    "image": {
-      "file": "images/q082.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Unidentified engraver",
-      "attribution": "Unidentified engraver, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Hippocrates.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Hippocrates.jpg"
-    }
-  },
-  {
-    "id": "q083",
-    "text": "I will boldly meet my fate, never shall it succeed in crushing me.",
-    "author": "Ludwig van Beethoven",
-    "author_dates": "1770–1827",
-    "source": {
-      "work": "Letter to Franz Wegeler, Vienna, 16 November 1801",
-      "year": "1801",
-      "locator": "Wallace vol. 1, Letter 18",
-      "url": "https://www.gutenberg.org/ebooks/13065"
-    },
-    "translation": {
-      "translator": "Lady Grace Wallace",
-      "edition": "Beethoven's Letters (1790–1826), from the collection of Dr. Ludwig Nohl (London: Longmans, Green)",
-      "year": 1866
-    },
-    "image": {
-      "file": "images/q083.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Joseph Karl Stieler",
-      "attribution": "Joseph Karl Stieler, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Joseph_Karl_Stieler%27s_Beethoven_mit_dem_Manuskript_der_Missa_solemnis.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Joseph_Karl_Stieler%27s_Beethoven_mit_dem_Manuskript_der_Missa_solemnis.jpg"
-    }
-  },
-  {
-    "id": "q084",
-    "text": "Work is love made visible.",
-    "author": "Kahlil Gibran",
-    "author_dates": "1883–1931",
-    "source": {
-      "work": "The Prophet",
-      "year": "1923",
-      "locator": "'On Work'",
-      "url": "https://www.gutenberg.org/ebooks/58585"
+      "work": "Agnes Grey",
+      "year": "1847",
+      "locator": "Chapter III, 'A Few More Lessons'",
+      "url": "https://www.gutenberg.org/ebooks/767"
     },
     "translation": null,
     "image": {
-      "file": "images/q084.jpg",
+      "file": "images/q021.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Unknown author",
-      "attribution": "Unknown author, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Kahlil_Gibran_1913.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Kahlil_Gibran_1913.jpg"
-    }
-  },
-  {
-    "id": "q085",
-    "text": "The soul that has no established aim loses itself.",
-    "author": "Michel de Montaigne",
-    "author_dates": "1533–1592",
-    "source": {
-      "work": "Essays (Essais)",
-      "year": "1580",
-      "locator": "Book I, ch. 8, 'Of Idleness'",
-      "url": "https://www.gutenberg.org/ebooks/3600"
-    },
-    "translation": {
-      "translator": "Charles Cotton (rev. William Carew Hazlitt)",
-      "edition": "Essays of Michel de Montaigne (London: Reeves & Turner)",
-      "year": 1877
-    },
-    "image": {
-      "file": "images/q085.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Unknown author",
-      "attribution": "Unknown author, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Portrait_of_Michel_de_Montaigne,_circa_unknown.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Portrait_of_Michel_de_Montaigne,_circa_unknown.jpg"
-    }
-  },
-  {
-    "id": "q086",
-    "text": "Deeds, not words, was to be our permanent motto.",
-    "author": "Emmeline Pankhurst",
-    "author_dates": "1858–1928",
-    "source": {
-      "work": "My Own Story",
-      "year": "1914",
-      "locator": "Book I, ch. III (founding of the WSPU, 1903)",
-      "url": "https://www.gutenberg.org/ebooks/34856"
-    },
-    "translation": null,
-    "image": {
-      "file": "images/q086.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Adam Cuerden",
-      "attribution": "Adam Cuerden, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Emmeline_Pankhurst,_seated_(1913).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Emmeline_Pankhurst,_seated_(1913).jpg"
-    }
-  },
-  {
-    "id": "q087",
-    "text": "I came, I saw, I conquered.",
-    "author": "Julius Caesar",
-    "author_dates": "100–44 BCE",
-    "source": {
-      "work": "Inscription displayed at his Pontic triumph (46 BCE), reported by Suetonius",
-      "year": "47–46 BCE",
-      "locator": "Suetonius, Divus Julius 37.2",
-      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Suetonius/12Caesars/Julius*.html"
-    },
-    "translation": {
-      "translator": "J. C. Rolfe",
-      "edition": "Suetonius, Lives of the Caesars, vol. I (Loeb Classical Library)",
-      "year": 1914
-    },
-    "image": {
-      "file": "images/q087.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Ángel M. Felicísimo from Mérida, España",
-      "attribution": "Ángel M. Felicísimo from Mérida, España, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Retrato_de_Julio_C%C3%A9sar_(26724093101)_(cropped).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Retrato_de_Julio_C%C3%A9sar_(26724093101)_(cropped).jpg"
-    }
-  },
-  {
-    "id": "q088",
-    "text": "That is done quickly enough which is done well enough.",
-    "author": "Augustus",
-    "author_dates": "63 BCE–14 CE",
-    "source": {
-      "work": "Favourite saying, reported by Suetonius",
-      "year": "c. 121 CE (Suetonius)",
-      "locator": "Suetonius, Divus Augustus 25.4",
-      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Suetonius/12Caesars/Augustus*.html"
-    },
-    "translation": {
-      "translator": "J. C. Rolfe",
-      "edition": "Suetonius, Lives of the Caesars, vol. I (Loeb Classical Library)",
-      "year": 1914
-    },
-    "image": {
-      "file": "images/q088.jpg",
-      "license": "CC BY-SA 4.0",
-      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
-      "creator": "Justin Benttinen",
-      "attribution": "Justin Benttinen, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Augustus_of_Prima_Porta.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Augustus_of_Prima_Porta.jpg"
+      "creator": "Charlotte Brontë",
+      "attribution": "Charlotte Brontë, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:AnneBronte.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:AnneBronte.jpg"
     }
   },
   {
@@ -2013,250 +879,1304 @@
     }
   },
   {
-    "id": "q090",
-    "text": "Strength does not come from physical capacity. It comes from an indomitable will.",
-    "author": "Mahatma Gandhi",
-    "author_dates": "1869–1948",
+    "id": "q020",
+    "text": "Nothing contributes so much to tranquillise the mind as a steady purpose—a point on which the soul may fix its intellectual eye.",
+    "author": "Mary Shelley",
+    "author_dates": "1797–1851",
     "source": {
-      "work": "'The Doctrine of the Sword', Young India",
-      "year": "1920 (11 August)",
-      "locator": "Young India, 11 Aug 1920; Collected Works of Mahatma Gandhi vol. 18 (CWMG volume number not confirmed)",
-      "url": "https://www.mkgandhi.org/nonviolence/D_sword.php"
+      "work": "Frankenstein; or, The Modern Prometheus",
+      "year": "1818",
+      "locator": "Letter 1 (Walton to Mrs. Saville)",
+      "url": "https://www.gutenberg.org/ebooks/84"
     },
     "translation": null,
     "image": {
-      "file": "images/q090.jpg",
+      "file": "images/q020.jpg",
       "license": "Public domain",
       "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Elliott & Fry",
-      "attribution": "Elliott & Fry, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Mahatma-Gandhi,_studio,_1931.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Mahatma-Gandhi,_studio,_1931.jpg"
+      "creator": "Richard Rothwell",
+      "attribution": "Richard Rothwell, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Mary_Wollstonecraft_Shelley_Rothwell.tif)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Mary_Wollstonecraft_Shelley_Rothwell.tif"
     }
   },
   {
-    "id": "q091",
-    "text": "Always bear in mind that your own resolution to succeed, is more important than any other one thing.",
-    "author": "Abraham Lincoln",
-    "author_dates": "1809–1865",
+    "id": "e01",
+    "text": "Your time is limited, so don't waste it living someone else's life.",
+    "author": "Steve Jobs",
+    "author_dates": "1955–2011",
     "source": {
-      "work": "Letter to Isham Reavis, Springfield",
-      "year": "1855 (5 November)",
-      "locator": "Collected Works of Abraham Lincoln, ed. Roy P. Basler, vol. 2, p. 327 (page from memory — verify)",
-      "url": "https://quod.lib.umich.edu/l/lincoln/lincoln2/1:346?rgn=div1;view=fulltext"
+      "work": "Commencement address, Stanford University",
+      "year": "2005",
+      "locator": "Delivered 12 June 2005; official text as prepared for delivery, Stanford Report (14 June 2005), third story ('death')",
+      "url": "https://news.stanford.edu/stories/2005/06/youve-got-find-love-jobs-says"
     },
     "translation": null,
     "image": {
-      "file": "images/q091.jpg",
+      "file": "images/e01.jpg",
       "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Alexander Gardner",
-      "attribution": "Alexander Gardner, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Abraham_Lincoln_O-77_matte_collodion_print.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Abraham_Lincoln_O-77_matte_collodion_print.jpg"
+      "license_url": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg",
+      "creator": "Bernard Gotfryd (Library of Congress, Bernard Gotfryd Photograph Collection)",
+      "attribution": "Bernard Gotfryd (Library of Congress, Bernard Gotfryd Photograph Collection), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg"
     }
   },
   {
-    "id": "q092",
-    "text": "Purity of heart is to will one thing.",
-    "author": "Søren Kierkegaard",
-    "author_dates": "1813–1855",
+    "id": "e02",
+    "text": "Sometimes life's gonna hit you in the head with a brick. Don't lose faith.",
+    "author": "Steve Jobs",
+    "author_dates": "1955–2011",
     "source": {
-      "work": "Opbyggelige Taler i forskjellig Aand (Upbuilding Discourses in Various Spirits), Part One",
-      "year": "1847",
-      "locator": "Title and thesis of the first part ('En Leiligheds-Tale')",
-      "url": "https://www.religion-online.org/book/purity-of-heart-is-to-will-one-thing/"
-    },
-    "translation": {
-      "translator": "Douglas V. Steere",
-      "edition": "Purity of Heart Is to Will One Thing (New York: Harper & Brothers)",
-      "year": 1938
-    },
-    "image": {
-      "file": "images/q092.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "La Biblioteca Real de Dinamarca",
-      "attribution": "La Biblioteca Real de Dinamarca, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:S%C3%B8ren_Kierkegaard_(1813-1855)_-_(cropped).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:S%C3%B8ren_Kierkegaard_(1813-1855)_-_(cropped).jpg"
-    }
-  },
-  {
-    "id": "q093",
-    "text": "It is perfectly true, as the philosophers say, that life must be understood backwards. But they forget the other proposition, that it must be lived forwards.",
-    "author": "Søren Kierkegaard",
-    "author_dates": "1813–1855",
-    "source": {
-      "work": "Journals (Papirer IV A 164; SKS JJ:167)",
-      "year": "1843",
-      "locator": "Journal entry, 1843",
-      "url": null
-    },
-    "translation": {
-      "translator": "Alexander Dru",
-      "edition": "The Journals of Søren Kierkegaard: A Selection (Oxford University Press)",
-      "year": 1938
-    },
-    "image": {
-      "file": "images/q093.jpg",
-      "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "La Biblioteca Real de Dinamarca",
-      "attribution": "La Biblioteca Real de Dinamarca, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:S%C3%B8ren_Kierkegaard_(1813-1855)_-_(cropped).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:S%C3%B8ren_Kierkegaard_(1813-1855)_-_(cropped).jpg"
-    }
-  },
-  {
-    "id": "q094",
-    "text": "Problems worthy / of attack / prove their worth / by hitting back.",
-    "author": "Piet Hein",
-    "author_dates": "1905–1996",
-    "source": {
-      "work": "'Problems', in Grooks",
-      "year": "1966",
-      "locator": "Grooks (Cambridge, MA: MIT Press / Copenhagen: Borgen, 1966)",
-      "url": null
+      "work": "Commencement address, Stanford University",
+      "year": "2005",
+      "locator": "Delivered 12 June 2005; Stanford Report text as now published at the cited URL (follows the speech as delivered), second story ('love and loss')",
+      "url": "https://news.stanford.edu/stories/2005/06/youve-got-find-love-jobs-says"
     },
     "translation": null,
     "image": {
-      "file": "images/q094.jpg",
-      "license": "CC BY 3.0",
-      "license_url": "https://creativecommons.org/licenses/by/3.0",
-      "creator": "André Savik",
-      "attribution": "André Savik, CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Piet_Hein_and_H.C._Andersen_(cropped).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Piet_Hein_and_H.C._Andersen_(cropped).jpg"
+      "file": "images/e02.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg",
+      "creator": "Bernard Gotfryd (Library of Congress, Bernard Gotfryd Photograph Collection)",
+      "attribution": "Bernard Gotfryd (Library of Congress, Bernard Gotfryd Photograph Collection), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg"
     }
   },
   {
-    "id": "q095",
-    "text": "You must do the thing you think you cannot do.",
-    "author": "Eleanor Roosevelt",
-    "author_dates": "1884–1962",
+    "id": "e03",
+    "text": "If something's important enough you should try. Even if … the probable outcome is failure.",
+    "author": "Elon Musk",
+    "author_dates": "born 1971",
     "source": {
-      "work": "You Learn by Living",
-      "year": "1960",
-      "locator": "Chapter 'Fear—the Great Enemy' (p. 29–30 in the 1960 Harper edition — page not seen)",
-      "url": "https://quoteinvestigator.com/2013/08/09/scare/"
+      "work": "60 Minutes (CBS News), 'Tesla and SpaceX: Elon Musk's industrial empire', interview by Scott Pelley",
+      "year": "2014",
+      "locator": "Broadcast 30 March 2014; CBS transcript, Musk's answer to 'Then why try?'",
+      "url": "https://www.cbsnews.com/news/tesla-and-spacex-elon-musks-industrial-empire/"
     },
     "translation": null,
     "image": {
-      "file": "images/q095.jpg",
+      "file": "images/e03.jpg",
       "license": "CC BY 2.0",
       "license_url": "https://creativecommons.org/licenses/by/2.0",
-      "creator": "FDR Presidential Library & Museum",
-      "attribution": "FDR Presidential Library & Museum, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Eleanor_Roosevelt_at_the_United_Nations,_circa_1946-1947_(3x4_cropped).jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Eleanor_Roosevelt_at_the_United_Nations,_circa_1946-1947_(3x4_cropped).jpg"
+      "creator": "Steve Jurvetson",
+      "attribution": "Steve Jurvetson, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Elon_Musk_2015.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Elon_Musk_2015.jpg"
     }
   },
   {
-    "id": "q096",
-    "text": "Women must try to do things as men have tried. When they fail, their failure must be but a challenge to others.",
+    "id": "e04",
+    "text": "I don't ever give up. I mean, I'd have to be dead or completely incapacitated.",
+    "author": "Elon Musk",
+    "author_dates": "born 1971",
+    "source": {
+      "work": "60 Minutes (CBS News), 'SpaceX: Entrepreneur's race to space', interview by Scott Pelley",
+      "year": "2012",
+      "locator": "Broadcast 18 March 2012 (rebroadcast 3 June 2012); CBS transcript, answer after Pelley asks whether he ever thought of packing it in",
+      "url": "https://www.cbsnews.com/news/spacex-entrepreneurs-race-to-space/"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/e04.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "creator": "Steve Jurvetson",
+      "attribution": "Steve Jurvetson, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Elon_Musk_2015.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Elon_Musk_2015.jpg"
+    }
+  },
+  {
+    "id": "e05",
+    "text": "Failure is only the opportunity more intelligently to begin again. There is no disgrace in honest failure; there is disgrace in fearing to fail.",
+    "author": "Henry Ford",
+    "author_dates": "1863–1947",
+    "source": {
+      "work": "My Life and Work (in collaboration with Samuel Crowther), Garden City, NY: Doubleday, Page & Co.",
+      "year": "1922",
+      "locator": "Introduction, 'What Is the Idea?' (the same two sentences recur in Chapter XIX, 'What We May Expect')",
+      "url": "https://www.gutenberg.org/ebooks/7213"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/e05.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Henry_ford_1919_(cropped).jpg",
+      "creator": "Hartsook, photographer.",
+      "attribution": "Hartsook, photographer., Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Henry_ford_1919_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Henry_ford_1919_(cropped).jpg"
+    }
+  },
+  {
+    "id": "e08",
+    "text": "Here is the prime condition of success, the great secret: concentrate your energy, thought, and capital exclusively upon the business in which you are engaged.",
+    "author": "Andrew Carnegie",
+    "author_dates": "1835–1919",
+    "source": {
+      "work": "'The Road to Business Success: A Talk to Young Men', address to students of Curry Commercial College, Pittsburgh, 23 June 1885; reprinted in The Empire of Business (New York: Doubleday, Page & Co.)",
+      "year": "1885 (book 1902)",
+      "locator": "The Empire of Business (1902), p. 17",
+      "url": "https://archive.org/details/empireofbusiness00carnuoft"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/e08.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Andrew_Carnegie,_three-quarter_length_portrait,_seated,_facing_slightly_left,_1913_(cropped).jpg",
+      "creator": "Theodore C. Marceau",
+      "attribution": "Theodore C. Marceau, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Andrew_Carnegie,_three-quarter_length_portrait,_seated,_facing_slightly_left,_1913_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Andrew_Carnegie,_three-quarter_length_portrait,_seated,_facing_slightly_left,_1913_(cropped).jpg"
+    }
+  },
+  {
+    "id": "e09",
+    "text": "\"Don't put all your eggs in one basket\" is all wrong. I tell you \"put all your eggs in one basket, and then watch that basket.\"",
+    "author": "Andrew Carnegie",
+    "author_dates": "1835–1919",
+    "source": {
+      "work": "'The Road to Business Success: A Talk to Young Men', address to students of Curry Commercial College, Pittsburgh, 23 June 1885; reprinted in The Empire of Business (New York: Doubleday, Page & Co.)",
+      "year": "1885 (book 1902)",
+      "locator": "The Empire of Business (1902), p. 17 (he repeats the rule in 'How to Win Fortune' in the same volume)",
+      "url": "https://archive.org/details/empireofbusiness00carnuoft"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/e09.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Andrew_Carnegie,_three-quarter_length_portrait,_seated,_facing_slightly_left,_1913_(cropped).jpg",
+      "creator": "Theodore C. Marceau",
+      "attribution": "Theodore C. Marceau, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Andrew_Carnegie,_three-quarter_length_portrait,_seated,_facing_slightly_left,_1913_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Andrew_Carnegie,_three-quarter_length_portrait,_seated,_facing_slightly_left,_1913_(cropped).jpg"
+    }
+  },
+  {
+    "id": "e10",
+    "text": "There is no such thing as failure. Failure is just life trying to move us in another direction.",
+    "author": "Oprah Winfrey",
+    "author_dates": "born 1954",
+    "source": {
+      "work": "Commencement address, Harvard University",
+      "year": "2013",
+      "locator": "Delivered 30 May 2013; full text in the Harvard Gazette, 'Winfrey's Commencement address' (published 31 May 2013)",
+      "url": "https://news.harvard.edu/gazette/story/2013/05/winfreys-commencement-address/"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/e10.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "creator": "aphrodite-in-nyc (Flickr user, https://www.flickr.com/photos/aphrodite-in-nyc)",
+      "attribution": "aphrodite-in-nyc (Flickr user, https://www.flickr.com/photos/aphrodite-in-nyc), CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Oprah_in_2014.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Oprah_in_2014.jpg"
+    }
+  },
+  {
+    "id": "e12",
+    "text": "In the end, we are our choices. Build yourself a great story.",
+    "author": "Jeff Bezos",
+    "author_dates": "born 1964",
+    "source": {
+      "work": "'We Are What We Choose', remarks to the Princeton University Class of 2010 at Baccalaureate",
+      "year": "2010",
+      "locator": "Delivered 30 May 2010; text 'as delivered' posted by Princeton University the same day (closing lines)",
+      "url": "https://web.archive.org/web/20121227125450/http://www.princeton.edu/main/news/archive/S27/52/51O99/index.xml"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/e12.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "creator": "Seattle City Council (Flickr)",
+      "attribution": "Seattle City Council (Flickr), CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_in_Seattle_-_2018_(39074799225)_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_in_Seattle_-_2018_(39074799225)_(cropped).jpg"
+    }
+  },
+  {
+    "id": "e13",
+    "text": "Ten minutes, once gone, are gone for good. … Divide your life into 10-minute units and sacrifice as few of them as possible in meaningless activity.",
+    "author": "Ingvar Kamprad",
+    "author_dates": "1926–2018",
+    "source": {
+      "work": "A Furniture Dealer's Testament (En möbelhandlares testamente)",
+      "year": "1976",
+      "locator": "Point 9, 'Most things still remain to be done. A glorious future!'; p. 17 of the 2018 Inter IKEA PDF",
+      "url": "https://www.inter.ikea.com/en/-/media/InterIKEA/IGI/Financial%20Reports/English_The_testament_of_a_dealer_2018.pdf"
+    },
+    "translation": {
+      "translator": "Inter IKEA Systems B.V. (IKEA's official English version)",
+      "edition": "The Testament of a Furniture Dealer, 2018 edition (Inter IKEA Systems B.V.)",
+      "year": 2018
+    },
+    "image": {
+      "file": "images/e13.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "creator": "Sandra Baqirjazid / Ministry of Enterprise, Energy and Communications of Sweden (Flickr)",
+      "attribution": "Sandra Baqirjazid / Ministry of Enterprise, Energy and Communications of Sweden, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Ingvar_Kamprad_Haparanda_June_2010.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Ingvar_Kamprad_Haparanda_June_2010.jpg"
+    }
+  },
+  {
+    "id": "e14",
+    "text": "The general who divides his resources will invariably be defeated.",
+    "author": "Ingvar Kamprad",
+    "author_dates": "1926–2018",
+    "source": {
+      "work": "A Furniture Dealer's Testament (En möbelhandlares testamente)",
+      "year": "1976",
+      "locator": "Point 7, 'Concentration – important to our success' (first sentence); p. 14 of the 2018 Inter IKEA PDF",
+      "url": "https://www.inter.ikea.com/en/-/media/InterIKEA/IGI/Financial%20Reports/English_The_testament_of_a_dealer_2018.pdf"
+    },
+    "translation": {
+      "translator": "Inter IKEA Systems B.V. (IKEA's official English version)",
+      "edition": "The Testament of a Furniture Dealer, 2018 edition (Inter IKEA Systems B.V.)",
+      "year": 2018
+    },
+    "image": {
+      "file": "images/e14.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "creator": "Sandra Baqirjazid / Ministry of Enterprise, Energy and Communications of Sweden (Flickr)",
+      "attribution": "Sandra Baqirjazid / Ministry of Enterprise, Energy and Communications of Sweden, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Ingvar_Kamprad_Haparanda_June_2010.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Ingvar_Kamprad_Haparanda_June_2010.jpg"
+    }
+  },
+  {
+    "id": "e17",
+    "text": "Fearlessness is like a muscle. I know from my own life that the more I exercise it the more natural it becomes to not let my fears run me.",
+    "author": "Arianna Huffington",
+    "author_dates": "born 1950",
+    "source": {
+      "work": "On Becoming Fearless … in Love, Work, and Life (Boston/London: Little, Brown; paperback reprint)",
+      "year": "2007 (first ed. 2006)",
+      "locator": "Reading Group Guide at the back of the 2007 Little, Brown paperback, 'A Conversation with Arianna Huffington', answer headed 'ARIANNA:' (unnumbered back-matter page; scan page n247)",
+      "url": "https://archive.org/details/onbecomingfearle00aria"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/e17.jpg",
+      "license": "CC BY 3.0",
+      "license_url": "https://creativecommons.org/licenses/by/3.0",
+      "creator": "David Shankbone",
+      "attribution": "David Shankbone, CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Arianna_Huffington_2012_Shankbone.JPG)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Arianna_Huffington_2012_Shankbone.JPG"
+    }
+  },
+  {
+    "id": "e18",
+    "text": "Don't stop. Don't even think about stopping until you get there, and don't give much thought to where \"there\" is.",
+    "author": "Phil Knight",
+    "author_dates": "born 1938",
+    "source": {
+      "work": "Shoe Dog: A Memoir by the Creator of Nike (New York: Scribner)",
+      "year": "2016",
+      "locator": "Opening section, 'Dawn' (page number not determined)",
+      "url": "https://archive.org/details/shoedogmemoirbyc0000knig_w1z8"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/e18.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "creator": "Tom Matthyssens",
+      "attribution": "Tom Matthyssens, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Phil_Knight_with_Tom_Matthyssens_in_Universal_Studios_Orlando_1999_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Phil_Knight_with_Tom_Matthyssens_in_Universal_Studios_Orlando_1999_(cropped).jpg"
+    }
+  },
+  {
+    "id": "e19",
+    "text": "Big business, I think, is a combination of timing, hard work, and an ability to see beyond one's nose.",
+    "author": "Estée Lauder",
+    "author_dates": "1908–2004",
+    "source": {
+      "work": "Estée: A Success Story (New York: Random House)",
+      "year": "1985",
+      "locator": "Page not determined",
+      "url": "https://archive.org/details/estesuccesssto00laud"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/e19.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Estee_Lauder_NYWTS_(cropped).jpg",
+      "creator": "Bill Sauro, New York World-Telegram and the Sun staff photographer (Library of Congress, NYWT&S collection, cph.3c09674)",
+      "attribution": "Bill Sauro, New York World-Telegram and the Sun staff photographer (Library of Congress, NYWT&S collection, cph.3c09674), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Estee_Lauder_NYWTS_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Estee_Lauder_NYWTS_(cropped).jpg"
+    }
+  },
+  {
+    "id": "e20",
+    "text": "Swim upstream. Go the other way. Ignore the conventional wisdom.",
+    "author": "Sam Walton",
+    "author_dates": "1918–1992",
+    "source": {
+      "work": "Sam Walton: Made in America — My Story, with John Huey (New York: Doubleday)",
+      "year": "1992",
+      "locator": "Chapter 'Running a Successful Company: Ten Rules That Worked for Me', Rule 10, p. 249",
+      "url": "https://archive.org/details/samwaltonmadeina00walt"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/e20.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Sam_Walton_(1992_2)_(cropped).jpg",
+      "creator": "George Bush Presidential Library and Museum (U.S. government photo)",
+      "attribution": "George Bush Presidential Library and Museum (U.S. government photo), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Sam_Walton_(1992_2)_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Sam_Walton_(1992_2)_(cropped).jpg"
+    }
+  },
+  {
+    "id": "e22",
+    "text": "I believe in hard work. It keeps the wrinkles out of the mind and the spirit.",
+    "author": "Helena Rubinstein",
+    "author_dates": "1872–1965",
+    "source": {
+      "work": "My Life for Beauty (London: The Bodley Head; New York: Simon and Schuster, 1966)",
+      "year": "1965",
+      "locator": "Page not determined (same wording in both the 1965 London and 1966 New York editions)",
+      "url": "https://archive.org/details/mylifeforbeauty0000hele"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/e22.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Helena_Rubinstein.jpg",
+      "creator": "George Grantham Bain Collection, Library of Congress (ggbain.39153)",
+      "attribution": "George Grantham Bain Collection, Library of Congress (ggbain.39153), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Helena_Rubinstein.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Helena_Rubinstein.jpg"
+    }
+  },
+  {
+    "id": "e23",
+    "text": "Do not scatter your powers. Engage in one kind of business only, and stick to it faithfully until you succeed, or until your experience shows that you should abandon it.",
+    "author": "P. T. Barnum",
+    "author_dates": "1810–1891",
+    "source": {
+      "work": "The Art of Money Getting, or Golden Rules for Making Money (lecture, published 1880)",
+      "year": "1880",
+      "locator": "Section 'Do Not Scatter Your Powers' (heading plus its first sentence)",
+      "url": "https://www.gutenberg.org/ebooks/8581"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/e23.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:P._T._Barnum_-_02176a_(cropped).jpg",
+      "creator": "Mathew Brady studio (Brady-Handy Photograph Collection, Library of Congress)",
+      "attribution": "Mathew Brady studio (Brady-Handy Photograph Collection, Library of Congress), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:P._T._Barnum_-_02176a_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:P._T._Barnum_-_02176a_(cropped).jpg"
+    }
+  },
+  {
+    "id": "e24",
+    "text": "The trouble with every one of us is that we don't think enough. We don't get paid for working with our feet — we get paid for working with our heads.",
+    "author": "Thomas J. Watson",
+    "author_dates": "1874–1956",
+    "source": {
+      "work": "Impromptu talk at a sales and advertising meeting of the National Cash Register Company, Dayton, Ohio — the origin of the THINK slogan he later brought to IBM",
+      "year": "1911 (IBM's page says 1915, which cannot be right for an NCR meeting: Watson had left NCR and was running CTR from 1914)",
+      "locator": "IBM Heritage, 'The origins of THINK'",
+      "url": "https://www.ibm.com/history/think"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/e24.jpg",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "creator": "Oscar White (National Portrait Gallery, Smithsonian Institution, NPG.93.388.38)",
+      "attribution": "Oscar White (National Portrait Gallery, Smithsonian Institution, NPG.93.388.38), CC0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Thomas_J._Watson_-_National_Portrait_Gallery.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Thomas_J._Watson_-_National_Portrait_Gallery.jpg"
+    }
+  },
+  {
+    "id": "e25",
+    "text": "In order to be irreplaceable one must always be different.",
+    "author": "Coco Chanel",
+    "author_dates": "1883–1971",
+    "source": {
+      "work": "Marcel Haedrich, Coco Chanel secrète (Paris: Robert Laffont) — remarks the author recorded from Chanel, in the section 'She Said'",
+      "year": "1971",
+      "locator": "French edition p. 308; English translation (1972) p. 255",
+      "url": "https://quoteinvestigator.com/2019/06/11/irreplaceable/"
+    },
+    "translation": {
+      "translator": "Charles Lam Markmann",
+      "edition": "Marcel Haedrich, Coco Chanel: Her Life, Her Secrets (Boston: Little, Brown), p. 255",
+      "year": 1972
+    },
+    "image": {
+      "file": "images/e25.jpg",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0",
+      "creator": "Los Angeles Times (UCLA Library Special Collections, Los Angeles Times Photographic Archive)",
+      "attribution": "Los Angeles Times (UCLA Library Special Collections, Los Angeles Times Photographic Archive), CC BY 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Coco_Chanel_in_Los_Angeles,_1931_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Coco_Chanel_in_Los_Angeles,_1931_(cropped).jpg"
+    }
+  },
+  {
+    "id": "e26",
+    "text": "The best lesson I learned was to just do it.",
+    "author": "Richard Branson",
+    "author_dates": "born 1950",
+    "source": {
+      "work": "Screw It, Let's Do It: Lessons in Life (London: Virgin Books)",
+      "year": "2006",
+      "locator": "Introduction (unnumbered front matter, second page of the Introduction; scan page n9). Chapter 1 'Just Do It!' starts on p. 1",
+      "url": "https://archive.org/details/screwitletsdoit00rich_0"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/e26.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "creator": "Chatham House (Flickr)",
+      "attribution": "Chatham House (Flickr), CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Richard_Branson_March_2015_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Richard_Branson_March_2015_(cropped).jpg"
+    }
+  },
+  {
+    "id": "a01",
+    "text": "You just can't beat the person who never gives up.",
+    "author": "Babe Ruth",
+    "author_dates": "1895–1948",
+    "source": {
+      "work": "'Bat It Out!', article under Babe Ruth's byline, The Rotarian, vol. 57 no. 1",
+      "year": "1940",
+      "locator": "July 1940, p. 14",
+      "url": "https://archive.org/details/sim_rotarian_1940-07_57_1"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a01.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Babe_Ruth_by_Paul_Thompson,_1920.jpg",
+      "creator": "Paul Thompson",
+      "attribution": "Paul Thompson, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Babe_Ruth_by_Paul_Thompson,_1920.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Babe_Ruth_by_Paul_Thompson,_1920.jpg"
+    }
+  },
+  {
+    "id": "a03",
+    "text": "He who is not courageous enough to take risks will accomplish nothing in life.",
+    "author": "Muhammad Ali",
+    "author_dates": "1942–2016",
+    "source": {
+      "work": "Quoted by columnist Bernie Lincicome, Fort Lauderdale News",
+      "year": "1977",
+      "locator": "14 April 1977, p. 6D",
+      "url": "https://quoteinvestigator.com/2019/06/23/risks/"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a03.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Muhammad_Ali_NYWTS.jpg",
+      "creator": "Ira Rosenberg, World Journal Tribune (Library of Congress, NYWT&S collection)",
+      "attribution": "Ira Rosenberg, World Journal Tribune (Library of Congress, NYWT&S collection), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Muhammad_Ali_NYWTS.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Muhammad_Ali_NYWTS.jpg"
+    }
+  },
+  {
+    "id": "a04",
+    "text": "When you're playing a point, it is the most important thing in the world. But when it's behind you, it's behind you.",
+    "author": "Roger Federer",
+    "author_dates": "born 1981",
+    "source": {
+      "work": "Commencement address, Dartmouth College",
+      "year": "2024",
+      "locator": "Delivered 9 June 2024; Dartmouth's published text, second lesson ('It's only a point')",
+      "url": "https://home.dartmouth.edu/news/2024/06/2024-commencement-address-roger-federer"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a04.jpg",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "creator": "Tatiana (Flickr, Moscow)",
+      "attribution": "Tatiana (Flickr, Moscow), CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Roger_Federer_2015_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Roger_Federer_2015_(cropped).jpg"
+    }
+  },
+  {
+    "id": "a05",
+    "text": "Talent has a broad definition. Most of the time, it's not about having a gift. It's about having grit.",
+    "author": "Roger Federer",
+    "author_dates": "born 1981",
+    "source": {
+      "work": "Commencement address, Dartmouth College",
+      "year": "2024",
+      "locator": "Delivered 9 June 2024; Dartmouth's published text, first lesson ('Effortless is a myth')",
+      "url": "https://home.dartmouth.edu/news/2024/06/2024-commencement-address-roger-federer"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a05.jpg",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "creator": "Tatiana (Flickr, Moscow)",
+      "attribution": "Tatiana (Flickr, Moscow), CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Roger_Federer_2015_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Roger_Federer_2015_(cropped).jpg"
+    }
+  },
+  {
+    "id": "a06",
+    "text": "… those times when you don't feel like working and you're tired and you don't want to push yourself, but you do it anyway. That is actually the dream.",
+    "author": "Kobe Bryant",
+    "author_dates": "1978–2020",
+    "source": {
+      "work": "Speech at his jersey-retirement ceremony, Staples Center, Los Angeles; as reported by Ben Golliver, 'Idol Worship: Lakers Raise Kobe Bryant's Jerseys to Rafters in Raucous Ceremony', Sports Illustrated",
+      "year": "2017",
+      "locator": "Speech delivered 18 December 2017 (halftime, Lakers v Warriors); SI article dated 19 December 2017",
+      "url": "https://www.si.com/nba/2017/12/19/kobe-bryant-los-angeles-lakers-jersey-retirement-staples-center"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a06.jpg",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "creator": "Keith Allison",
+      "attribution": "Keith Allison, CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Kobe_Bryant_2014.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Kobe_Bryant_2014.jpg"
+    }
+  },
+  {
+    "id": "a07",
+    "text": "Success is peace of mind which is a direct result of self-satisfaction in knowing you made the effort to become the best that you are capable of becoming.",
+    "author": "John Wooden",
+    "author_dates": "1910–2010",
+    "source": {
+      "work": "'The difference between winning and succeeding', TED talk (TED2001)",
+      "year": "2001",
+      "locator": "Recorded February 2001; TED's official transcript, cue at 2:54",
+      "url": "https://www.ted.com/talks/john_wooden_the_difference_between_winning_and_succeeding/transcript"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a07.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:John_Wooden_-_Southern_Campus_1960.jpg",
+      "creator": "Associated Students, University of California, Los Angeles (Southern Campus yearbook 1960)",
+      "attribution": "Associated Students, UCLA (Southern Campus 1960), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:John_Wooden_-_Southern_Campus_1960.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:John_Wooden_-_Southern_Campus_1960.jpg"
+    }
+  },
+  {
+    "id": "a08",
+    "text": "We all have dreams. But in order to make dreams into reality, it takes an awful lot of determination, dedication, self-discipline and effort.",
+    "author": "Jesse Owens",
+    "author_dates": "1913–1980",
+    "source": {
+      "work": "Quoted in Frank Litsky, 'Superstars' (Secaucus, NJ: Derbibooks); repeated in Litsky's obituary 'Jesse Owens Dies of Cancer at 66; Hero of the 1936 Berlin Olympics', The New York Times",
+      "year": "1975",
+      "locator": "Book 1975 (page not determined); NYT obituary 1 April 1980",
+      "url": "https://archive.nytimes.com/www.nytimes.com/learning/general/onthisday/bday/0912.html"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a08.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Jesse_Owens_1936.jpg",
+      "creator": "Acme News Photos",
+      "attribution": "Acme News Photos, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Jesse_Owens_1936.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Jesse_Owens_1936.jpg"
+    }
+  },
+  {
+    "id": "a09",
+    "text": "Pressure is a privilege.",
+    "author": "Billie Jean King",
+    "author_dates": "born 1943",
+    "source": {
+      "work": "Pressure Is a Privilege: Lessons I've Learned from Life and the Battle of the Sexes, with Christine Brennan (New York: LifeTime Media)",
+      "year": "2008",
+      "locator": "Book title; the phrase also occurs in the body text (page not determined)",
+      "url": "https://archive.org/details/pressureisprivil00king"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a09.jpg",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "creator": "Gage Skidmore",
+      "attribution": "Gage Skidmore, CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Billie_Jean_King,_2016_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Billie_Jean_King,_2016_(cropped).jpg"
+    }
+  },
+  {
+    "id": "a10",
+    "text": "I'm not the next Usain Bolt or Michael Phelps, I'm the first Simone Biles.",
+    "author": "Simone Biles",
+    "author_dates": "born 1997",
+    "source": {
+      "work": "Remarks after winning the Olympic all-around title, Rio de Janeiro; reported by James Masters, 'Simone Biles wins all-around gymnastic gold in Rio', CNN",
+      "year": "2016",
+      "locator": "CNN article published 11 August 2016",
+      "url": "https://www.cnn.com/2016/08/11/sport/simone-biles-usa-gymnastics-rio/index.html"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a10.jpg",
+      "license": "CC BY 3.0 BR",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/br/deed.en",
+      "creator": "Fernando Frazão / Agência Brasil",
+      "attribution": "Fernando Frazão / Agência Brasil, CC BY 3.0 BR, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Simone_Biles_na_Rio_2016_cropped.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Simone_Biles_na_Rio_2016_cropped.jpg"
+    }
+  },
+  {
+    "id": "a11",
+    "text": "I am the happiest man in the world to be the first human to run under two hours and I can tell people that no human is limited.",
+    "author": "Eliud Kipchoge",
+    "author_dates": "born 1984",
+    "source": {
+      "work": "Remarks after the INEOS 1:59 Challenge, Vienna; Associated Press report 'Kipchoge first under 2 hours for marathon but no record', published by PBS NewsHour",
+      "year": "2019",
+      "locator": "Run on 12 October 2019; AP/PBS article dated 12 October 2019",
+      "url": "https://www.pbs.org/newshour/world/kipchoge-first-under-2-hours-for-marathon-but-no-record"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a11.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "creator": "Desitlicheresguruweil",
+      "attribution": "Desitlicheresguruweil, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Eliud_Kipchoge_in_Berlin_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Eliud_Kipchoge_in_Berlin_(cropped).jpg"
+    }
+  },
+  {
+    "id": "a12",
+    "text": "Limits, like fears, are often just an illusion.",
+    "author": "Michael Jordan",
+    "author_dates": "born 1963",
+    "source": {
+      "work": "Enshrinement speech, Naismith Memorial Basketball Hall of Fame, Springfield, Massachusetts",
+      "year": "2009",
+      "locator": "Delivered 11 September 2009; the closing lines ('Never say never, because limits, like fears…'); official video uploaded by the Hall of Fame (YouTube @OfficialHoophall, id XLzBMGXfK4c)",
+      "url": "https://www.facebook.com/BBHOF/videos/limits-like-fears-are-often-just-an-illusion-michael-jordan-09hoopclassfor-the-f/331182977935734/"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a12.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Michael_Jordan_in_2014.jpg",
+      "creator": "D. Myles Cullen, U.S. Department of Defense",
+      "attribution": "D. Myles Cullen (U.S. Department of Defense), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Michael_Jordan_in_2014.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Michael_Jordan_in_2014.jpg"
+    }
+  },
+  {
+    "id": "a13",
+    "text": "Success is no accident. It is hard work, perseverance, learning, studying, sacrifice, and, most of all, love of what you are doing or learning to do.",
+    "author": "Pelé",
+    "author_dates": "1940–2022",
+    "source": {
+      "work": "Learning Soccer with Pelé (Philadelphia: J. B. Lippincott)",
+      "year": "1978",
+      "locator": "Page not determined",
+      "url": "https://archive.org/details/learningsoccerwi0000pel1"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a13.jpg",
+      "license": "CC BY-SA 3.0 NL",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en",
+      "creator": "Hugo van Gelderen / Anefo (Dutch National Archives)",
+      "attribution": "Hugo van Gelderen / Anefo, Nationaal Archief, CC BY-SA 3.0 NL, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Pel%C3%A9_Schiphol_1963.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Pel%C3%A9_Schiphol_1963.jpg"
+    }
+  },
+  {
+    "id": "a14",
+    "text": "Failure is not something to be ashamed of, it's something to be powered by. Failure is the highest octane fuel your life can run on.",
+    "author": "Abby Wambach",
+    "author_dates": "born 1980",
+    "source": {
+      "work": "Commencement address, Barnard College, New York; full text published as \"'Make Failure Your Fuel.' Read Soccer Star Abby Wambach's Barnard Commencement Address\", TIME",
+      "year": "2018",
+      "locator": "Delivered 16 May 2018; TIME text published 17 May 2018 (US time), under 'Rule No. 1'",
+      "url": "https://time.com/5281711/abby-wambach-barnard-commencement-2018-speech/"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a14.jpg",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "creator": "Bryan Berlin",
+      "attribution": "Bryan Berlin, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Abby_Wambach_Come_See_Me_In_The_Good_Light-31.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Abby_Wambach_Come_See_Me_In_The_Good_Light-31.jpg"
+    }
+  },
+  {
+    "id": "a15",
+    "text": "If you can pick up after a crushing defeat, and go on to win again, you are going to be a champion someday.",
+    "author": "Wilma Rudolph",
+    "author_dates": "1940–1994",
+    "source": {
+      "work": "Wilma (New York: Signet / New American Library)",
+      "year": "1977",
+      "locator": "Pp. 65–66, chapter 'Introduction to Competition' (page numbers as cited by Quote Investigator; the scan's OCR also shows the page break inside the sentence)",
+      "url": "https://archive.org/details/wilma00rudo"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a15.jpg",
+      "license": "CC BY-SA 3.0 NL",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en",
+      "creator": "Henk Lindeboom / Anefo (Nationaal Archief)",
+      "attribution": "Henk Lindeboom / Anefo, Nationaal Archief, CC BY-SA 3.0 NL, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Wilma_Rudolph_(1960).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Wilma_Rudolph_(1960).jpg"
+    }
+  },
+  {
+    "id": "a16",
+    "text": "Many people say I'm the best women's soccer player in the world. I don't think so. And because of that, someday I just might be.",
+    "author": "Mia Hamm",
+    "author_dates": "born 1972",
+    "source": {
+      "work": "Go for the Goal: A Champion's Guide to Winning in Soccer and Life, with Aaron Heifetz (New York: HarperCollins)",
+      "year": "1999",
+      "locator": "Page not determined",
+      "url": "https://archive.org/details/goforgoalchampio0000hamm"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a16.jpg",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "creator": "Rob Poetsch (Flickr); cropped by Blackcat",
+      "attribution": "Rob Poetsch, cropped by Blackcat, CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Mia_Hamm_2010_cropped.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Mia_Hamm_2010_cropped.jpg"
+    }
+  },
+  {
+    "id": "a17",
+    "text": "If you put a limit on anything, you put a limit on how far you can go.",
+    "author": "Michael Phelps",
+    "author_dates": "born 1985",
+    "source": {
+      "work": "No Limits: The Will to Succeed, with Alan Abrahamson (New York: Free Press)",
+      "year": "2008",
+      "locator": "Page not determined (first-person passage about believing he could swim 4:03)",
+      "url": "https://archive.org/details/nolimitswilltosu0000phel"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a17.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "creator": "Agência Brasil Fotografias",
+      "attribution": "Agência Brasil Fotografias, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Michael_Phelps_Rio_Olympics_2016.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Michael_Phelps_Rio_Olympics_2016.jpg"
+    }
+  },
+  {
+    "id": "a18",
+    "text": "I always wanted to be somebody.",
+    "author": "Althea Gibson",
+    "author_dates": "1927–2003",
+    "source": {
+      "work": "I Always Wanted to Be Somebody, edited by Ed Fitzgerald (New York: Harper & Brothers)",
+      "year": "1958",
+      "locator": "Book title, and the opening sentence of chapter 1 ('We Weren't Bad, Just Mischievous')",
+      "url": "https://archive.org/details/ialwayswantedtob0000alth_r4o4"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a18.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Althea_Gibson_in_1956_by_Fred_Palumbo_(NYWTS).jpg",
+      "creator": "Fred Palumbo, New York World-Telegram & Sun (Library of Congress); restored by Adam Cuerden",
+      "attribution": "Fred Palumbo, New York World-Telegram & Sun (Library of Congress), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Althea_Gibson_in_1956_by_Fred_Palumbo_(NYWTS).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Althea_Gibson_in_1956_by_Fred_Palumbo_(NYWTS).jpg"
+    }
+  },
+  {
+    "id": "a19",
+    "text": "You are never really playing an opponent. You are playing yourself, your own highest standards, and when you reach your limits, that is the real joy.",
+    "author": "Arthur Ashe",
+    "author_dates": "1943–1993",
+    "source": {
+      "work": "Arthur Ashe: Portrait in Motion, with Frank Deford (Boston: Houghton Mifflin)",
+      "year": "1975",
+      "locator": "Page not determined",
+      "url": "https://archive.org/details/arthurasheportra0000ashe"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a19.jpg",
+      "license": "CC BY-SA 3.0 NL",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en",
+      "creator": "Rob Bogaerts / Anefo (Nationaal Archief)",
+      "attribution": "Rob Bogaerts / Anefo, Nationaal Archief, CC BY-SA 3.0 NL, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Arthur_Ashe_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Arthur_Ashe_(cropped).jpg"
+    }
+  },
+  {
+    "id": "a21",
+    "text": "Champions adjust.",
+    "author": "Billie Jean King",
+    "author_dates": "born 1943",
+    "source": {
+      "work": "Pressure Is a Privilege: Lessons I've Learned from Life and the Battle of the Sexes, with Christine Brennan (New York: LifeTime Media)",
+      "year": "2008",
+      "locator": "Title of one of the book's chapters; repeated in her own voice in the text (page not determined)",
+      "url": "https://archive.org/details/pressureisprivil00king"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a21.jpg",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "creator": "Jonathan Exley (Billie Jean King Enterprises)",
+      "attribution": "Jonathan Exley / Billie Jean King Enterprises, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:BJK_headshot_2011_5x7_300dpi.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:BJK_headshot_2011_5x7_300dpi.jpg"
+    }
+  },
+  {
+    "id": "a22",
+    "text": "I doubt about myself. I think the doubts are good in life.",
+    "author": "Rafael Nadal",
+    "author_dates": "born 1986",
+    "source": {
+      "work": "Interview with Sean Gregory, \"Rafael Nadal: 'I Doubt About Myself'\", TIME",
+      "year": "2014",
+      "locator": "22 May 2014",
+      "url": "https://time.com/108222/rafael-nadal-interview/"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/a22.jpg",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "creator": "Tourism Victoria (Flickr, Australia)",
+      "attribution": "Tourism Victoria, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Rafael_Nadal_January_2015.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Rafael_Nadal_January_2015.jpg"
+    }
+  },
+  {
+    "id": "x01",
+    "text": "Victory awaits him who has everything in order—luck, people call it. Defeat is certain for him who has neglected to take the necessary precautions in time; this is called bad luck.",
+    "author": "Roald Amundsen",
+    "author_dates": "1872–1928",
+    "source": {
+      "work": "Sydpolen: Den norske sydpolsfærd med Fram 1910–1912 (The South Pole)",
+      "year": "1912",
+      "locator": "Norwegian: Bind 1, p. 506 (Kristiania: Jacob Dybwad, 1912); English: Chater tr., Vol. I, Chapter IX 'The End of the Winter'",
+      "url": "https://www.gutenberg.org/ebooks/3414"
+    },
+    "translation": {
+      "translator": "A. G. Chater",
+      "edition": "The South Pole: An Account of the Norwegian Antarctic Expedition in the \"Fram,\" 1910–1912, Vol. I (London: John Murray)",
+      "year": 1912
+    },
+    "image": {
+      "file": "images/x01.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Roald_Amundsen_cph.3b17878.jpg",
+      "creator": "Lomen Bros., Nome, Alaska (Library of Congress, cph.3b17878)",
+      "attribution": "Lomen Bros., Nome, Alaska (Library of Congress, cph.3b17878), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Roald_Amundsen_cph.3b17878.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Roald_Amundsen_cph.3b17878.jpg"
+    }
+  },
+  {
+    "id": "x02",
+    "text": "I have always thought that the much-praised “line of retreat” is a snare for people who wish to reach their goal.",
+    "author": "Fridtjof Nansen",
+    "author_dates": "1861–1930",
+    "source": {
+      "work": "Adventure (rectorial address, University of St Andrews, 3 November 1926), in Adventure, and Other Papers (London: Hogarth Press / L. & Virginia Woolf)",
+      "year": "1927",
+      "locator": "'Adventure', p. 27",
+      "url": "https://archive.org/details/adventureotherpa0000frid_y6y6"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/x02.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Fridtjof_Nansen_LOC_03377u-3.jpg",
+      "creator": "Henry Van der Weyde (via Library of Congress)",
+      "attribution": "Henry Van der Weyde (via Library of Congress), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Fridtjof_Nansen_LOC_03377u-3.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Fridtjof_Nansen_LOC_03377u-3.jpg"
+    }
+  },
+  {
+    "id": "x03",
+    "text": "We took risks, we knew we took them; things have come out against us, and therefore we have no cause for complaint, but bow to the will of Providence, determined still to do our best to the last.",
+    "author": "Robert Falcon Scott",
+    "author_dates": "1868–1912",
+    "source": {
+      "work": "Scott's Last Expedition, Vol. I: Being the Journals of Captain R. F. Scott (arranged by Leonard Huxley; London: Smith, Elder & Co.)",
+      "year": "1913",
+      "locator": "'Message to the Public', written in the tent, March 1912",
+      "url": "https://www.gutenberg.org/ebooks/11579"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/x03.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Scott_of_the_Antarctic_(bw)_(cropped).jpg",
+      "creator": "Henry Maull and John Fox (Maull & Fox); frontispiece of The Voyage of the Discovery, 1905",
+      "attribution": "Henry Maull and John Fox (Maull & Fox); frontispiece of The Voyage of the Discovery, 1905, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Scott_of_the_Antarctic_(bw)_(cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Scott_of_the_Antarctic_(bw)_(cropped).jpg"
+    }
+  },
+  {
+    "id": "x04",
+    "text": "Now for the run home and a desperate struggle. I wonder if we can do it.",
+    "author": "Robert Falcon Scott",
+    "author_dates": "1868–1912",
+    "source": {
+      "work": "Scott's Last Expedition, Vol. I: Being the Journals of Captain R. F. Scott (arranged by Leonard Huxley; London: Smith, Elder & Co.)",
+      "year": "1913",
+      "locator": "Journal entry of Wednesday, 17 January 1912, at the South Pole",
+      "url": "https://www.gutenberg.org/ebooks/11579"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/x04.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Robert_Falcon_Scott_c1900.jpg",
+      "creator": "J. Thomson (1837–1921)",
+      "attribution": "J. Thomson (1837–1921), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Robert_Falcon_Scott_c1900.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Robert_Falcon_Scott_c1900.jpg"
+    }
+  },
+  {
+    "id": "x05",
+    "text": "A man must shape himself to a new mark directly the old one goes to ground.",
+    "author": "Ernest Shackleton",
+    "author_dates": "1874–1922",
+    "source": {
+      "work": "South: The Story of Shackleton's Last Expedition, 1914–1917 (London: William Heinemann)",
+      "year": "1919",
+      "locator": "Chapter IV, 'Loss of the Endurance'",
+      "url": "https://www.gutenberg.org/ebooks/5199"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/x05.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Ernest_Shackleton_before_1909.jpg",
+      "creator": "George Charles Beresford (restoration by Adam Cuerden); National Library of Norway",
+      "attribution": "George Charles Beresford (restoration by Adam Cuerden); National Library of Norway, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Ernest_Shackleton_before_1909.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Ernest_Shackleton_before_1909.jpg"
+    }
+  },
+  {
+    "id": "x06",
+    "text": "Difficulties are just things to overcome after all.",
+    "author": "Ernest Shackleton",
+    "author_dates": "1874–1922",
+    "source": {
+      "work": "The Heart of the Antarctic: Being the Story of the British Antarctic Expedition 1907–1909, Vol. I (London: William Heinemann)",
+      "year": "1909",
+      "locator": "Vol. I, Chapter XXII, 'On the Great Glacier', p. 321 — diary passage under December 11 (1908), ascending the Beardmore Glacier (Chapter XIII in the 1910 one-volume Musson edition)",
+      "url": "https://archive.org/details/heartofantarctic01shacuoft"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/x05.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Ernest_Shackleton_before_1909.jpg",
+      "creator": "George Charles Beresford (restoration by Adam Cuerden); National Library of Norway",
+      "attribution": "George Charles Beresford (restoration by Adam Cuerden); National Library of Norway, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Ernest_Shackleton_before_1909.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Ernest_Shackleton_before_1909.jpg"
+    }
+  },
+  {
+    "id": "x07",
+    "text": "The lure of the Arctic is tugging at my heart, to me the trail is calling!",
+    "author": "Matthew Henson",
+    "author_dates": "1866–1955",
+    "source": {
+      "work": "A Negro Explorer at the North Pole (New York: Frederick A. Stokes)",
+      "year": "1912",
+      "locator": "Chapter XXI, 'Etah to New York — Coming of Mail and Reporters — Home!' (closing pages)",
+      "url": "https://www.gutenberg.org/ebooks/20923"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/x07.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Matthew_Henson_1910.jpg",
+      "creator": "Unknown photographer (Library of Congress, cph.3g07503)",
+      "attribution": "Unknown photographer (Library of Congress, cph.3g07503), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Matthew_Henson_1910.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Matthew_Henson_1910.jpg"
+    }
+  },
+  {
+    "id": "x09",
+    "text": "I always have a comfortable feeling that nothing is impossible if one applies a certain amount of energy in the right direction.",
+    "author": "Nellie Bly",
+    "author_dates": "1864–1922",
+    "source": {
+      "work": "Around the World in Seventy-Two Days (New York: Pictorial Weeklies Company)",
+      "year": "1890",
+      "locator": "Chapter I, 'A Proposal to Girdle the Earth'",
+      "url": "https://digital.library.upenn.edu/women/bly/world/world.html"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/x09.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Nellie_Bly_2.jpg",
+      "creator": "H. J. Myers, photographer (Library of Congress, cph.3b22819)",
+      "attribution": "H. J. Myers, photographer (Library of Congress, cph.3b22819), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Nellie_Bly_2.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Nellie_Bly_2.jpg"
+    }
+  },
+  {
+    "id": "x10",
+    "text": "If you want to do it, you can do it. The question is, do you want to do it?",
+    "author": "Nellie Bly",
+    "author_dates": "1864–1922",
+    "source": {
+      "work": "Around the World in Seventy-Two Days (New York: Pictorial Weeklies Company)",
+      "year": "1890",
+      "locator": "Chapter I, 'A Proposal to Girdle the Earth'",
+      "url": "https://digital.library.upenn.edu/women/bly/world/world.html"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/x10.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Nellie_Bly_-_Myers,_N.Y._LCCN89711960.jpg",
+      "creator": "H. J. Myers, photographer (Library of Congress, LCCN 89711960)",
+      "attribution": "H. J. Myers, photographer (Library of Congress, LCCN 89711960), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Nellie_Bly_-_Myers,_N.Y._LCCN89711960.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Nellie_Bly_-_Myers,_N.Y._LCCN89711960.jpg"
+    }
+  },
+  {
+    "id": "x11",
+    "text": "Courage is the price that Life exacts for granting peace.",
     "author": "Amelia Earhart",
     "author_dates": "1897–1937",
     "source": {
-      "work": "Note to George Palmer Putnam, to be read if she did not return; printed in Last Flight (arranged by G. P. Putnam)",
-      "year": "c. 1937 (publ. 1937)",
-      "locator": "Purdue University, George Palmer Putnam Collection of Amelia Earhart Papers (record PU_earhart-266)",
-      "url": "https://digital.library.in.gov/Record/PU_earhart-266"
+      "work": "20 Hrs. 40 Min.: Our Flight in the Friendship (New York: G. P. Putnam's Sons)",
+      "year": "1928",
+      "locator": "Opening line of her poem 'Courage', printed in Marion Perkins's Introduction to the book (Perkins says Earhart handed her the verses the year before)",
+      "url": "https://www.gutenberg.org/ebooks/73448"
     },
     "translation": null,
     "image": {
-      "file": "images/q096.jpg",
+      "file": "images/x11.jpg",
       "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Harris & Ewing",
-      "attribution": "Harris & Ewing, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Amelia_Earhart_LOC_hec.40747.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Amelia_Earhart_LOC_hec.40747.jpg"
+      "license_url": "https://commons.wikimedia.org/wiki/File:Amelia_Earhart,_1928.jpg",
+      "creator": "Wide World Photos",
+      "attribution": "Wide World Photos, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Amelia_Earhart,_1928.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Amelia_Earhart,_1928.jpg"
     }
   },
   {
-    "id": "q097",
-    "text": "Failure is impossible.",
-    "author": "Susan B. Anthony",
-    "author_dates": "1820–1906",
+    "id": "x12",
+    "text": "I don’t even remember having specific goals, other than to fly in space!",
+    "author": "Sally Ride",
+    "author_dates": "1951–2012",
     "source": {
-      "work": "Remarks at her 86th birthday celebration, Washington, D.C. (National American Woman Suffrage Association)",
-      "year": "1906 (15 February)",
-      "locator": "Reported in Ida Husted Harper, The Life and Work of Susan B. Anthony, vol. 3 (1908) — chapter/page not seen",
-      "url": null
+      "work": "NASA Johnson Space Center Oral History Project, interview by Rebecca Wright (San Diego, 22 October 2002)",
+      "year": "2002",
+      "locator": "Transcript p. 7, answering what her goals were on becoming an astronaut candidate",
+      "url": "https://www.nasa.gov/wp-content/uploads/2024/11/ridesk-10-22-02.pdf"
     },
     "translation": null,
     "image": {
-      "file": "images/q097.jpg",
+      "file": "images/x12.jpg",
       "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Unknown author",
-      "attribution": "Unknown author, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:SB_Anthony_from_RoRaWW.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:SB_Anthony_from_RoRaWW.jpg"
+      "license_url": "https://commons.wikimedia.org/wiki/File:Sally_Ride_(1984).jpg",
+      "creator": "NASA (retouched by Coffeeandcrumbs)",
+      "attribution": "NASA (retouched by Coffeeandcrumbs), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Sally_Ride_(1984).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Sally_Ride_(1984).jpg"
     }
   },
   {
-    "id": "q098",
-    "text": "Absolutely unmixed attention is prayer.",
-    "author": "Simone Weil",
-    "author_dates": "1909–1943",
+    "id": "x16",
+    "text": "That's one small step for (a) man; one giant leap for mankind.",
+    "author": "Neil Armstrong",
+    "author_dates": "1930–2012",
     "source": {
-      "work": "La Pesanteur et la grâce (notebook extracts ed. Gustave Thibon)",
-      "year": "written c. 1940–42, publ. 1947",
-      "locator": "Section 'Attention and Will'",
-      "url": null
+      "work": "Apollo 11 air-to-ground transmission, as corrected in the Apollo 11 Lunar Surface Journal (NASA, ed. Eric M. Jones), 'One Small Step'",
+      "year": "1969",
+      "locator": "Mission elapsed time 109:24:23, 20 July 1969 (21 July UTC), as Armstrong stepped off the LM footpad",
+      "url": "https://www.nasa.gov/wp-content/uploads/static/history//alsj/a11/a11.step.html"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/x16.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Neil_Armstrong_pose.jpg",
+      "creator": "NASA (photo S69-31741)",
+      "attribution": "NASA (photo S69-31741), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Neil_Armstrong_pose.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Neil_Armstrong_pose.jpg"
+    }
+  },
+  {
+    "id": "x17",
+    "text": "But what are cuts, bruises, fatigue, and singed eyelashes, in comparison with the awful sublimities I have witnessed to-day?",
+    "author": "Isabella Bird",
+    "author_dates": "1831–1904",
+    "source": {
+      "work": "The Hawaiian Archipelago: Six Months Among the Palm Groves, Coral Reefs, and Volcanoes of the Sandwich Islands (London: John Murray)",
+      "year": "1875",
+      "locator": "Letter XXIX, 'Crater House, Kilauea, June 4th' (p. 381 in the edition transcribed by Project Gutenberg), after descending into the Kilauea crater",
+      "url": "https://www.gutenberg.org/ebooks/6750"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/x17.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Isabella_L._Bird.png",
+      "creator": "Frontispiece of Journeys in Persia and Kurdistan, vol. 1 (London: John Murray, 1891)",
+      "attribution": "Frontispiece of Journeys in Persia and Kurdistan, vol. 1 (London: John Murray, 1891), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Isabella_L._Bird.png)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Isabella_L._Bird.png"
+    }
+  },
+  {
+    "id": "x18",
+    "text": "If the first attempt fails of course we must try again.",
+    "author": "Annie Smith Peck",
+    "author_dates": "1850–1935",
+    "source": {
+      "work": "A Search for the Apex of America: High Mountain Climbing in Peru and Bolivia, Including the Conquest of Huascarán (New York: Dodd, Mead and Company)",
+      "year": "1911",
+      "locator": "Chapter II, 'The Voyage' — on how many attempts the climb might take",
+      "url": "https://archive.org/details/asearchforapexa00peckgoog"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/x18.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Miss_Annie_S._Peck,_full-length_portrait,_facing_slightly_right_LCCN97504565.jpg",
+      "creator": "Unknown photographer, 1911 (Library of Congress, LCCN 97504565)",
+      "attribution": "Unknown photographer, 1911 (Library of Congress, LCCN 97504565), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Miss_Annie_S._Peck,_full-length_portrait,_facing_slightly_right_LCCN97504565.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Miss_Annie_S._Peck,_full-length_portrait,_facing_slightly_right_LCCN97504565.jpg"
+    }
+  },
+  {
+    "id": "x19",
+    "text": "The old beaten tracks do not take us to our goal.",
+    "author": "Fridtjof Nansen",
+    "author_dates": "1861–1930",
+    "source": {
+      "work": "Adventure (rectorial address, University of St Andrews, 3 November 1926), in Adventure, and Other Papers (London: Hogarth Press / L. & Virginia Woolf)",
+      "year": "1927",
+      "locator": "'Adventure', p. 19",
+      "url": "https://archive.org/details/adventureotherpa0000frid_y6y6"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/x19.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Fridtjof_Nansen_(1861-1930)_portrait.jpg",
+      "creator": "Studio Phebus (National Library of Norway)",
+      "attribution": "Studio Phebus (National Library of Norway), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Fridtjof_Nansen_(1861-1930)_portrait.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Fridtjof_Nansen_(1861-1930)_portrait.jpg"
+    }
+  },
+  {
+    "id": "x20",
+    "text": "We had agreed to shrink from nothing in order to reach our goal.",
+    "author": "Roald Amundsen",
+    "author_dates": "1872–1928",
+    "source": {
+      "work": "Sydpolen: Den norske sydpolsfærd med Fram 1910–1912 (The South Pole)",
+      "year": "1912",
+      "locator": "Norwegian: Bind 2, p. 62 (Kristiania: Jacob Dybwad, 1912); English: Chater tr., Vol. II, Chapter XI 'Through the Mountains'",
+      "url": "https://www.gutenberg.org/ebooks/3415"
     },
     "translation": {
-      "translator": "Emma Crawford",
-      "edition": "Gravity and Grace (London: Routledge & Kegan Paul)",
-      "year": 1952
+      "translator": "A. G. Chater",
+      "edition": "The South Pole: An Account of the Norwegian Antarctic Expedition in the \"Fram,\" 1910–1912, Vol. II (London: John Murray)",
+      "year": 1912
     },
     "image": {
-      "file": "images/q098.jpg",
+      "file": "images/x20.jpg",
       "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Unknown",
-      "attribution": "Unknown, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Simone_Weil_1943.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Simone_Weil_1943.jpg"
+      "license_url": "https://commons.wikimedia.org/wiki/File:Amundsen-in-ice.jpg",
+      "creator": "Anders Beer Wilse (frontispiece of The South Pole, Vol. II)",
+      "attribution": "Anders Beer Wilse (frontispiece of The South Pole, Vol. II), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Amundsen-in-ice.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Amundsen-in-ice.jpg"
     }
   },
   {
-    "id": "q099",
-    "text": "Genius is one per cent inspiration, ninety-nine per cent perspiration.",
-    "author": "Thomas Edison",
-    "author_dates": "1847–1931",
+    "id": "x21",
+    "text": "The Pole at last. The prize of three centuries. My dream and goal for twenty years. Mine at last!",
+    "author": "Robert E. Peary",
+    "author_dates": "1856–1920",
     "source": {
-      "work": "Interview, Harper's Monthly Magazine (Sept 1932); also Edison letter of 1927",
-      "year": "1932",
-      "locator": "Quote Investigator, 'Genius is one percent inspiration…' (14 Dec 2012)",
-      "url": "https://quoteinvestigator.com/2012/12/14/genius-ratio/"
+      "work": "The North Pole: Its Discovery in 1909 under the Auspices of the Peary Arctic Club (New York: Frederick A. Stokes)",
+      "year": "1910",
+      "locator": "Chapter XXXII, 'We Reach the Pole' — the words Peary says he wrote in his diary on waking at Camp Jesup, 6 April 1909",
+      "url": "https://www.gutenberg.org/ebooks/18975"
     },
     "translation": null,
     "image": {
-      "file": "images/q099.jpg",
+      "file": "images/x21.jpg",
       "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Louis Bachrach, Bachrach Studios, restored by Michel Vuijlsteke",
-      "attribution": "Louis Bachrach, Bachrach Studios, restored by Michel Vuijlsteke, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Thomas_Edison2.jpg)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Thomas_Edison2.jpg"
+      "license_url": "https://commons.wikimedia.org/wiki/File:Robert_Peary_by_Hampton,_1909.jpg",
+      "creator": "Benjamin B. Hampton (photogravure, 1909)",
+      "attribution": "Benjamin B. Hampton (photogravure, 1909), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Robert_Peary_by_Hampton,_1909.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Robert_Peary_by_Hampton,_1909.jpg"
     }
   },
   {
-    "id": "q100",
-    "text": "Today is victory over yourself of yesterday; tomorrow is your victory over lesser men.",
-    "author": "Miyamoto Musashi",
-    "author_dates": "c. 1584–1645",
+    "id": "x22",
+    "text": "New power seemed to come as I addressed myself to one last tremendous effort.",
+    "author": "Douglas Mawson",
+    "author_dates": "1882–1958",
     "source": {
-      "work": "Go Rin no Sho (The Book of Five Rings)",
-      "year": "1645",
-      "locator": "The Water Book (Mizu no maki), closing section",
-      "url": null
+      "work": "The Home of the Blizzard: Being the Story of the Australasian Antarctic Expedition, 1911–1914 (London: William Heinemann)",
+      "year": "1915",
+      "locator": "Vol. I, Chapter XIII, 'Toil and Tribulation' — climbing out of a crevasse on his solo return journey, January 1913",
+      "url": "https://www.gutenberg.org/ebooks/6137"
     },
-    "translation": {
-      "translator": "Victor Harris",
-      "edition": "A Book of Five Rings (London: Allison & Busby)",
-      "year": 1974
-    },
+    "translation": null,
     "image": {
-      "file": "images/q100.jpg",
+      "file": "images/x22.jpg",
       "license": "Public domain",
-      "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "creator": "Miyamoto Musashi",
-      "attribution": "Miyamoto Musashi, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Portrait_of_Miyamoto_Musashi_(detail).webp)",
-      "commons_page": "https://commons.wikimedia.org/wiki/File:Portrait_of_Miyamoto_Musashi_(detail).webp"
+      "license_url": "https://commons.wikimedia.org/wiki/File:Douglas_Mawson,_1914.jpg",
+      "creator": "State Library of South Australia (studio portrait, 1914)",
+      "attribution": "State Library of South Australia (studio portrait, 1914), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Douglas_Mawson,_1914.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Douglas_Mawson,_1914.jpg"
+    }
+  },
+  {
+    "id": "x23",
+    "text": "America's challenge of today has forged man's destiny of tomorrow.",
+    "author": "Eugene Cernan",
+    "author_dates": "1934–2017",
+    "source": {
+      "work": "Apollo 17 air-to-ground transmission, Apollo 17 Lunar Surface Journal (NASA, ed. Eric M. Jones), 'EVA-3 Closeout'",
+      "year": "1972",
+      "locator": "Mission elapsed time 170:41:00, 14 December 1972 (UTC), Cernan's farewell remarks before climbing into the LM as the last person on the Moon",
+      "url": "https://apollojournals.org/alsj/a17/a17.clsout3.html"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/x23.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Cernan_s71-51308_(3x4_cropped).jpg",
+      "creator": "NASA (photo S71-51308)",
+      "attribution": "NASA (photo S71-51308), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Cernan_s71-51308_(3x4_cropped).jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Cernan_s71-51308_(3x4_cropped).jpg"
+    }
+  },
+  {
+    "id": "x24",
+    "text": "You can just focus on the task, and you're just living in the suit.",
+    "author": "Kathryn D. Sullivan",
+    "author_dates": "b. 1951",
+    "source": {
+      "work": "NASA Johnson Space Center Oral History Project, interview by Jennifer Ross-Nazzal (Columbus, Ohio, 12 March 2008)",
+      "year": "2008",
+      "locator": "Transcript p. 12, on spacewalking: after training, the suit is so familiar that only the task remains",
+      "url": "https://www.nasa.gov/wp-content/uploads/2025/02/sullivankd-3-12-08.pdf"
+    },
+    "translation": null,
+    "image": {
+      "file": "images/x24.jpg",
+      "license": "Public domain",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Kathryn_D._Sullivan.jpg",
+      "creator": "NASA (official astronaut portrait)",
+      "attribution": "NASA (official astronaut portrait), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Kathryn_D._Sullivan.jpg)",
+      "commons_page": "https://commons.wikimedia.org/wiki/File:Kathryn_D._Sullivan.jpg"
     }
   }
 ]
