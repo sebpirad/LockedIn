@@ -5,7 +5,7 @@
 // elapsed=N (the lock started N minutes ago), down=1, broken=1, stale=1.
 
 import { ApiError } from '../lib/api.js';
-import { cphDate, dateTimeInstant } from '../lib/plan.js';
+import { cphDate, dateTimeInstant, occurrences, chainEnd, nextOccurrence } from '../lib/plan.js';
 import { cphParts } from '../lib/time.js';
 
 const locked423 = () => new ApiError(423, 'locked', 'Kan ikke ændres under en aktiv session.');
@@ -17,7 +17,22 @@ export async function createMockApi(params = new URLSearchParams()) {
   const installed = await fetch(new URL('./mock-installed.json', import.meta.url)).then((r) => r.json());
   const s = structuredClone(base);
   delete s._comment;
-  for (const sc of s.schedules) if (sc.date === 'TOMORROW') sc.date = cphDate(Date.now(), 1);
+  for (const sc of s.schedules) { if (sc.date === 'TOMORROW') sc.date = cphDate(Date.now(), 1); sc.skip = sc.skip || []; }
+  // planNow=1: a single period happening right now (for "frozen" during a lock).
+  // planSoon=1: a single period starting in ~30 min (for the confirmation's overlap warning).
+  if (params.get('planSoon') === '1') {
+    const p2 = (n) => String(n).padStart(2, '0');
+    const hm = (d) => new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Copenhagen', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(d);
+    const r5 = (x) => { const [hh, mm] = x.split(':').map(Number); const m = Math.ceil(mm / 5) * 5; return m === 60 ? `${p2((hh + 1) % 24)}:00` : `${p2(hh)}:${p2(m)}`; };
+    s.schedules.push({ id: 'soon1', name: '', weekdays: [], start: r5(hm(new Date(Date.now() + 30 * 60000))), end: r5(hm(new Date(Date.now() + 90 * 60000))), enabled: true, list: 'l2', date: cphDate(Date.now(), 0), skip: [] });
+  }
+  if (params.get('planNow') === '1') {
+    const p2 = (n) => String(n).padStart(2, '0');
+    const t = new Date(Date.now() - 30 * 60000), e = new Date(Date.now() + 60 * 60000);
+    const hm = (d) => new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Copenhagen', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(d);
+    const r5 = (x) => { const [hh, mm] = x.split(':').map(Number); const m = Math.floor(mm / 5) * 5; return `${p2(hh)}:${p2(m)}`; };
+    s.schedules.push({ id: 'now1', name: '', weekdays: [], start: r5(hm(t)), end: r5(hm(e)), enabled: true, list: 'l2', date: cphDate(Date.now(), 0), skip: [] });
+  }
 
   let until = params.get('locked') === '1' ? Date.now() + (+params.get('mins') || 95) * 60000 : null;
   let since = until ? Date.now() - (+params.get('elapsed') || 0) * 60000 : null;
@@ -27,7 +42,18 @@ export async function createMockApi(params = new URLSearchParams()) {
   const down = params.get('down') === '1';
 
   const isActive = () => until != null && until > Date.now();
-  const activeLists = () => (isActive() ? timerLists.filter((id) => s.lists.some((l) => l.id === id)) : []);
+  // The running lock: the timer, continued through any planned period it touches (like the daemon).
+  const lockEnd = () => (isActive() ? chainEnd(Date.now(), until, occurrences(s.schedules, Date.now(), Date.now() + 2 * DAY)).end : null);
+  const frozenIds = () => {
+    const end = lockEnd();
+    if (!end) return new Set();
+    return new Set(occurrences(s.schedules, Date.now(), end).filter((o) => !o.skipped && o.start < end).map((o) => o.sc.id));
+  };
+  const activeLists = () => {
+    if (!isActive()) return [];
+    const ids = [...timerLists, ...s.schedules.filter((x) => frozenIds().has(x.id)).map((x) => x.list)];
+    return [...new Set(ids)].filter((id) => s.lists.some((l) => l.id === id));
+  };
   const listById = (id) => s.lists.find((l) => l.id === id) || (() => { throw new ApiError(404, 'not_found', 'Listen findes ikke.'); })();
   const guard = async () => {
     await new Promise((r) => setTimeout(r, 80));
@@ -46,23 +72,12 @@ export async function createMockApi(params = new URLSearchParams()) {
   }
 
   function nextSession() {
-    const now = Date.now();
-    let best = null;
-    for (const sc of s.schedules.filter((x) => x.enabled)) {
-      const days = sc.date ? [sc.date] : Array.from({ length: 8 }, (_, i) => cphDate(now, i))
-        .filter((d) => sc.weekdays.includes(cphParts(dateTimeInstant(d, '12:00')).weekday));
-      for (const d of days) {
-        const start = dateTimeInstant(d, sc.start);
-        let end = dateTimeInstant(d, sc.end);
-        if (end <= start) end += DAY;
-        if (start > now && (!best || start < best.start)) best = { start, end, sc };
-      }
-    }
-    if (!best) return null;
-    const l = s.lists.find((x) => x.id === best.sc.list);
+    const o = nextOccurrence(s.schedules, lockEnd() || Date.now());
+    if (!o) return null;
+    const l = s.lists.find((x) => x.id === o.sc.list);
     return {
-      start: new Date(best.start).toISOString(), end: new Date(best.end).toISOString(), scheduleId: best.sc.id,
-      name: best.sc.name, list: best.sc.list, listName: l ? l.name : '',
+      start: new Date(o.start).toISOString(), end: new Date(o.end).toISOString(), scheduleId: o.sc.id,
+      name: o.sc.name, list: o.sc.list, listName: l ? l.name : '',
     };
   }
 
@@ -76,10 +91,11 @@ export async function createMockApi(params = new URLSearchParams()) {
       ...s,
       now: now.toISOString(),
       active: isActive(),
-      activeUntil: isActive() ? new Date(until).toISOString() : null,
+      activeUntil: isActive() ? new Date(lockEnd()).toISOString() : null,
       activeSince: isActive() ? new Date(since).toISOString() : null,
-      activeSources: isActive() ? ['timer'] : [],
+      activeSources: isActive() ? ['timer', ...[...frozenIds()].map((id) => 'schedule:' + id)] : [],
       activeLists: act,
+      schedules: s.schedules.map((x) => ({ ...x, frozen: frozenIds().has(x.id) })),
       nextSession: nextSession(),
       sites: s.sites.map((x) => ({ ...x, blocked: sitesOn.has(x.id) })),
       apps: s.apps.map((a) => ({ ...a, inActiveList: appsOn.has(a.bundleId) })),
@@ -222,21 +238,39 @@ export async function createMockApi(params = new URLSearchParams()) {
       await guard();
       if (!s.lists.some((l) => l.id === body.list)) throw bad('Vælg en liste.');
       if (body.date && !(dateTimeInstant(body.date, body.start) > Date.now())) throw bad('En enkelt periode skal ligge i fremtiden.');
-      s.schedules.push({ id: Math.random().toString(16).slice(2, 6), enabled: true, weekdays: [], date: null, ...body });
+      s.schedules.push({ id: Math.random().toString(16).slice(2, 6), name: '', enabled: true, weekdays: [], date: null, skip: [], ...body });
       return snapshot();
     },
     async putSchedule(id, body) {
       await guard();
-      if (isActive()) throw locked423();
       const i = s.schedules.findIndex((x) => x.id === id);
       if (i < 0) throw new ApiError(404, 'not_found', 'Perioden findes ikke.');
+      if (frozenIds().has(id)) throw locked423();
       s.schedules[i] = { ...s.schedules[i], ...body, id };
       return snapshot();
     },
     async deleteSchedule(id) {
       await guard();
-      if (isActive()) throw locked423();
+      if (frozenIds().has(id)) throw locked423();
       s.schedules = s.schedules.filter((x) => x.id !== id);
+      return snapshot();
+    },
+    async skip(id, date) {
+      await guard();
+      const sc = s.schedules.find((x) => x.id === id);
+      if (!sc) throw new ApiError(404, 'not_found', 'Perioden findes ikke.');
+      if (sc.date) throw bad('Kun ugentlige perioder kan springes over.');
+      const occ = occurrences([sc], Date.now() - DAY, Date.now() + 15 * DAY).find((o) => o.date === date);
+      if (!occ) throw bad('Perioden ligger ikke den dag.');
+      if (frozenIds().has(id) && occ.start < lockEnd()) throw locked423();
+      if (!sc.skip.includes(date)) sc.skip.push(date);
+      return snapshot();
+    },
+    async unskip(id, date) {
+      await guard();
+      const sc = s.schedules.find((x) => x.id === id);
+      if (!sc) throw new ApiError(404, 'not_found', 'Perioden findes ikke.');
+      sc.skip = sc.skip.filter((d) => d !== date);
       return snapshot();
     },
   };

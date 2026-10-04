@@ -4,13 +4,12 @@
 
 import { createApi } from '../lib/api.js';
 import {
-  formatClock, formatCountdown, formatDuration, weekdayShort, weekdayName, dayDiff, cphParts,
-  shortWhen, isoUtc, untilToday,
+  formatCountdown, formatDuration, shortWhen, isoUtc, untilToday,
 } from '../lib/time.js';
 import { normalizeDomain } from '../lib/domains.js';
 import { extendOptions } from '../lib/extend.js';
 import { pickList, nextListName, toggleMember, lockedTarget, blockedNow } from '../lib/lists.js';
-import { cphDate, periodText, scheduleBody } from '../lib/plan.js';
+import { occurrences, chainEnd } from '../lib/plan.js';
 import {
   nameCommit, deletePrompt, blockPrompt, confirmLine, idleTimer, tileLabel, appLabel, appLetters,
   nameFromDomain, healthMessage, startBlocker, confirmArmed,
@@ -20,8 +19,9 @@ import { dropdown } from './dropdown.js';
 import { combo } from './combo.js';
 import {
   DURATION_CHIPS, durHourOptions, durMinuteOptions, clampDuration, splitDuration,
-  untilHourOptions, untilMinuteOptions, defaultUntilQuarter, fixUntilMinute, MINUTE_STEPS,
+  untilHourOptions, untilMinuteOptions, defaultUntilQuarter, fixUntilMinute,
 } from '../lib/clock.js';
+import { createPlan, nextLineText } from './plan.js';
 
 const params = new URLSearchParams(location.search);
 const HAS_EXT = typeof chrome !== 'undefined' && !!(chrome.runtime && chrome.runtime.id);
@@ -96,7 +96,6 @@ const ui = {
   installed: null,
   icons: {},           // domain → {data} for own sites (cached by the service worker)
   iconsRev: 0,
-  plan: { kind: 'date', date: null, weekdays: [1, 2, 3, 4, 5], list: null, start: '09:00', end: '12:00' },
   sigs: {},
 };
 
@@ -120,6 +119,9 @@ const show = (id, on) => { $(id).hidden = !on; };
 let toastTimer;
 function toast(msg) {
   const t = $('toast');
+  // Show it above an open modal dialog (outside one it would sit under the backdrop).
+  const host = [...document.querySelectorAll('dialog[open]')].pop() || document.body;
+  if (t.parentElement !== host) host.append(t);
   t.textContent = msg;
   t.className = 'toast';
   t.hidden = false;
@@ -301,7 +303,8 @@ function tick() {
     $('listEmpty').hidden = true;
     big.textContent = formatCountdown(until - now);
     big.classList.remove('dim');
-    sub.textContent = `Låst til ${shortWhen(now, until)}`;
+    const planned = ((status() && status().activeSources) || []).some((x) => String(x).startsWith('schedule:'));
+    sub.textContent = `Låst til ${shortWhen(now, until)}${planned ? ' · planlagt' : ''}`;
     sub.hidden = false;
     document.title = `${formatCountdown(until - now)} · LockedIn`;
     const choices = extendChoices(until, now);
@@ -318,6 +321,10 @@ function tick() {
   document.title = 'LockedIn';
   if (ui.mode === 'until' && !(ui.until && untilToday(now, untilText()) != null)) { ensureUntil(now); renderUntil(); }
   const end = plannedEnd(now);
+  // The big timer always shows what was chosen. If that runs into a planned period, only the
+  // confirmation step says so (with the period's own list).
+  const chain = planChain(now, end);
+  const via = chain.via.length ? chain.via[chain.via.length - 1] : null;
   // Idle: a static preview in whole minutes. Only a running lock moves its seconds.
   big.textContent = ui.mode === 'until' ? idleTimer(end == null ? 0 : end - now) : formatCountdown(ui.minutes * 60000);
   big.classList.toggle('dim', end == null);
@@ -328,7 +335,9 @@ function tick() {
   $('listEmpty').hidden = blocker !== 'empty' || !!ui.naming;
   if (ui.step === 'confirm') {
     if (end == null) { ui.step = 'idle'; renderHero(); return; }
-    sub.textContent = confirmLine(now, end, list ? list.name : '');
+    const viaLists = [...new Set(chain.via.map((o) => o.sc.list))];
+    sub.textContent = confirmLine(now, via ? chain.end : end, list ? list.name : '', via, viaLists.map(listName));
+    if (JSON.stringify(viaLists) !== JSON.stringify(ui.confirmVia || [])) { ui.confirmVia = viaLists; ui.sigs.tiles = null; renderTiles(); }
     sub.hidden = false;
   } else {
     sub.hidden = true;
@@ -501,7 +510,7 @@ function renderTiles() {
   const list = lists().find((l) => l.id === target);
   const editing = ui.editing && !!list;
   const now = blockedNow(status());
-  const sig = JSON.stringify([locked, target, list, editing, ui.step, sites().map((s) => [s.id, s.label, s.blocked]), apps(), ui.edits > 0 ? 'e' : '', ui.iconsRev]);
+  const sig = JSON.stringify([locked, target, list, editing, ui.step, ui.confirmVia, sites().map((s) => [s.id, s.label, s.blocked]), apps(), ui.edits > 0 ? 'e' : '', ui.iconsRev]);
   if (ui.sigs.tiles === sig) return;
   ui.sigs.tiles = sig;
 
@@ -526,6 +535,21 @@ function renderTiles() {
       onclick: () => onTileTap(it, list, locked),
     }, inner);
   });
+  // Confirmation that continues into a planned period: what that period adds, after a separator.
+  if (!locked && ui.step === 'confirm' && (ui.confirmVia || []).length) {
+    const extraLists = lists().filter((l) => ui.confirmVia.includes(l.id) && l.id !== (list && list.id));
+    const shown = new Set(items.map((it) => it.kind + it.id));
+    const extra = [
+      ...orderedSites.filter((x) => extraLists.some((l) => l.sites.includes(x.id)) && !shown.has('sites' + x.id))
+        .map((x) => ({ label: tileLabel(x.label || x.id), icon: () => siteIcon(x) })),
+      ...listApps().filter((a) => extraLists.some((l) => l.apps.includes(a.bundleId)) && !shown.has('apps' + a.bundleId))
+        .map((a) => ({ label: appLabel(a, sites()), icon: () => appIcon(a) })),
+    ];
+    if (extra.length) {
+      tiles.push(h('span', { class: 'tile-sep', 'aria-hidden': 'true' }));
+      for (const it of extra) tiles.push(h('div', { class: 'tile on planned', title: it.label }, it.icon(), h('span', { class: 'tile-label' }, it.label)));
+    }
+  }
   if (list && editing) {
     tiles.push(h('button', { type: 'button', class: 'tile add-tile', title: 'Tilføj', 'aria-label': 'Tilføj hjemmeside eller app', onclick: openAdd },
       h('span', { class: 'glyph plus' }, '+'), h('span', { class: 'tile-label' }, 'Tilføj')));
@@ -650,19 +674,9 @@ async function setupIcons() {
   });
 }
 
-// ---------- settings: Planlæg + always-closed apps ----------
+// ---------- settings: always-closed apps ----------
 
 function lockMark(tip = LOCK_TIP) { return h('span', { class: 'lock', title: tip, html: LOCK_ICON }); }
-
-function renderPlanList(locked) {
-  const now = Date.now();
-  $('planList').replaceChildren(...schedules().map((sc) => h('li', { class: 'row' + (sc.enabled === false ? ' dim' : '') },
-    h('span', { class: 'row-title' }, periodText(sc, lists(), now)),
-    locked ? lockMark() : h('button', {
-      type: 'button', class: 'icon-btn', 'aria-label': 'Slet', title: 'Slet', disabled: ui.busy,
-      onclick: () => act(() => api.deleteSchedule(sc.id)),
-    }, '×'))));
-}
 
 function renderAppList(locked) {
   const always = apps().filter((a) => a.blocked);
@@ -681,60 +695,15 @@ function renderAppList(locked) {
   }));
 }
 
-function renderPlanForm() {
-  const p = ui.plan;
-  for (const b of $('planKind').querySelectorAll('button')) b.classList.toggle('on', b.dataset.kind === p.kind);
-  show('planDate', p.kind === 'date');
-  show('planDays', p.kind === 'weekly');
-  const now = Date.now();
-  for (const b of $('planDate').querySelectorAll('[data-day]')) b.classList.toggle('on', p.date === cphDate(now, +b.dataset.day));
-  $('planDateInput').min = cphDate(now, 0);
-  if ($('planDateInput').value !== (p.date || '')) $('planDateInput').value = p.date || '';
-  $('planDateInput').classList.toggle('on', !!p.date && p.date !== cphDate(now, 0) && p.date !== cphDate(now, 1));
-  $('planDays').replaceChildren(...[1, 2, 3, 4, 5, 6, 7].map((d) => {
-    const on = p.weekdays.includes(d);
-    return h('button', {
-      type: 'button', class: 'day' + (on ? ' on' : ''), 'aria-pressed': String(on),
-      onclick: () => { p.weekdays = on ? p.weekdays.filter((x) => x !== d) : [...p.weekdays, d].sort(); renderPlanForm(); },
-    }, weekdayShort(d));
-  }));
-  if (!lists().some((l) => l.id === p.list)) p.list = ui.listId || pickList(lists(), null);
-  const l = lists().find((x) => x.id === p.list);
-  $('planListName').textContent = l ? l.name : '';
-  // What this period will block, read-only.
-  const mini = l ? [
-    ...sites().filter((x) => l.sites.includes(x.id)).map((x) => [siteIcon(x, 'glyph small'), tileLabel(x.label)]),
-    ...apps().filter((a) => l.apps.includes(a.bundleId)).map((a) => [appIcon(a, 'glyph small'), a.name]),
-  ] : [];
-  $('planIcons').replaceChildren(...mini.map(([icon, label]) => { icon.title = label; return icon; }));
-  renderPlanTimes();
-}
-
-function renderPlanTimes() {
-  const [sh, sm] = ui.plan.start.split(':');
-  const [eh, em] = ui.plan.end.split(':');
-  $('planSHVal').textContent = sh; $('planSMVal').textContent = sm;
-  $('planEHVal').textContent = eh; $('planEMVal').textContent = em;
-}
-
-function renderPlanMenu() {
-  const p = ui.plan;
-  $('planListMenu').replaceChildren(...lists().map((l) => h('button', {
-    type: 'button', role: 'menuitemradio', 'aria-checked': String(p.list === l.id), class: 'menu-item' + (p.list === l.id ? ' current' : ''),
-    onclick: () => { p.list = l.id; planDD.close(true); renderPlanForm(); },
-  }, h('span', { class: 'check' }, p.list === l.id ? '✓' : ''), l.name)));
-}
-let planDD = null;
-
 function renderSettings() {
+  // The gear only exists when there is something to set.
+  $('gear').hidden = !apps().some((a) => a.blocked);
   if (!$('settings').open) return;
   const { locked } = lockInfo();
-  const sig = JSON.stringify([locked, ui.busy, schedules(), lists().map((l) => [l.id, l.name]), apps()]);
+  const sig = JSON.stringify([locked, ui.busy, apps()]);
   if (ui.sigs.settings === sig) return;
   ui.sigs.settings = sig;
-  renderPlanList(locked);
   renderAppList(locked);
-  if (!$('planForm').hidden) renderPlanForm();
 }
 
 function setupSettings() {
@@ -742,39 +711,9 @@ function setupSettings() {
   $('gear').onclick = () => { ui.sigs.settings = null; dlg.showModal(); renderSettings(); };
   $('settingsClose').onclick = () => dlg.close();
   dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
-
-  const form = $('planForm');
-  const close = () => { form.hidden = true; $('addPlanBtn').hidden = false; $('planErr').hidden = true; };
-  $('addPlanBtn').onclick = () => {
-    ui.plan = { kind: 'date', date: cphDate(Date.now(), 1), weekdays: [1, 2, 3, 4, 5], list: ui.listId, start: '09:00', end: '12:00' };
-    $('planErr').hidden = true;
-    form.hidden = false;
-    $('addPlanBtn').hidden = true;
-    renderPlanForm();
-  };
-  for (const b of $('planKind').querySelectorAll('button')) b.onclick = () => { ui.plan.kind = b.dataset.kind; renderPlanForm(); };
-  for (const b of $('planDate').querySelectorAll('[data-day]')) b.onclick = () => { ui.plan.date = cphDate(Date.now(), +b.dataset.day); renderPlanForm(); };
-  $('planDateInput').addEventListener('change', () => { ui.plan.date = $('planDateInput').value || null; renderPlanForm(); });
-  // Start/end: the same hour:minute pickers as "Indtil" (any time of day).
-  const HOURS = Array.from({ length: 24 }, (_, i) => ({ value: i, label: pad2(i) }));
-  const MINS = MINUTE_STEPS.map((m) => ({ value: m, label: pad2(m) }));
-  const part = (key, i) => +ui.plan[key].split(':')[i];
-  const setPart = (key, i, v) => { const t = ui.plan[key].split(':'); t[i] = pad2(v); ui.plan[key] = t.join(':'); renderPlanTimes(); };
-  for (const [id, key, i, opts, label] of [['planSH', 'start', 0, HOURS, 'Fra, time'], ['planSM', 'start', 1, MINS, 'Fra, minut'],
-    ['planEH', 'end', 0, HOURS, 'Til, time'], ['planEM', 'end', 1, MINS, 'Til, minut']]) {
-    combo({ root: $(id), button: $(id + 'Btn'), menu: $(id + 'Menu'), label,
-      getOptions: () => opts, getValue: () => part(key, i), onSelect: (v) => setPart(key, i, v) });
-  }
-  form.querySelector('[data-cancel]').onclick = close;
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const r = scheduleBody({ ...ui.plan }, Date.now());
-    if (r.error) { $('planErr').textContent = r.error; $('planErr').hidden = false; return; }
-    if (await act(() => api.addSchedule(r.body))) close();
-  });
 }
 
-// ---------- alert / next ----------
+// ---------- alert / next / plan ----------
 
 function renderAlert() {
   const m = healthMessage(ui.view, Date.now());
@@ -783,18 +722,22 @@ function renderAlert() {
   $('alert').hidden = !m;
 }
 
+/** One clickable line; it opens the plan on that period. Nothing at all when nothing is planned. */
 function renderNext() {
   const ns = status() && status().nextSession;
   const { locked } = lockInfo();
-  if (!ns || locked) { $('next').hidden = true; return; }
-  const now = Date.now();
-  const start = Date.parse(ns.start);
-  const d = dayDiff(now, start);
-  const day = d === 0 ? 'i dag' : d === 1 ? 'i morgen' : weekdayName(cphParts(start).weekday);
-  const name = ns.listName || listName(ns.list);
-  $('next').textContent = `Næste: ${day} ${formatClock(start)}${name ? ' · ' + name : ''}`;
-  $('next').hidden = false;
+  if (!ns || locked) { $('nextBtn').hidden = true; return; }
+  $('nextText').textContent = nextLineText(ns, Date.now(), listName);
+  $('nextBtn').hidden = false;
 }
+
+/** Where a new session from now to `end` really ends: through every planned period it runs into. */
+function planChain(now, end) {
+  if (end == null) return { end, via: [] };
+  return chainEnd(now, end, occurrences(schedules(), now, end + 2 * 86400000));
+}
+
+let plan = null;
 
 // ---------- wiring ----------
 
@@ -806,6 +749,7 @@ function render() {
   renderTiles();
   renderNext();
   renderSettings();
+  if (plan) plan.render();
 }
 
 let refreshing = null;
@@ -846,7 +790,6 @@ async function setup() {
   $('big').addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key === ' ') && $('big').classList.contains('editable')) { e.preventDefault(); openCustom(); } });
 
   listDD = dropdown({ root: $('listLine'), button: $('listBtn'), menu: $('listMenu'), render: () => { ui.menuAsk = false; renderMenu(); } });
-  planDD = dropdown({ root: $('planDD'), button: $('planListBtn'), menu: $('planListMenu'), render: renderPlanMenu });
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
     closeMenu();
@@ -875,7 +818,7 @@ async function setup() {
     renderTiles();   // the confirmation is a read-only summary: no "Rediger" (design review round 3, R2)
     $('lockNow').focus();
   };
-  $('back').onclick = () => { ui.step = 'idle'; ui.sigs.tiles = null; renderHero(); renderTiles(); };
+  $('back').onclick = () => { ui.step = 'idle'; ui.confirmVia = []; ui.sigs.tiles = null; renderHero(); renderTiles(); };
   $('lockNow').onclick = async (e) => {
     if (!confirmArmed(ui.shownAt.lock, performance.now(), e.detail)) return;
     const list = ui.listId;
@@ -906,6 +849,17 @@ async function setup() {
   setupAdd();
   setupSettings();
   setupIcons();
+  plan = createPlan({
+    api, act, toast, h, $, lockInfo, siteIcon, appIcon, LOCK_ICON, status, refresh,
+    currentListId: () => ui.listId,
+  });
+  $('calBtn').onclick = () => plan.open();
+  $('nextBtn').onclick = () => {
+    const ns = status() && status().nextSession;
+    if (!ns) { plan.open(); return; }
+    const p = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Copenhagen', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(ns.start));
+    plan.open(ns.scheduleId, p);
+  };
 
   render();
   refresh();

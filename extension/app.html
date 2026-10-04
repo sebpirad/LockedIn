@@ -11,6 +11,9 @@
 <body>
 <div class="wrap">
   <header class="top">
+    <button id="calBtn" class="gear" type="button" aria-label="Plan" title="Plan">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 10h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
     <button id="gear" class="gear" type="button" aria-label="Indstillinger" title="Indstillinger">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.6-2-3.4-2.4 1a7.6 7.6 0 0 0-2.6-1.5L14 2.5h-4l-.4 2.5A7.6 7.6 0 0 0 7 6.5l-2.4-1-2 3.4 2 1.6a7.6 7.6 0 0 0 0 3l-2 1.6 2 3.4 2.4-1a7.6 7.6 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a7.6 7.6 0 0 0 2.6-1.5l2.4 1 2-3.4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
     </button>
@@ -79,7 +82,9 @@
         <button id="extendBack" class="ghost small" type="button">Tilbage</button>
       </div>
     </div>
-    <p id="next" class="next" hidden></p>
+    <button id="nextBtn" class="next-btn" type="button" hidden>
+      <span id="nextText"></span><svg viewBox="0 0 8 12" aria-hidden="true"><path d="M2 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
   </div>
 </div>
 
@@ -109,45 +114,30 @@
     <button id="settingsClose" class="icon-btn" type="button" aria-label="Luk">×</button>
   </div>
 
-  <section>
-    <h3>Planlæg</h3>
-    <ul id="planList" class="list"></ul>
-    <button id="addPlanBtn" class="add" type="button">+ Planlæg</button>
-    <form id="planForm" class="inline-form" hidden>
-      <div id="planKind" class="seg" role="group">
-        <button type="button" data-kind="date">Dato</button>
-        <button type="button" data-kind="weekly">Ugentlig</button>
-      </div>
-      <div id="planDate" class="chips left">
-        <button type="button" class="chip" data-day="0">I dag</button>
-        <button type="button" class="chip" data-day="1">I morgen</button>
-        <input id="planDateInput" type="date" aria-label="Dato">
-      </div>
-      <div id="planDays" class="days" role="group" aria-label="Ugedage" hidden></div>
-      <div class="times">
-        <div id="planSH" class="dd clock"><button id="planSHBtn" class="select-btn compact" type="button"><span id="planSHVal"></span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="planSHMenu" class="menu combo-menu" hidden></div></div><span class="sep">:</span><div id="planSM" class="dd clock"><button id="planSMBtn" class="select-btn compact" type="button"><span id="planSMVal"></span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="planSMMenu" class="menu combo-menu" hidden></div></div>
-        <span class="sep">–</span>
-        <div id="planEH" class="dd clock"><button id="planEHBtn" class="select-btn compact" type="button"><span id="planEHVal"></span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="planEHMenu" class="menu combo-menu" hidden></div></div><span class="sep">:</span><div id="planEM" class="dd clock"><button id="planEMBtn" class="select-btn compact" type="button"><span id="planEMVal"></span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="planEMMenu" class="menu combo-menu" hidden></div></div>
-      </div>
-      <div id="planDD" class="dd">
-        <button id="planListBtn" class="select-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Liste">
-          <span id="planListName"></span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div id="planListMenu" class="menu left" role="menu" hidden></div>
-      </div>
-      <div id="planIcons" class="mini-icons" aria-label="Det blokeres"></div>
-      <div class="actions left">
-        <button class="primary small" type="submit">Gem</button>
-        <button class="ghost small" type="button" data-cancel>Annullér</button>
-      </div>
-      <p class="field-err" id="planErr" hidden></p>
-    </form>
-  </section>
-
   <section id="appsSection" hidden>
     <h3>Altid lukket under fokus</h3>
     <ul id="appList" class="list"></ul>
   </section>
+</dialog>
+
+<dialog id="planDlg" class="sheet plan-sheet" aria-label="Plan">
+  <div class="sheet-head">
+    <h2>Plan</h2>
+    <button id="planClose" class="icon-btn" type="button" aria-label="Luk">×</button>
+  </div>
+  <div class="week" id="week">
+    <div class="week-nav">
+      <button id="weekPrev" class="icon-btn" type="button" aria-label="Forrige uge">‹</button>
+      <div class="week-axis" aria-hidden="true"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div>
+      <button id="weekNext" class="icon-btn" type="button" aria-label="Næste uge">›</button>
+    </div>
+    <div id="weekRows" class="week-rows"></div>
+  </div>
+  <button id="newPeriod" class="add" type="button">+ Ny periode</button>
+  <div id="planNewSlot"></div>
+  <ul id="planList" class="list plist"></ul>
+  <!-- inside the modal dialog, or it would be inert -->
+  <div id="undo" class="toast undo" role="status" hidden><span id="undoText"></span><button id="undoBtn" class="ghost small" type="button">Fortryd</button></div>
 </dialog>
 
 <div id="toast" class="toast" role="alert" hidden></div>

@@ -33,6 +33,7 @@ export function dropdown({ root, button, menu, render }) {
     else if (e.key === 'Tab') close(false);
   });
   // composedPath: a menu click may re-render the menu, so e.target can already be detached.
-  document.addEventListener('click', (e) => { if (!e.composedPath().includes(root)) close(false); });
-  return { open, close, isOpen: () => !menu.hidden, render };
+  const outside = (e) => { if (!e.composedPath().includes(root)) close(false); };
+  document.addEventListener('click', outside);
+  return { open, close, isOpen: () => !menu.hidden, render, destroy: () => document.removeEventListener('click', outside) };
 }

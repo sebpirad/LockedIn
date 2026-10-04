@@ -387,3 +387,49 @@ Search-inside also confirms one of the researcher's rejections: the popular Phel
 - All 22 unique images match Commons for licence, creator and source. Each one depicts the right person, and every local file exists with the Commons aspect ratio.
 
 **Method:** Dartmouth, SI, TED, CNN, PBS and the NYT archive were searched by script. TIME, the NYT 2018 article (Wayback), Quote Investigator and the YouTube transcript were checked in a browser by script. The ten archive.org books were checked with search-inside. Only true/false results and page numbers were read, never the surrounding text.
+
+## v2 A
+
+Independent check of `research/quotes-v2-A.json` (34 leader and conqueror quotes, A01–A34), run 2026-10-04. Each quote had to pass two tests: it must be genuine, and its fame must be confirmed in a major quotation dictionary. Verdicts, with `fame_confirmed`, are in `research/verification-v2-A.json`.
+
+| Verdict | Count |
+|---|---|
+| PASS | 17 |
+| FIX | 3 |
+| REJECT | 14 |
+
+**How fame was tested.** The researcher's anthology claims were "from memory", so I checked them with archive.org search-inside in seven dictionaries:
+- Oxford Dictionary of Quotations, 5th ed. (1999) and 8th ed. (2014)
+- Bartlett's Familiar Quotations, 16th, 17th and 18th eds. (1992, 2002, 2012)
+- Yale Book of Quotations (2006) and New Yale Book of Quotations (2021)
+
+I used several phrasings per quote. A hit counted only when the snippet or page belonged to the right author. **Every one of the 14 rejects is genuine. They fail only the fame test.**
+
+**REJECT (fame not confirmed in any of the seven):**
+- A02 Marcus Aurelius, "obstacle on the road": the passage is famous only in Hays's wording.
+- A04 T. Roosevelt, "work worth doing".
+- A08 Lincoln, "resolution to succeed".
+- A11 Gandhi, "indomitable will".
+- A16 and A17 Jefferson.
+- A18 Booker T. Washington: the claimed Bartlett's listing is not there.
+- A23 and A24 King: I reached primary sources for both, the King Papers (Spelman College 1960) and Strength to Love p. 20.
+- A25 Mandela. Its wording also has an unmarked cut: Long Walk to Freedom p. 542 has a 19-word sentence between the two sentences shown.
+- A26 Frederick the Great.
+- A27 and A28 Alexander.
+- A34 Washington, "no excuse".
+
+Several of these are popular online, but none is in ODQ, Bartlett's or Yale. If the owner accepts "popular" evidence, A23–A25 are the strongest candidates to reinstate. A25 would need "…" between its sentences.
+
+**FIX**
+- **A30 Napoleon**: the researcher's own translation is replaced by the ODQ's published English (ODQ 5th ed. 1999, p. 538, Napoleon I; whole sentence matched). The French was verified in Correspondance vol. XVII, p. 472.
+- **A12 and A13 Eleanor Roosevelt**: both sentences are on p. 36 of You Learn by Living (1961 London ed.). They are upgraded from secondary to primary.
+
+**Fame confirmed (PASS):** A01 (ODQ, in another translation), A03, A05, A06, A07, A09, A10, A14, A15, A19, A20, A21, A22, A29, A31, A32 (Bartlett's, in a modern translation) and A33. Page numbers are in the JSON.
+
+**Images.** All 19 files match Commons for licence and creator, depict the right person, and exist locally at the Commons aspect ratio. Doubts:
+- **A31/A32 Sun Tzu**: a modern bronze statue in Enchoen garden, Japan (opened 1995). The sculptor's copyright is likely still running, and Japanese freedom of panorama does not cover selling copies. Replace it with a public-domain depiction.
+- **A11 Gandhi**: PD-UK-unknown, so not PD in the US until 2027.
+- **A19/A20 FDR**: a 1944 Perskie photo licensed CC BY 2.0 by the FDR Library from a family gift. Acceptable.
+- **CC BY-SA images**: A01/A02, A25 and A27/A28 must keep CC BY-SA on the resized copies.
+
+**Method:** source texts (Gutenberg, Wikisource, ICS, Hansard, FDPP, mkgandhi, Monticello, APP, Beacon, King Papers, LacusCurtius, NCERT) were matched by script. Archive.org OCR and search-inside were used for the Correspondance, Œuvres, Fitzpatrick, Moores, You Learn by Living, Strength to Love, Long Walk to Freedom and the seven dictionaries. Only true/false results and page numbers were read.

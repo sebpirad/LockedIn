@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Koncept B · Liste</title>
+<!-- DEV ONLY mockup (never shipped: tools/pack.sh copies a whitelist and refuses dev/). -->
+<link rel="stylesheet" href="../../ui/app.css">
+<link rel="stylesheet" href="plan.css">
+<style>
+  /* front page: the existing "Næste" line, now a button into the plan */
+  .next-btn {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 0; border-radius: 999px;
+    background: transparent; color: var(--muted); font-size: 14px;
+  }
+  .next-btn:hover { color: var(--text); background: var(--surface); }
+  .next-btn .dot { width: 7px; height: 7px; }
+  .next-btn svg { color: var(--subtle); }
+
+  /* plan drawer */
+  .drawer h2 { font: 600 18px/1.2 var(--display); }
+  .plist { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; }
+  .prow { border-bottom: 1px solid var(--line); }
+  .prow-btn {
+    width: 100%; display: grid; grid-template-columns: 104px auto minmax(0, 1fr) 16px; align-items: center; gap: 12px;
+    min-height: 56px; padding: 6px 6px 6px 2px; background: transparent; border: 0; border-radius: 10px; text-align: left;
+  }
+  .prow-btn:hover { background: var(--surface-2); }
+  .prow-when { font-weight: 600; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-flex; align-items: center; gap: 8px; }
+  .prow-when .rep { width: 12px; height: 12px; color: var(--subtle); }
+  .prow-time { font-size: 15px; font-variant-numeric: tabular-nums; }
+  .prow-list { display: inline-flex; align-items: center; gap: 8px; min-width: 0; color: var(--subtle); font-size: 14px; }
+  .prow-list > span:last-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .prow-end { color: var(--subtle); display: grid; place-items: center; }
+  .prow-end .lock-ic { width: 12px; height: 12px; }
+  .prow.live .prow-time { font-weight: 600; }
+  .prow .badge-in { width: 18px; height: 18px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: inline-grid; place-items: center; flex: none; }
+  .prow .badge-in svg { width: 10px; height: 10px; }
+  .pcard { margin: 8px 0 10px; padding: 14px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line-2); }
+  .pcard .select-btn { background: var(--surface); }
+  .pcard .menu { background: #1f2329; }
+  .pcard .chip { padding: 0 11px; }
+  .pcard .chips { gap: 6px; }
+  .pcard .chip.on { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .drawer .add { display: inline-flex; align-items: center; gap: 6px; }
+
+  @media (max-width: 560px) {
+    .prow-btn { grid-template-columns: 92px auto minmax(0, 1fr) 12px; gap: 10px; }
+    .drawer { padding: 0 16px 40px; }
+    .pcard { padding: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<dialog id="plan" class="drawer" aria-label="Plan">
+  <div class="drawer-head">
+    <h2 tabindex="-1" autofocus style="outline:none">Plan</h2>
+    <button id="planClose" class="icon-btn" type="button" aria-label="Luk">×</button>
+  </div>
+  <div id="planBody"></div>
+</dialog>
+
+<script type="module">
+import {
+  SCN, NOW, DAY, FRONT_LIST, periods, params, lockInfo, upcoming, nextOcc, savePeriod, deletePeriod, draftFrom,
+  whenText, dayShort, dayMid, range, hm, listById, h, $, tintStyle, ICONS, LOCK_ICON, hero, topBar, mockBar, editor,
+} from './shared.js';
+
+const lock = lockInfo();
+const app = $('app');
+const dlg = $('plan');
+let open = null; // null | 'new' | period id
+
+// ---------- front page ----------
+function renderFront() {
+  // While locked, "Næste" is the first period that starts after the lock (the running one is the timer itself).
+  const o = upcoming(4).find((x) => !(lock.locked && x.s < lock.until));
+  const after = h('div', { class: 'after' });
+  if (o) {
+    const l = listById(o.p.list);
+    after.append(h('button', { type: 'button', class: 'next-btn', style: tintStyle(l.id), onclick: () => openPlan(null) },
+      `Næste: ${dayShort(Math.floor(o.s / DAY)).toLowerCase()} ${range(o.p.start, o.p.end)}`, h('span', { class: 'dot' }), l.name,
+      h('span', { html: ICONS.chev, style: 'display:contents' })));
+  } else {
+    after.append(h('button', { type: 'button', class: 'quiet with-ic', html: `${ICONS.cal}<span>Planlæg</span>`, onclick: () => openPlan(null) }));
+  }
+  app.replaceChildren(topBar(), hero({ locked: lock.locked }), after);
+}
+
+// ---------- plan drawer ----------
+function openPlan(what) {
+  open = what ?? (periods.length ? null : 'new');
+  dlg.showModal();
+  renderPlan();
+}
+$('planClose').onclick = () => dlg.close();
+dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+dlg.addEventListener('close', () => { open = null; renderFront(); });
+dlg.addEventListener('cancel', (e) => { if (open) { e.preventDefault(); open = null; renderPlan(); } }); // Esc closes the card first
+
+function sorted() {
+  return [...periods].map((p) => ({ p, o: nextOcc(p) })).sort((a, b) => (a.o ? a.o.s : 1e9) - (b.o ? b.o.s : 1e9));
+}
+
+function card(draft, existing) {
+  const ed = editor({
+    draft, existing, style: 'chips', inline: true, ctxDay: 1,
+    onSave: (d) => { savePeriod(d); open = null; renderPlan(); },
+    onDelete: (id) => { deletePeriod(id); open = null; renderPlan(); },
+    onClose: () => { open = null; renderPlan(); },
+  });
+  return h('div', { class: 'pcard' }, ed.el);
+}
+
+function renderPlan() {
+  const body = $('planBody');
+  const rows = sorted().map(({ p, o }) => {
+    if (open === p.id) return h('li', {}, card(draftFrom(p), true));
+    const l = listById(p.list);
+    const live = lock.locked && o && o.s <= NOW && NOW < o.e;
+    return h('li', { class: 'prow' + (live ? ' live' : '') },
+      h('button', { type: 'button', class: 'prow-btn', style: tintStyle(l.id), onclick: () => { open = p.id; renderPlan(); } },
+        h('span', { class: 'prow-when' }, live ? h('span', { class: 'badge-in', html: LOCK_ICON }) : null, p.date != null ? dayMid(p.date) : whenText(p)),
+        h('span', { class: 'prow-time' }, range(p.start, p.end)),
+        h('span', { class: 'prow-list' }, h('span', { class: 'dot' }), h('span', {}, l.name)),
+        h('span', { class: 'prow-end', html: lock.locked ? LOCK_ICON : ICONS.chev })));
+  });
+  const add = open === 'new'
+    ? card({ list: FRONT_LIST, start: 9 * 60, end: 12 * 60, kind: 'date', date: 1, weekdays: [] }, false)
+    : h('button', { type: 'button', class: 'add', onclick: () => { open = 'new'; renderPlan(); } }, '+ Ny periode');
+  body.replaceChildren(add, h('ul', { class: 'plist' }, ...rows));
+}
+
+renderFront();
+mockBar('B · Liste');
+
+// Deep links for screenshots: ?open=plan, ?demo=task1 | task2 | edit
+const demo = params.get('demo');
+if (params.get('open') === 'plan' || demo) {
+  openPlan(demo === 'task1' || demo === 'task2' ? 'new' : demo === 'edit' ? 'p1' : null);
+  if (demo === 'task2') [...document.querySelectorAll('.pcard .chip')].find((c) => c.textContent === 'Hverdage')?.click();
+}
+</script>
+</body>
+</html>

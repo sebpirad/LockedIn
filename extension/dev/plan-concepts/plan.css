@@ -1,0 +1,108 @@
+/* DEV ONLY. Concept mockups for "Planlæg". Builds on ../../ui/app.css (same tokens, same components). */
+
+:root {
+  /* One muted tint per list, so a block says which list it is without text. Never yellow (reserved for the
+     primary action and the lock badge) and never red (errors). */
+  --l1: #8ea6d8;
+  --l2: #7fc2ad;
+  --l3: #c39ad3;
+  --l4: #a7b6c4;
+}
+
+/* ---------- mock-only chrome (scenario switch) ---------- */
+.mockbar {
+  position: fixed; left: 8px; bottom: 8px; z-index: 50; display: flex; gap: 2px; padding: 2px; border-radius: 999px;
+  background: rgba(19, 21, 25, .9); border: 1px dashed var(--line-2); font-size: 11px;
+}
+.mockbar a { color: var(--subtle); text-decoration: none; padding: 3px 9px; border-radius: 999px; }
+.mockbar a.on { color: var(--text); background: var(--surface-2); }
+.mockbar span { color: var(--faint); padding: 3px 4px 3px 8px; letter-spacing: .08em; text-transform: uppercase; }
+html[data-mock] body::after { content: none; }
+body:has(.pe-pop) .mockbar, body:has(.planner) .mockbar { display: none; }
+
+/* ---------- front page additions ---------- */
+.tint { --lc: var(--l1); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lc); flex: none; display: inline-block; }
+.select-btn .dot { margin-right: -4px; }
+.select-btn .lbl { display: inline-flex; align-items: center; gap: 10px; min-width: 0; }
+.select-btn .lbl > span:last-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cal-ic { width: 16px; height: 16px; flex: none; }
+.quiet.with-ic { display: inline-flex; align-items: center; gap: 8px; }
+
+/* ---------- blocks (shared by week view and rails) ---------- */
+.blk {
+  position: absolute; box-sizing: border-box; overflow: hidden; white-space: nowrap;
+  background: color-mix(in srgb, var(--lc) 20%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--lc) 55%, transparent);
+  color: var(--text); font-size: 12px; font-variant-numeric: tabular-nums; line-height: 1.25;
+  border-radius: 7px; cursor: pointer; padding: 0; text-align: left;
+}
+.blk:hover { background: color-mix(in srgb, var(--lc) 30%, var(--surface)); }
+.blk.sel { box-shadow: 0 0 0 2px var(--text); z-index: 3; }
+.blk.past { opacity: .4; cursor: default; }
+.blk.cont-before { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.blk.cont-after { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.blk.live { background: color-mix(in srgb, var(--lc) 38%, var(--surface)); border-color: var(--lc); }
+.blk.frozen { cursor: default; }
+.blk .rep { width: 10px; height: 10px; color: var(--muted); flex: none; }
+.blk-badge {
+  position: absolute; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); color: var(--accent-ink);
+  display: grid; place-items: center; box-shadow: 0 0 0 2px var(--bg); z-index: 4; pointer-events: none;
+}
+.blk-badge svg { width: 10px; height: 10px; }
+.ghost-blk {
+  position: absolute; box-sizing: border-box; border-radius: 7px; pointer-events: none; z-index: 2;
+  background: color-mix(in srgb, var(--text) 16%, transparent); border: 1.5px solid var(--text);
+}
+.ghost-blk.timer { background: transparent; border: 1.5px dashed var(--ring); }
+.chain-outline { position: absolute; box-sizing: border-box; border: 1.5px solid var(--text); border-radius: 9px; pointer-events: none; z-index: 2; }
+.len-pill {
+  position: absolute; z-index: 6; pointer-events: none; white-space: nowrap;
+  padding: 2px 8px; border-radius: 999px; background: var(--text); color: var(--bg);
+  font: 600 12px/18px var(--sans); font-variant-numeric: tabular-nums;
+}
+.now-line { position: absolute; background: var(--text); z-index: 3; pointer-events: none; border-radius: 1px; }
+
+/* ---------- period editor (shared) ---------- */
+.pe { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+.pe-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.pe .dd { align-self: flex-start; }
+.pe .times { color: var(--muted); }
+.pe .clock-row { justify-content: flex-start; }
+.pe .actions { justify-content: flex-start; }
+.pe-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.pe-foot .actions { flex-wrap: nowrap; }
+.pe-static { font-size: 15px; color: var(--text); display: flex; align-items: center; gap: 10px; min-height: 40px; }
+.pe-static.time { font-size: 22px; font-weight: 300; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.pe-locknote { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; min-height: 40px; }
+.pe-locknote .lock-ic { width: 12px; height: 12px; color: var(--accent); }
+.trash { color: var(--muted); }
+.trash svg { width: 18px; height: 18px; }
+.trash:hover { color: var(--bad) !important; }
+.pe-ask { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.pe .days { gap: 4px; }
+.pe .menu.left { left: 0; transform: none; }
+.pe .mini-icons { gap: 6px; }
+.pe .field-err { margin-top: -4px; }
+
+.pe-pop {
+  position: fixed; z-index: 40; width: 376px; outline: none; max-width: calc(100vw - 32px);
+  padding: 14px; border-radius: 16px; background: var(--surface-2); border: 1px solid var(--line-2);
+  box-shadow: 0 28px 70px -20px #000;
+}
+.pe-pop .select-btn { background: var(--surface); }
+.pe-pop .menu { background: #1f2329; }
+.pe-scrim { position: fixed; inset: 0; z-index: 39; background: transparent; }
+
+@media (max-width: 560px) {
+  .pe .clock-row { gap: 6px; }
+  .pe .select-btn.compact { padding: 0 10px 0 12px; }
+  /* phone: the editor is a bottom sheet; its menus open upwards */
+  .pe-pop { left: 0 !important; right: 0; top: auto !important; bottom: 0; width: auto; max-width: none;
+    border-radius: 20px 20px 0 0; padding: 16px 16px 24px; border-width: 1px 0 0; }
+  .pe-scrim { background: rgba(0, 0, 0, .45); }
+  .pe-pop .menu { top: auto; bottom: 100%; margin: 0 0 6px; }
+}
+
+/* ---------- small shared icons ---------- */
+.ic { width: 14px; height: 14px; flex: none; }

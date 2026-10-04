@@ -13,7 +13,7 @@ public struct EnforcementReport {
 /// Routes /v1/* to the Engine. Pure apart from the injected closures; tested without a socket.
 public final class API {
     public static let extensionOrigin = "chrome-extension://nildondjeeibacombanbjnokenmhfhie"
-    public static let version = "1.2.0"
+    public static let version = "1.3.0"
 
     let engine: Engine
     let installed: () -> [AppRule]
@@ -92,6 +92,12 @@ public final class API {
                 try engine.updateSchedule(Self.schedule(body, id: id), now: now)
             case ("DELETE", "schedules", let id?):
                 try engine.removeSchedule(id: id, now: now)
+            case ("POST", "skip", let id?):
+                guard let d = body["date"] as? String else { return Self.bad("Angiv dato.") }
+                try engine.skipOccurrence(id: id, date: d, now: now)
+            case ("DELETE", "skip", let id?):
+                guard let d = body["date"] as? String else { return Self.bad("Angiv dato.") }
+                try engine.unskipOccurrence(id: id, date: d, now: now)
             case ("POST", "heartbeat", nil):
                 engine.heartbeat(now: now)
                 changed()
@@ -124,6 +130,7 @@ public final class API {
         let active = engine.activeListIds(now: now)
         let effective = Set(engine.effectiveSites(now: now).map(\.id))
         let activeApps = Set(engine.state.lists.filter { active.contains($0.id) }.flatMap(\.apps))
+        let frozenSchedules = engine.frozenScheduleIds(now: now)
         let next: Any = s.next.map { iv -> [String: Any] in
             let sid = String(iv.source.dropFirst("schedule:".count))
             let sc = engine.state.schedules.first { $0.id == sid }
@@ -152,7 +159,8 @@ public final class API {
             },
             "schedules": engine.state.schedules.map { x -> [String: Any] in
                 ["id": x.id, "name": x.name, "weekdays": x.weekdays, "start": x.start, "end": x.end, "enabled": x.enabled,
-                 "list": x.list, "date": x.date ?? NSNull()]
+                 "list": x.list, "date": x.date ?? NSNull(), "skip": x.skip,
+                 "frozen": frozenSchedules.contains(x.id)]
             },
             "enforcement": ["hosts": r.hostsOK, "pf": r.pfOK, "appControl": r.appControlOK,
                             "lastTick": Self.ts(r.lastTick), "lastHeartbeat": Self.ts(engine.state.lastHeartbeat),

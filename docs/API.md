@@ -89,3 +89,10 @@ En **liste** er et navngivet sæt hjemmesider og apps, fx "Locked In 1": Slack, 
 - `PATCH /v1/apps/{bundleId}` `{"blocked": false}` betyder "Tillad" for en ukendt app, der er sat til altid at være lukket. Browsere kan ikke tillades.
 - `POST /v1/schedules` `{"name", "list", "start", "end", "weekdays"}` for ugentlige perioder eller `{"name", "list", "start", "end", "date": "2026-10-06"}` for en enkelt periode. En enkelt periode skal ligge i fremtiden. Den fjernes automatisk, når den er slut, og ingen lås kører.
 - `PATCH /v1/sites/{id}` findes **ikke** længere.
+
+## Planlæg (v1.3)
+- `schedules[].frozen` er `true`, når perioden er en del af den kørende lås (også i forlængelse af den). Kun de perioder kan ikke rettes eller slettes (423). Alle andre kan rettes frit, også under en lås (ejerens valg 2026-10-04).
+- `schedules[].skip` er en liste af dage (`"YYYY-MM-DD"`), som en ugentlig periode springes over.
+- `POST /v1/skip/{scheduleId}` `{"date": "2026-10-09"}`: "Spring over denne gang". Kun ugentlige perioder og kun en dag, hvor perioden ligger. Svarer 423, hvis forekomsten er en del af den kørende lås.
+- `DELETE /v1/skip/{scheduleId}` `{"date": "…"}`: fortryder. Svarer 400, hvis det ville skabe en samlet lås på over 24 timer.
+- "Næste" og forekomster beregnes 14 dage frem.

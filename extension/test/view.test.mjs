@@ -81,3 +81,10 @@ test('Ny liste: clicking away from the untouched default creates nothing; Enter 
   assert.deepEqual(nameCommit('new', 'Locked In 3', '', 'enter', 'Locked In 3'), { op: 'create', name: 'Locked In 3' });
   assert.deepEqual(nameCommit('new', 'Dybt arbejde', '', 'blur', 'Locked In 3'), { op: 'create', name: 'Dybt arbejde' });
 });
+
+test('confirmation warns when the session runs into a planned period', () => {
+  const now = Date.parse('2026-10-05T09:00:00Z'); // 11:00
+  const via = { start: Date.parse('2026-10-05T11:00:00Z'), end: Date.parse('2026-10-05T13:00:00Z') };
+  assert.equal(confirmLine(now, via.end, 'Locked In 1', via, ['Locked In 2']), 'Kan ikke stoppes før kl. 15:00 — fortsætter i den planlagte 13–15 (Locked In 2)');
+  assert.equal(confirmLine(now, via.end, 'Locked In 1', via, ['Locked In 1', 'Locked In 2']), 'Kan ikke stoppes før kl. 15:00 — fortsætter i den planlagte 13–15 (Locked In 1 + Locked In 2)');
+});

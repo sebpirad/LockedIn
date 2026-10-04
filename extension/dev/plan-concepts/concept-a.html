@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Koncept A · Uge</title>
+<!-- DEV ONLY mockup (never shipped: tools/pack.sh copies a whitelist and refuses dev/). -->
+<link rel="stylesheet" href="../../ui/app.css">
+<link rel="stylesheet" href="plan.css">
+<style>
+  /* front page: "Næste" strip in place of the one-line "Næste: …" */
+  .strip { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; max-width: 560px; }
+  .nx {
+    position: relative; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 1px;
+    min-width: 116px; min-height: 54px; padding: 7px 16px 7px 15px; border-radius: 12px;
+    border: 1px solid var(--line-2); background: transparent; text-align: left; transition: border-color .15s, background .15s;
+  }
+  .nx:hover { border-color: var(--ring); background: var(--surface); }
+  .nx::before { content: ""; position: absolute; left: -1px; top: 12px; bottom: 12px; width: 3px; border-radius: 0 3px 3px 0; background: var(--lc); }
+  .nx .d { font-size: 12px; color: var(--subtle); }
+  .nx .t { font-size: 16px; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--text); }
+  .nx .blk-badge { top: -7px; right: -7px; }
+  .nx-plan { min-width: 54px; padding: 0; align-items: center; color: var(--muted); }
+  .nx-plan::before { content: none; }
+  .nx-plan .cal-ic { width: 18px; height: 18px; }
+  .nx-plan:hover { color: var(--text); }
+
+  /* planner: full-screen week */
+  .planner { position: fixed; inset: 0; z-index: 30; background: var(--bg); display: flex; flex-direction: column; animation: up .2s ease-out; }
+  @keyframes up { from { opacity: 0; transform: translateY(10px); } }
+  .pl-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; max-width: 1120px; margin: 0 auto; padding: 12px 16px 6px; }
+  .pl-nav { display: flex; align-items: center; gap: 2px; }
+  .pl-title { font: 600 17px/1.2 var(--display); min-width: 128px; text-align: center; font-variant-numeric: tabular-nums; }
+  .wk { --hh: 34px; flex: 1; overflow: auto; width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 16px 32px; overscroll-behavior: contain; }
+  .wk-head, .wk-body { display: grid; grid-template-columns: 40px repeat(7, minmax(0, 1fr)); }
+  .wk-head { position: sticky; top: 0; z-index: 8; background: var(--bg); box-shadow: 0 1px 0 var(--line); }
+  .wk-day { text-align: center; padding: 4px 0 8px; font-size: 12px; color: var(--subtle); }
+  .wk-day b { display: grid; place-items: center; margin: 2px auto 0; width: 34px; height: 34px; border-radius: 50%; font: 500 18px/1 var(--display); color: var(--text); font-variant-numeric: tabular-nums; }
+  .wk-day.today { color: var(--text); }
+  .wk-day.today b { background: var(--text); color: var(--bg); }
+  .wk-body { position: relative; height: calc(24 * var(--hh)); }
+  .wk-hours { position: relative; }
+  .wk-hours span { position: absolute; right: 8px; transform: translateY(-50%); font-size: 11px; color: var(--subtle); font-variant-numeric: tabular-nums; }
+  .wk-col {
+    position: relative; border-left: 1px solid var(--line); cursor: cell; touch-action: pan-y;
+    background-image: repeating-linear-gradient(to bottom, var(--line) 0 1px, transparent 1px var(--hh));
+  }
+  .wk-col:last-child { border-right: 1px solid var(--line); }
+  .wk-col .shade { position: absolute; left: 0; right: 0; top: 0; background: rgba(10, 11, 13, .62); pointer-events: none; z-index: 1; }
+  .wk-col .now-line { left: -1px; right: 0; height: 2px; }
+  .wk-col .now-line::before { content: ""; position: absolute; left: -4px; top: -3px; width: 8px; height: 8px; border-radius: 50%; background: var(--text); }
+  .wk .blk { left: 3px; right: 3px; padding: 4px 6px; display: flex; flex-direction: column; gap: 1px; z-index: 2; }
+  .wk .blk .l { font-size: 11px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; }
+  .wk .blk .rep { position: absolute; right: 5px; top: 5px; }
+  .wk .blk.cont-before { border-top-left-radius: 0; border-top-right-radius: 0; border-top-style: dashed; }
+  .wk .blk.cont-after { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom-style: dashed; }
+  .wk .blk .blk-badge { right: 4px; bottom: 4px; box-shadow: none; }
+  .wk .blk .ts { display: none; }
+  .wk .ghost-blk { left: 3px; right: 3px; }
+  .wk .chain-outline { left: 1px; right: 1px; }
+  .wk-empty { position: absolute; left: 40px; right: 0; top: calc(8.5 * var(--hh)); text-align: center; color: var(--subtle); font-size: 14px; pointer-events: none; z-index: 3; }
+
+  @media (max-width: 560px) {
+    .strip { gap: 6px; }
+    .nx { min-width: 118px; flex: 0 1 auto; }
+    .nx:nth-child(3) { display: none; }
+    .wk { --hh: 30px; padding: 0 8px 24px; }
+    .wk-head, .wk-body { grid-template-columns: 30px repeat(7, minmax(0, 1fr)); }
+    .wk-day b { width: 28px; height: 28px; font-size: 15px; }
+    .wk-hours span { right: 4px; font-size: 10px; }
+    .wk .blk { left: 1px; right: 1px; padding: 3px 3px; font-size: 10.5px; }
+    .wk .blk .l, .wk .blk .rep, .wk .blk .tf { display: none; }
+    .wk .blk .ts { display: inline; }
+    .wk-empty { left: 30px; }
+    .pl-head { padding: 10px 8px 4px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script type="module">
+import {
+  SCN, NOW, DAY, FRONT_LIST, periods, params, lockInfo, upcoming, occurrences, intervals, chainFor, maxLen,
+  savePeriod, deletePeriod, draftFrom, dayShort, dayNum, monthShort, wd, wdShort, range, hm, hours, listById,
+  h, $, tintStyle, ICONS, lockBadge, hero, topBar, mockBar, editor, popover, closePopover,
+} from './shared.js';
+
+const lock = lockInfo();
+const app = $('app');
+let week = 0;          // 0 = 5.–11. okt.
+let ghost = null;      // {day, s, e} while creating
+
+// ---------- front page ----------
+function renderFront() {
+  const nexts = upcoming(3);
+  const after = h('div', { class: 'after' });
+  if (nexts.length) {
+    after.append(h('div', { class: 'strip', role: 'list', 'aria-label': 'Næste' },
+      ...nexts.map((o) => {
+        const day = Math.floor(o.s / DAY);
+        const live = lock.locked && o.s <= NOW && NOW < o.e;
+        const l = listById(o.p.list);
+        return h('button', { type: 'button', class: 'nx', role: 'listitem', style: tintStyle(l.id),
+          title: `${dayShort(day)} ${range(o.p.start, o.p.end)} · ${l.name}`,
+          onclick: () => openPlanner({ focus: o }) },
+          h('span', { class: 'd' }, live ? 'Nu' : dayShort(day)), h('span', { class: 't' }, range(o.p.start, o.p.end)), live ? lockBadge() : null);
+      }),
+      h('button', { type: 'button', class: 'nx nx-plan', 'aria-label': 'Plan', title: 'Plan', html: ICONS.cal, onclick: () => openPlanner({}) })));
+  } else {
+    after.append(h('button', { type: 'button', class: 'quiet with-ic', html: `${ICONS.cal}<span>Planlæg</span>`, onclick: () => openPlanner({}) }));
+  }
+  app.replaceChildren(topBar(), hero({ locked: lock.locked }), after);
+}
+
+// ---------- planner ----------
+let planner = null;
+function openPlanner({ focus }) {
+  if (focus) week = Math.floor(Math.floor(focus.s / DAY) / 7);
+  planner = h('div', { class: 'planner', role: 'dialog', 'aria-label': 'Plan' });
+  document.body.append(planner);
+  renderPlanner();
+  const wk = planner.querySelector('.wk');
+  const hh = parseFloat(getComputedStyle(wk).getPropertyValue('--hh'));
+  wk.scrollTop = (focus ? Math.max(0, (focus.s % DAY) / 60 - 2) : 7) * hh;
+  if (focus) openEdit(focus.p, Math.floor(focus.s / DAY));
+  document.addEventListener('keydown', escPlanner);
+}
+function closePlanner() {
+  closePopover();
+  planner && planner.remove();
+  planner = null;
+  ghost = null;
+  document.removeEventListener('keydown', escPlanner);
+  renderFront();
+}
+function escPlanner(e) { if (e.key === 'Escape' && !document.querySelector('.pe-pop') && planner) closePlanner(); }
+
+function renderPlanner() {
+  if (!planner) return;
+  const keepScroll = planner.querySelector('.wk')?.scrollTop;
+  const d0 = week * 7;
+  const title = `${dayNum(d0)}.–${dayNum(d0 + 6)}. ${monthShort(d0 + 6)}`;
+  const head = h('div', { class: 'pl-head' },
+    h('div', { class: 'pl-nav' },
+      h('button', { type: 'button', class: 'icon-btn', 'aria-label': 'Forrige uge', disabled: week === 0, html: ICONS.back, onclick: () => { week--; renderPlanner(); } }),
+      h('div', { class: 'pl-title' }, title),
+      h('button', { type: 'button', class: 'icon-btn', 'aria-label': 'Næste uge', html: ICONS.chev, onclick: () => { week++; renderPlanner(); } })),
+    h('button', { type: 'button', class: 'icon-btn', 'aria-label': 'Luk', onclick: closePlanner }, '×'));
+
+  const wkHead = h('div', { class: 'wk-head' }, h('div', {}),
+    ...Array.from({ length: 7 }, (_, i) => h('div', { class: 'wk-day' + (d0 + i === 0 ? ' today' : '') }, wdShort(wd(d0 + i)), h('b', {}, dayNum(d0 + i)))));
+  const body = h('div', { class: 'wk-body' });
+  body.append(h('div', { class: 'wk-hours' }, ...Array.from({ length: 23 }, (_, i) => h('span', { style: `top:calc(${i + 1} * var(--hh))` }, String(i + 1).padStart(2, '0')))));
+  for (let i = 0; i < 7; i++) body.append(column(d0 + i));
+  if (!periods.length && !ghost) body.append(h('div', { class: 'wk-empty' }, 'Træk for at planlægge'));
+  const wk = h('div', { class: 'wk' }, wkHead, body);
+  planner.replaceChildren(head, wk);
+  if (keepScroll != null) wk.scrollTop = keepScroll;
+}
+
+const pct = (min) => `calc(${min / 60} * var(--hh))`;
+
+function column(day) {
+  const col = h('div', { class: 'wk-col', 'data-day': day });
+  const ds = day * DAY, de = ds + DAY;
+  if (day === 0) col.append(h('div', { class: 'shade', style: `height:${pct(NOW)}` }), h('div', { class: 'now-line', style: `top:${pct(NOW)}` }));
+  for (const o of intervals(periods, day, day + 1)) {
+    const s = Math.max(o.s, ds), e = Math.min(o.e, de);
+    if (e <= s) continue;
+    const l = listById(o.p.list);
+    const live = lock.locked && o.s <= NOW && NOW < o.e;
+    const inLock = lock.locked && o.s < lock.until && o.e > lock.since;
+    const past = o.e <= NOW;
+    const b = h('button', {
+      type: 'button', class: 'blk' + (o.s < ds ? ' cont-before' : '') + (o.e > de ? ' cont-after' : '') + (inLock ? ' live' : '') + (past ? ' past' : '') + (lock.locked ? ' frozen' : ''),
+      style: `${tintStyle(l.id)};top:${pct(s - ds)};height:${pct(e - s)}`, 'data-occ': `${o.p.id}:${day}`,
+      'aria-label': `${dayShort(day)} ${range(o.p.start, o.p.end)} · ${l.name}`,
+      onclick: (ev) => { ev.stopPropagation(); if (!past) openEdit(o.p, day); },
+    }, h('span', { class: 'tf' }, range(o.p.start, o.p.end)), h('span', { class: 'ts' }, range(o.p.start, o.p.end).split('–')[0]), e - s >= 75 ? h('span', { class: 'l' }, l.name) : null,
+      o.p.date == null && e - s >= 45 ? h('span', { html: ICONS.rep, style: 'display:contents' }) : null,
+      live && o.e === lock.until ? lockBadge() : null);
+    col.append(b);
+  }
+  if (ghost) drawGhost(col, day);
+  col.addEventListener('pointerdown', (e) => startDrag(e, col, day));
+  return col;
+}
+
+function drawGhost(col, day) {
+  const g = ghost;
+  const ds = day * DAY, de = ds + DAY;
+  const gs = g.day * DAY + g.s, ge = gs + ((g.e - g.s + DAY) % DAY || DAY);
+  const s = Math.max(gs, ds), e = Math.min(ge, de);
+  if (e > s) col.append(h('div', { class: 'ghost-blk', style: `top:${pct(s - ds)};height:${pct(e - s)}` }));
+  // The whole continuous lock this would make: outline + its length. It stops growing at 24 h.
+  const c = chainFor({ start: g.s, end: g.e, date: g.day, weekdays: [], list: g.list }, g.id, g.day);
+  const cs = Math.max(c.s, ds), ce = Math.min(c.e, de);
+  if (c.parts.length > 1 && ce > cs) col.append(h('div', { class: 'chain-outline', style: `top:calc(${pct(cs - ds)} - 3px);height:calc(${pct(ce - cs)} + 6px)` }));
+  if (c.e > ds && c.e <= de) col.append(h('div', { class: 'len-pill', style: `top:calc(${pct(c.e - ds)} + 6px);left:50%;transform:translateX(-50%)` }, hours(c.e - c.s)));
+}
+
+// Drag in a column = a new period on that date. A plain click/tap = one hour from there.
+function startDrag(e, col, day) {
+  if (e.button !== 0 || e.target.closest('.blk')) return;
+  closePopover();
+  const rect = col.getBoundingClientRect();
+  const hh = rect.height / 24;
+  const at = (y) => Math.round(((y - rect.top) / hh) * 60 / 15) * 15;
+  let s = Math.floor(((e.clientY - rect.top) / hh) * 60 / 15) * 15;
+  if (day === 0 && s < NOW) { if ((e.clientY - rect.top) / hh * 60 < NOW) return; s = Math.ceil(NOW / 15) * 15; }
+  const max = Math.min(DAY - s, maxLen({ list: FRONT_LIST, start: s, end: s + 15, date: day, weekdays: [] }, null));
+  if (max < 15) return;
+  const y0 = e.clientY;
+  let moved = false;
+  ghost = { day, s, e: s + Math.min(60, max), list: FRONT_LIST };
+  const touch = e.pointerType === 'touch';
+  const move = (ev) => {
+    if (touch) { if (Math.abs(ev.clientY - y0) > 8) { cancel(); } return; }
+    if (Math.abs(ev.clientY - y0) > 4) moved = true;
+    if (!moved) return;
+    const end = Math.max(s + 15, Math.min(s + max, at(ev.clientY)));
+    ghost = { day, s, e: end % DAY, list: FRONT_LIST };
+    refreshGhost(day);
+  };
+  const up = () => { off(); openCreate(); };
+  const cancel = () => { off(); ghost = null; refreshGhost(day); };
+  const off = () => { removeEventListener('pointermove', move); removeEventListener('pointerup', up); };
+  addEventListener('pointermove', move);
+  addEventListener('pointerup', up);
+  if (!touch) { e.preventDefault(); refreshGhost(day); }
+}
+function refreshGhost(day) {
+  const old = planner.querySelector(`.wk-col[data-day="${day}"]`);
+  for (const el of planner.querySelectorAll('.ghost-blk, .chain-outline, .len-pill, .wk-empty')) el.remove();
+  for (const c of planner.querySelectorAll('.wk-col')) if (ghost) drawGhost(c, +c.dataset.day);
+  return old;
+}
+
+function openCreate() {
+  const g = ghost;
+  if (!g) return;
+  refreshGhost(g.day);
+  const ed = editor({
+    draft: { list: g.list, start: g.s, end: g.e, kind: 'date', date: g.day, weekdays: [] }, ctxDay: g.day,
+    onSave: (d) => { savePeriod(d); ghost = null; closePopover(); renderPlanner(); },
+    onClose: dismiss,
+  });
+  ed.el.addEventListener('draftchange', (ev) => {
+    const d = ev.detail;
+    ghost = { day: d.kind === 'date' ? d.date : g.day, s: d.start, e: d.end, list: d.list };
+    refreshGhost(g.day);
+  });
+  const gEl = planner.querySelector('.ghost-blk');
+  popover(ed.el, (gEl || planner).getBoundingClientRect(), dismiss, 'side', planner.querySelector('.wk'));
+  ed.focus();
+}
+function dismiss() { ghost = null; closePopover(); renderPlanner(); }
+
+function openEdit(p, day) {
+  for (const el of planner.querySelectorAll('.blk.sel')) el.classList.remove('sel');
+  const b = planner.querySelector(`[data-occ="${p.id}:${day}"]`);
+  if (b) { b.classList.add('sel'); b.scrollIntoView({ block: 'nearest' }); }
+  const ed = editor({
+    draft: draftFrom(p), existing: true, ctxDay: day,
+    onSave: (d) => { savePeriod(d); closePopover(); renderPlanner(); },
+    onDelete: (id) => { deletePeriod(id); closePopover(); renderPlanner(); },
+    onClose: () => { closePopover(); renderPlanner(); },
+  });
+  popover(ed.el, (b || planner).getBoundingClientRect(), () => { closePopover(); renderPlanner(); }, 'side', planner.querySelector('.wk'));
+  ed.focus();
+}
+
+renderFront();
+mockBar('A · Uge');
+
+// Deep links for screenshots: ?open=week, ?demo=task1 | task2 | edit | limit
+const demo = params.get('demo');
+if (params.get('open') === 'week' || demo) {
+  openPlanner({});
+  const wkEl = planner.querySelector('.wk');
+  const hh = parseFloat(getComputedStyle(wkEl).getPropertyValue('--hh'));
+  if (demo === 'task1') { ghost = { day: 1, s: 9 * 60, e: 12 * 60, list: FRONT_LIST }; wkEl.scrollTop = 6 * hh; openCreate(); }
+  if (demo === 'task2') { ghost = { day: 1, s: 7 * 60, e: 9 * 60, list: FRONT_LIST }; wkEl.scrollTop = 5 * hh; openCreate(); }
+  if (demo === 'edit') { wkEl.scrollTop = 9 * hh; openEdit(periods[0], 1); }
+  if (demo === 'limit') { ghost = { day: 5, s: 10 * 60, e: 22 * 60, list: FRONT_LIST }; wkEl.scrollTop = 4 * hh; refreshGhost(5); }
+}
+</script>
+</body>
+</html>

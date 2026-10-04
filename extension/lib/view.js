@@ -19,11 +19,25 @@ export const deletePrompt = (listName) => `Slet ${listName}?`;
 /** Locked: adding is irreversible for the session, so it is asked first. */
 export const blockPrompt = (label, until, now) => `Bloker ${label} til ${shortWhen(now, until)}?`;
 
-/** Confirmation line before locking. */
-export function confirmLine(now, end, listName) {
+/**
+ * Confirmation line before locking. When the session runs into a planned period it cannot stop
+ * before that period ends: `via` is the last period it continues into ({start, end}) and
+ * `viaLists` names the list(s) that period blocks.
+ */
+export function confirmLine(now, end, listName, via, viaLists) {
   const d = dayDiff(now, end);
   const when = `kl. ${formatClock(end)}${d === 0 ? '' : ' ' + dayLabel(now, end)}`;
+  if (via) {
+    const names = (viaLists || []).filter(Boolean);
+    return `Kan ikke stoppes før ${when} — fortsætter i den planlagte ${shortRange(via.start, via.end)}${names.length ? ` (${names.join(' + ')})` : ''}`;
+  }
   return `Kan ikke stoppes før ${when}${listName ? ' · ' + listName : ''}`;
+}
+
+/** "13–15", "09:30–11" (Copenhagen). */
+export function shortRange(start, end) {
+  const t = (ms) => { const c = formatClock(ms); return c.endsWith(':00') ? c.slice(0, 2) : c; };
+  return `${t(start)}–${t(end)}`;
 }
 
 /** Idle preview of a duration: whole minutes only — moving seconds mean "locked". */

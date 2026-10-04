@@ -62,6 +62,8 @@ export function createApi({ base = DAEMON, fetchImpl = (...a) => fetch(...a), ti
     addSchedule: (s) => call('POST', '/v1/schedules', s),
     putSchedule: (id, s) => call('PUT', `/v1/schedules/${enc(id)}`, s),
     deleteSchedule: (id) => call('DELETE', `/v1/schedules/${enc(id)}`),
+    skip: (id, date) => call('POST', `/v1/skip/${enc(id)}`, { date }),
+    unskip: (id, date) => call('DELETE', `/v1/skip/${enc(id)}`, { date }),
   };
 }
 

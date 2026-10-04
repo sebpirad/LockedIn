@@ -99,7 +99,12 @@ export function combo({ root, button, menu, getOptions, getValue, onSelect, labe
     else if (e.key === 'Backspace') { e.preventDefault(); query = query.slice(0, -1); applyQuery(); }
     else if (/^[0-9]$/.test(e.key)) { e.preventDefault(); type(e.key); }
   });
-  document.addEventListener('click', (e) => { if (!e.composedPath().includes(root)) close(false); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) { e.preventDefault(); close(true); } });
-  return { open, close, isOpen: () => !menu.hidden };
+  const outside = (e) => { if (!e.composedPath().includes(root)) close(false); };
+  document.addEventListener('click', outside);
+  const esc = (e) => { if (e.key === 'Escape' && !menu.hidden) { e.preventDefault(); close(true); } };
+  document.addEventListener('keydown', esc);
+  return {
+    open, close, isOpen: () => !menu.hidden,
+    destroy: () => { document.removeEventListener('click', outside); document.removeEventListener('keydown', esc); },
+  };
 }

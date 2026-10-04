@@ -52,7 +52,7 @@ public enum ScheduleMath {
 
     /// Occurrences of one schedule whose start day lies in [day(now) - 1, day(now) + daysAhead].
     /// A one-time period (`date`) occurs only on that day.
-    public static func occurrences(_ s: Schedule, around now: Date, daysAhead: Int = 8) -> [Interval] {
+    public static func occurrences(_ s: Schedule, around now: Date, daysAhead: Int = 14) -> [Interval] {
         guard s.enabled, let sm = minutes(s.start), let em = minutes(s.end), sm != em else { return [] }
         let cal = calendar
         let today = cal.startOfDay(for: now)
@@ -61,8 +61,11 @@ public enum ScheduleMath {
         var out: [Interval] = []
         // A one-time period is computed for its own day however far ahead it lies; weekly ones within the window.
         let days: [Date] = once.map { [$0] } ?? (-1...daysAhead).compactMap { cal.date(byAdding: .day, value: $0, to: today) }
+        let fmt = DateFormatter()
+        fmt.calendar = cal; fmt.timeZone = zone; fmt.locale = Locale(identifier: "en_US_POSIX"); fmt.dateFormat = "yyyy-MM-dd"
         for day in days {
             if once == nil { guard s.weekdays.contains(isoWeekday(day)) else { continue } }
+            if !s.skip.isEmpty && s.skip.contains(fmt.string(from: day)) { continue }
             let endDay = em > sm ? day : (cal.date(byAdding: .day, value: 1, to: day) ?? day)
             guard let a = wallTime(sm, on: day), let b = wallTime(em, on: endDay), b > a else { continue }
             out.append(Interval(start: a, end: b, source: "schedule:\(s.id)"))

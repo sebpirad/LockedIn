@@ -289,19 +289,181 @@ check(r.chosen.name === 'Locked In 2' && r.chosen.menuHidden && r.chosen.focus, 
 check(r.chosen.row === 'Instagram,YouTube,Slack,Adversus,TV 2,Spotify,Rediger', 'selecting a list shows only that list\'s icons + Rediger', r.chosen.row);
 check(r.escClosed, 'dropdown: Escape closes and returns focus');
 
-r = await js(`${H}
-  $('gear').click(); await w(300); $('addPlanBtn').click(); await w(100);
-  const before = { name: $('planListName').textContent, icons: $('planIcons').children.length };
-  $('planListBtn').click(); await w(50);
-  [...document.querySelectorAll('#planListMenu .menu-item')].find((x) => x.textContent.endsWith('Locked In 1')).click(); await w(100);
-  const after = { name: $('planListName').textContent, icons: [...$('planIcons').children].map((x) => x.title).join() };
-  const times = [$('planSHVal'), $('planSMVal'), $('planEHVal'), $('planEMVal')].map((x) => x.textContent).join('');
-  if (times !== '09001200') return { before, after, rows: ['times ' + times] };
-  $('planForm').requestSubmit(); await w(600);
-  return { before, after, rows: [...document.querySelectorAll('#planList .row-title')].map((x) => x.textContent) };`);
-check(r.before.name === 'Locked In 2' && r.before.icons === 6, 'plan form: list dropdown starts on the current list, its icons shown', JSON.stringify(r.before));
-check(r.after.name === 'Locked In 1' && r.after.icons === 'Instagram,Slack,Adversus', 'plan form: choosing another list shows what it blocks', JSON.stringify(r.after));
-check(r.rows.includes('I morgen 09–12 · Locked In 1'), 'plan row reads "I morgen 09–12 · Locked In 1"', JSON.stringify(r.rows));
+// ---- v1.2.0: Plan ----
+const rowsNow = () => js(`return [...document.querySelectorAll('#planList .prow')].map((li) => li.querySelector('.prow-when').textContent + ' · ' + li.querySelector('.prow-list').textContent + (li.classList.contains('frozen') ? ' [frozen]' : ''))`);
+const focusEl = (expr) => js(`(${expr}).focus(); return document.activeElement === (${expr})`);
+const pickByKeys = async (expr, digits) => { await focusEl(expr); await press('ArrowDown'); await typeKeys(digits); await press('Enter'); };
+
+await open('&r=plan1');
+r = await js(`localStorage.setItem('li.list', 'l2'); localStorage.removeItem('li.lastTimes'); location.reload(); return 1`).catch(() => 1);
+await sleep(1000);
+r = await js(`const $ = (id) => document.getElementById(id); return { next: $('nextBtn').hidden ? null : $('nextText').textContent, cal: !!$('calBtn'), rail: document.querySelectorAll('.wrow').length }`);
+check(r.next === 'Næste: i morgen 09–12 · Locked In 1' && r.cal && r.rail === 0, 'front page: one "Næste" line + calendar icon, no strip', JSON.stringify(r));
+
+// P1: overlapping periods (tomorrow 09–12 in both lists) are both visible and tappable
+await js(`document.getElementById('calBtn').click(); return 1`);
+await sleep(300);
+r = await js(`const w = (ms) => new Promise((x) => setTimeout(x, ms));
+  const rail = document.querySelectorAll('.rail')[1];
+  const blks = [...rail.querySelectorAll('.blk')];
+  const boxes = blks.map((b) => { const r = b.getBoundingClientRect(); return { top: Math.round(r.top), h: Math.round(r.height), lane: b.dataset.lane, tint: b.style.getPropertyValue('--tint') }; });
+  const opened = [];
+  for (const b of blks) { b.click(); await w(120); opened.push(document.querySelector('.pcard').closest('li') ? document.querySelector('.pcard').closest('li').previousElementSibling ? 'row' : 'first' : 'new');
+    opened[opened.length - 1] = [...document.querySelectorAll('#planList > li')].indexOf(document.querySelector('.pcard').closest('li')); }
+  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+  return { n: blks.length, boxes, opened }`);
+check(r.n === 2 && r.boxes[0].lane !== r.boxes[1].lane && r.boxes[0].top !== r.boxes[1].top && r.boxes.every((b) => b.h >= 20) && r.boxes[0].tint !== r.boxes[1].tint,
+  'P1: two overlapping periods sit in two lanes, both visible', JSON.stringify(r.boxes));
+check(new Set(r.opened).size === 2, 'P1: each lane opens its own period', JSON.stringify(r.opened));
+await js(`document.getElementById('planDlg').close(); return 1`);
+
+// create i morgen 09–12 on Locked In 1 — keyboard only after opening
+await js(`document.getElementById('calBtn').click(); return 1`);
+await sleep(300);
+r = await js(`return document.activeElement.id`);
+check(r === 'newPeriod', 'plan opens with focus on "+ Ny periode"', r);
+await press('Enter');
+await sleep(150);
+r = await js(`const c = document.querySelector('.pcard'); return { open: !!c, on: [...c.querySelectorAll('[aria-label=Hvornår] .chip.on')].map((x) => x.textContent), pickHidden: c.querySelector('.pick-panel').hidden, focus: document.activeElement.textContent,
+  times: [...c.querySelectorAll('.clock-row .select-btn')].map((x) => x.textContent.trim()).join(' ') }`);
+check(r.open && r.on.join() === 'I morgen' && r.pickHidden && r.focus === 'I morgen' && r.times === '09 00 12 00', 'new card: "I morgen" 09:00–12:00, keyboard focus in the card', JSON.stringify(r));
+await focusEl(`document.querySelector('.pcard .list-pick .select-btn')`);
+await press('ArrowDown');
+r = await js(`return document.activeElement.textContent`);
+if (r !== '✓Locked In 2') check(false, 'list dropdown opens on the current list', r);
+await press('ArrowUp');
+await press('Enter');
+await focusEl(`document.querySelector('.pcard button[type=submit]')`);
+await press('Enter');
+await sleep(500);
+r = await rowsNow();
+check(r.filter((x) => x === 'I morgen 09–12 · Locked In 1').length === 1, 'created "I morgen 09–12 · Locked In 1" (keyboard)', JSON.stringify(r));
+
+// weekly Hverdage 07–09
+await js(`document.getElementById('newPeriod').click(); return 1`);
+await sleep(150);
+await js(`[...document.querySelectorAll('.pcard .chip')].find((x) => x.textContent === 'Hverdage').click(); return 1`);
+const tp = (n) => `document.querySelectorAll('.pcard .clock-row .select-btn')[${n}]`;
+await pickByKeys(tp(0), '7');
+await pickByKeys(tp(2), '9');
+await js(`document.querySelector('.pcard button[type=submit]').click(); return 1`);
+await sleep(500);
+r = await rowsNow();
+check(r.some((x) => x.startsWith('Hverdage 07–09 · ')), 'created weekly "Hverdage 07–09"', JSON.stringify(r));
+
+// edit it: end 09 → 10
+await js(`[...document.querySelectorAll('#planList .prow')].find((li) => li.textContent.startsWith('Hverdage 07–09')).querySelector('.prow-btn').click(); return 1`);
+await sleep(150);
+await pickByKeys(tp(2), '10');
+await js(`document.querySelector('.pcard button[type=submit]').click(); return 1`);
+await sleep(500);
+r = await rowsNow();
+check(r.some((x) => x.startsWith('Hverdage 07–10 · ')) && !r.some((x) => x.startsWith('Hverdage 07–09')), 'edit in place: 07–09 → 07–10', JSON.stringify(r));
+
+// skip one day from the week strip, then undo the skip
+r = await js(`const w = (ms) => new Promise((x) => setTimeout(x, ms));
+  const blk = [...document.querySelectorAll('.wrow')].slice(1).flatMap((row) => [...row.querySelectorAll('.blk')]).find((b) => /07–10/.test(b.getAttribute('aria-label')));
+  if (!blk) return { error: 'no block' };
+  const day = blk.getAttribute('aria-label').split(':')[0];
+  blk.click(); await w(150);
+  const skipBtn = [...document.querySelectorAll('.pcard .skipline button')].find((b) => b.textContent.startsWith('Spring over'));
+  const label = skipBtn ? skipBtn.textContent : null;
+  const cardIdx = () => [...document.querySelectorAll('#planList > li')].indexOf(document.querySelector('.pcard').closest('li'));
+  const cardTop = () => Math.round(document.querySelector('.pcard').getBoundingClientRect().top);
+  const before = { idx: cardIdx(), top: cardTop() };
+  if (skipBtn) skipBtn.click(); await w(500);
+  const after1 = { idx: cardIdx(), top: cardTop() };
+  const struck = [...document.querySelectorAll('.pcard .skipline .skipped-day')].map((b) => b.textContent);
+  const strip = document.querySelectorAll('.blk.skipped').length;
+  document.querySelector('.pcard .skipline .unskip').click(); await w(500);
+  return { day, label, struck, strip, before, after1, after: document.querySelectorAll('.blk.skipped').length, skipBack: [...document.querySelectorAll('.pcard .skipline button')].map((b) => b.textContent) };`);
+check(r.label === `Spring over ${r.day.toLowerCase()}` && r.struck.join() === `${r.day} springes overFortryd spring over` && r.strip === 1, 'skip from the week strip: "… springes over · Fortryd spring over", outlined in the strip', JSON.stringify(r));
+check(r.before.idx === r.after1.idx && r.before.top === r.after1.top, 'the open card does not move after "Spring over"', JSON.stringify([r.before, r.after1]));
+check(r.after === 0 && r.skipBack.some((x) => x.startsWith('Spring over')), 'unskip restores it', JSON.stringify(r));
+await js(`[...document.querySelectorAll('.pcard button')].find((b) => b.textContent === 'Annullér').click(); return 1`);
+
+// delete + undo
+r = await js(`const w = (ms) => new Promise((x) => setTimeout(x, ms));
+  [...document.querySelectorAll('#planList .prow')].find((li) => li.textContent.startsWith('Hverdage 07–10')).querySelector('.prow-btn').click(); await w(150);
+  document.querySelector('.pcard .trash').click(); await w(500);
+  const gone = ![...document.querySelectorAll('#planList .prow')].some((li) => li.textContent.startsWith('Hverdage 07–10'));
+  const undo = !document.getElementById('undo').hidden;
+  document.getElementById('undoBtn').click(); await w(600);
+  return { gone, undo, back: [...document.querySelectorAll('#planList .prow')].some((li) => li.textContent.startsWith('Hverdage 07–10')) };`);
+check(r.gone && r.undo, 'delete is one click and offers "Fortryd"', JSON.stringify(r));
+check(r.back, '"Fortryd" re-creates the period', JSON.stringify(r));
+
+// Escape closes the card first, then the panel
+r = await js(`const w = (ms) => new Promise((x) => setTimeout(x, ms)); document.getElementById('newPeriod').click(); await w(100); return !!document.querySelector('.pcard')`);
+await press('Escape');
+r = await js(`return { card: !!document.querySelector('.pcard'), open: document.getElementById('planDlg').open }`);
+check(!r.card && r.open, 'Escape closes the card, the panel stays', JSON.stringify(r));
+await press('Escape');
+r = await js(`return document.getElementById('planDlg').open`);
+check(r === false, 'second Escape closes the panel');
+
+// optional mouse drag on a day: pre-fills a new card (a plain click creates nothing)
+await js(`document.getElementById('calBtn').click(); return 1`);
+await sleep(300);
+const railBox = await js(`const r = document.querySelectorAll('.rail')[1].getBoundingClientRect(); return { x: r.x, y: r.y + r.height / 2, w: r.width, date: document.querySelectorAll('.rail')[1].dataset.date }`);
+const mouse = (type, x, extra = {}) => send('Input.dispatchMouseEvent', { type, x, y: railBox.y, button: 'left', buttons: type === 'mouseReleased' ? 0 : 1, clickCount: 1, ...extra }, S);
+await mouse('mousePressed', railBox.x + railBox.w * 0.5);
+await mouse('mouseReleased', railBox.x + railBox.w * 0.5);
+await sleep(200);
+r = await js(`return !!document.querySelector('.pcard')`);
+check(r === false, 'a plain click on a day creates nothing');
+await mouse('mousePressed', railBox.x + railBox.w * 0.25);
+for (const f of [0.3, 0.4, 0.5]) { await send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: railBox.x + railBox.w * f, y: railBox.y, button: 'left', buttons: 1 }, S); await sleep(30); }
+await mouse('mouseReleased', railBox.x + railBox.w * 0.5);
+await sleep(250);
+r = await js(`const c = document.querySelector('.pcard'); return c ? { times: [...c.querySelectorAll('.clock-row .select-btn')].map((x) => x.textContent.trim()).join(' '), date: c.querySelector('.date-in').value } : null`);
+check(r && r.times === '06 00 12 00' && r.date === railBox.date, 'drag across a day pre-fills a new card (06–12 that day)', JSON.stringify({ r, date: railBox.date }));
+await press('Escape');
+await press('Escape');
+
+// the "Næste" line opens the plan on that period's card
+r = await js(`const w = (ms) => new Promise((x) => setTimeout(x, ms)); document.getElementById('nextBtn').click(); await w(300);
+  const c = document.querySelector('.pcard'); const li = c && c.closest('li'); const rows = [...document.querySelectorAll('#planList > li')];
+  return { open: document.getElementById('planDlg').open, card: !!c, rowIndex: rows.indexOf(li) }`);
+check(r.open && r.card && r.rowIndex === 0, '"Næste" opens the plan with that period open', JSON.stringify(r));
+await js(`document.getElementById('planDlg').close(); return 1`);
+
+// frozen: only periods in the running lock are locked
+await open('&locked=1&mins=20&planNow=1&r=frozen');
+await js(`document.getElementById('calBtn').click(); return 1`);
+await sleep(300);
+r = await js(`const w = (ms) => new Promise((x) => setTimeout(x, ms));
+  const rows = [...document.querySelectorAll('#planList .prow')];
+  const fr = rows.filter((li) => li.classList.contains('frozen'));
+  const frozenIsButton = fr.some((li) => li.querySelector('button.prow-btn'));
+  const other = rows.find((li) => !li.classList.contains('frozen') && li.textContent.startsWith('Hverdage'));
+  other.querySelector('.prow-btn').click(); await w(150);
+  document.querySelector('.pcard button[type=submit]').click(); await w(500);
+  return { frozen: fr.length, frozenIsButton, frozenText: fr[0] && fr[0].querySelector('.prow-end').textContent, editedOk: !document.querySelector('.pcard'), toast: document.getElementById('toast').hidden ? '' : document.getElementById('toast').textContent,
+    frozenBlocks: document.querySelectorAll('.blk.frozen').length, sub: document.getElementById('sub').textContent }`);
+check(r.frozen === 1 && !r.frozenIsButton && r.frozenBlocks === 1, 'during a lock only the period in it is frozen (lock icon, not editable)', JSON.stringify(r));
+check(/^Låst til \d\d:\d\d$/.test(r.frozenText), 'a frozen row says "Låst til HH:MM" visibly', r.frozenText);
+check(r.editedOk && !r.toast, 'other periods stay editable during a lock', JSON.stringify(r));
+check(r.sub === `${r.sub.split(' · ')[0]} · planlagt`, 'locked by a planned period: "Låst til … · planlagt"', r.sub);
+
+// confirmation warns when the session runs into a planned period
+await open('&planSoon=1&r=soon');
+await js(`localStorage.setItem('li.list', 'l1'); localStorage.setItem('li.mode', 'dur'); location.reload(); return 1`).catch(() => 1);
+await sleep(1000);
+r = await js(`const w = (ms) => new Promise((x) => setTimeout(x, ms));
+  document.querySelector('#modeSwitch [data-mode=dur]').click(); await w(50);
+  [...document.querySelectorAll('#presets .chip')].find((c) => c.textContent === '1 time').click(); await w(50);
+  const big = document.getElementById('big').textContent;
+  const idleSub = document.getElementById('sub').hidden ? '' : document.getElementById('sub').textContent;
+  document.getElementById('start').click(); await w(150);
+  const sub = document.getElementById('sub').textContent;
+  const extra = [...document.querySelectorAll('#tiles .tile.planned .tile-label')].map((x) => x.textContent);
+  const sep = !!document.querySelector('#tiles .tile-sep');
+  document.getElementById('back').click(); await w(100);
+  return { big, idleSub, sub, extra, sep, sepAfterBack: !!document.querySelector('#tiles .tile-sep') }`);
+check(r.big === '01:00:00' && r.idleSub === '', 'P2: idle timer shows the chosen 1 time, nothing silently changed', JSON.stringify(r));
+check(/^Kan ikke stoppes før kl\. \d\d:\d\d — fortsætter i den planlagte \S+ \(Locked In 2\)$/.test(r.sub), 'confirmation names the planned period and its own list', r.sub);
+check(r.sep && r.extra.length > 0 && !r.sepAfterBack, 'confirmation shows what the planned list adds, after a separator', JSON.stringify(r));
 
 // ---- daemon down: one line above Start, neutral disabled button ----
 await open('&down=1&r=down');

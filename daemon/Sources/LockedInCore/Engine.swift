@@ -427,16 +427,48 @@ public final class Engine {
         s.weekdays = s.date == nil ? s.weekdays.sorted() : []
         s.list = try listId(s.list)
         try validate(s, now: now)
-        if isLocked(now) && s != state.schedules[i] { throw EngineError.locked() }
+        // Only periods that are part of the running lock are frozen (owner 2026-10-04); others can be edited.
+        if frozenScheduleIds(now: now).contains(s.id) && s != state.schedules[i] { throw EngineError.locked() }
         var candidate = state
         candidate.schedules[i] = s
         try checkChains(candidate, timerRemaining: timerRemaining(now: now), now: now)
         state.schedules[i] = s
     }
 
+    /// Periods with an occurrence in the running lock (including periods chained to it later).
+    public func frozenScheduleIds(now: Date) -> Set<String> {
+        guard isLocked(now) else { return [] }
+        return Set(chainSources(now: now, upTo: nil).compactMap { $0.hasPrefix("schedule:") ? String($0.dropFirst(9)) : nil })
+    }
+
+    /// "Spring over denne gang": skips one day of a weekly period. Not for a day that is part of the running lock.
+    public func skipOccurrence(id: String, date: String, now: Date) throws {
+        guard let i = state.schedules.firstIndex(where: { $0.id == id }) else { throw EngineError.notFound("Perioden findes ikke.") }
+        guard state.schedules[i].date == nil else { throw EngineError.invalid("Kun ugentlige perioder kan springes over.") }
+        // Only the canonical "YYYY-MM-DD" form is stored — it is what occurrences() compares against (review 6, R6-1).
+        guard date.count == 10, let day = ScheduleMath.day(date) else { throw EngineError.invalid("Ugyldig dato.") }
+        var probe = state.schedules[i]; probe.skip = []
+        let cal = ScheduleMath.calendar   // Copenhagen only, never the system calendar (R6-2)
+        let occ = ScheduleMath.occurrences(probe, around: day, daysAhead: 0).first { cal.isDate($0.start, inSameDayAs: day) }
+        guard let occ else { throw EngineError.invalid("Perioden ligger ikke den dag.") }
+        guard occ.end > now else { throw EngineError.invalid("Perioden er allerede slut.") }
+        if frozenScheduleIds(now: now).contains(id) && occ.start <= (status(now: now).activeUntil ?? now) { throw EngineError.locked() }
+        if !state.schedules[i].skip.contains(date) { state.schedules[i].skip.append(date) }
+        // Keep the list short: forget skips that are more than a week old.
+        state.schedules[i].skip.removeAll { (ScheduleMath.day($0) ?? .distantPast) < now.addingTimeInterval(-8 * 86400) }
+    }
+
+    public func unskipOccurrence(id: String, date: String, now: Date) throws {
+        guard let i = state.schedules.firstIndex(where: { $0.id == id }) else { throw EngineError.notFound("Perioden findes ikke.") }
+        var candidate = state
+        candidate.schedules[i].skip.removeAll { $0 == date }
+        try checkChains(candidate, timerRemaining: timerRemaining(now: now), now: now)
+        state.schedules[i].skip.removeAll { $0 == date }
+    }
+
     public func removeSchedule(id: String, now: Date) throws {
         guard let i = state.schedules.firstIndex(where: { $0.id == id }) else { throw EngineError.notFound("Perioden findes ikke.") }
-        if isLocked(now) { throw EngineError.locked() }
+        if frozenScheduleIds(now: now).contains(id) { throw EngineError.locked() }
         state.schedules.remove(at: i)
     }
 

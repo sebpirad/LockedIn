@@ -338,3 +338,89 @@ As a safety net, put the `Escape` handling on `root` (or `document` while the me
 ## Verdict, round 4: **CHANGES REQUIRED** (one item)
 
 The pickers are what the owner asked for: compact, clean, consistent with the list dropdown, fully usable with mouse, wheel and keyboard, and limited to later times today. One defect blocks approval: R3, where a non-matching digit leaves an empty, un-closable box. With the small `type()` change above it is **APPROVED** from my side without another full round.
+
+---
+
+# Planlæg — runde 1 (bygget, extension 1.2.0, 2026-10-04)
+
+**How it was tested.** I used the real `app.html?mock=1`, driven by real mouse and keyboard input through a small Chrome DevTools driver (headless Chrome, 1× desktop 1280×820 and 2× phone 390×844 with touch emulation). I also used the built-in browser for spot checks. Scenarios came from the mock's `planSoon=1`, `planNow=1` and `locked=1` options. I judged it against my B+ spec in `docs/PLAN-CONCEPTS.md` and the owner's decisions (only periods in the running lock are frozen; "Spring over" per day; delete is one click plus a 5 s Fortryd; the front page has one line and a calendar icon). No files were edited apart from appending this section.
+
+## What works (verified by use)
+
+| Task | Real clicks | Result |
+|---|---|---|
+| **i morgen 09–12 · Locked In 2** | **5**: 📅 → + Ny periode → list ▾ → Locked In 2 → Gem | Saved. The card pre-fills "I morgen" with the last-used 09–12; with other last-used times it is 9 clicks. |
+| **Ma–Fr 07–09** | **4** via drag: 📅 → drag 07–09 on "tir 6." → Hverdage → Gem. **8** via the form. | Saved as "Hverdage 07–09". Drag snaps to 15 minutes (24 px per hour); a deliberately sloppy drag of ±3 px still gave exactly 07–09. |
+| **Edit the next period** (09–12 → 09–13) | **4**: "Næste …" line → end hour ▾ → 13 → Gem | The line opens the panel with that rule's card already open. |
+| **Spring over / fortryd** | **2**: row → "Spring over i morgen"; unskip: struck "~~I morgen~~" chip | It takes effect at once. The week strip shows the skipped occurrence as an outline. A double-click (80/250 ms) skipped only one day. |
+| **Delete + Fortryd** | **3**: 📅 → row → 🗑, then Fortryd | The toast reads "Perioden er slettet · Fortryd" for 5 s, and the period came back. |
+| **Frozen during a lock** (`locked=1&planNow=1`) | — | The running period's row has a padlock and is not clickable; its block is hatched. Other rows stay editable, and "+ Ny periode" works. The sub-line reads "Låst til 21:55 · planlagt". |
+| **Confirm-step overlap** (`planSoon=1`) | — | "Kan ikke stoppes før kl. 22:30 — fortsætter i den planlagte 21:30–22:30 · Locked In 1". |
+| **Keyboard only** | 15 keys | Tab → 📅, Enter, Enter (+ Ny), Tab, Space (Hverdage), Tab ×2, "7" Enter, Tab ×2, "9" Enter, Tab ×3, Enter. That saved "Hverdage 07–09", and focus returned to "+ Ny periode". |
+| **Empty state** | — | The front page shows only the 📅 icon next to the gear, with no line and no text. The panel opens straight on a ready card. |
+| **New-tab clutter** | — | One quiet "Næste: i morgen 09–12 · Locked In 1 ›" line under Start. No chart, no drag target, no hover effects. Drag is mouse-only (`pointerType === 'mouse'`) and lives only in the panel, so the touch/scroll accident from concept C cannot happen. |
+| **Phone 390×844** | — | The panel is full screen with no horizontal overflow. Rows are 56 px tall, and the card fits with the chips wrapping to two rows. |
+
+This is the B+ spec, built faithfully. The front page is calm, everything is reachable by keyboard, and the click counts match the spec.
+
+## MUST-FIX
+
+### P1. Overlapping periods hide each other in the week strip
+**Evidence:** with the mock's two periods ("Hverdage 09–12 · Locked In 1" and "I morgen 09–12 · Locked In 2"), Monday's rail shows **only** the teal Locked In 2 block. The weekly blue occurrence is drawn underneath and is invisible. This is the implementer's acknowledged deviation. The strip is the overview, and an overview that drops a period is wrong exactly when lists are combined.
+**Fix:** when occurrences overlap on a day, give the rail two lanes. Draw each block at half height (`top: 0` / `top: 50%`, `height: 50%`), assigning each to the first free lane. Alternatively, draw the later one inset by 3 px with a 1 px `--bg` outline. The row height does not change.
+
+### P2. The idle timer contradicts the selected chip, with no explanation
+**Evidence:** with `planSoon=1`, "1 time" is selected but the big timer reads **01:34:00** on the front page (and the new-tab page), with nothing beside it. A non-technical user reads that as a bug. The explanation only appears after pressing Start. My spec asked for the real total, but that only works with a cue.
+**Fix:** while idle and chained, show the existing `.sub` line (muted, 15 px): `1 time + planlagt 21:30–22:30`, or shorter, `Til 22:30 · planlagt periode følger`. It disappears as soon as the chosen duration no longer reaches a period.
+
+## SHOULD-FIX
+
+- **The confirm line names the wrong list for the chained part.** "… fortsætter i den planlagte 21:30–22:30 · Locked In 1": Locked In 1 is the session's list, but the planned period blocks **Locked In 2** (YouTube, TV 2, Spotify), and the icons shown are only Locked In 1's. Write `… fortsætter i den planlagte 21:30–22:30 (Locked In 2)` and append that list's extra icons after a thin separator. On a phone the line already wraps to two lines, so drop the trailing session list name.
+- **Frozen rows only explain themselves in a `title` tooltip,** which is invisible on touch. Replace the chevron with `🔒 til 21:55` (`--subtle`, 13 px) as specced ("Kan ændres efter …").
+- **The open card jumps after "Spring over".** The list re-sorts by next occurrence while the card is open. In my run "Hverdage" moved below "I morgen", and the panel scrolled under the pointer. Freeze the row order while a card is open and re-sort on close.
+- **The skip line mixes save models without saying so.** Skip and unskip apply at once, while everything else in the card waits for "Gem". The undo affordance is a struck "~~I morgen~~" chip whose meaning is only in `title`. Move the skip line outside the form fields, directly above the action row with a hairline above it, and label the skipped state `I morgen springes over · Fortryd`.
+
+## NICE
+
+- **Duplicates.** An identical "I morgen 09–12 · Locked In 2" was saved twice without comment. When an identical period exists, open it instead, or show `Findes allerede` under Gem.
+- **"Næste" with two periods at the same time.** It names one list (Locked In 1) while the strip shows the other on top. Use `· Locked In 1 + Locked In 2`.
+- **"I dag" chip.** With last-used 09–12 after 09:00, choosing "I dag" pre-fills a past time, and Gem then errors. Move the start to the next quarter hour when it is already past.
+- **The strip shows no ghost of the draft** while the card is open after a drag. Draw the draft as a dashed block so the drag result stays visible.
+- **The vertical grid lines** at 06, 12 and 18 are drawn over the blocks. Put the grid under the blocks.
+- **Strip blocks are tab stops** before "+ Ny periode", one per occurrence. Make them `tabindex="-1"`, since the rows are the keyboard path. Short blocks are 13 px wide on a phone, so tapping them is luck; the rows remain the reliable target.
+- **Phone layout.** The strip takes about 45 % of the first screen. 28 px rails on narrow screens would bring the list up.
+
+## Verdict: **CHANGES REQUIRED** (two small items)
+
+The build matches the B+ spec and the owner's decisions:
+- the new-tab page is calm;
+- create, edit, skip and delete work at the specced click counts;
+- the keyboard path is complete;
+- touch cannot create anything by accident;
+- frozen-during-lock, delete with Fortryd and the overlap warning all behave.
+
+Two things mislead the user and must be fixed before release:
+- **P1:** the overview hides overlapping periods.
+- **P2:** the big timer silently disagrees with the chosen chip.
+
+Both are small and local. With P1 and P2 fixed, this is **APPROVED** from my side. The should-fix items are strongly recommended, and the confirm-line list name and the frozen-row text in particular are one-liners.
+
+---
+
+# Planlæg — runde 2 (recheck, extension 1.2.0, 2026-10-04)
+
+**How it was tested.** I used the same CDP driver with real mouse and keyboard input on `app.html?mock=1` at 1280×820 and 390×844 (2×, touch), plus `planSoon=1` and `locked=1&planNow=1`. No files were edited apart from appending this section.
+
+| Item | Status | Evidence |
+|---|---|---|
+| **P1: overlaps** | **FIXED** | Monday now draws two lanes, 20 px each: "Hverdage 09–12 · Locked In 1" on top and "I morgen 09–12 · Locked In 2" below. Both are visible on desktop and phone. |
+| **P2: idle timer** | **FIXED** | With `planSoon=1` and "1 time" selected, the timer reads **01:00:00**, the same as the chip. The chain is explained only in the confirm step, which is the place my spec intended. |
+| Confirm line names the planned list | **FIXED** | "Kan ikke stoppes før kl. 22:35 — fortsætter i den planlagte 21:35–22:35 **(Locked In 2)**". The confirm icons add YouTube, TV 2 and Spotify after a thin separator. |
+| Frozen row explains itself | **FIXED** | The row reads "I dag 20:35–22:05 · Locked In 2 · 🔒 Låst til 22:05" as visible text, which also works on touch. |
+| No jump after "Spring over" | **FIXED** | The row order stayed fixed while the card was open (I dag / [card] / I morgen before and after the skip). It re-sorted only after Esc. |
+| Skip line | **FIXED** | It sits below a hairline, separate from the fields: "Spring over tir 6. okt. · ~~I morgen~~ springes over · [Fortryd spring over]". "Fortryd spring over" restored "Spring over i morgen". |
+| **Regressions** | none | No horizontal overflow at 390 px. The confirm step still shows no Rediger tile. The front page is unchanged (one "Næste" line and 📅). |
+
+**Nice (optional):** on a phone, the confirm icons wrap after Adversus, which leaves the list separator at the end of the first row. Put the separator at the start of the second group, or hide it when the groups wrap.
+
+## Verdict: **APPROVED**

@@ -246,3 +246,43 @@ No blocker. The polling note can follow.
 1. ⌘T in Chrome 154: the address bar has focus and you can type a URL at once.
 2. Chrome's "Is this the new tab page you expected? Keep / Change back" bubble. For a non-policy extension, **"Change back" disables LockedIn**. During a session the watchdog then closes Chrome after ~2.5 min of activity. Check whether the bubble appears for the unpacked install, and tell the owner to choose "Keep".
 3. With 5–10 idle new tabs open, `/Library/Logs/LockedIn/lockedind.log` and Activity Monitor show no noticeable daemon CPU.
+
+---
+
+# Round 6 (Planlæg) — daemon API 1.3.0 + extension 1.2.0 (~17:55 local, uncommitted working tree on top of 038292c)
+Method:
+- All suites pass:
+  - `CoreTests` **175/175**;
+  - `node --test` **108/108**;
+  - `load-in-chrome.sh` **ALL CHECKS PASSED**;
+  - `ui-in-chrome.sh` **ALL CHECKS PASSED**.
+- The live daemon (1.2.0) was checked `active:false` before the Chrome for Testing runs; it was only read with GET.
+- Probe `review/r7` (Swift, compiled against the current sources).
+
+## Trying to weaken a running lock (all CONFIRMED refused)
+| Attempt | Result |
+|---|---|
+| Timer 10–11 + period 11–12 **starting exactly at the timer's end**: delete it / skip today / move it to 11:30 | `frozen=true`, all three → **423** (`chains()` merges `start <= end`, so it is in the chain). |
+| Period later today with a 1-min gap (not chained) | `frozen=false`, delete OK. Intended by the owner: not part of the running lock. |
+| **Overnight** period (Sun 22:00 → Mon 11:00) whose previous-day occurrence is running, Mon 10:00 | `frozen=true`. Delete → 423; skip by its start day 2026-10-04 → 423; skip 2026-10-05 → 400 (no occurrence that day); still locked. |
+| **DST** fall-back night 2026-10-25: Sat 23:00–02:30 + Sun 02:30–04:00, now inside the first | Locked until 03:00Z. Both periods frozen; delete of the second → 423. |
+| **Skip** of a frozen period's later, unchained occurrence (e.g. tomorrow) | Allowed: `occ.start > activeUntil`, so it is not part of this lock. Correct. |
+| **Unskip** that would rebuild a chain over 24 h (Mon 22 → Tue 23:59) | **400** "En samlet lås kan højst vare 24 timer" (`unskipOccurrence` runs `checkChains`). |
+
+Not a weakening, but noted:
+- **R6-1 (LOW) — a skip that silently does nothing.** `POST /v1/skip` accepts `"2026-10-5"` (unpadded; `ScheduleMath.day` parses it), but occurrences compare against `"2026-10-05"`, so the skip has no effect while the UI could show it as skipped. Fails safe (the period still runs). The UI always sends padded dates. Fix: store `fmt.string(from: day)` instead of the raw input.
+- **R6-2 (LOW) — mixed calendars in `skipOccurrence`.** It uses `Calendar.current` (system time zone) as an alternative when it picks the occurrence. It can only pick an *earlier* occurrence, which refuses more, never less. Use `ScheduleMath.calendar` only.
+
+## Performance — LOW, worst case only (R6-3)
+The 14-day window with 50 weekly periods × 7 days (the maximum, with `skip` set): `status()` takes **22 ms**, and the engine work per locked 2 s tick takes **~355 ms**, about 18 % of one core. That is because `status()` / `allOccurrences` is recomputed ~15 times per tick (`isLocked`, `activeListIds`, `chainSources`, `rememberLockLists` ×2, `effectiveSites`, `effectiveAppRules`, `frozenListIds` …). `occurrences()` also builds a new `DateFormatter` per call. With the few periods a real user has, this is negligible. Fix if wanted: compute the intervals once per tick (or memoise on `(state hash, minute)`), and make the formatter static.
+
+## Extension (Planlæg)
+- **Overlap warning (`plan.js` `occurrences` + `chainEnd`)** uses the daemon's rules: a chain continues through every non-skipped occurrence with `start <= current end`, and skipped ones are excluded. It does not apply the 24 h cap; the daemon then answers 400 with its own message, which is acceptable.
+- **Delete + undo** re-creates the period through `POST /v1/schedules` (new id) and re-applies its skips. Re-creating can only add a lock. A re-applied skip that is refused (the re-created period is already running) is ignored, so the period runs, which fails safe.
+- **Fail-closed reducer:** `lib/lock.js` is unchanged.
+
+## Docs
+`API.md` §Lister documents `frozen`, `skip`, `POST/DELETE /v1/skip` and the 14-day window, and it matches the code.
+
+## Round 6 verdict: **SHIP**
+No way found to shorten or end a running lock through editing, deleting, skipping or unskipping. R6-1/2/3 are low and can follow.

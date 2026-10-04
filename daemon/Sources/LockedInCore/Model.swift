@@ -78,11 +78,13 @@ public struct Schedule: Codable, Equatable {
     public var list: String
     /// "YYYY-MM-DD" (Copenhagen) for a one-time period, e.g. tomorrow 09–12; nil = every chosen weekday.
     public var date: String?
-    public init(id: String, name: String, weekdays: [Int], start: String, end: String, enabled: Bool, list: String = "", date: String? = nil) {
+    /// Days ("YYYY-MM-DD", the occurrence's start day) a weekly period is skipped once ("ikke på fredag").
+    public var skip: [String]
+    public init(id: String, name: String, weekdays: [Int], start: String, end: String, enabled: Bool, list: String = "", date: String? = nil, skip: [String] = []) {
         self.id = id; self.name = name; self.weekdays = weekdays; self.start = start; self.end = end; self.enabled = enabled
-        self.list = list; self.date = date
+        self.list = list; self.date = date; self.skip = skip
     }
-    enum CodingKeys: String, CodingKey { case id, name, weekdays, start, end, enabled, list, date }
+    enum CodingKeys: String, CodingKey { case id, name, weekdays, start, end, enabled, list, date, skip }
     public init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         id = try c.decode(String.self, forKey: .id)
@@ -93,6 +95,7 @@ public struct Schedule: Codable, Equatable {
         enabled = try c.decodeIfPresent(Bool.self, forKey: .enabled) ?? true
         list = try c.decodeIfPresent(String.self, forKey: .list) ?? ""
         date = try c.decodeIfPresent(String.self, forKey: .date)
+        skip = try c.decodeIfPresent([String].self, forKey: .skip) ?? []
     }
 }
 

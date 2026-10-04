@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Koncept C · Tidslinje</title>
+<!-- DEV ONLY mockup (never shipped: tools/pack.sh copies a whitelist and refuses dev/). -->
+<link rel="stylesheet" href="../../ui/app.css">
+<link rel="stylesheet" href="plan.css">
+<style>
+  /* the plan lives on the front page: one 24-hour rail per day, today and tomorrow; "Uge" opens the rest */
+  .rails { --lab: 64px; width: 100%; max-width: 660px; margin: 6px auto 0; display: flex; flex-direction: column; gap: 8px; }
+  .rrow { display: grid; grid-template-columns: var(--lab) minmax(0, 1fr); gap: 10px; align-items: center; }
+  .rlab { text-align: right; font-size: 13px; color: var(--subtle); white-space: nowrap; }
+  .rlab.today { color: var(--text); font-weight: 600; }
+  .axis { position: relative; height: 16px; }
+  .axis span { position: absolute; transform: translateX(-50%); font-size: 11px; color: var(--subtle); font-variant-numeric: tabular-nums; top: 0; }
+  .rail {
+    position: relative; height: 36px; border-radius: 9px; background-color: var(--surface);
+    box-shadow: inset 0 0 0 1px var(--line); cursor: cell; touch-action: pan-y; user-select: none;
+  }
+  .rail .grid { position: absolute; inset: 0; border-radius: 9px; pointer-events: none;
+    background-image: linear-gradient(to right, var(--line) 1px, transparent 1px); background-size: var(--step) 100%; background-position: -1px 0; }
+  .rail .shade { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 9px 0 0 9px; pointer-events: none; z-index: 1;
+    background: repeating-linear-gradient(135deg, rgba(10, 11, 13, .75) 0 4px, rgba(10, 11, 13, .45) 4px 8px); }
+  .rail .now-line { top: -4px; bottom: -4px; width: 2px; margin-left: -1px; }
+  .rail .now-line::before { content: ""; position: absolute; left: -3px; top: -3px; width: 8px; height: 8px; border-radius: 50%; background: var(--text); }
+  .rail .blk { top: 4px; bottom: 4px; padding: 0 8px; display: flex; align-items: center; gap: 6px; z-index: 2; }
+  .rail .blk .blk-badge { position: static; width: 16px; height: 16px; box-shadow: none; margin-left: auto; }
+  .rail .ghost-blk { top: 4px; bottom: 4px; }
+  .rail .ghost-blk.hover { background: transparent; border: 1px dashed var(--ring); display: grid; place-items: center; color: var(--muted); font-size: 16px; }
+  .rail .chain-outline { top: 1px; bottom: 1px; }
+  .rail .len-pill { top: 50%; transform: translate(8px, -50%); }
+  .rail .len-pill.left { transform: translate(calc(-100% - 8px), -50%); }
+  .rail .hint { position: absolute; inset: 0; display: grid; place-items: center; font-size: 13px; color: var(--subtle); pointer-events: none; }
+  .rfoot { display: flex; justify-content: center; align-items: center; gap: 2px; margin-top: 2px; }
+  .rfoot .quiet { display: inline-flex; align-items: center; gap: 8px; }
+  .rfoot .quiet svg.caret { width: 10px; height: 6px; transition: transform .15s; }
+  .rfoot .quiet[aria-expanded="true"] svg.caret { transform: rotate(180deg); }
+  .hero { padding-bottom: 18px; }
+
+  @media (max-width: 560px) {
+    .rails { --lab: 52px; }
+    .rrow { gap: 8px; }
+    .rail .blk { padding: 0 4px; font-size: 11px; }
+    .rlab { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script type="module">
+import {
+  SCN, NOW, DAY, FRONT_LIST, periods, params, lockInfo, intervals, chainFor, maxLen, savePeriod, deletePeriod,
+  draftFrom, dayShort, range, hm, hours, listById, h, $, tintStyle, ICONS, lockBadge, hero, topBar, mockBar,
+  editor, popover, closePopover,
+} from './shared.js';
+
+const lock = lockInfo();
+const app = $('app');
+let weekOpen = false;
+let offset = 0;        // first day shown (0 = i dag); "›" moves a week on
+let ghost = null;      // {day, s, e, list} while creating
+let timer = lock.locked ? 0 : 60;  // the duration chosen on the front page, shown as a dashed ghost from "nu"
+
+function days() { return weekOpen ? Array.from({ length: 7 }, (_, i) => offset + i) : [0, 1]; }
+
+/** Axis: 06–22 unless something visible is outside it; then the whole day. */
+function axis() {
+  let lo = 6 * 60, hi = 22 * 60;
+  for (const d of days()) for (const o of intervals(periods, d, d + 1)) {
+    const s = Math.max(o.s, d * DAY) - d * DAY, e = Math.min(o.e, (d + 1) * DAY) - d * DAY;
+    lo = Math.min(lo, Math.floor(s / 60) * 60); hi = Math.max(hi, Math.ceil(e / 60) * 60);
+  }
+  if (hi - lo > 18 * 60) { lo = 0; hi = DAY; }
+  return { lo, hi };
+}
+let AX = axis();
+const X = (min) => `${((min - AX.lo) / (AX.hi - AX.lo)) * 100}%`;
+const W = (len) => `${(len / (AX.hi - AX.lo)) * 100}%`;
+
+function render() {
+  AX = axis();
+  const section = h('section', { class: 'rails', 'aria-label': 'Plan' });
+  const ticks = [];
+  for (let m = Math.ceil(AX.lo / 180) * 180; m < AX.hi; m += 180) if (m > AX.lo) ticks.push(m);
+  section.append(h('div', { class: 'rrow' }, h('span', {}), h('div', { class: 'axis' }, ...ticks.map((m) => h('span', { style: `left:${X(m)}` }, hm(m).slice(0, 2))))));
+  for (const d of days()) section.append(h('div', { class: 'rrow' }, h('span', { class: 'rlab' + (d === 0 ? ' today' : '') }, dayShort(d)), rail(d)));
+  const caret = h('span', { html: ICONS.caret, style: 'display:contents' });
+  section.append(h('div', { class: 'rfoot' },
+    weekOpen && offset > 0 ? h('button', { type: 'button', class: 'icon-btn', 'aria-label': 'Forrige uge', html: ICONS.back, onclick: () => { offset -= 7; render(); } }) : null,
+    h('button', { type: 'button', class: 'quiet', 'aria-expanded': String(weekOpen), onclick: () => { weekOpen = !weekOpen; offset = 0; render(); } }, 'Uge', caret),
+    weekOpen ? h('button', { type: 'button', class: 'icon-btn', 'aria-label': 'Næste uge', html: ICONS.chev, onclick: () => { offset += 7; render(); } }) : null));
+  const top = app.querySelector('.hero') || hero({ locked: lock.locked, onDuration: (m) => { timer = m; render(); } });
+  app.replaceChildren(topBar(), top, section);
+}
+
+function rail(day) {
+  const r = h('div', { class: 'rail', 'data-day': day, style: `--step:${(60 / (AX.hi - AX.lo)) * 100}%` }, h('div', { class: 'grid' }));
+  const ds = day * DAY;
+  if (day === 0 && NOW > AX.lo) r.append(h('div', { class: 'shade', style: `width:${X(NOW)}` }), h('div', { class: 'now-line', style: `left:${X(NOW)}` }));
+  for (const o of intervals(periods, day, day + 1)) {
+    const s = Math.max(o.s, ds) - ds, e = Math.min(o.e, ds + DAY) - ds;
+    if (e <= s) continue;
+    const l = listById(o.p.list);
+    const past = o.e <= NOW;
+    const inLock = lock.locked && o.s < lock.until && o.e > lock.since;
+    const label = range(o.p.start, o.p.end);
+    const b = h('button', {
+      type: 'button', class: 'blk' + (o.s < ds ? ' cont-before' : '') + (o.e > ds + DAY ? ' cont-after' : '') + (inLock ? ' live' : '') + (past ? ' past' : '') + (lock.locked ? ' frozen' : ''),
+      style: `${tintStyle(l.id)};left:${X(s)};width:${W(e - s)}`, 'data-occ': `${o.p.id}:${day}`, title: `${label} · ${l.name}`,
+      'aria-label': `${dayShort(day)} ${label} · ${l.name}`,
+      onclick: (ev) => { ev.stopPropagation(); if (!past) openEdit(o.p, day, b); },
+    }, blockLabel(e - s, label), inLock && o.e === lock.until ? lockBadge() : null);
+    r.append(b);
+  }
+  if (!periods.length && day === 0 && !ghost) r.append(h('div', { class: 'hint' }, 'Træk for at planlægge'));
+  drawTimer(r, day);
+  if (ghost) drawGhost(r, day);
+  r.addEventListener('pointerdown', (e) => startDrag(e, r, day));
+  r.addEventListener('pointermove', (e) => hover(e, r, day));
+  r.addEventListener('pointerleave', () => r.querySelector('.ghost-blk.hover')?.remove());
+  return r;
+}
+
+/** Full "09–11:30" when it fits, else the start "09", else nothing (the tooltip and the editor have it). */
+function blockLabel(len, label) {
+  const narrow = matchMedia('(max-width: 560px)').matches;
+  const railW = narrow ? innerWidth - 32 - 52 - 8 : Math.min(660, innerWidth - 32) - 74;
+  const px = (len / (AX.hi - AX.lo)) * railW - (narrow ? 8 : 16);
+  const cw = narrow ? 6.3 : 7;
+  if (px >= label.length * cw) return h('span', {}, label);
+  const start = label.split('–')[0];
+  return px >= start.length * cw ? h('span', {}, start) : null;
+}
+
+// The session you are about to start, as a dashed ghost from "nu". If it runs into a planned period,
+// both are outlined as the one lock they become.
+function drawTimer(r, day) {
+  if (!timer || day !== 0 || ghost) return;
+  const s = NOW, e = NOW + timer;
+  r.append(h('div', { class: 'ghost-blk timer', style: `left:${X(s)};width:${W(Math.min(e, AX.hi) - s)}` }));
+  const c = chainFor({ start: s % DAY, end: e % DAY, date: 0, weekdays: [], list: FRONT_LIST }, null, 0);
+  if (c.parts.length > 1) {
+    r.append(h('div', { class: 'chain-outline', style: `left:calc(${X(c.s)} - 3px);width:calc(${W(Math.min(c.e, AX.hi) - c.s)} + 6px)` }),
+      h('div', { class: 'len-pill', style: `left:${X(Math.min(c.e, AX.hi))}` }, 'til ' + hm(c.e)));
+  }
+}
+
+function drawGhost(r, day) {
+  const g = ghost;
+  const ds = day * DAY;
+  const gs = g.day * DAY + g.s, ge = gs + ((g.e - g.s + DAY) % DAY || DAY);
+  const s = Math.max(gs, ds) - ds, e = Math.min(ge, ds + DAY) - ds;
+  if (e > s) r.append(h('div', { class: 'ghost-blk', style: `left:${X(s)};width:${W(e - s)}` }));
+  // The whole continuous lock this makes: outline + its length. It cannot grow past 24 h.
+  const c = chainFor({ start: g.s, end: g.e, date: g.day, weekdays: [], list: g.list }, g.id, g.day);
+  const cs = Math.max(c.s, ds) - ds, ce = Math.min(c.e, ds + DAY) - ds;
+  if (c.parts.length > 1 && ce > cs) r.append(h('div', { class: 'chain-outline', style: `left:calc(${X(cs)} - 3px);width:calc(${W(ce - cs)} + 6px)` }));
+  if (c.e > ds && c.e <= ds + DAY) {
+    const atRight = c.e - ds > AX.hi - 90;
+    r.append(h('div', { class: 'len-pill' + (atRight ? ' left' : ''), style: `left:${X(atRight ? s : c.e - ds)}` }, hours(c.e - c.s)));
+  }
+}
+
+function minuteAt(r, x) {
+  const rect = r.getBoundingClientRect();
+  return AX.lo + ((x - rect.left) / rect.width) * (AX.hi - AX.lo);
+}
+function hover(e, r, day) {
+  if (ghost || e.pointerType !== 'mouse' || e.target.closest('.blk')) { r.querySelector('.ghost-blk.hover')?.remove(); return; }
+  let s = Math.floor(minuteAt(r, e.clientX) / 30) * 30;
+  if (day === 0 && s < NOW) { r.querySelector('.ghost-blk.hover')?.remove(); return; }
+  let el = r.querySelector('.ghost-blk.hover');
+  if (!el) { el = h('div', { class: 'ghost-blk hover' }, '+'); r.append(el); }
+  el.style.left = X(s); el.style.width = W(Math.min(60, AX.hi - s));
+}
+
+// Drag along a rail = a new period on that date. A click/tap = one hour from there.
+function startDrag(e, r, day) {
+  if (e.button !== 0 || e.target.closest('.blk')) return;
+  closePopover();
+  const at = (x) => Math.round(minuteAt(r, x) / 15) * 15;
+  let a = Math.floor(minuteAt(r, e.clientX) / 15) * 15;
+  if (day === 0 && a < NOW) { if (minuteAt(r, e.clientX) < NOW) return; a = Math.ceil(NOW / 15) * 15; }
+  const cap = (s) => Math.min(DAY - s, maxLen({ list: FRONT_LIST, start: s, end: (s + 15) % DAY, date: day, weekdays: [] }, null));
+  const maxA = cap(a);
+  if (maxA < 15) return;
+  const x0 = e.clientX;
+  let moved = false;
+  ghost = { day, s: a, e: a + Math.min(60, maxA), list: FRONT_LIST };
+  const move = (ev) => {
+    if (Math.abs(ev.clientX - x0) > 4) moved = true;
+    if (!moved) return;
+    const c = Math.max(AX.lo, Math.min(AX.hi, at(ev.clientX)));
+    let s = Math.min(a, c), en = Math.max(a, c);
+    if (day === 0 && s < NOW) s = Math.ceil(NOW / 15) * 15;
+    if (en - s < 15) en = s + 15;
+    en = Math.min(en, s + cap(s));
+    ghost = { day, s, e: en % DAY, list: FRONT_LIST };
+    redraw();
+  };
+  const up = () => { off(); openCreate(); };
+  const off = () => { removeEventListener('pointermove', move); removeEventListener('pointerup', up); };
+  addEventListener('pointermove', move);
+  addEventListener('pointerup', up);
+  e.preventDefault();
+  redraw();
+}
+function redraw() {
+  for (const el of app.querySelectorAll('.rails .ghost-blk, .rails .chain-outline, .rails .len-pill, .rails .hint')) el.remove();
+  for (const r of app.querySelectorAll('.rail')) { drawTimer(r, +r.dataset.day); if (ghost) drawGhost(r, +r.dataset.day); }
+}
+
+function openCreate() {
+  const g = ghost;
+  if (!g) return;
+  redraw();
+  const ed = editor({
+    draft: { list: g.list, start: g.s, end: g.e, kind: 'date', date: g.day, weekdays: [] }, ctxDay: g.day,
+    onSave: (d) => { savePeriod(d); ghost = null; closePopover(); render(); },
+    onClose: dismiss,
+  });
+  ed.el.addEventListener('draftchange', (ev) => {
+    const d = ev.detail;
+    ghost = { day: d.kind === 'date' ? d.date : g.day, s: d.start, e: d.end, list: d.list };
+    redraw();
+  });
+  const gEl = app.querySelector('.rails .ghost-blk:not(.timer):not(.hover)');
+  popover(ed.el, (gEl || app.querySelector('.rails')).getBoundingClientRect(), dismiss, 'below');
+  ed.focus();
+}
+function dismiss() { ghost = null; closePopover(); render(); }
+
+function openEdit(p, day, b) {
+  for (const el of app.querySelectorAll('.blk.sel')) el.classList.remove('sel');
+  b.classList.add('sel');
+  const done = () => { closePopover(); render(); };
+  const ed = editor({
+    draft: draftFrom(p), existing: true, ctxDay: day,
+    onSave: (d) => { savePeriod(d); done(); },
+    onDelete: (id) => { deletePeriod(id); done(); },
+    onClose: done,
+  });
+  popover(ed.el, b.getBoundingClientRect(), done, 'below');
+  ed.focus();
+}
+
+render();
+mockBar('C · Tidslinje');
+
+// Deep links for screenshots: ?week=1, ?demo=task1 | task2 | edit | limit | chain
+const demo = params.get('demo');
+if (params.get('week') === '1' || demo === 'limit') { weekOpen = true; render(); }
+if (demo === 'task1') { ghost = { day: 1, s: 9 * 60, e: 12 * 60, list: FRONT_LIST }; render(); openCreate(); }
+if (demo === 'task2') { ghost = { day: 1, s: 7 * 60, e: 9 * 60, list: FRONT_LIST }; render(); openCreate(); }
+if (demo === 'edit') { const b = app.querySelector('[data-occ="p1:1"]'); if (b) openEdit(periods[0], 1, b); }
+if (demo === 'limit') { ghost = { day: 5, s: 10 * 60, e: 22 * 60, list: FRONT_LIST }; redraw(); }
+if (demo === 'chain') { [...document.querySelectorAll('#presets .chip')].find((c) => c.textContent === '4 timer')?.click(); }
+</script>
+</body>
+</html>

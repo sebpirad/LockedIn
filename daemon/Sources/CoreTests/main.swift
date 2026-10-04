@@ -81,12 +81,16 @@ do {
     expectError("locked", "cannot delete custom site during lock") { try e.removeSite(id: "c-reddit.com", now: now) }
     _ = try! e.addSchedule(sched([2], "13:00", "14:00"), now: now)
     let sid = e.state.schedules[0].id
-    expectError("locked", "cannot delete schedule during lock") { try e.removeSchedule(id: sid, now: now) }
+    // A period that is NOT part of the running lock can be edited (owner 2026-10-04) …
     var changed = e.state.schedules[0]; changed.end = "13:30"
-    expectError("locked", "cannot edit schedule during lock") { try e.updateSchedule(changed, now: now) }
+    do { try e.updateSchedule(changed, now: now); passed += 1 } catch { failures += 1; print("FAIL unrelated period edit refused: \(error)") }
+    // … but one chained to it (Monday 09:00–10:00, right after the 08:00Z = 10:00 local timer end) cannot.
+    let chained = try! e.addSchedule(sched([1], "11:00", "12:00"), now: now)
+    expectError("locked", "cannot delete a period chained to the running lock") { try e.removeSchedule(id: chained.id, now: now) }
+    _ = sid
     // Shorter start while locked never shortens.
     try! e.startSession(minutes: 5, now: now)
-    eq(e.status(now: now).activeUntil, now.addingTimeInterval(3600), "a shorter start does not shorten")
+    eq(e.status(now: now).activeUntil, now.addingTimeInterval(7200), "a shorter start does not shorten (timer to 09:00Z + the chained 11–12 local period)")
     // Wall clock jumps 2 h forward, monotonic only 60 s: still locked.
     e.advance(now: now.addingTimeInterval(7200), mono: 1060)
     check(e.isLocked(now.addingTimeInterval(7200)), "forward clock jump cannot end the lock")
@@ -515,6 +519,25 @@ do {
     e.testMutate { $0.lockLists = [B.id]; $0.lockListsUntil = now.addingTimeInterval(-3600) }
     e.rememberLockLists(now: now)
     check(!e.activeListIds(now: now).contains(B.id), "R5-3: stale lock lists dropped")
+}
+
+// MARK: Skip one occurrence
+
+do {
+    let now = t("2026-10-05T06:00:00Z")   // Monday 08:00 local
+    let e = Engine(state: State()); e.boot(now: now, mono: 0)
+    e.migrateToLists()
+    let s = try! e.addSchedule(sched([5], "09:00", "12:00"), now: now)   // Fridays
+    try! e.skipOccurrence(id: s.id, date: "2026-10-09", now: now)
+    check(!e.isLocked(t("2026-10-09T08:00:00Z")), "skipped Friday does not lock")
+    check(e.status(now: now).next?.start == t("2026-10-16T07:00:00Z"), "next is the Friday after")
+    expectError("invalid", "skip on a day without the period") { try e.skipOccurrence(id: s.id, date: "2026-10-08", now: now) }
+    try! e.unskipOccurrence(id: s.id, date: "2026-10-09", now: now)
+    check(e.status(now: now).next?.start == t("2026-10-09T07:00:00Z"), "unskip restores it")
+    // During its own occurrence it cannot be skipped.
+    let during = t("2026-10-09T08:00:00Z")
+    e.advance(now: during, mono: 4 * 86400)
+    expectError("locked", "cannot skip the running occurrence") { try e.skipOccurrence(id: s.id, date: "2026-10-09", now: during) }
 }
 
 // MARK: Catalog file
