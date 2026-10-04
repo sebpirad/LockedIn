@@ -9,7 +9,7 @@ git clone https://github.com/sebpirad/LockedIn.git ~/locked-in
 ```bash
 cd ~/locked-in && sudo ./install/install.sh
 ```
-Scriptet bygger Locked in og kører alle tests. Fejler noget, installeres intet. Derefter installerer det tjenesten (`dk.lockedin.daemon`), menulinje-timeren og konfigurationsprofilen.
+Scriptet bygger Locked in og kører alle tests. Fejler bygningen eller en test, installeres intet. Derefter installerer det tjenesten (`dk.lockedin.daemon`), menulinje-timeren og konfigurationsprofilen.
 
 ## 2. Godkend konfigurationsprofilen
 *Systemindstillinger → Generelt → Enhedsadministration → Locked in — Chrome → Installér.*

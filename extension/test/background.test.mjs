@@ -62,6 +62,7 @@ globalThis.fetch = async (url, init) => {
   if (daemon.mode === 'down') throw new TypeError('Failed to fetch');
   if (url.endsWith('/v1/heartbeat')) {
     delivered.push(JSON.parse(init.body));
+    if (daemon.heartbeat403) return { ok: false, status: 403, json: async () => ({ error: 'forbidden', message: 'Kun Chrome' }) };
     return { ok: true, status: 200, json: async () => ({ ok: true }) };
   }
   if (daemon.mode === 'broken') return { ok: false, status: 500, json: async () => ({ error: 'x', message: 'fejl' }) };
@@ -193,6 +194,15 @@ test('worker: M3 probe — mid-lock "inactive" + allowHosts instagram.com keeps 
   updates.length = 0;
   await Promise.all(listeners.history.map((fn) => fn({ frameId: 0, tabId: 7, url: 'https://www.instagram.com/' })));
   assert.deepEqual(updates, [[7, ORIGIN + 'blocked.html']]);
+});
+
+test('worker: a 403 on /v1/heartbeat is never surfaced as an error', async () => {
+  daemon = { mode: 'up', status: status(false), heartbeat403: true };
+  delivered.length = 0;
+  const v = await refresh();
+  assert.equal(delivered.length, 1);
+  assert.equal(v.reachable, true);
+  assert.equal(v.lastError, null);
 });
 
 test('worker: nextQuote serialises and never repeats back-to-back', async () => {

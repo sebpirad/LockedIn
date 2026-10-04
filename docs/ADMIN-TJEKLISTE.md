@@ -35,8 +35,12 @@ Ny FileVault-gendannelsesnøgle, som **kun du** gemmer. Den gamle kan ejeren hav
 - [ ] *Systemindstillinger → Generelt → Login-emner → Tillad i baggrunden*: Locked in er slået til.
 - [ ] Prøv som ejeren: `chrome://policy` viser Locked in-reglerne som *Platform / Maskine*. Profilen kan ikke fjernes uden din adgangskode.
 
-## 4. Opdateringer af Locked in
-Installér **kun** fra en frisk kopi i din egen hjemmemappe, som ejeren ikke kan skrive i:
+## 4. Før første session
+- [ ] `chrome://extensions` viser **Locked in**, installeret af politik. Menulinjen viser 🔓 og ikke 🔒 ?.
+- [ ] Åbn Locked in i Chrome én gang, så daemonen ser et hjerteslag. Først derefter er vagthunden aktiv.
+
+## 5. Opdateringer af Locked in
+Installér fra en frisk kopi i din egen hjemmemappe, som ejeren ikke kan skrive i:
 ```bash
 git clone https://github.com/sebpirad/LockedIn.git ~/locked-in-install
 ```
@@ -45,8 +49,10 @@ cd ~/locked-in-install && sudo ./install/install.sh
 ```
 Byg aldrig fra ejerens egen mappe. Han kan ændre koden dér, før du kører den som root.
 
-## 5. Det, ingen tjekliste kan lukke (dokumenteret i README)
+**Ærligt forbehold:** Repoet tilhører ejeren. En frisk klon beskytter kun mod ændringer i hans lokale mappe, ikke mod ændringer, han selv har udgivet. Kan du ikke selv gennemgå ændringerne, så installér kun en version, der er nævnt i et review i `docs/`.
+
+## 6. Det, ingen tjekliste kan lukke (dokumenteret i README)
 - **Fejlsikret tilstand (Shift ved opstart):** Locked in-tjenesten starter ikke. Hosts-blokeringen og Chrome-reglerne ligger der dog stadig.
 - **Tunneler i brugerrum** (fx `ssh -D`) uden for Chrome kan omgå netværksblokeringen. Chrome selv er låst til direkte forbindelse.
-- **Ejeren ejer selv repoet og udvidelsens signeringsnøgle.** Han kan udgive en tom udvidelse. Daemonen lukker dog Chrome, hvis udvidelsen ikke svarer under en session.
+- **Ejeren ejer selv repoet og udvidelsens signeringsnøgle.** Han kan udgive en udvidelse, der ikke blokerer, men stadig sender hjerteslag. Vagthunden stopper kun en udvidelse, der er fjernet eller ikke svarer. Hosts, pf og app-kontrollen virker uanset hvad.
 - **Telefon og iPad** er ikke omfattet.

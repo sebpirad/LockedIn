@@ -12,10 +12,12 @@ public struct BundleFacts: Equatable {
     public var googleSigned: Bool
     /// Team of a VALID signature; nil when unsigned or the signature does not verify.
     public var teamId: String?
+    /// No Contents/Frameworks and a main executable under 2 MB — what a Chrome web-app shim looks like.
+    public var tinyShim: Bool
     public init(path: String, bundleId: String? = nil, name: String? = nil, kind: AppKind = .app,
-                appleSigned: Bool = false, googleSigned: Bool = false, teamId: String? = nil) {
+                appleSigned: Bool = false, googleSigned: Bool = false, teamId: String? = nil, tinyShim: Bool = false) {
         self.path = path; self.bundleId = bundleId; self.name = name; self.kind = kind
-        self.appleSigned = appleSigned; self.googleSigned = googleSigned; self.teamId = teamId
+        self.appleSigned = appleSigned; self.googleSigned = googleSigned; self.teamId = teamId; self.tinyShim = tinyShim
     }
 }
 
@@ -70,7 +72,9 @@ public enum AppPolicy {
     ]
 
     public static func isUserWritable(_ path: String) -> Bool {
-        ["/Users/", "/private/tmp/", "/tmp/", "/private/var/folders/", "/var/folders/", "/Volumes/"].contains { path.hasPrefix($0) }
+        // /opt/homebrew belongs to the owner on this Mac (review 3, R3-2).
+        ["/Users/", "/private/tmp/", "/tmp/", "/private/var/folders/", "/var/folders/", "/private/var/tmp/", "/var/tmp/",
+         "/Volumes/", "/opt/homebrew/"].contains { path.hasPrefix($0) }
     }
 
     /// Never killed, whatever a rule says (a stub claiming com.apple.loginwindow must not log the user out; review 1, L2).
@@ -79,6 +83,31 @@ public enum AppPolicy {
     }
 
     static func isChromeId(_ id: String?) -> Bool { id == "com.google.Chrome" || (id?.hasPrefix("com.google.Chrome.") ?? false) }
+
+    /// Installed Chrome web apps: tiny shims in ~/Applications/Chrome Apps.localized whose windows Chrome renders
+    /// (the extension's rules apply in them). Exempt from the "Chrome copy"/browser rule only — a fake one with its own
+    /// engine is still caught by the engine and WebContent rules (review 2, N4).
+    static func isChromeAppShim(_ b: BundleFacts) -> Bool {
+        // Must also look like a shim: a renamed Firefox/Chromium in that folder carries frameworks and a large binary
+        // (review 3, R3-1). A tiny WKWebView fake is still caught by the WebContent rule.
+        (b.bundleId?.hasPrefix("com.google.Chrome.app.") ?? false) && b.path.contains("/Applications/Chrome Apps.localized/") && b.tinyShim
+    }
+
+    /// Flags/names that identify a Chromium/Firefox-family browser binary that is not inside any .app (e.g.
+    /// Playwright's chrome-headless-shell in ~/Library/Caches) — judged only in user-writable locations.
+    static let bareBrowserArgs = ["--type=renderer", "--type=gpu-process", "--remote-debugging", "--host-resolver-rules",
+                                  "--headless", "--user-data-dir", "--disable-extensions", "-marionette", "--remote-allow-origins",
+                                  "--proxy-server", "--host-rules"]
+    static let bareBrowserNames = ["chrome", "chromium", "headless_shell", "firefox", "msedge", "brave", "electron"]
+
+    public static func judgeBare(path: String, argv: [String]) -> Verdict {
+        guard isUserWritable(path) else { return .allow }
+        let name = (path as NSString).lastPathComponent.lowercased()
+        if bareBrowserNames.contains(where: { name.contains($0) }) || argv.dropFirst().contains(where: { a in bareBrowserArgs.contains { a.hasPrefix($0) } }) {
+            return .killTree(reason: "Browser uden app-pakke (\((path as NSString).lastPathComponent))")
+        }
+        return .allow
+    }
 
     /// The real Chrome: outermost bundle at /Applications/Google Chrome.app.
     public static func isRealChrome(_ p: ProcFacts) -> Bool { p.outer?.path == chromePath && p.outer?.bundleId == "com.google.Chrome" }
@@ -104,7 +133,7 @@ public enum AppPolicy {
         }
 
         // 2. Any level that is a browser — including a Chrome copy anywhere else, or one hidden inside a wrapper .app.
-        for b in p.bundles {
+        for b in p.bundles where !isChromeAppShim(b) {
             if isChromeId(b.bundleId) || b.googleSigned && b.kind == .browser {
                 return .kill(reason: "Chrome-kopi uden for /Applications")
             }
@@ -142,7 +171,7 @@ public enum AppPolicy {
         let v = judge(owner, rules: rules)
         if v != .allow { return v }
         if let id = outer.bundleId, let r = rules.first(where: { $0.bundleId == id }), r.teamId == nil || r.teamId == outer.teamId { return .allow }
-        if outer.appleSigned { return .allow }
+        if outer.appleSigned && !isUserWritable(outer.path) { return .allow }
         // A non-Apple app rendering web pages: allowed only from an admin-installed location AND with an intact signature.
         if !isUserWritable(outer.path) && outer.teamId != nil { return .allow }
         let id = outer.bundleId ?? "ukendt"

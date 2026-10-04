@@ -1,0 +1,139 @@
+{
+  "quotes": [
+    {
+      "id": "a01",
+      "category": "athlete",
+      "text": "You just can't beat the person who never gives up.",
+      "original": null,
+      "translation": null,
+      "author": "Babe Ruth",
+      "author_dates": "1895–1948",
+      "theme": "perseverance",
+      "source": {
+        "work": "'Bat It Out!', article under Babe Ruth's byline, The Rotarian, vol. 57 no. 1",
+        "year": "1940",
+        "locator": "July 1940, p. 14",
+        "url": "https://archive.org/details/sim_rotarian_1940-07_57_1"
+      },
+      "verification": "primary",
+      "verification_note": "Matched in the Internet Archive's scan of the July 1940 Rotarian (OCR text: 'You just can't beat the per- son who never gives up'). Quote Investigator (7 Mar 2014) gives the same issue and page and finds it reasonable to credit Ruth, while noting the article may have been ghostwritten.",
+      "image": {
+        "file": "quote-images/a01.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Babe_Ruth_by_Paul_Thompson,_1920.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Babe_Ruth_by_Paul_Thompson%2C_1920.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Babe_Ruth_by_Paul_Thompson,_1920.jpg",
+        "creator": "Paul Thompson",
+        "attribution": "Paul Thompson, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Babe_Ruth_by_Paul_Thompson,_1920.jpg)"
+      }
+    },
+    {
+      "id": "a02",
+      "category": "athlete",
+      "text": "I can accept failure. Everyone fails at something. But I can't accept not trying.",
+      "original": null,
+      "translation": null,
+      "author": "Michael Jordan",
+      "author_dates": "born 1963",
+      "theme": "perseverance",
+      "source": {
+        "work": "I Can't Accept Not Trying: Michael Jordan on the Pursuit of Excellence, with Mark Vancil (San Francisco: HarperSanFrancisco)",
+        "year": "1994",
+        "locator": "Page not determined (the passage that gives the book its title)",
+        "url": "https://archive.org/details/icantacceptnottr00jord"
+      },
+      "verification": "primary",
+      "verification_note": "All three sentences matched as one exact phrase in the scanned 1994 HarperSanFrancisco edition via the Internet Archive's full-text search (lending-only: text seen in search snippets, page image not). Book prepared with writer Mark Vancil.",
+      "image": {
+        "file": "quote-images/a02.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Steve_Lipfosky_--_Michael_Jordan_(1997).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/Steve_Lipfosky_--_Michael_Jordan_%281997%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY-SA 3.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+        "creator": "Steve Lipofsky (basketballphoto.com)",
+        "attribution": "Steve Lipofsky (basketballphoto.com), CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Steve_Lipfosky_--_Michael_Jordan_(1997).jpg)"
+      }
+    },
+    {
+      "id": "a03",
+      "category": "athlete",
+      "text": "He who is not courageous enough to take risks will accomplish nothing in life.",
+      "original": null,
+      "translation": null,
+      "author": "Muhammad Ali",
+      "author_dates": "1942–2016",
+      "theme": "ambition",
+      "source": {
+        "work": "Quoted by columnist Bernie Lincicome, Fort Lauderdale News",
+        "year": "1977",
+        "locator": "14 April 1977, p. 6D",
+        "url": "https://quoteinvestigator.com/2019/06/23/risks/"
+      },
+      "verification": "secondary",
+      "verification_note": "I did not see the newspaper. Quote Investigator (23 June 2019) cites this 1977 column as the earliest evidence, with Ali speaking, and concludes Ali deserves credit. The popular Ali line 'I hated every minute of training…' was rejected (see REJECTED-ATHLETE.md).",
+      "image": {
+        "file": "quote-images/a03.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Muhammad_Ali_NYWTS.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/89/Muhammad_Ali_NYWTS.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Muhammad_Ali_NYWTS.jpg",
+        "creator": "Ira Rosenberg, World Journal Tribune (Library of Congress, NYWT&S collection)",
+        "attribution": "Ira Rosenberg, World Journal Tribune (Library of Congress, NYWT&S collection), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Muhammad_Ali_NYWTS.jpg)"
+      }
+    },
+    {
+      "id": "a04",
+      "category": "athlete",
+      "text": "When you're playing a point, it is the most important thing in the world. But when it's behind you, it's behind you.",
+      "original": null,
+      "translation": null,
+      "author": "Roger Federer",
+      "author_dates": "born 1981",
+      "theme": "focus",
+      "source": {
+        "work": "Commencement address, Dartmouth College",
+        "year": "2024",
+        "locator": "Delivered 9 June 2024; Dartmouth's published text, second lesson ('It's only a point')",
+        "url": "https://home.dartmouth.edu/news/2024/06/2024-commencement-address-roger-federer"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Dartmouth College's own published text of the speech. The transcript ends the second sentence with '...'; a full stop is used here.",
+      "image": {
+        "file": "quote-images/a04.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Roger_Federer_2015_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/11/Roger_Federer_2015_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY-SA 2.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+        "creator": "Tatiana (Flickr, Moscow)",
+        "attribution": "Tatiana (Flickr, Moscow), CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Roger_Federer_2015_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "a05",
+      "category": "athlete",
+      "text": "Talent has a broad definition. Most of the time, it's not about having a gift. It's about having grit.",
+      "original": null,
+      "translation": null,
+      "author": "Roger Federer",
+      "author_dates": "born 1981",
+      "theme": "discipline",
+      "source": {
+        "work": "Commencement address, Dartmouth College",
+        "year": "2024",
+        "locator": "Delivered 9 June 2024; Dartmouth's published text, first lesson ('Effortless is a myth')",
+        "url": "https://home.dartmouth.edu/news/2024/06/2024-commencement-address-roger-federer"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Dartmouth College's own published text of the speech; only the opening 'But' of the first sentence is dropped.",
+      "image": {
+        "file": "quote-images/a05.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Roger_Federer_2015_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/11/Roger_Federer_2015_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY-SA 2.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+        "creator": "Tatiana (Flickr, Moscow)",
+        "attribution": "Tatiana (Flickr, Moscow), CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Roger_Federer_2015_(cropped).jpg)"
+      }
+    }
+  ]
+}

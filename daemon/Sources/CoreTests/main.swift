@@ -357,6 +357,56 @@ do {
     eq(ok.status, 200, "own Host header → 200")
 }
 
+// MARK: Review 2 regressions
+
+do {
+    // N3: a weekend plan that is exactly 24 h (and 25 h on the DST Sunday) must not block unrelated sessions.
+    let now = t("2026-10-19T08:00:00Z")   // Monday before the fall-back weekend
+    let e = Engine(state: State())
+    e.testMutate { $0.schedules = [sched([6], "12:00", "00:00"), sched([7], "00:00", "12:00")] }
+    e.boot(now: now, mono: 0)
+    do { try e.startSession(minutes: 60, now: now); passed += 1 } catch { failures += 1; print("FAIL N3: unrelated session refused: \(error)") }
+    do { _ = try e.addSchedule(sched([2], "09:00", "10:00"), now: now); passed += 1 } catch { failures += 1; print("FAIL N3: unrelated schedule refused") }
+    expectError("invalid", "N3: lengthening the existing chain is still refused") { _ = try e.addSchedule(sched([7], "12:00", "13:00"), now: now) }
+    // On the DST Sunday the 25 h chain is capped at 24 h (+60 s).
+    let sat = t("2026-10-24T10:00:00Z")
+    let e2 = Engine(state: State())
+    e2.testMutate { $0.schedules = [sched([6], "12:00", "00:00"), sched([7], "00:00", "12:00")] }
+    let st = e2.status(now: sat)
+    check(st.activeUntil! <= sat.addingTimeInterval(Engine.maxChain), "DST weekend chain capped")
+}
+do {
+    func b(_ path: String, _ id: String?, kind: AppKind = .app, apple: Bool = false, team: String? = nil) -> BundleFacts {
+        BundleFacts(path: path, bundleId: id, name: id, kind: kind, appleSigned: apple, googleSigned: false, teamId: team)
+    }
+    // N4: an installed Chrome web app shim is not a "Chrome copy".
+    let shimPath = "/Users/sp/Applications/Chrome Apps.localized/Gmail.app"
+    var shim = b(shimPath, "com.google.Chrome.app.abc", team: "EQHXZ8M8AV"); shim.tinyShim = true
+    eq(AppPolicy.judge(ProcFacts(pid: 1, path: shimPath + "/Contents/MacOS/app_mode_loader", bundles: [shim]), rules: []), .allow, "N4: Chrome PWA shim allowed")
+    // R3-1: a Firefox copy renamed into the shim folder is not a shim.
+    let fx = b("/Users/sp/Applications/Chrome Apps.localized/F.app", "com.google.Chrome.app.fake", kind: .browser)
+    check(AppPolicy.judge(ProcFacts(pid: 9, path: fx.path + "/Contents/MacOS/firefox", bundles: [fx]), rules: []) != .allow, "R3-1: renamed browser in shim folder killed")
+    if case .killTree = AppPolicy.judgeBare(path: "/opt/homebrew/bin/x", argv: ["x", "--proxy-server=socks5://h"]) {} else { check(false, "R3-2: homebrew bare browser with proxy flag killed") }
+    // …but a fake "shim" with its own engine is still killed.
+    check(AppPolicy.judge(ProcFacts(pid: 2, path: shimPath + "/Contents/MacOS/x", bundles: [b(shimPath, "com.google.Chrome.app.fake", kind: .webengine)]), rules: []) != .allow, "N4: fake shim with engine killed")
+    // N8: an "Apple-signed" bundle in the home folder is not trusted to render web pages.
+    check(AppPolicy.judgeWebContentOwner(ProcFacts(pid: 3, path: "/Users/sp/F.app/Contents/MacOS/osascript", bundles: [b("/Users/sp/F.app", "dk.fake", apple: true, team: "apple")]), rules: []) != .allow, "N8: fake Apple-signed app in home folder killed")
+    // H1 residual: bare browser binaries in user-writable places.
+    if case .killTree = AppPolicy.judgeBare(path: "/Users/sp/Library/Caches/ms-playwright/chromium_headless_shell-1223/chrome-mac/headless_shell", argv: ["x"]) {} else { check(false, "bare headless_shell killed") }
+    if case .killTree = AppPolicy.judgeBare(path: "/Users/sp/bin/b", argv: ["b", "--remote-debugging-port=9222"]) {} else { check(false, "bare binary with browser flags killed") }
+    eq(AppPolicy.judgeBare(path: "/Users/sp/.local/bin/claude", argv: ["claude"]), .allow, "ordinary CLI tool in home untouched")
+    eq(AppPolicy.judgeBare(path: "/opt/homebrew/bin/node", argv: ["node", "server.js"]), .allow, "ordinary homebrew tool untouched")
+    eq(AppPolicy.judgeBare(path: "/usr/local/bin/x", argv: ["x", "--headless"]), .allow, "non-user-writable path not judged")
+    let slow = Shell.output("/bin/sleep", ["10"], stdin: nil, timeout: 1)
+    eq(slow.status, -2, "R3-4: hung tool is killed after its timeout")
+}
+do {
+    // M1 residual: an unknown AppKind from a newer build does not make state unreadable.
+    let json = #"{"apps":[{"bundleId":"a.b","name":"X","kind":"terminal","blocked":false}]}"#
+    let s = try? JSONDecoder().decode(State.self, from: Data(json.utf8))
+    eq(s?.apps.first?.kind, .webengine, "unknown kind decodes as webengine")
+}
+
 // MARK: Catalog file
 
 do {

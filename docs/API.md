@@ -25,10 +25,11 @@ Højst 16 samtidige forbindelser er tilladt, og hver forbindelse lukkes efter 3 
 ### `GET /v1/status`
 ```json
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "now": "…Z",
   "active": true,
-  "activeUntil": "…Z",            // sluttid for den samlede aktive lås (max af timer og aktive planvinduer), null hvis inaktiv
+  "activeUntil": "…Z",
+  "activeSince": "…Z",            // start af den samlede lås (24-timersloftet regnes herfra), null hvis inaktiv            // sluttid for den samlede aktive lås (max af timer og aktive planvinduer), null hvis inaktiv
   "activeSources": ["timer", "schedule:ab12"],
   "nextSession": {"start": "…Z", "end": "…Z", "scheduleId": "ab12", "name": "Morgenfokus"},  // eller null
   "maxSessionMinutes": 1440,
@@ -55,7 +56,7 @@ Starter en session eller forlænger den aktive: ny slut = max(nuværende slut, n
 - `DELETE /v1/sites/{id}`: giver 423 under en aktiv session. Indbyggede sider kan ikke slettes, kun slås fra.
 
 ### Apps
-- `GET /v1/installed`: svarer `{"apps": [...]}` med installerede apps fra `/Applications`, `/Applications/Utilities` og konsolbrugerens `~/Applications`, hver som `{bundleId, name, path, kind}`.
+- `GET /v1/installed`: svarer `{"apps": [...]}` med installerede apps fra `/Applications`, `/Applications/Utilities` og konsolbrugerens `~/Applications`, hver som `{bundleId, name, kind, blocked}`.
 - `POST /v1/apps` `{"bundleId": "…"}`: tilføjer en app fra listen, `blocked: true`.
 - `PATCH /v1/apps/{bundleId}` `{"blocked": bool}`: `false` giver 423 under en aktiv session, og 400 for browsere, som altid er lukket under fokus.
 - `DELETE /v1/apps/{bundleId}`: giver 423 under en aktiv session.
@@ -65,4 +66,4 @@ Starter en session eller forlænger den aktive: ny slut = max(nuværende slut, n
 - `PUT /v1/schedules/{id}` og `DELETE /v1/schedules/{id}`: giver 423 under en aktiv session. At tilføje en ny plan er altid tilladt.
 
 ### `POST /v1/heartbeat` `{"extensionVersion": "1.0.0"}`
-Udvidelsen sender et hjerteslag mindst hvert 30. sekund. Svarer `{"ok": true}`.
+Udvidelsen sender et hjerteslag mindst hvert 30. sekund. Svarer `{"ok": true}`, men **kun når forbindelsen kommer fra den rigtige Chrome**. Daemonen slår processen bag forbindelsen op, og alle andre får 403.

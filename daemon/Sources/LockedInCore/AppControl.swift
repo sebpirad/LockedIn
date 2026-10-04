@@ -23,14 +23,27 @@ public final class AppControl {
     private let deepQueue = DispatchQueue(label: "dk.lockedin.deepverify", qos: .utility)
     private let deepLock = NSLock()
     private var deepFailed: Set<String> = []
+    private var deepFailCount: [String: Int] = [:]
     private var deepCheckedAt: [String: Date] = [:]
     private var deepRunning = false
+
+    /// Called when the lock ends: a failed check from this session never carries into the next one.
+    public func resetDeepVerify() {
+        deepLock.lock(); deepFailed.removeAll(); deepFailCount.removeAll(); deepCheckedAt.removeAll(); deepLock.unlock()
+    }
+    public func deepFailedNames() -> [String] {
+        deepLock.lock(); defer { deepLock.unlock() }
+        return deepFailed.map { ($0 as NSString).lastPathComponent }
+    }
 
     func isDeepFailed(_ path: String) -> Bool { deepLock.lock(); defer { deepLock.unlock() }; return deepFailed.contains(path) }
 
     func scheduleDeepVerify(_ paths: [String], now: Date) {
         deepLock.lock()
-        let due = paths.filter { deepCheckedAt[$0].map { now.timeIntervalSince($0) >= 900 } ?? true }
+        // A bundle that failed once is re-checked after 60 s (an app caught mid-update); others every 15 minutes.
+        let due = paths.filter { p in
+            deepCheckedAt[p].map { now.timeIntervalSince($0) >= ((deepFailCount[p] ?? 0) > 0 ? 60 : 900) } ?? true
+        }
         guard !due.isEmpty, !deepRunning else { deepLock.unlock(); return }
         deepRunning = true
         for p in due { deepCheckedAt[p] = now }
@@ -43,7 +56,14 @@ public final class AppControl {
                     ok = SecStaticCodeCheckValidity(code, SecCSFlags(rawValue: kSecCSCheckAllArchitectures), nil) == errSecSuccess
                 }
                 self?.deepLock.lock()
-                if ok { self?.deepFailed.remove(p) } else { self?.deepFailed.insert(p) }
+                if ok {
+                    self?.deepFailed.remove(p); self?.deepFailCount[p] = 0
+                } else {
+                    let n = (self?.deepFailCount[p] ?? 0) + 1
+                    self?.deepFailCount[p] = n
+                    // Only two failures in a row (≥ 60 s apart) mark the app as changed.
+                    if n >= 2 { self?.deepFailed.insert(p) }
+                }
                 self?.deepLock.unlock()
             }
             self?.deepLock.lock(); self?.deepRunning = false; self?.deepLock.unlock()
@@ -148,9 +168,15 @@ public final class AppControl {
         let rawId = info["CFBundleIdentifier"] as? String
         let id = rawId.flatMap { Validation.isBundleId($0) ? $0 : nil }
         let name = (info["CFBundleDisplayName"] as? String) ?? (info["CFBundleName"] as? String) ?? url.deletingPathExtension().lastPathComponent
-        let sig = Self.signature(bundlePath)
+        var sig = Self.signature(bundlePath)
+        // A signature that does not belong to THIS bundle (e.g. a copied /usr/bin/osascript as the main executable of a
+        // fake .app) proves nothing about it (review 2, N8).
+        if let id, let ident = sig.identifier, ident != id { sig = (nil, false, ident) }
+        let exeSize = (info["CFBundleExecutable"] as? String).flatMap {
+            try? FileManager.default.attributesOfItem(atPath: bundlePath + "/Contents/MacOS/" + $0)[.size] as? Int } ?? Int.max
+        let tiny = !FileManager.default.fileExists(atPath: bundlePath + "/Contents/Frameworks") && exeSize < 2_000_000
         var f = BundleFacts(path: bundlePath, bundleId: id, name: name, kind: Self.classify(bundle: url, info: info),
-                            appleSigned: sig.apple, googleSigned: sig.team == "EQHXZ8M8AV", teamId: sig.team)
+                            appleSigned: sig.apple, googleSigned: sig.team == "EQHXZ8M8AV", teamId: sig.team, tinyShim: tiny)
         if AppPolicy.knownBrowsers.contains(id ?? "") { f.kind = .browser }
         // Cache only complete, verified results.
         if id != nil && (sig.team != nil || sig.apple) {
@@ -160,20 +186,21 @@ public final class AppControl {
         return f
     }
 
-    /// Validates the signature including the main executable (resources are not hashed — too slow every tick;
-    /// root-owned /Applications covers resources, see docs/ADMIN-TJEKLISTE.md). Returns the team of a valid signature.
-    static func signature(_ path: String) -> (team: String?, apple: Bool) {
+    /// Validates the signature including the main executable. Resources and nested code are not hashed here (too slow
+    /// every tick); the running allowed apps and Chrome get a full check in the background (scheduleDeepVerify).
+    static func signature(_ path: String) -> (team: String?, apple: Bool, identifier: String?) {
         var code: SecStaticCode?
-        guard SecStaticCodeCreateWithPath(URL(fileURLWithPath: path) as CFURL, [], &code) == errSecSuccess, let code else { return (nil, false) }
+        guard SecStaticCodeCreateWithPath(URL(fileURLWithPath: path) as CFURL, [], &code) == errSecSuccess, let code else { return (nil, false, nil) }
         let flags = SecCSFlags(rawValue: kSecCSDoNotValidateResources)
-        guard SecStaticCodeCheckValidity(code, flags, nil) == errSecSuccess else { return (nil, false) }
+        guard SecStaticCodeCheckValidity(code, flags, nil) == errSecSuccess else { return (nil, false, nil) }
         var appleReq: SecRequirement?
         SecRequirementCreateWithString("anchor apple" as CFString, [], &appleReq)
         let apple = appleReq.map { SecStaticCodeCheckValidity(code, flags, $0) == errSecSuccess } ?? false
         var infoRef: CFDictionary?
         guard SecCodeCopySigningInformation(code, SecCSFlags(rawValue: kSecCSSigningInformation), &infoRef) == errSecSuccess,
-              let info = infoRef as? [String: Any] else { return (nil, apple) }
-        return (info[kSecCodeInfoTeamIdentifier as String] as? String ?? (apple ? "apple" : nil), apple)
+              let info = infoRef as? [String: Any] else { return (nil, apple, nil) }
+        return (info[kSecCodeInfoTeamIdentifier as String] as? String ?? (apple ? "apple" : nil), apple,
+                info[kSecCodeInfoIdentifier as String] as? String)
     }
 
     func facts(_ p: Proc) -> ProcFacts {
@@ -188,7 +215,10 @@ public final class AppControl {
 
     // MARK: Enforcement
 
-    public struct Outcome { public var killed: [String] = []; public var recorded: [AppRule] = []; public var problems: [String] = [] }
+    public struct Outcome {
+        public var killed: [String] = []; public var recorded: [AppRule] = []; public var problems: [String] = []
+        public var realChromeRunning = false
+    }
 
     /// One pass over the process table during a lock.
     /// `heartbeatOK` is false when the Locked in extension has not been heard from for 2 minutes: the real Chrome
@@ -202,6 +232,7 @@ public final class AppControl {
         var killBundles: [String: String] = [:]   // outermost bundle path -> reason
         var killPids: [Int32: String] = [:]
         var chromeSigFailed = false
+        var realChromeRunning = false
 
         func apply(_ v: Verdict, _ f: ProcFacts) {
             switch v {
@@ -226,12 +257,19 @@ public final class AppControl {
                 apply(AppPolicy.judgeWebContentOwner(f, rules: rules), f)
                 continue
             }
-            guard p.path.contains(".app/") else { continue }
+            guard p.path.contains(".app/") else {
+                if AppPolicy.isUserWritable(p.path) {
+                    let v = AppPolicy.judgeBare(path: p.path, argv: argv(p.pid))
+                    if case .killTree(let reason) = v { killPids[p.pid] = reason }
+                }
+                continue
+            }
             let f = facts(p)
             apply(AppPolicy.judge(f, rules: rules), f)
             if AppPolicy.isChromeMain(f) && !heartbeatOK && now.timeIntervalSince(p.started) >= 120 && killPids[p.pid] == nil {
                 killPids[p.pid] = "Locked in-udvidelsen svarer ikke i Chrome"
             }
+            if AppPolicy.isChromeMain(f) && f.outer?.googleSigned == true { realChromeRunning = true }
         }
 
         // Allowed web-engine apps that are running get a full (resources included) signature check in the background.
@@ -240,7 +278,9 @@ public final class AppControl {
         for p in procs where p.path.contains(".app/") {
             if let outer = Self.appLevels(p.path).last, let id = bundleFacts(outer).bundleId, allowed.contains(id) { running.insert(outer) }
         }
+        if procs.contains(where: { $0.path.hasPrefix(AppPolicy.chromePath + "/") }) { running.insert(AppPolicy.chromePath) }
         scheduleDeepVerify(Array(running), now: now)
+        for n in deepFailedNames() { out.problems.append("\(n): appens signatur er ændret — behandles som ukendt app") }
 
         // The real Chrome failing its signature check: only after 60 s of continuous failure (updates replace files
         // in place; one failed read must never close Chrome and PowerLink with it).
@@ -255,6 +295,7 @@ public final class AppControl {
             chromeSigFailSince = nil
         }
 
+        out.realChromeRunning = realChromeRunning
         for (bundle, reason) in killBundles {
             let pids = procs.filter { $0.path.hasPrefix(bundle + "/") && !AppPolicy.isProtectedSystemPath($0.path) }.map(\.pid)
             terminate(pids, now: now)
@@ -284,6 +325,15 @@ public final class AppControl {
             }
         }
         pendingKill = pendingKill.filter { kill($0.key, 0) == 0 && now.timeIntervalSince($0.value) < 30 }
+    }
+
+    /// True when `pid` belongs to the real, Google-signed Chrome at /Applications/Google Chrome.app.
+    public func isRealChromePid(_ pid: Int32) -> Bool {
+        var buf = [CChar](repeating: 0, count: 4096)
+        guard proc_pidpath(pid, &buf, UInt32(buf.count)) > 0 else { return false }
+        let path = String(cString: buf)
+        guard path.hasPrefix(AppPolicy.chromePath + "/") else { return false }
+        return bundleFacts(AppPolicy.chromePath).googleSigned
     }
 
     // MARK: Installed apps (for the UI picker and the first-run seed)

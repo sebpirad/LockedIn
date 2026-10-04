@@ -1,6 +1,7 @@
 import Foundation
 import LockedInCore
 import SystemConfiguration
+import IOKit
 
 // lockedind — runs as root from /Library/LaunchDaemons/dk.lockedin.daemon.plist (RunAtLoad, KeepAlive).
 // Enforcement never depends on the HTTP API, and a block is lifted only by a tick that has positively computed
@@ -50,6 +51,25 @@ if !store.loadFailed {
     engine.fillMissingTeamIds(installedNow)
 }
 
+// MARK: Watchdog (review 2, N1/N2/N10)
+// Chrome is closed during a lock only when ALL hold: the profile force-installs the extension, a verified heartbeat
+// from the real Chrome has been seen at least once (ever), no verified heartbeat for 120 s of AWAKE time (uptime
+// excludes sleep), the user is actively using the Mac (HID idle < 60 s — never after wake, in dark wake or App Nap),
+// and that has been true on ticks spanning at least 30 s.
+func uptime() -> Double { Double(clock_gettime_nsec_np(CLOCK_UPTIME_RAW)) / 1e9 }
+var lastHeartbeatUptime = uptime()          // daemon start counts as a fresh grace period
+var staleSinceUptime: Double?
+var lastTickWall = Date()
+
+func hidIdleSeconds() -> Double {
+    let svc = IOServiceGetMatchingService(kIOMainPortDefault, IOServiceMatching("IOHIDSystem"))
+    guard svc != 0 else { return .infinity }
+    defer { IOObjectRelease(svc) }
+    guard let v = IORegistryEntryCreateCFProperty(svc, "HIDIdleTime" as CFString, kCFAllocatorDefault, 0)?.takeRetainedValue(),
+          let ns = (v as? NSNumber)?.doubleValue else { return .infinity }
+    return ns / 1e9
+}
+
 /// True when Chrome's machine policy (the Locked in configuration profile) force-installs the extension.
 func watchdogArmed() -> Bool {
     guard let d = NSDictionary(contentsOfFile: "/Library/Managed Preferences/com.google.Chrome.plist"),
@@ -62,6 +82,17 @@ let pf = PFApplier()
 var report = EnforcementReport()
 var dirty = true
 var wasLocked: Bool?
+var wasLockedForDeep = false
+var lastLogCheck = Date.distantPast
+
+/// launchd keeps our stdout open on the log file, so rotation by newsyslog would leave us writing to a deleted inode
+/// (review 2, L5). Instead the log is truncated in place once it passes 5 MB (launchd opens it with O_APPEND).
+func trimLogIfNeeded(_ now: Date) {
+    guard now.timeIntervalSince(lastLogCheck) > 3600 else { return }
+    lastLogCheck = now
+    var st = stat()
+    if fstat(STDOUT_FILENO, &st) == 0, st.st_size > 5 * 1024 * 1024 { ftruncate(STDOUT_FILENO, 0); log("log nulstillet (over 5 MB)") }
+}
 var lastSave = Date.distantPast
 
 func save() {
@@ -89,9 +120,18 @@ func tick() {
         case .failed(let why): report.hostsOK = false; problems.append(why)
         }
         if let c = catalog, let p = pf.enforce(catalog: c) { problems.append(p); report.pfOK = false } else { report.pfOK = true }
-        // The watchdog is armed only when the configuration profile force-installs the extension: without it, Chrome
-        // never had the extension, and closing Chrome would only cost the owner his work (PowerLink).
-        let heartbeatOK = !watchdogArmed() || (engine.state.lastHeartbeat.map { now.timeIntervalSince($0) < 120 } ?? false)
+        // A gap between ticks means the Mac slept: start a fresh grace period instead of judging a stale heartbeat.
+        if now.timeIntervalSince(lastTickWall) > 10 { lastHeartbeatUptime = uptime(); staleSinceUptime = nil }
+        var heartbeatOK = true
+        if watchdogArmed() && engine.state.lastHeartbeat != nil {
+            let stale = uptime() - lastHeartbeatUptime >= 120 && hidIdleSeconds() < 60
+            if stale {
+                if staleSinceUptime == nil { staleSinceUptime = uptime() }
+                heartbeatOK = uptime() - staleSinceUptime! < 30
+            } else {
+                staleSinceUptime = nil
+            }
+        }
         let o = apps.enforce(rules: engine.state.apps, heartbeatOK: heartbeatOK, now: now)
         for r in o.recorded { engine.recordUnknownApp(r); dirty = true }
         for k in o.killed { log("lukket: \(k)") }
@@ -113,8 +153,12 @@ func tick() {
         wasLocked = locked
         dirty = true
     }
+    if !locked && wasLockedForDeep { apps.resetDeepVerify() }
+    wasLockedForDeep = locked
     report.problems = problems
     report.lastTick = now
+    lastTickWall = now
+    trimLogIfNeeded(now)
     // While locked, persist the monotonic budget once a minute so powered-off time is counted from a fresh point.
     if dirty || (locked && now.timeIntervalSince(lastSave) >= 60) { save() }
 }
@@ -124,9 +168,24 @@ let api = API(engine: engine,
               report: { report },
               changed: { dirty = true; tick() })
 
+/// The process on the other end of a local TCP connection, found by its client port.
+func peerPid(_ port: UInt16?) -> Int32? {
+    guard let port else { return nil }
+    let r = Shell.output("/usr/sbin/lsof", ["-nP", "-a", "-iTCP:\(port)", "-sTCP:ESTABLISHED", "-t"], stdin: nil)
+    return r.out.split(separator: "\n").compactMap { Int32($0.trimmingCharacters(in: .whitespaces)) }.first { $0 != getpid() }
+}
+
 func handle(_ req: HTTPRequest) -> HTTPResponse {
     if store.loadFailed && req.method != "GET" {
         return HTTPResponse(503, ["error": "unavailable", "message": "Locked in kan ikke gemme ændringer lige nu."])
+    }
+    if req.path.hasPrefix("/v1/heartbeat") {
+        // Only the real Chrome (i.e. the extension) may feed the watchdog — not a curl loop (review 2, N10).
+        guard let pid = peerPid(req.peerPort), apps.isRealChromePid(pid) else {
+            return HTTPResponse(403, ["error": "forbidden", "message": "Hjerteslag kun fra Chrome."])
+        }
+        lastHeartbeatUptime = uptime()
+        staleSinceUptime = nil
     }
     return api.handle(req, now: Date())
 }

@@ -286,7 +286,7 @@
         "url": "https://archive.org/details/ERIC_ED440033"
       },
       "verification": "secondary",
-      "verification_note": "I did not see the 1912 stenographic report itself (HathiTrust and LoC blocked scripted access). Wording taken from the National Park Service lesson (ERIC ED440033), which quotes the report and cites pp. 154–55. The stenographer's '(laughter)' after 'wash-tub' is omitted. The popular smoothed version ('I am a woman who came from the cotton fields of the South. From there I was promoted to the washtub…') is not the report's wording. 41 words — above the 30-word preference.",
+      "verification_note": "I did not see the 1912 stenographic report itself (HathiTrust and LoC blocked scripted access). Wording taken from the National Park Service lesson (ERIC ED440033), which quotes the report and cites pp. 154–55. The stenographer's '(laughter)' after 'wash-tub' is omitted. The popular smoothed version ('I am a woman who came from the cotton fields of the South. From there I was promoted to the washtub…') is not the report's wording. 44 words — above the 30-word preference; if too long, the owner could display only the last clause, but that would be an excerpt, not the full sentence.",
       "image": {
         "file": "quote-images/e11.jpg",
         "commons_page": "https://commons.wikimedia.org/wiki/File:Madam_C._J._Walker_by_Addison_N._Scurlock.jpg",
@@ -635,6 +635,91 @@
         "license_url": "https://commons.wikimedia.org/wiki/File:P._T._Barnum_-_02176a_(cropped).jpg",
         "creator": "Mathew Brady studio (Brady-Handy Photograph Collection, Library of Congress)",
         "attribution": "Mathew Brady studio (Brady-Handy Photograph Collection, Library of Congress), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:P._T._Barnum_-_02176a_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "e24",
+      "category": "entrepreneur",
+      "text": "The trouble with every one of us is that we don't think enough. We don't get paid for working with our feet — we get paid for working with our heads.",
+      "original": null,
+      "translation": null,
+      "author": "Thomas J. Watson",
+      "author_dates": "1874–1956",
+      "theme": "focus",
+      "source": {
+        "work": "Impromptu talk at a sales and advertising meeting of the National Cash Register Company, Dayton, Ohio — the origin of the THINK slogan he later brought to IBM",
+        "year": "1915 (per IBM; some biographies give 1911)",
+        "locator": "IBM Heritage, 'The origins of THINK'",
+        "url": "https://www.ibm.com/history/think"
+      },
+      "verification": "secondary",
+      "verification_note": "Wording as quoted on IBM's own heritage page (the company he built). Spoken, not written, and reconstructed by the company from its records; I did not see a contemporaneous transcript. Watson was a builder rather than a founder of IBM (he took over CTR in 1914 and renamed it IBM in 1924).",
+      "image": {
+        "file": "quote-images/e24.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Thomas_J._Watson_-_National_Portrait_Gallery.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/25/Thomas_J._Watson_-_National_Portrait_Gallery.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC0",
+        "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "creator": "Oscar White (National Portrait Gallery, Smithsonian Institution, NPG.93.388.38)",
+        "attribution": "Oscar White (National Portrait Gallery, Smithsonian Institution, NPG.93.388.38), CC0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Thomas_J._Watson_-_National_Portrait_Gallery.jpg)"
+      }
+    },
+    {
+      "id": "e25",
+      "category": "entrepreneur",
+      "text": "In order to be irreplaceable one must always be different.",
+      "original": "Pour être irremplaçable, il faut rester différente.",
+      "translation": {
+        "translator": "Charles Lam Markmann",
+        "edition": "Marcel Haedrich, Coco Chanel: Her Life, Her Secrets (Boston: Little, Brown), p. 255",
+        "year": 1972
+      },
+      "author": "Coco Chanel",
+      "author_dates": "1883–1971",
+      "theme": "ambition",
+      "source": {
+        "work": "Marcel Haedrich, Coco Chanel secrète (Paris: Robert Laffont) — remarks the author recorded from Chanel, in the section 'She Said'",
+        "year": "1971",
+        "locator": "French edition p. 308; English translation (1972) p. 255",
+        "url": "https://quoteinvestigator.com/2019/06/11/irreplaceable/"
+      },
+      "verification": "secondary",
+      "verification_note": "I did not see Haedrich's book. Quote Investigator (11 June 2019) gives the French and English wording with page numbers and concludes Chanel should be credited, on the testimony of Haedrich, a journalist who knew her. Note the French says 'rester' (remain) where the published English says 'always be'.",
+      "image": {
+        "file": "quote-images/e25.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Coco_Chanel_in_Los_Angeles,_1931_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/22/Coco_Chanel_in_Los_Angeles%2C_1931_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0",
+        "creator": "Los Angeles Times (UCLA Library Special Collections, Los Angeles Times Photographic Archive)",
+        "attribution": "Los Angeles Times (UCLA Library Special Collections, Los Angeles Times Photographic Archive), CC BY 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Coco_Chanel_in_Los_Angeles,_1931_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "e26",
+      "category": "entrepreneur",
+      "text": "The best lesson I learned was to just do it.",
+      "original": null,
+      "translation": null,
+      "author": "Richard Branson",
+      "author_dates": "born 1950",
+      "theme": "ambition",
+      "source": {
+        "work": "Screw It, Let's Do It: Lessons in Life (London: Virgin Books)",
+        "year": "2006",
+        "locator": "Chapter 1, 'Just Do It!' (page not determined)",
+        "url": "https://archive.org/details/screwitletsdoit00rich_0"
+      },
+      "verification": "primary",
+      "verification_note": "Matched as an exact phrase in the scanned 2006 Virgin Books edition via the Internet Archive's full-text search (OCR reads 'I' as '1'); text seen in search snippets, page image not. Chapter placement inferred from the book's contents list ('1 Just Do It!') and the surrounding snippet — verifier should confirm.",
+      "image": {
+        "file": "quote-images/e26.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Richard_Branson_March_2015_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Richard_Branson_March_2015_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0",
+        "creator": "Chatham House (Flickr)",
+        "attribution": "Chatham House (Flickr), CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Richard_Branson_March_2015_(cropped).jpg)"
       }
     }
   ]

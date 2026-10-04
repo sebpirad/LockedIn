@@ -6,8 +6,10 @@ public struct HTTPRequest {
     public var path: String
     public var headers: [String: String]   // lower-cased names
     public var body: Data
-    public init(method: String, path: String, headers: [String: String], body: Data) {
-        self.method = method; self.path = path; self.headers = headers; self.body = body
+    /// The client's TCP port on 127.0.0.1 — lets the daemon find which process is calling.
+    public var peerPort: UInt16?
+    public init(method: String, path: String, headers: [String: String], body: Data, peerPort: UInt16? = nil) {
+        self.method = method; self.path = path; self.headers = headers; self.body = body; self.peerPort = peerPort
     }
 }
 
@@ -104,7 +106,8 @@ public final class LocalServer {
             var b = buf
             if let data { b.append(data) }
             do {
-                if let req = try HTTPParse.parse(b) {
+                if var req = try HTTPParse.parse(b) {
+                    if case .hostPort(_, let port) = c.endpoint { req.peerPort = port.rawValue }
                     let resp = self.handler(req)
                     c.send(content: HTTPParse.serialize(resp), completion: .contentProcessed { _ in c.cancel() })
                 } else if done || err != nil || b.count > 80 * 1024 {

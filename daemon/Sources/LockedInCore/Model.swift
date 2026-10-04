@@ -43,7 +43,14 @@ public struct SiteRule: Codable, Equatable {
     }
 }
 
-public enum AppKind: String, Codable { case browser, webengine, app }
+public enum AppKind: String, Codable {
+    case browser, webengine, app
+    /// An unknown value (written by a newer build) must not make the whole state unreadable; treat it as a web engine,
+    /// which is closed unless explicitly allowed.
+    public init(from decoder: Decoder) throws {
+        self = AppKind(rawValue: (try? decoder.singleValueContainer().decode(String.self)) ?? "") ?? .webengine
+    }
+}
 
 public struct AppRule: Codable, Equatable {
     public var bundleId: String

@@ -40,7 +40,6 @@ codesign --force --sign - "$BIN" >/dev/null 2>&1 || true
 codesign --force --sign - "$APP" >/dev/null 2>&1 || true
 install -o root -g wheel -m 644 install/dk.lockedin.daemon.plist "$DPLIST"
 install -o root -g wheel -m 644 install/dk.lockedin.menu.plist "$APLIST"
-install -o root -g wheel -m 644 install/lockedin.newsyslog.conf /etc/newsyslog.d/dk.lockedin.conf
 
 echo "4/6  Starter tjenesten …"
 launchctl bootstrap system "$DPLIST" || { sleep 2; launchctl bootstrap system "$DPLIST"; }

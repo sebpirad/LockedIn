@@ -8,6 +8,7 @@ import {
   shortWhen, isoUtc, untilToday, defaultUntil, parseHHMM,
 } from '../lib/time.js';
 import { normalizeDomain } from '../lib/domains.js';
+import { extendOptions } from '../lib/extend.js';
 import { glyphFor, LOCK_ICON, monogramColor } from './glyphs.js';
 
 const params = new URLSearchParams(location.search);
@@ -133,10 +134,16 @@ function plannedEnd(now = Date.now()) {
   return now + ui.minutes * 60000;
 }
 
+/** Extensions the daemon will accept right now (24 h cap from the lock's start). */
+function extendChoices(until, now = Date.now()) {
+  const since = status() && status().active && status().activeSince ? Date.parse(status().activeSince) : NaN;
+  return extendOptions({ now, until, activeSince: since, presets: EXTEND_PRESETS, maxMinutes: maxMinutes() });
+}
+
+/** The selected choice, falling back to the largest one that still fits. */
 function extendTarget(until, now = Date.now()) {
-  const remaining = Math.max(0, Math.ceil((until - now) / 60000));
-  const minutes = Math.min(maxMinutes(), remaining + ui.extendAdd);
-  return { minutes, end: Math.max(until, now + minutes * 60000) };
+  const opts = extendChoices(until, now);
+  return opts.find((o) => o.add === ui.extendAdd) || opts[opts.length - 1] || null;
 }
 
 // ---------- hero ----------
@@ -192,14 +199,17 @@ function renderHero() {
   show('start', idle);
   show('lockNow', confirm);
   show('back', confirm);
-  show('extend', locked && !ui.extendOpen);
+  const choices = locked ? extendChoices(lockInfo().until) : [];
+  if (!choices.length) ui.extendOpen = false;
+  else if (!choices.some((o) => o.add === ui.extendAdd)) ui.extendAdd = choices[choices.length - 1].add;
+  show('extend', locked && !ui.extendOpen && choices.length > 0);
   show('extendPanel', locked && ui.extendOpen);
   document.body.classList.toggle('is-locked', locked);
 
   $('lockNow').disabled = !reachable();
   $('extend').disabled = !reachable();
   if (ui.extendOpen) {
-    $('extendChips').replaceChildren(...EXTEND_PRESETS.map((m) => h('button', {
+    $('extendChips').replaceChildren(...choices.map((o) => o.add).map((m) => h('button', {
       type: 'button', class: 'chip' + (ui.extendAdd === m ? ' on' : ''), 'aria-pressed': String(ui.extendAdd === m),
       onclick: () => { ui.extendAdd = m; renderHero(); },
     }, '+ ' + formatDuration(m))));
@@ -227,11 +237,13 @@ function tick() {
     sub.textContent = `Låst til ${shortWhen(now, until)}`;
     sub.hidden = false;
     document.title = `${formatCountdown(until - now)} · Locked in`;
+    const choices = extendChoices(until, now);
+    const offered = ui.extendOpen ? $('extendChips').children.length : (!$('extend').hidden ? 1 : 0);
+    if ((choices.length > 0) !== (offered > 0) || (ui.extendOpen && choices.length !== offered)) renderHero();
     if (ui.extendOpen) {
       const t = extendTarget(until, now);
-      const can = t.end > until + 30000;
-      $('extendNow').textContent = can ? `Forlæng til ${shortWhen(now, t.end)}` : 'Maks 24 t';
-      $('extendNow').disabled = !can || !reachable();
+      if (t) $('extendNow').textContent = `Forlæng til ${shortWhen(now, t.end)}`;
+      $('extendNow').disabled = !t || !reachable();
     }
     return;
   }
@@ -565,7 +577,9 @@ function setup() {
   $('extendNow').onclick = async () => {
     const { until } = lockInfo();
     if (!until) return;
-    if (await act(() => api.startSession(extendTarget(until).minutes))) ui.extendOpen = false;
+    const t = extendTarget(until);
+    if (!t) return;
+    if (await act(() => api.startSession(t.minutes))) ui.extendOpen = false;
     renderHero();
   };
   setupSettings();

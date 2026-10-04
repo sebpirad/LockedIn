@@ -129,8 +129,9 @@ check(/^\d\d:\d\d:\d\d$/.test(quote.remain), 'quote page counts down', quote.rem
 const { result: { targetId: appId } } = await send('Target.createTarget', { url: `${ORIGIN}app.html` });
 const appS = await attach(appId);
 await sleep(2500);
-const app = await evaluate(appS, `({ big: document.getElementById('big').textContent, tiles: document.getElementById('tiles').children.length, sub: document.getElementById('sub').textContent })`);
+const app = await evaluate(appS, `({ big: document.getElementById('big').textContent, tiles: document.getElementById('tiles').children.length, sub: document.getElementById('sub').textContent, alert: document.getElementById('alert').hidden ? '' : document.getElementById('alert').textContent })`);
 check(/^\d\d:\d\d:\d\d$/.test(app.big) && app.tiles > 0 && /^Låst til/.test(app.sub), 'app.html renders the lock', JSON.stringify(app));
+check(app.alert === '', 'heartbeat 403 is not shown as an error', app.alert);
 
 // ---------- 5. heartbeat ----------
 const hits = await (await fetch(`http://127.0.0.1:${daemonPort}/__hits`)).json();

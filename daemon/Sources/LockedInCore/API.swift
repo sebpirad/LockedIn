@@ -123,6 +123,7 @@ public final class API {
             "now": Self.ts(now),
             "active": s.active,
             "activeUntil": Self.ts(s.activeUntil),
+            "activeSince": Self.ts(s.activeSince),
             "activeSources": s.sources,
             "nextSession": next,
             "maxSessionMinutes": 1440,

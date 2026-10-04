@@ -50,7 +50,8 @@ class H(http.server.BaseHTTPRequestHandler):
             sites.append(x)
         self._send(200, {
             "version": "fake", "now": now.strftime(fmt), "active": not spoof,
-            "activeUntil": None if spoof else until, "activeSources": [] if spoof else ["timer"],
+            "activeUntil": None if spoof else until,
+            "activeSince": None if spoof else (now - datetime.timedelta(minutes=1)).strftime(fmt), "activeSources": [] if spoof else ["timer"],
             "nextSession": None, "maxSessionMinutes": 1440, "sites": sites, "apps": [], "schedules": [],
             "enforcement": {"hosts": True, "pf": True, "appControl": True, "lastTick": now.strftime(fmt), "lastHeartbeat": None},
         })
@@ -64,7 +65,8 @@ class H(http.server.BaseHTTPRequestHandler):
         with lock:
             state["hits"].append(["POST", self.path, body])
         if self.path == "/v1/heartbeat":
-            return self._send(200, {"ok": True})
+            # Like the real daemon when the TCP peer is not Google Chrome (CfT is not): 403.
+            return self._send(403, {"error": "forbidden", "message": "Kun Chrome"})
         self._send(403, {"error": "forbidden", "message": "Ikke i testen"})
 
 

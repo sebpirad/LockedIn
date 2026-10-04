@@ -14,6 +14,16 @@ export async function createMockApi(params = new URLSearchParams()) {
   const s = structuredClone(base);
   delete s._comment;
   let until = params.get('locked') === '1' ? Date.now() + (+params.get('mins') || 95) * 60000 : null;
+  // elapsed=N: the running lock started N minutes ago (the 24 h cap counts from there).
+  let since = until ? Date.now() - (+params.get('elapsed') || 0) * 60000 : null;
+  const DAY = 24 * 60 * 60000;
+  function lockUntil(t) {
+    const start = isActive() ? since : Date.now();
+    const end = Math.max(isActive() ? until : 0, t);
+    if (end > start + DAY) throw new ApiError(400, 'invalid', 'En samlet lås kan højst vare 24 timer.');
+    since = start;
+    until = end;
+  }
   if (params.get('broken') === '1') s.enforcement.pf = false;
   const stale = params.get('stale') === '1';
   const down = params.get('down') === '1';
@@ -46,6 +56,7 @@ export async function createMockApi(params = new URLSearchParams()) {
       now: now.toISOString(),
       active,
       activeUntil: active ? new Date(until).toISOString() : null,
+      activeSince: active ? new Date(since).toISOString() : null,
       activeSources: active ? ['timer'] : [],
       nextSession: nextSession(),
       enforcement: {
@@ -64,7 +75,7 @@ export async function createMockApi(params = new URLSearchParams()) {
     async startSession(minutes) {
       await guard();
       if (!(minutes >= 1 && minutes <= 1440)) throw new ApiError(400, 'invalid', 'Vælg mellem 1 minut og 24 timer.');
-      until = Math.max(isActive() ? until : 0, Date.now() + minutes * 60000);
+      lockUntil(Date.now() + minutes * 60000);
       return snapshot();
     },
     async startUntil(iso) {
@@ -73,7 +84,7 @@ export async function createMockApi(params = new URLSearchParams()) {
       if (!/Z$/.test(iso) || !Number.isFinite(t) || t - Date.now() < 60000 || t - Date.now() > 1440 * 60000) {
         throw new ApiError(400, 'invalid', 'Vælg et senere tidspunkt.');
       }
-      until = Math.max(isActive() ? until : 0, t);
+      lockUntil(t);
       return snapshot();
     },
     async heartbeat() { await guard(); return { ok: true }; },

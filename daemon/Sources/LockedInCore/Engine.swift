@@ -14,6 +14,8 @@ public struct EngineError: Error, Equatable {
 public struct LockStatus: Equatable {
     public var active: Bool
     public var activeUntil: Date?
+    /// Start of the continuous lock in force (the 24 h cap counts from here).
+    public var activeSince: Date? = nil
     public var sources: [String]
     public var next: Interval?
 }
@@ -98,26 +100,30 @@ public final class Engine {
         let all = Self.intervals(state, timerRemaining: tr, now: now)
         let active = all.filter { $0.start <= now && now < $0.end }
         var until: Date?
+        var since: Date?
         var isActive = false
         if let chain = Self.chains(all).first(where: { $0.start <= now && now < $0.end }) {
             // Defensive cap: even if stored schedules chain past 24 h (state from an older version), the lock ends.
             let capped = min(chain.end, chain.start.addingTimeInterval(Self.maxChain))
-            if now < capped { isActive = true; until = capped }
+            if now < capped { isActive = true; until = capped; since = chain.start }
         }
         let next = all.first { $0.start > now && $0.source != "timer" && (until == nil || $0.start > until!) }
         var sources: [String] = []
         if isActive { for s in active.map(\.source) where !sources.contains(s) { sources.append(s) } }
-        return LockStatus(active: isActive, activeUntil: until, sources: sources, next: next)
+        return LockStatus(active: isActive, activeUntil: until, activeSince: since, sources: sources, next: next)
     }
 
     public func isLocked(_ now: Date) -> Bool { status(now: now).active }
 
-    /// Rejects a candidate state in which any continuous lock in the next 8 days would last longer than 24 h.
+    /// Rejects a candidate state that CREATES or LENGTHENS a continuous lock of more than 24 h in the next 8 days.
+    /// An over-long chain that already exists (e.g. a weekend plan that grows by an hour on the DST Sunday) does not
+    /// block unrelated actions — `status()` caps it at 24 h (review 2, N3).
     func checkChains(_ candidate: State, timerRemaining tr: Double, now: Date) throws {
+        let current = Self.chains(Self.intervals(state, timerRemaining: timerRemaining(now: now), now: now))
         for c in Self.chains(Self.intervals(candidate, timerRemaining: tr, now: now)) where c.end > now {
-            if c.end.timeIntervalSince(c.start) > Self.maxChain {
-                throw EngineError.invalid("En samlet lås kan højst vare 24 timer.")
-            }
+            guard c.end.timeIntervalSince(c.start) > Self.maxChain else { continue }
+            let preexisting = current.contains { $0.start <= c.start && $0.end >= c.end }
+            if !preexisting { throw EngineError.invalid("En samlet lås kan højst vare 24 timer.") }
         }
     }
 

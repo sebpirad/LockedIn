@@ -1,6 +1,6 @@
 # Locked in — arkitektur v2
 
-Status: godkendt retning efter ét adversarialt review (2026-10-04). Ikke bygget endnu.
+Status: bygget og installeret på ejerens Mac; uafhængigt reviewet to gange (`docs/REVIEW-1.md`, `docs/REVIEW-2.md`), rettelser beskrevet nederst.
 
 ## Forudsætninger (ejerens beslutninger)
 
@@ -14,7 +14,7 @@ Status: godkendt retning efter ét adversarialt review (2026-10-04). Ikke bygget
 ## Komponenter
 
 ### 1. `lockedind` (root LaunchDaemon, Swift)
-- Installeres root-ejet: binæren i `/Library/PrivilegedHelperTools/` og plist-filen i `/Library/LaunchDaemons/` (RunAtLoad, KeepAlive). Tilstanden gemmes atomisk i `/Library/Application Support/LockedIn/state.json` og valideres strengt.
+- Installeres root-ejet: binæren i `/Library/PrivilegedHelperTools/` og plist-filen i `/Library/LaunchDaemons/` (RunAtLoad, KeepAlive). Tilstanden gemmes atomisk i `/Library/Application Support/LockedIn/state.json`. Den læses tolerant, så manglende eller ukendte felter giver standardværdier, og en ulæselig fil overskrives aldrig.
 - Kalder kun systemværktøjer via absolut sti med et rent miljø. `/opt/homebrew` er brugerejet og må aldrig være på PATH.
 - **Tid:** Sessionens slutning gemmes som et UTC-tidspunkt. En standardkonto kan ikke ændre uret (`system.preferences.datetime` kræver admin, verificeret). Planer udregnes i daemonens egen `Europe/Copenhagen`-zone, aldrig i systemets zone. Ved sommertidsskift gælder følgende: et tidspunkt, der findes to gange, regnes som det første, og et tidspunkt, der ikke findes, rykkes frem.
 - **Under en session**, ved hvert tjek, og der skrives kun ved forskel (hash):
@@ -32,11 +32,10 @@ Status: godkendt retning efter ét adversarialt review (2026-10-04). Ikke bygget
   - BrowserGuestModeEnabled=false og BrowserAddPersonEnabled=false
   - DnsOverHttpsMode=off
   - ProxyMode=direct
-  - RemoteDebuggingAllowed=false
   - (URLBlocklist kan ikke bruges dynamisk, fordi profilen er statisk. Under sessioner blokerer udvidelsen, hosts og app-kontrollen.)
 
 - **Fail closed:** Hvis daemonen dør eller tilstandsfilen ikke kan læses, bevares de seneste blokeringer. De ryddes aldrig ved nedlukning.
-- **IPC:** HTTP på `127.0.0.1:919` (se `docs/API.md`). Port under 1024 kan kun bindes af root, så den kan ikke forfalskes af en standardbruger. Native messaging er droppet. Daemonen accepterer kun kommandoer, der strammer låsen eller er neutrale: start session, tilføj plan og ændre lister uden for en session. Under en session afvises alle svækkelser. Indgående data valideres: hostnavne skal matche `^[a-z0-9.-]+$`, og antallet af poster er begrænset.
+- **IPC:** HTTP på `127.0.0.1:919` (se `docs/API.md`). Porten er **ikke** beskyttet på macOS. Blokeringen afhænger derfor ikke af API'et, og daemonen lukker en proces, der optager porten. Native messaging er droppet. Daemonen accepterer kun kommandoer, der strammer låsen eller er neutrale: start session, tilføj plan og ændre lister uden for en session. Under en session afvises alle svækkelser. Indgående data valideres: hostnavne skal matche `^[a-z0-9.-]+$`, og antallet af poster er begrænset.
 
 ### 2. Chrome-udvidelse (MV3)
 - **Kontrolside:**
@@ -45,7 +44,7 @@ Status: godkendt retning efter ét adversarialt review (2026-10-04). Ikke bygget
   - listerne **Hjemmesider** og **Apps**, hvor hvert element enten er "Virker under fokus" eller "Blokeret", og hvor man kan tilføje sine egne
   - næste session og aktive blokeringer
 - **Citatsiden:** declarativeNetRequest omdirigerer `main_frame` til `blocked.html`, før TLS-forbindelsen oprettes. Andre ressourcetyper (sub_frame, xhr, websocket, media) blokeres. Et indholdsscript tjekker igen ved `pageshow` (persisted) og ved ændringer i historikken (back/forward-cache). Ved sessionsstart lukkes og genskabes faner med blokerede sider.
-- Udvidelsen gemmer selv sessionens sluttidspunkt og fjerner aldrig regler før det. Den taler med daemonen over `127.0.0.1:919` (root-port), ikke via native messaging.
+- Udvidelsen gemmer selv sessionens sluttidspunkt og fjerner aldrig regler før det. Den taler med daemonen over `127.0.0.1:919`. Svar, der vil svække en lås, ignoreres.
 - **Ingen ExtensionInstallBlocklist.** VPN- og proxy-udvidelser er uskadeliggjort af `ProxyMode=direct`, og en blokliste ville risikere ejerens andre udvidelser, herunder PowerLink. Profilen indeholder heller ikke `ExtensionSettings`. Den bruger `ExtensionInstallForcelist`, så cloud-politikken for PowerLink står urørt.
 - **Distribution:** CRX og `updates.xml` ligger på GitHub Pages.
 
@@ -79,8 +78,15 @@ Locked in må aldrig ødelægge, ændre eller blokere PowerLink eller andet Powe
 - **Timeren styres af det monotone ur.** Et ur, der sættes tilbage, kan højst forlænge låsen med 2 minutter (M6).
 - **Chrome** er kun den Google-signerede app på præcis `/Applications/Google Chrome.app`. Alle andre kopier lukkes under en session, også én gemt inde i en anden `.app` (H1). Hvert `.app`-lag i en proces' sti vurderes.
 - **Tilladte apps** genkendes på kodesignaturens team-id, som registreres, når appen tillades. Ved sessionsstart og hvert 15. minut verificeres de fuldt ud i baggrunden, inklusive resourcer. En ændret app regnes som ukendt (H1).
-- **Signaturkontroller caches kun ved succes.** Chrome lukkes først efter 60 sekunders sammenhængende signaturfejl, så en opdatering aldrig lukker Chrome og PowerLink (H3).
-- **Vagthund** (ejerens valg): Under en session lukkes Chrome, hvis udvidelsen ikke har sendt et hjerteslag i 2 minutter, og Chrome har kørt i mindst 2 minutter (M5).
+- **Signaturkontroller caches kun ved succes.** Chrome lukkes først efter 60 sekunders sammenhængende signaturfejl, så en opdatering ikke lukker Chrome og PowerLink, medmindre Chromes signatur er ugyldig i over 60 sekunder (H3).
+- **Vagthund** (ejerens valg, M5, efter review 2 N1/N2/N10): Under en session lukkes Chrome, når alt dette gælder:
+  - konfigurationsprofilen tvinger udvidelsen ind;
+  - der er set mindst ét **verificeret** hjerteslag fra den rigtige Chrome, kontrolleret via forbindelsens proces;
+  - der har ikke været et hjerteslag i 120 sekunders **vågen** tid, og dvale tæller ikke;
+  - brugeren er aktiv ved Mac'en (HID idle under 60 sekunder);
+  - det har stået på i 30 sekunder.
+
+  Opvågning fra dvale giver en ny frist. Begrænsning: Ejeren styrer selv udvidelsens kode, så en tom udvidelse, der kun sender hjerteslag, stoppes ikke af vagthunden.
 - **Fjern-debugging** er ikke længere i profilen (ejerens valg). Daemonen lukker kun en Chrome med `--remote-debugging*` under sessioner.
 - **Andre browsere** kan ikke sættes til "Virker" (ejerens valg, L3).
 - **Systemprocesser** under `/System/Library`, `/usr`, `/bin`, `/sbin` og `/Library/Apple` lukkes aldrig, uanset regler (L2).
@@ -91,3 +97,16 @@ Locked in må aldrig ødelægge, ændre eller blokere PowerLink eller andet Powe
   - Daemonen stopper ikke længere, hvis port 919 er optaget (M4).
   - Kataloget kan ikke svække en kørende lås (M8).
 - **Administrator** installerer kun fra en frisk klon (`docs/ADMIN-TJEKLISTE.md`, M8).
+
+## Ændringer efter review 2 (2026-10-04, se `docs/REVIEW-2.md`)
+- **N1, N2, N10:** Vagthunden er bygget om (se ovenfor).
+- **N3:** Kun ændringer, der skaber eller forlænger en lås på over 24 timer, afvises. En eksisterende weekendplan, der bliver 25 timer på sommertidens sidste søndag, blokerer ikke andre sessioner. `status()` afkorter den til 24 timer.
+- **N4:** Installerede Chrome-webapps (`com.google.Chrome.app.*` i `~/Applications/Chrome Apps.localized`) er ikke "Chrome-kopier".
+- **N5:** En fuld signaturkontrol skal fejle to gange med 60 sekunders mellemrum, før en tilladt app regnes som ændret. Status viser "appens signatur er ændret", og kontrollen nulstilles ved låsens slutning.
+- **N8:** En signatur, der ikke tilhører selve app-pakken, beviser intet. En "Apple-signeret" app i brugerens mapper må ikke vise websider.
+- **H1-rest:** Browsere uden app-pakke (fx Playwrights `headless_shell`) i brugerens mapper lukkes under sessioner, når navn eller flag afslører dem.
+- **L5:** Loggen nulstilles ved 5 MB i stedet for at blive roteret.
+- **Kendt og accepteret:**
+  - **N9:** Et ur, der flyttes frem under en genstart, kan afkorte låsen. En standardkonto kan ikke ændre uret.
+  - **N6:** En lokal proces kan overbelaste API'et. Det er ikke en omgåelse.
+  - **N11:** Gælder kun tilstandsfiler fra version 1.0.
