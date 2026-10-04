@@ -1,0 +1,92 @@
+[
+  {
+    "bundleId": "com.tinyspeck.slackmacgap",
+    "name": "Slack",
+    "kind": "webengine",
+    "path": "/Applications/Slack.app"
+  },
+  {
+    "bundleId": "org.mozilla.firefox",
+    "name": "Firefox",
+    "kind": "browser",
+    "path": "/Applications/Firefox.app"
+  },
+  {
+    "bundleId": "com.spotify.client",
+    "name": "Spotify",
+    "kind": "webengine",
+    "path": "/Applications/Spotify.app"
+  },
+  {
+    "bundleId": "com.todoist.mac.Todoist",
+    "name": "Todoist",
+    "kind": "webengine",
+    "path": "/Applications/Todoist.app"
+  },
+  {
+    "bundleId": "com.microsoft.VSCode",
+    "name": "Visual Studio Code",
+    "kind": "webengine",
+    "path": "/Applications/Visual Studio Code.app"
+  },
+  {
+    "bundleId": "com.hnc.Discord",
+    "name": "Discord",
+    "kind": "webengine",
+    "path": "/Applications/Discord.app"
+  },
+  {
+    "bundleId": "com.apple.Safari",
+    "name": "Safari",
+    "kind": "browser",
+    "path": "/Applications/Safari.app"
+  },
+  {
+    "bundleId": "com.brave.Browser",
+    "name": "Brave Browser",
+    "kind": "browser",
+    "path": "/Applications/Brave Browser.app"
+  },
+  {
+    "bundleId": "notion.id",
+    "name": "Notion",
+    "kind": "webengine",
+    "path": "/Applications/Notion.app"
+  },
+  {
+    "bundleId": "com.apple.Notes",
+    "name": "Noter",
+    "kind": "app",
+    "path": "/Applications/Noter.app"
+  },
+  {
+    "bundleId": "com.apple.TextEdit",
+    "name": "TextEdit",
+    "kind": "app",
+    "path": "/Applications/TextEdit.app"
+  },
+  {
+    "bundleId": "net.whatsapp.WhatsApp",
+    "name": "WhatsApp",
+    "kind": "app",
+    "path": "/Applications/WhatsApp.app"
+  },
+  {
+    "bundleId": "com.figma.Desktop",
+    "name": "Figma",
+    "kind": "webengine",
+    "path": "/Applications/Figma.app"
+  },
+  {
+    "bundleId": "com.openai.chat",
+    "name": "ChatGPT",
+    "kind": "app",
+    "path": "/Applications/ChatGPT.app"
+  },
+  {
+    "bundleId": "ru.keepcoder.Telegram",
+    "name": "Telegram",
+    "kind": "app",
+    "path": "/Applications/Telegram.app"
+  }
+]

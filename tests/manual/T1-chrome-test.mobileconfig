@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>PayloadDisplayName</key><string>Locked in — test T1 (Chrome gæstetilstand fra)</string>
+  <key>PayloadDescription</key><string>Test: respekterer Chrome en manuelt installeret profil? Slår kun Chromes gæstetilstand fra. Kan fjernes i Systemindstillinger → Generelt → Enhedsadministration.</string>
+  <key>PayloadIdentifier</key><string>dk.lockedin.test.t1</string>
+  <key>PayloadType</key><string>Configuration</string>
+  <key>PayloadScope</key><string>System</string>
+  <key>PayloadUUID</key><string>96E1CAB5-E3A3-4535-B05E-F7ACF951BD03</string>
+  <key>PayloadVersion</key><integer>1</integer>
+  <key>PayloadContent</key>
+  <array>
+    <dict>
+      <key>PayloadType</key><string>com.google.Chrome</string>
+      <key>PayloadIdentifier</key><string>dk.lockedin.test.t1.chrome</string>
+      <key>PayloadUUID</key><string>3FCA1CED-1E8B-49C4-AC84-EABDAF635D78</string>
+      <key>PayloadVersion</key><integer>1</integer>
+      <key>PayloadDisplayName</key><string>Chrome: gæstetilstand fra</string>
+      <key>BrowserGuestModeEnabled</key><false/>
+    </dict>
+  </array>
+</dict>
+</plist>

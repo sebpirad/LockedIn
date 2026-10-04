@@ -1,0 +1,20 @@
+[
+  {
+    "id": "dev-seneca-1",
+    "text": "Gør sådan, min Lucilius: tag dig selv tilbage, og saml og gem den tid, som indtil nu blev taget fra dig, stjålet eller gled dig af hænde.",
+    "author": "Seneca",
+    "author_dates": "ca. 4 f.Kr.–65 e.Kr.",
+    "source": { "work": "Epistulae morales ad Lucilium", "year": "ca. 65", "locator": "brev 1.1", "url": null },
+    "translation": { "translator": "DEV-testoversættelse (ikke til brug)" },
+    "image": { "file": "sample-portrait.svg", "license": "CC0 (testbillede)", "license_url": "https://creativecommons.org/publicdomain/zero/1.0/", "creator": "Locked in (dev)", "attribution": "Testbillede, ikke et portræt" }
+  },
+  {
+    "id": "dev-pascal-139",
+    "text": "Al menneskers ulykke kommer af én eneste ting: at de ikke kan blive siddende i ro i et værelse.",
+    "author": "Blaise Pascal",
+    "author_dates": "1623–1662",
+    "source": { "work": "Pensées", "year": "1670", "locator": "§ 139 (Brunschvicg)", "url": null },
+    "translation": { "translator": "DEV-testoversættelse (ikke til brug)" },
+    "image": null
+  }
+]

@@ -1,0 +1,260 @@
+{
+  "_comment": "DEV ONLY. Fake /v1/status for app.html?mock=1 / blocked.html?mock=1. Domain lists are truncated samples, not the real blocklist. Never read by background.js.",
+  "version": "0.0.0-mock",
+  "now": null,
+  "active": false,
+  "activeUntil": null,
+  "activeSources": [],
+  "nextSession": null,
+  "maxSessionMinutes": 1440,
+  "sites": [
+    {
+      "id": "instagram",
+      "label": "Instagram",
+      "builtin": true,
+      "blocked": true,
+      "mode": "full",
+      "suffixes": [
+        "instagram.com",
+        "cdninstagram.com",
+        "instagr.am",
+        "ig.me"
+      ],
+      "exactHosts": [],
+      "regexFilters": [
+        "^https?://instagram\\.f[a-z0-9-]+\\.fna\\.fbcdn\\.net/"
+      ],
+      "allowHosts": []
+    },
+    {
+      "id": "youtube",
+      "label": "YouTube",
+      "builtin": true,
+      "blocked": true,
+      "mode": "full",
+      "suffixes": [
+        "youtube.com",
+        "youtu.be",
+        "yt.be",
+        "youtube-nocookie.com"
+      ],
+      "exactHosts": [
+        "yt3.ggpht.com",
+        "yt4.ggpht.com"
+      ],
+      "regexFilters": [],
+      "allowHosts": [
+        "accounts.youtube.com"
+      ]
+    },
+    {
+      "id": "slack",
+      "label": "Slack",
+      "builtin": true,
+      "blocked": true,
+      "mode": "full",
+      "suffixes": [
+        "slack.com",
+        "slack-edge.com",
+        "slack-msgs.com",
+        "slack-imgs.com"
+      ],
+      "exactHosts": [],
+      "regexFilters": [],
+      "allowHosts": []
+    },
+    {
+      "id": "adversus",
+      "label": "Adversus",
+      "builtin": true,
+      "blocked": true,
+      "mode": "tab",
+      "suffixes": [
+        "adversus.io",
+        "app.adversus.io"
+      ],
+      "exactHosts": [],
+      "regexFilters": [],
+      "allowHosts": []
+    },
+    {
+      "id": "viaplay",
+      "label": "Viaplay",
+      "builtin": true,
+      "blocked": true,
+      "mode": "full",
+      "suffixes": [
+        "viaplay.com",
+        "viaplay.dk",
+        "viaplay.se",
+        "viaplay.no"
+      ],
+      "exactHosts": [
+        "viaplay.mtg-api.com",
+        "i-viaplay-com.akamaized.net"
+      ],
+      "regexFilters": [],
+      "allowHosts": []
+    },
+    {
+      "id": "netflix",
+      "label": "Netflix",
+      "builtin": true,
+      "blocked": false,
+      "mode": "full",
+      "suffixes": [
+        "netflix.com",
+        "netflix.net",
+        "nflxvideo.net",
+        "nflximg.net"
+      ],
+      "exactHosts": [],
+      "regexFilters": [],
+      "allowHosts": []
+    },
+    {
+      "id": "threads",
+      "label": "Threads",
+      "builtin": true,
+      "blocked": true,
+      "mode": "full",
+      "suffixes": [
+        "threads.net",
+        "threads.com"
+      ],
+      "exactHosts": [],
+      "regexFilters": [],
+      "allowHosts": []
+    },
+    {
+      "id": "tv3",
+      "label": "TV3",
+      "builtin": true,
+      "blocked": true,
+      "mode": "full",
+      "suffixes": [
+        "tv3.dk"
+      ],
+      "exactHosts": [],
+      "regexFilters": [],
+      "allowHosts": []
+    },
+    {
+      "id": "viafree",
+      "label": "Viafree",
+      "builtin": true,
+      "blocked": false,
+      "mode": "full",
+      "suffixes": [
+        "viafree.dk"
+      ],
+      "exactHosts": [],
+      "regexFilters": [],
+      "allowHosts": []
+    },
+    {
+      "id": "allente",
+      "label": "Allente",
+      "builtin": true,
+      "blocked": false,
+      "mode": "full",
+      "suffixes": [
+        "allente.dk"
+      ],
+      "exactHosts": [],
+      "regexFilters": [],
+      "allowHosts": []
+    },
+    {
+      "id": "viaplaygroup",
+      "label": "Viaplay Group",
+      "builtin": true,
+      "blocked": true,
+      "mode": "full",
+      "suffixes": [
+        "viaplaygroup.com"
+      ],
+      "exactHosts": [],
+      "regexFilters": [],
+      "allowHosts": []
+    },
+    {
+      "id": "c-reddit",
+      "label": "Reddit",
+      "builtin": false,
+      "blocked": true,
+      "mode": "full",
+      "suffixes": [
+        "reddit.com"
+      ],
+      "exactHosts": [],
+      "regexFilters": [],
+      "allowHosts": []
+    }
+  ],
+  "apps": [
+    {
+      "bundleId": "com.tinyspeck.slackmacgap",
+      "name": "Slack",
+      "kind": "webengine",
+      "blocked": true
+    },
+    {
+      "bundleId": "org.mozilla.firefox",
+      "name": "Firefox",
+      "kind": "browser",
+      "blocked": true
+    },
+    {
+      "bundleId": "com.spotify.client",
+      "name": "Spotify",
+      "kind": "webengine",
+      "blocked": false
+    },
+    {
+      "bundleId": "com.todoist.mac.Todoist",
+      "name": "Todoist",
+      "kind": "webengine",
+      "blocked": false
+    }
+  ],
+  "schedules": [
+    {
+      "id": "ab12",
+      "name": "Morgenfokus",
+      "weekdays": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "start": "09:00",
+      "end": "12:00",
+      "enabled": true
+    },
+    {
+      "id": "cd34",
+      "name": "Aftenro",
+      "weekdays": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "start": "22:00",
+      "end": "06:30",
+      "enabled": false
+    }
+  ],
+  "enforcement": {
+    "hosts": true,
+    "pf": true,
+    "appControl": true,
+    "lastTick": null,
+    "lastHeartbeat": null
+  }
+}

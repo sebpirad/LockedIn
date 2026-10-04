@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Locked in</title>
+<link rel="icon" href="icons/icon32.png">
+<link rel="stylesheet" href="ui/app.css">
+<script type="module" src="ui/app.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <p id="alert" class="alert" role="status" hidden></p>
+    <button id="gear" class="gear" type="button" aria-label="Indstillinger" title="Indstillinger">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.6-2-3.4-2.4 1a7.6 7.6 0 0 0-2.6-1.5L14 2.5h-4l-.4 2.5A7.6 7.6 0 0 0 7 6.5l-2.4-1-2 3.4 2 1.6a7.6 7.6 0 0 0 0 3l-2 1.6 2 3.4 2.4-1a7.6 7.6 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a7.6 7.6 0 0 0 2.6-1.5l2.4 1 2-3.4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+    </button>
+  </header>
+
+  <main class="hero">
+    <div id="modeSwitch" class="seg" role="group" aria-label="Starttype">
+      <button type="button" data-mode="dur">Varighed</button>
+      <button type="button" data-mode="until">Indtil</button>
+    </div>
+
+    <div id="big" class="big">01:00:00</div>
+    <p id="sub" class="sub" hidden></p>
+
+    <div id="durInput" class="inputs">
+      <div id="presets" class="chips" role="group" aria-label="Varighed"></div>
+      <div class="custom">
+        <input id="hours" type="text" inputmode="numeric" maxlength="2" autocomplete="off" aria-label="Timer"><span>t</span>
+        <input id="mins" type="text" inputmode="numeric" maxlength="2" autocomplete="off" aria-label="Minutter"><span>min</span>
+      </div>
+    </div>
+    <div id="untilInput" class="inputs" hidden>
+      <input id="untilTime" class="time" type="text" inputmode="numeric" maxlength="5" placeholder="15:00" autocomplete="off" aria-label="Indtil kl.">
+      <p id="untilErr" class="field-err" hidden>Vælg et senere tidspunkt i dag.</p>
+    </div>
+
+    <div class="actions">
+      <button id="start" class="primary" type="button">Start Locked in</button>
+      <button id="lockNow" class="primary" type="button" hidden>Lås nu</button>
+      <button id="back" class="ghost" type="button" hidden>Tilbage</button>
+      <button id="extend" class="quiet" type="button" hidden>Forlæng</button>
+    </div>
+
+    <div id="extendPanel" class="extend" hidden>
+      <div id="extendChips" class="chips" role="group" aria-label="Forlæng med"></div>
+      <div class="actions">
+        <button id="extendNow" class="primary small" type="button">Forlæng</button>
+        <button id="extendBack" class="ghost small" type="button">Tilbage</button>
+      </div>
+    </div>
+  </main>
+
+  <div id="tiles" class="tiles"></div>
+  <p id="next" class="next" hidden></p>
+</div>
+
+<dialog id="settings" class="drawer" aria-label="Indstillinger">
+  <div class="drawer-head">
+    <h2>Indstillinger</h2>
+    <button id="settingsClose" class="icon-btn" type="button" aria-label="Luk">×</button>
+  </div>
+
+  <section>
+    <h3>Hjemmesider</h3>
+    <ul id="siteList" class="list"></ul>
+    <button id="addSiteBtn" class="add" type="button">+ Tilføj hjemmeside</button>
+    <form id="addSite" class="inline-form" hidden>
+      <input id="siteLabel" maxlength="40" placeholder="Navn" autocomplete="off" aria-label="Navn">
+      <input id="siteDomain" maxlength="253" placeholder="domæne.dk" autocomplete="off" spellcheck="false" aria-label="Domæne">
+      <div class="actions left">
+        <button class="primary small" type="submit">Tilføj</button>
+        <button class="ghost small" type="button" data-cancel>Annuller</button>
+      </div>
+      <p class="field-err" id="siteErr" hidden></p>
+    </form>
+  </section>
+
+  <section>
+    <h3>Apps</h3>
+    <ul id="appList" class="list"></ul>
+    <button id="addAppBtn" class="add" type="button">+ Tilføj app</button>
+    <div id="picker" class="picker" hidden>
+      <input id="pickerSearch" type="search" placeholder="Søg" autocomplete="off" aria-label="Søg efter app">
+      <ul id="pickerList" class="list picker-list"></ul>
+      <div class="actions left"><button id="pickerClose" class="ghost small" type="button">Luk</button></div>
+    </div>
+  </section>
+
+  <section>
+    <h3>Faste tider</h3>
+    <ul id="schedList" class="list"></ul>
+    <button id="addSchedBtn" class="add" type="button">+ Tilføj fast tid</button>
+    <form id="schedForm" class="inline-form" hidden>
+      <input id="schedName" maxlength="40" placeholder="Navn" autocomplete="off" aria-label="Navn">
+      <div id="schedDays" class="days" role="group" aria-label="Ugedage"></div>
+      <div class="times">
+        <input id="schedStart" class="time" type="text" inputmode="numeric" maxlength="5" value="09:00" autocomplete="off" aria-label="Fra">
+        <span>–</span>
+        <input id="schedEnd" class="time" type="text" inputmode="numeric" maxlength="5" value="12:00" autocomplete="off" aria-label="Til">
+      </div>
+      <div class="actions left">
+        <button class="primary small" type="submit" id="schedSave">Gem</button>
+        <button class="ghost small" type="button" data-cancel>Annuller</button>
+      </div>
+      <p class="field-err" id="schedErr" hidden></p>
+    </form>
+  </section>
+</dialog>
+
+<div id="toast" class="toast" role="alert" hidden></div>
+</body>
+</html>

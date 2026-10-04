@@ -1,0 +1,64 @@
+{
+  "manifest_version": 3,
+  "name": "Locked in",
+  "short_name": "Locked in",
+  "version": "1.0.0",
+  "description": "Fokus uden flugtveje: blokerer hjemmesider i Chrome under en Locked in-session.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6KtthvDdjDP4ufD0wh9Y+OcW0zbNhstUpmRyFh24b7SGXQS2SYsiN90le04gMME+eFYBhxs4shBpaQHWYjUBYYF48yUXytE5zI85OJfs4rVQlRfXAnfioNnvGNjtPzIiq2weOPUJFoctQxuNLW3TMTU1watRl3k/XI0sOBYW8nakXTY0g7pATUbb7+TktkptD3gFB3CksfapR+eHwim21GRGHcfM4jXoorvOZsEE29HR6kHhfEsEkH0NJluPp6zTCZSTn1M7QiAThNphFLf7SPjR6A0f30B2rXVipmJZXMKPbByLqR+2cSNqwMWsslolgvgbXfsUM8dhYgxy0UTMEwIDAQAB",
+  "update_url": "https://sebpirad.github.io/LockedIn/updates.xml",
+  "minimum_chrome_version": "120",
+  "permissions": [
+    "declarativeNetRequest",
+    "storage",
+    "alarms",
+    "tabs",
+    "webNavigation"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "http://127.0.0.1:919/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Locked in",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "blocked.html"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' http://127.0.0.1:919; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+  }
+}

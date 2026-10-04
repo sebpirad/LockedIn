@@ -1,0 +1,697 @@
+[
+ {
+  "id": "q001",
+  "verdict": "FIX",
+  "fix": {
+   "original": "Πάσης ὥρας φρόντιζε στιβαρῶς ὡς Ῥωμαῖος καὶ ἄρρην τὸ ἐν χερσὶ μετὰ τῆς ἀκριβοῦς καὶ ἀπλάστου σεμνότητος καὶ φιλοστοργίας καὶ ἐλευθερίας καὶ δικαιότητος πράσσειν, καὶ σχολὴν ἑαυτῷ ἀπὸ πασῶν τῶν ἄλλων φαντασιῶν πορίζειν."
+  },
+  "reason": "Greek original misquoted (wrong opening words)."
+ },
+ {
+  "id": "q002",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q003",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q004",
+  "verdict": "FIX",
+  "fix": {
+   "text": "Nothing great … is produced suddenly, since not even the grape or the fig is.",
+   "original": "Οὐδὲν … τῶν μεγάλων ἄφνω γίνεται, ὅπου γε οὐδ᾽ ὁ βότρυς οὐδὲ σῦκον."
+  },
+  "reason": "Unmarked omission of \"said Epictetus\"; Greek has a stray article."
+ },
+ {
+  "id": "q005",
+  "verdict": "FIX",
+  "fix": {
+   "original": "Πᾶσα ἕξις καὶ δύναμις ὑπὸ τῶν καταλλήλων ἔργων συνέχεται καὶ αὔξεται, ἡ περιπατητικὴ ὑπὸ τοῦ περιπατεῖν, ἡ τροχαστικὴ ὑπὸ τοῦ τρέχειν. ἂν θέλῃς ἀναγνωστικὸς εἶναι, ἀναγίνωσκε, ἂν γραφικός, γράφε."
+  },
+  "reason": "Greek original has a wrong word (δρομικὴ → τροχαστικὴ)."
+ },
+ {
+  "id": "q006",
+  "verdict": "FIX",
+  "fix": {
+   "source.locator": "Chapter 64, §2"
+  },
+  "reason": "Locator paragraph number wrong."
+ },
+ {
+  "id": "q007",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q008",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q009",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q010",
+  "verdict": "FIX",
+  "fix": {
+   "image.creator": "Tevaprapas Makklay (Phra Maha Tevaprapas Vajirayanamedhi)",
+   "image.attribution": "Tevaprapas Makklay, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Buddha_in_Sarnath_Museum_(Dhammajak_Mutra).jpg)"
+  },
+  "reason": "Image credit is a garbled Thai note implying \"educational use\"; licence tag itself is CC BY-SA 3.0."
+ },
+ {
+  "id": "q011",
+  "verdict": "FIX",
+  "fix": {
+   "image.creator": "Tevaprapas Makklay (Phra Maha Tevaprapas Vajirayanamedhi)",
+   "image.attribution": "Tevaprapas Makklay, CC BY-SA 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Buddha_in_Sarnath_Museum_(Dhammajak_Mutra).jpg)"
+  },
+  "reason": "Same image credit problem as q010."
+ },
+ {
+  "id": "q012",
+  "verdict": "FIX",
+  "fix": {
+   "original": "niyataṃ kuru karma tvaṃ karma jyāyo hy akarmaṇaḥ / śarīra-yātrāpi ca te na prasiddhyed akarmaṇaḥ"
+  },
+  "reason": "Sanskrit transliteration typo."
+ },
+ {
+  "id": "q013",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q014",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q015",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q016",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q017",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q018",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q019",
+  "verdict": "FIX",
+  "fix": {
+   "image.creator": "Warren's Portraits, Boston (c. 1870); restoration by Adam Cuerden",
+   "image.attribution": "Warren's Portraits, Boston, c. 1870 (restored by Adam Cuerden), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Louisa_May_Alcott,_c._1870_-_Warren%27s_Portraits,_Boston.jpg)"
+  },
+  "reason": "Image creator is the restorer, not the photographer."
+ },
+ {
+  "id": "q020",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q021",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q022",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q023",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q024",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q025",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q026",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q027",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q028",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q029",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q030",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q031",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q032",
+  "verdict": "FIX",
+  "fix": {
+   "text": "Between us and Goodness the gods have placed the sweat of our brows … but when a man has reached the top, then is she easy to reach."
+  },
+  "reason": "Over 40 words."
+ },
+ {
+  "id": "q033",
+  "verdict": "FIX",
+  "fix": {
+   "image.license": "CC BY 2.5",
+   "image.license_url": "https://creativecommons.org/licenses/by/2.5",
+   "image.attribution": "© Marie-Lan Nguyen / Wikimedia Commons, CC BY 2.5 (https://commons.wikimedia.org/wiki/File:Plato_Silanion_Musei_Capitolini_MC1377.png)"
+  },
+  "reason": "Image licence mis-recorded as PD; photo of a 3-D bust is CC BY 2.5."
+ },
+ {
+  "id": "q034",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q035",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q036",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q037",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q038",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q039",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q040",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q041",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q042",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q043",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q044",
+  "verdict": "FIX",
+  "fix": {
+   "text": "I would go and look at a stone-cutter hammering away at his rock … at the hundred and first blow it would split in two … it was not that blow that did it, but all that had gone before together."
+  },
+  "reason": "Last word silently dropped; over 40 words."
+ },
+ {
+  "id": "q045",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q046",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q047",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q048",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q049",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q050",
+  "verdict": "FIX",
+  "fix": {
+   "image.creator": "Lock & Whitfield (photographers); Wellcome Collection",
+   "image.attribution": "Lock & Whitfield / Wellcome Collection, CC BY 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Thomas_Henry_Huxley._Photograph_by_Lock_%26_Whitfield._Wellcome_V0026596.jpg)"
+  },
+  "reason": "Image creator recorded as \"Unknown author\"; photographer and CC BY credit holder are known."
+ },
+ {
+  "id": "q051",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q052",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q053",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q054",
+  "verdict": "FIX",
+  "fix": {
+   "image.creator": "Pach Brothers (1904); restoration by Adam Cuerden",
+   "image.attribution": "Pach Brothers, 1904 (restored by Adam Cuerden), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Theodore_Roosevelt_by_the_Pach_Bros_(4x5_cropped)_(2).jpg)"
+  },
+  "reason": "Image creator is the restorer, not the photographer."
+ },
+ {
+  "id": "q055",
+  "verdict": "FIX",
+  "fix": {
+   "image.creator": "Pach Brothers (1904); restoration by Adam Cuerden",
+   "image.attribution": "Pach Brothers, 1904 (restored by Adam Cuerden), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Theodore_Roosevelt_by_the_Pach_Bros_(4x5_cropped)_(2).jpg)"
+  },
+  "reason": "Image creator is the restorer, not the photographer."
+ },
+ {
+  "id": "q056",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q057",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q058",
+  "verdict": "FIX",
+  "fix": {
+   "image.creator": "Mary Garrity (c. 1893); restoration by Adam Cuerden",
+   "image.attribution": "Mary Garrity, c. 1893 (restored by Adam Cuerden), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Mary_Garrity_-_Ida_B._Wells-Barnett_-_Google_Art_Project_-_restoration_crop.jpg)"
+  },
+  "reason": "Image creator is the restorer; weak content fit."
+ },
+ {
+  "id": "q059",
+  "verdict": "FIX",
+  "fix": {
+   "image.creator": "Bain News Service (c. 1924–26); restoration by Adam Cuerden",
+   "image.attribution": "Bain News Service (restored by Adam Cuerden), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Jane_Addams_-_Bain_News_Service.jpg)"
+  },
+  "reason": "Image creator is the restorer, not the photographer."
+ },
+ {
+  "id": "q060",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q061",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q062",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q063",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q064",
+  "verdict": "FIX",
+  "fix": {
+   "image.creator": "Photo: Jastrow (Marie-Lan Nguyen), 2006, public domain; bust: Roman copy after Lysippos"
+  },
+  "reason": "Image creator field names the ancient sculptor only."
+ },
+ {
+  "id": "q065",
+  "verdict": "FIX",
+  "fix": {
+   "image.license": "CC BY-SA 2.0",
+   "image.license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "image.attribution": "Boyd Dwyer, CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Virgil_mosaic_in_the_Bardo_National_Museum_(Tunis)_(12241228546).jpg)"
+  },
+  "reason": "Image licence mis-recorded as PD; photo carries CC BY-SA 2.0."
+ },
+ {
+  "id": "q066",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q067",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q068",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q069",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q070",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q071",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q072",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q073",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q074",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q075",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q076",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q077",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q078",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q079",
+  "verdict": "FIX",
+  "fix": {
+   "image.commons_page": "https://commons.wikimedia.org/wiki/File:Churchill_portrait_NYP_45063.jpg",
+   "image.license": "Public domain (PD-UKGov)",
+   "image.license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+   "image.creator": "British Government (Imperial War Museum NYP 45063)",
+   "image.attribution": "British Government / Imperial War Museum, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Churchill_portrait_NYP_45063.jpg)"
+  },
+  "reason": "Image is a Karsh photograph credited as \"Unknown author\"; EU status doubtful."
+ },
+ {
+  "id": "q080",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q081",
+  "verdict": "FIX",
+  "fix": {
+   "source.work": "Lectures from Colombo to Almora: \"The Mission of the Vedanta\" (Kumbakonam, 1897), Complete Works vol. 3",
+   "source.year": "1897",
+   "source.locator": "Complete Works, vol. 3 (rendering Katha Upanishad 1.3.14)",
+   "source.url": "https://en.wikisource.org/wiki/The_Complete_Works_of_Swami_Vivekananda/Volume_3/Lectures_from_Colombo_to_Almora/The_Mission_of_the_Vedanta",
+   "image.creator": "Unknown photographer (Chicago, September 1893)",
+   "image.attribution": "Unknown photographer, Chicago, 1893, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Swami_Vivekananda-1893-09-signed.jpg)"
+  },
+  "reason": "Weaker (translated reported speech) source used where his own English speech exists; image credit names the uploader."
+ },
+ {
+  "id": "q082",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q083",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q084",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q085",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q086",
+  "verdict": "FIX",
+  "fix": {
+   "image.creator": "Matzene, Chicago (Nov. 1913); restoration by Adam Cuerden",
+   "image.attribution": "Matzene, Chicago, 1913 (restored by Adam Cuerden), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Emmeline_Pankhurst,_seated_(1913).jpg)"
+  },
+  "reason": "Image creator is the restorer, not the photographer."
+ },
+ {
+  "id": "q087",
+  "verdict": "FIX",
+  "fix": {
+   "image.license": "CC BY 2.0",
+   "image.license_url": "https://creativecommons.org/licenses/by/2.0",
+   "image.attribution": "Ángel M. Felicísimo, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Retrato_de_Julio_C%C3%A9sar_(26724093101)_(cropped).jpg)"
+  },
+  "reason": "Image licence mis-recorded as PD; photo carries CC BY 2.0."
+ },
+ {
+  "id": "q088",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q089",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q090",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q091",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q092",
+  "verdict": "FIX",
+  "fix": {
+   "image.creator": "Niels Christian Kierkegaard (sketch, c. 1840); Royal Danish Library",
+   "image.attribution": "Niels Christian Kierkegaard, c. 1840 (Royal Danish Library), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:S%C3%B8ren_Kierkegaard_(1813-1855)_-_(cropped).jpg)"
+  },
+  "reason": "Image creator names the library, not the artist."
+ },
+ {
+  "id": "q093",
+  "verdict": "FIX",
+  "fix": {
+   "text": "It is perfectly true, as philosophers say, that life must be understood backwards. But they forget the other proposition, that it must be lived forwards.",
+   "source.url": "https://archive.org/details/journalsofkierke0000kier",
+   "source.locator": "Journal entry 1843 (Papirer IV A 164; SKS JJ:167); Dru selection, Harper Torchbook ed. 1959, p. 89",
+   "image.creator": "Niels Christian Kierkegaard (sketch, c. 1840); Royal Danish Library"
+  },
+  "reason": "Display text adds \"the\" that is not in Dru; no source URL."
+ },
+ {
+  "id": "q094",
+  "verdict": "FIX",
+  "fix": {
+   "source.url": "https://archive.org/details/grooksbypiethein0000piet",
+   "source.locator": "Grooks (MIT Press, 1966), p. [10]"
+  },
+  "reason": "No source URL; image too small for full screen."
+ },
+ {
+  "id": "q095",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Wording, attribution, locator and image licence check out."
+ },
+ {
+  "id": "q096",
+  "verdict": "FIX",
+  "fix": {
+   "source.url": "https://archive.org/details/lastflight0000amel",
+   "source.locator": "Last Flight, arranged by G. P. Putnam (1937); Harbrace reprint 1965, p. 208"
+  },
+  "reason": "Source URL dead; text found in the book itself."
+ },
+ {
+  "id": "q097",
+  "verdict": "FIX",
+  "fix": {
+   "source.url": "https://en.wikisource.org/wiki/History_of_Woman_Suffrage/Volume_5/Chapter_6",
+   "source.locator": "History of Woman Suffrage, vol. 5, ch. 6 (quoting Harper, Life and Work of Susan B. Anthony, vol. 3)"
+  },
+  "reason": "No source URL."
+ },
+ {
+  "id": "q098",
+  "verdict": "FIX",
+  "fix": {
+   "source.url": "https://archive.org/details/gravitygrace0000weil_z8j5",
+   "source.locator": "\"Attention and Will\", p. 106 (Routledge & Kegan Paul, 1952)"
+  },
+  "reason": "No source URL; image PD reasoning thin."
+ },
+ {
+  "id": "q099",
+  "verdict": "FIX",
+  "fix": {
+   "source.work": "M. A. Rosanoff, \"Edison in His Laboratory\", Harper's Magazine vol. 165 (Sept. 1932), p. 406; earlier in Dyer & Martin, Edison: His Life and Inventions (1910), vol. 2, p. 607",
+   "verification_note": "Per Quote Investigator: credited to Edison from 1901; in his authorised biography (1910); Edison quoted claiming it in Harper's (1932). Similar sayings predate him. No 1927 letter."
+  },
+  "reason": "Source cites a \"1927 letter\" that the cited QI article does not mention."
+ },
+ {
+  "id": "q100",
+  "verdict": "FIX",
+  "fix": {
+   "source.url": "https://archive.org/details/bookoffiverings00miyarich",
+   "source.locator": "The Water Book, closing passage; Harris tr., Overlook Press 1974, p. 66"
+  },
+  "reason": "No source URL."
+ }
+]

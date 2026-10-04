@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Locked in</title>
+<link rel="icon" href="icons/icon32.png">
+<link rel="stylesheet" href="ui/blocked.css">
+<script type="module" src="ui/blocked.js"></script>
+</head>
+<body>
+<main class="stage">
+  <p class="host" id="host"></p>
+
+  <article class="quote" id="quote" hidden>
+    <figure class="portrait" id="portrait" hidden><img id="img" alt="" decoding="async"></figure>
+    <div class="words">
+      <blockquote id="text" lang="en"></blockquote>
+      <p class="who"><span id="author"></span><span id="dates" class="dates"></span></p>
+    </div>
+  </article>
+
+  <footer class="foot">
+    <div id="remain" class="remain" hidden>00:00:00</div>
+    <p id="ended" class="ended" hidden>Fokussessionen er slut<span id="backWrap" hidden> · <a id="backLink" href="#"></a></span></p>
+    <p id="credits" class="credits"></p>
+  </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,641 @@
+{
+  "quotes": [
+    {
+      "id": "e01",
+      "category": "entrepreneur",
+      "text": "Your time is limited, so don't waste it living someone else's life.",
+      "original": null,
+      "translation": null,
+      "author": "Steve Jobs",
+      "author_dates": "1955–2011",
+      "theme": "focus",
+      "source": {
+        "work": "Commencement address, Stanford University",
+        "year": "2005",
+        "locator": "Delivered 12 June 2005; official text as prepared for delivery, Stanford Report (14 June 2005), third story ('death')",
+        "url": "https://news.stanford.edu/stories/2005/06/youve-got-find-love-jobs-says"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Stanford's own published text of the speech. The live Stanford page now blocks scripted access, so the check was made against the Internet Archive copies of the same Stanford page (web.archive.org/web/20121223080330/http://news.stanford.edu/news/2005/june15/jobs-061505.html and the 2020 copy of news.stanford.edu/2005/06/14/jobs-061505/).",
+      "image": {
+        "file": "quote-images/e01.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Steve_Jobs_January_1984.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg",
+        "creator": "Bernard Gotfryd (Library of Congress, Bernard Gotfryd Photograph Collection)",
+        "attribution": "Bernard Gotfryd (Library of Congress, Bernard Gotfryd Photograph Collection), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg)"
+      }
+    },
+    {
+      "id": "e02",
+      "category": "entrepreneur",
+      "text": "Sometimes life hits you in the head with a brick. Don't lose faith.",
+      "original": null,
+      "translation": null,
+      "author": "Steve Jobs",
+      "author_dates": "1955–2011",
+      "theme": "adversity",
+      "source": {
+        "work": "Commencement address, Stanford University",
+        "year": "2005",
+        "locator": "Delivered 12 June 2005; official text as prepared for delivery, Stanford Report (14 June 2005), second story ('love and loss')",
+        "url": "https://news.stanford.edu/stories/2005/06/youve-got-find-love-jobs-says"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Stanford's own published text of the speech, checked against the Internet Archive copies of the Stanford page (2012 and 2020 snapshots) because the live page blocks scripted access.",
+      "image": {
+        "file": "quote-images/e02.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Steve_Jobs_January_1984.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg",
+        "creator": "Bernard Gotfryd (Library of Congress, Bernard Gotfryd Photograph Collection)",
+        "attribution": "Bernard Gotfryd (Library of Congress, Bernard Gotfryd Photograph Collection), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg)"
+      }
+    },
+    {
+      "id": "e03",
+      "category": "entrepreneur",
+      "text": "If something's important enough you should try. Even if … the probable outcome is failure.",
+      "original": null,
+      "translation": null,
+      "author": "Elon Musk",
+      "author_dates": "born 1971",
+      "theme": "ambition",
+      "source": {
+        "work": "60 Minutes (CBS News), 'Tesla and SpaceX: Elon Musk's industrial empire', interview by Scott Pelley",
+        "year": "2014",
+        "locator": "Broadcast 30 March 2014; CBS transcript, Musk's answer to 'Then why try?'",
+        "url": "https://www.cbsnews.com/news/tesla-and-spacex-elon-musks-industrial-empire/"
+      },
+      "verification": "primary",
+      "verification_note": "Read in the broadcaster's own transcript. The spoken original has a false start: 'Even if you -- the probable outcome is failure'; the '…' replaces only 'you --'. The popular version 'When something is important enough, you do it even if the odds are not in your favor' is NOT this wording and was not used.",
+      "image": {
+        "file": "quote-images/e03.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Elon_Musk_2015.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Elon_Musk_2015.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0",
+        "creator": "Steve Jurvetson",
+        "attribution": "Steve Jurvetson, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Elon_Musk_2015.jpg)"
+      }
+    },
+    {
+      "id": "e04",
+      "category": "entrepreneur",
+      "text": "I don't ever give up. I mean, I'd have to be dead or completely incapacitated.",
+      "original": null,
+      "translation": null,
+      "author": "Elon Musk",
+      "author_dates": "born 1971",
+      "theme": "perseverance",
+      "source": {
+        "work": "60 Minutes (CBS News), 'SpaceX: Entrepreneur's race to space', interview by Scott Pelley",
+        "year": "2012",
+        "locator": "Broadcast 18 March 2012 (rebroadcast 3 June 2012); CBS transcript, answer after Pelley asks whether he ever thought of packing it in",
+        "url": "https://www.cbsnews.com/news/spacex-entrepreneurs-race-to-space/"
+      },
+      "verification": "primary",
+      "verification_note": "Read verbatim in the broadcaster's own transcript, which states it is from the script that aired 18 March 2012.",
+      "image": {
+        "file": "quote-images/e04.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Elon_Musk_2015.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Elon_Musk_2015.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0",
+        "creator": "Steve Jurvetson",
+        "attribution": "Steve Jurvetson, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Elon_Musk_2015.jpg)"
+      }
+    },
+    {
+      "id": "e05",
+      "category": "entrepreneur",
+      "text": "Failure is only the opportunity more intelligently to begin again. There is no disgrace in honest failure; there is disgrace in fearing to fail.",
+      "original": null,
+      "translation": null,
+      "author": "Henry Ford",
+      "author_dates": "1863–1947",
+      "theme": "perseverance",
+      "source": {
+        "work": "My Life and Work (in collaboration with Samuel Crowther), Garden City, NY: Doubleday, Page & Co.",
+        "year": "1922",
+        "locator": "Introduction, 'What Is the Idea?' (the same two sentences recur in Chapter XIX, 'What We May Expect')",
+        "url": "https://www.gutenberg.org/ebooks/7213"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in the full text of My Life and Work (Project Gutenberg #7213). Caveat for the verifier: the book was written with Ford's collaborator Samuel Crowther, but was published under Ford's name as his own account.",
+      "image": {
+        "file": "quote-images/e05.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Henry_ford_1919_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Henry_ford_1919_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Henry_ford_1919_(cropped).jpg",
+        "creator": "Hartsook, photographer.",
+        "attribution": "Hartsook, photographer., Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Henry_ford_1919_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "e06",
+      "category": "entrepreneur",
+      "text": "Thinking is the hardest work any one can do—which is probably the reason why we have so few thinkers.",
+      "original": null,
+      "translation": null,
+      "author": "Henry Ford",
+      "author_dates": "1863–1947",
+      "theme": "focus",
+      "source": {
+        "work": "My Life and Work (in collaboration with Samuel Crowther), Garden City, NY: Doubleday, Page & Co.",
+        "year": "1922",
+        "locator": "Chapter XVII, 'Things in General'",
+        "url": "https://www.gutenberg.org/ebooks/7213"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Project Gutenberg #7213 (the Gutenberg text prints the dash as '--'). The popular version 'Thinking is the hardest work there is, which is probably the reason so few engage in it' is a paraphrase; the book's own wording is used. Book co-written with Samuel Crowther.",
+      "image": {
+        "file": "quote-images/e06.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Henry_ford_1919_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Henry_ford_1919_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Henry_ford_1919_(cropped).jpg",
+        "creator": "Hartsook, photographer.",
+        "attribution": "Hartsook, photographer., Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Henry_ford_1919_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "e07",
+      "category": "entrepreneur",
+      "text": "You may not realize it when it happens, but a kick in the teeth may be the best thing in the world for you.",
+      "original": null,
+      "translation": null,
+      "author": "Walt Disney",
+      "author_dates": "1901–1966",
+      "theme": "adversity",
+      "source": {
+        "work": "Diane Disney Miller, as told to Pete Martin, The Story of Walt Disney (New York: Henry Holt), quoting Walt Disney directly",
+        "year": "1957",
+        "locator": "p. 89 (an earlier form, 'A kick in the pants can be the best thing in the world for you', in the Saturday Evening Post serial 'My Dad, Walt Disney', 1 Dec 1956, p. 67)",
+        "url": "https://quoteinvestigator.com/2013/05/21/disney-kick/"
+      },
+      "verification": "secondary",
+      "verification_note": "I did not see the 1957 book myself. Quote Investigator (21 May 2013) cites p. 89 with this exact wording, presented as Walt Disney's own direct speech in a book his daughter wrote from interview sessions with him, and judges the attribution genuine. The verifier should treat it as an authorised family account, not Disney's own text.",
+      "image": {
+        "file": "quote-images/e07.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Walt_disney_portrait.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Walt_disney_portrait.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Walt_disney_portrait.jpg",
+        "creator": "NASA (cropped from a 1954 NASA photograph)",
+        "attribution": "NASA (cropped from a 1954 NASA photograph), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Walt_disney_portrait.jpg)"
+      }
+    },
+    {
+      "id": "e08",
+      "category": "entrepreneur",
+      "text": "Here is the prime condition of success, the great secret: concentrate your energy, thought, and capital exclusively upon the business in which you are engaged.",
+      "original": null,
+      "translation": null,
+      "author": "Andrew Carnegie",
+      "author_dates": "1835–1919",
+      "theme": "focus",
+      "source": {
+        "work": "'The Road to Business Success: A Talk to Young Men', address to students of Curry Commercial College, Pittsburgh, 23 June 1885; reprinted in The Empire of Business (New York: Doubleday, Page & Co.)",
+        "year": "1885 (book 1902)",
+        "locator": "The Empire of Business (1902), p. 17",
+        "url": "https://archive.org/details/empireofbusiness00carnuoft"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in the Internet Archive scan/full text of the 1902 first edition (University of Toronto copy), page 17. Only the opening 'And' of the original sentence is dropped.",
+      "image": {
+        "file": "quote-images/e08.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Andrew_Carnegie,_three-quarter_length_portrait,_seated,_facing_slightly_left,_1913_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/39/Andrew_Carnegie%2C_three-quarter_length_portrait%2C_seated%2C_facing_slightly_left%2C_1913_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Andrew_Carnegie,_three-quarter_length_portrait,_seated,_facing_slightly_left,_1913_(cropped).jpg",
+        "creator": "Theodore C. Marceau",
+        "attribution": "Theodore C. Marceau, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Andrew_Carnegie,_three-quarter_length_portrait,_seated,_facing_slightly_left,_1913_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "e09",
+      "category": "entrepreneur",
+      "text": "\"Don't put all your eggs in one basket\" is all wrong. I tell you \"put all your eggs in one basket, and then watch that basket.\"",
+      "original": null,
+      "translation": null,
+      "author": "Andrew Carnegie",
+      "author_dates": "1835–1919",
+      "theme": "focus",
+      "source": {
+        "work": "'The Road to Business Success: A Talk to Young Men', address to students of Curry Commercial College, Pittsburgh, 23 June 1885; reprinted in The Empire of Business (New York: Doubleday, Page & Co.)",
+        "year": "1885 (book 1902)",
+        "locator": "The Empire of Business (1902), p. 17 (he repeats the rule in 'How to Win Fortune' in the same volume)",
+        "url": "https://archive.org/details/empireofbusiness00carnuoft"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in the Internet Archive full text of the 1902 edition, page 17. Quote Investigator has an article on the phrase (quoteinvestigator.com/2017/02/16/eggs/); Mark Twain also used it in Pudd'nhead Wilson (1894), after Carnegie's 1885 talk.",
+      "image": {
+        "file": "quote-images/e09.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Andrew_Carnegie,_three-quarter_length_portrait,_seated,_facing_slightly_left,_1913_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/39/Andrew_Carnegie%2C_three-quarter_length_portrait%2C_seated%2C_facing_slightly_left%2C_1913_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Andrew_Carnegie,_three-quarter_length_portrait,_seated,_facing_slightly_left,_1913_(cropped).jpg",
+        "creator": "Theodore C. Marceau",
+        "attribution": "Theodore C. Marceau, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Andrew_Carnegie,_three-quarter_length_portrait,_seated,_facing_slightly_left,_1913_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "e10",
+      "category": "entrepreneur",
+      "text": "There is no such thing as failure. Failure is just life trying to move us in another direction.",
+      "original": null,
+      "translation": null,
+      "author": "Oprah Winfrey",
+      "author_dates": "born 1954",
+      "theme": "adversity",
+      "source": {
+        "work": "Commencement address, Harvard University",
+        "year": "2013",
+        "locator": "Delivered 30 May 2013; full text in the Harvard Gazette, 'Winfrey's Commencement address' (published 31 May 2013)",
+        "url": "https://news.harvard.edu/gazette/story/2013/05/winfreys-commencement-address/"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in the Harvard Gazette's published text of the speech (Harvard's own outlet). In the speech the first sentence is introduced by 'remember this:'; only that lead-in is omitted.",
+      "image": {
+        "file": "quote-images/e10.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Oprah_in_2014.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Oprah_in_2014.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0",
+        "creator": "aphrodite-in-nyc (Flickr user, https://www.flickr.com/photos/aphrodite-in-nyc)",
+        "attribution": "aphrodite-in-nyc (Flickr user, https://www.flickr.com/photos/aphrodite-in-nyc), CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Oprah_in_2014.jpg)"
+      }
+    },
+    {
+      "id": "e11",
+      "category": "entrepreneur",
+      "text": "I am a woman that came from the cotton fields of the South; I was promoted from there to the wash-tub; then I was promoted to the cook kitchen, and from there I promoted myself into the business of manufacturing hair goods and preparations.",
+      "original": null,
+      "translation": null,
+      "author": "Madam C. J. Walker",
+      "author_dates": "1867–1919",
+      "theme": "ambition",
+      "source": {
+        "work": "Speech from the floor, Thirteenth Annual Convention of the National Negro Business League, Chicago, 21–23 August 1912 (Report of the convention, William H. Davis, official stenographer, Washington, D.C.)",
+        "year": "1912",
+        "locator": "Convention report pp. 154–55, as quoted and cited in the U.S. National Park Service 'Teaching with Historic Places' lesson 'Two American Entrepreneurs: Madam C. J. Walker and J. C. Penney' (Rita Roman, 2000), Reading 3 and its note 1",
+        "url": "https://archive.org/details/ERIC_ED440033"
+      },
+      "verification": "secondary",
+      "verification_note": "I did not see the 1912 stenographic report itself (HathiTrust and LoC blocked scripted access). Wording taken from the National Park Service lesson (ERIC ED440033), which quotes the report and cites pp. 154–55. The stenographer's '(laughter)' after 'wash-tub' is omitted. The popular smoothed version ('I am a woman who came from the cotton fields of the South. From there I was promoted to the washtub…') is not the report's wording. 41 words — above the 30-word preference.",
+      "image": {
+        "file": "quote-images/e11.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Madam_C._J._Walker_by_Addison_N._Scurlock.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Madam_C._J._Walker_by_Addison_N._Scurlock.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Madam_C._J._Walker_by_Addison_N._Scurlock.jpg",
+        "creator": "Addison Norton Scurlock / Adam Cuerden",
+        "attribution": "Addison Norton Scurlock / Adam Cuerden, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Madam_C._J._Walker_by_Addison_N._Scurlock.jpg)"
+      }
+    },
+    {
+      "id": "e12",
+      "category": "entrepreneur",
+      "text": "In the end, we are our choices. Build yourself a great story.",
+      "original": null,
+      "translation": null,
+      "author": "Jeff Bezos",
+      "author_dates": "born 1964",
+      "theme": "ambition",
+      "source": {
+        "work": "'We Are What We Choose', remarks to the Princeton University Class of 2010 at Baccalaureate",
+        "year": "2010",
+        "locator": "Delivered 30 May 2010; text 'as delivered' posted by Princeton University the same day (closing lines)",
+        "url": "https://web.archive.org/web/20121227125450/http://www.princeton.edu/main/news/archive/S27/52/51O99/index.xml"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Princeton University's own posting of the remarks 'as delivered' (read via the Internet Archive copy; the original princeton.edu URL now redirects/blocks scripted access).",
+      "image": {
+        "file": "quote-images/e12.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_in_Seattle_-_2018_(39074799225)_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_in_Seattle_-_2018_%2839074799225%29_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0",
+        "creator": "Seattle City Council (Flickr)",
+        "attribution": "Seattle City Council (Flickr), CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_in_Seattle_-_2018_(39074799225)_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "e13",
+      "category": "entrepreneur",
+      "text": "Ten minutes, once gone, are gone for good. … Divide your life into 10-minute units and sacrifice as few of them as possible in meaningless activity.",
+      "original": null,
+      "translation": {
+        "translator": "Inter IKEA Systems B.V. (IKEA's official English version)",
+        "edition": "The Testament of a Furniture Dealer, 2018 edition (Inter IKEA Systems B.V.)",
+        "year": 2018
+      },
+      "author": "Ingvar Kamprad",
+      "author_dates": "1926–2018",
+      "theme": "focus",
+      "source": {
+        "work": "A Furniture Dealer's Testament (En möbelhandlares testamente)",
+        "year": "1976",
+        "locator": "Point 9, 'Most things still remain to be done. A glorious future!'; p. 17 of the 2018 Inter IKEA PDF",
+        "url": "https://www.inter.ikea.com/en/-/media/InterIKEA/IGI/Financial%20Reports/English_The_testament_of_a_dealer_2018.pdf"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in IKEA's own English edition (Inter IKEA PDF, 2018). The '…' replaces three short sentences of the same passage that expand on the same point (you can never get them back; ten minutes are a piece of yourself). Swedish original not checked, so 'original' is left null.",
+      "image": {
+        "file": "quote-images/e13.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Ingvar_Kamprad_Haparanda_June_2010.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Ingvar_Kamprad_Haparanda_June_2010.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0",
+        "creator": "Ministry of Enterprise, Energy and Communications of Sweden (Flickr)",
+        "attribution": "Ministry of Enterprise, Energy and Communications of Sweden (Flickr), CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Ingvar_Kamprad_Haparanda_June_2010.jpg)"
+      }
+    },
+    {
+      "id": "e14",
+      "category": "entrepreneur",
+      "text": "The general who divides his resources will invariably be defeated.",
+      "original": null,
+      "translation": {
+        "translator": "Inter IKEA Systems B.V. (IKEA's official English version)",
+        "edition": "The Testament of a Furniture Dealer, 2018 edition (Inter IKEA Systems B.V.)",
+        "year": 2018
+      },
+      "author": "Ingvar Kamprad",
+      "author_dates": "1926–2018",
+      "theme": "focus",
+      "source": {
+        "work": "A Furniture Dealer's Testament (En möbelhandlares testamente)",
+        "year": "1976",
+        "locator": "Point 7, 'Concentration – important to our success' (first sentence); p. 14 of the 2018 Inter IKEA PDF",
+        "url": "https://www.inter.ikea.com/en/-/media/InterIKEA/IGI/Financial%20Reports/English_The_testament_of_a_dealer_2018.pdf"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in IKEA's own English edition (Inter IKEA PDF, 2018). Kamprad uses a military maxim here as his own opening line; it is his text, not a quotation he credits to anyone. Swedish original not checked.",
+      "image": {
+        "file": "quote-images/e14.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Ingvar_Kamprad_Haparanda_June_2010.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Ingvar_Kamprad_Haparanda_June_2010.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0",
+        "creator": "Ministry of Enterprise, Energy and Communications of Sweden (Flickr)",
+        "attribution": "Ministry of Enterprise, Energy and Communications of Sweden (Flickr), CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Ingvar_Kamprad_Haparanda_June_2010.jpg)"
+      }
+    },
+    {
+      "id": "e15",
+      "category": "entrepreneur",
+      "text": "Only the best is good enough.",
+      "original": "Det bedste er ikke for godt.",
+      "translation": {
+        "translator": "The LEGO Group (the company's official English form of the motto; literally 'The best is not too good')",
+        "edition": "LEGO.com, 'The LEGO Group History' and LEGO History article 'Quality in every detail'",
+        "year": null
+      },
+      "author": "Ole Kirk Christiansen",
+      "author_dates": "1891–1958",
+      "theme": "discipline",
+      "source": {
+        "work": "Ole Kirk Christiansen's workshop motto, cut as wooden signs and hung in the Billund factory",
+        "year": "c. 1936",
+        "locator": "LEGO.com history pages (1936 slogan sign; 'Quality in every detail'); Dansk Biografisk Leksikon, 'Ole Kirk Christiansen' (calls 'Det bedste er ikke for godt' his valgsprog, shown in his workshops)",
+        "url": "https://www.lego.com/en-us/history/articles/d-quality-in-every-detail"
+      },
+      "verification": "secondary",
+      "verification_note": "A motto, not a recorded sentence: LEGO's own history pages state it is the company motto and that Ole Kirk's son Godtfred cut it into wooden signs on his father's insistence on quality; Dansk Biografisk Leksikon (lex.dk) gives the Danish wording as Ole Kirk's own motto. The English line is the company's free rendering, not a literal translation.",
+      "image": {
+        "file": "quote-images/e15.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Ole_Kirk_Christiansen,_1957_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/42/Ole_Kirk_Christiansen%2C_1957_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Ole_Kirk_Christiansen,_1957_(cropped).jpg",
+        "creator": "Unknown photographer (LEGO Group archive photo)",
+        "attribution": "Unknown photographer (LEGO Group archive photo), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Ole_Kirk_Christiansen,_1957_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "e16",
+      "category": "entrepreneur",
+      "text": "No loss should hit us which can be avoided with constant care.",
+      "original": "Intet tab bør ramme os, som kunne undgås ved rettidig omhu.",
+      "translation": {
+        "translator": "A.P. Moller - Maersk (the company's own English rendering)",
+        "edition": "Maersk Post, October 1996 (company magazine)",
+        "year": 1996
+      },
+      "author": "A.P. Møller",
+      "author_dates": "1876–1965",
+      "theme": "discipline",
+      "source": {
+        "work": "Letter by A.P. Møller, founder of A.P. Moller - Maersk, as quoted by the company",
+        "year": "1946",
+        "locator": "Maersk Post, October 1996, article on the fleet's Safety Management certification ('In 1946, Mr A.P. Møller wrote …'); Danish wording from Maersk's Danish Annual Magazine 2018–2019 (values page, 'Rettidig omhu')",
+        "url": "https://archive.org/details/2017-september-maersk-post-full-issue"
+      },
+      "verification": "secondary",
+      "verification_note": "Read in Maersk's own publications on the Internet Archive (OCR text of Maersk Post Oct. 1996 for the English; OCR of the Danish Annual Magazine 2018–19 for the Danish, where OCR garbled 'bør'/'undgås'). I did not see the 1946 letter itself; the company presents it as the founder's written words and the basis of its 'Constant Care' value.",
+      "image": {
+        "file": "quote-images/e16.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Arnold_Peter_Møller.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Arnold_Peter_M%C3%B8ller.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY-SA 2.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+        "creator": "Maersk Line (Flickr)",
+        "attribution": "Maersk Line (Flickr), CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Arnold_Peter_Møller.jpg)"
+      }
+    },
+    {
+      "id": "e17",
+      "category": "entrepreneur",
+      "text": "Fearlessness is like a muscle. I know from my own life that the more I exercise it the more natural it becomes to not let my fears run me.",
+      "original": null,
+      "translation": null,
+      "author": "Arianna Huffington",
+      "author_dates": "born 1950",
+      "theme": "discipline",
+      "source": {
+        "work": "On Becoming Fearless … in Love, Work, and Life (Boston/London: Little, Brown; paperback reprint)",
+        "year": "2007 (first ed. 2006)",
+        "locator": "Question-and-answer passage headed 'ARIANNA:' in the 2007 reprint (ISBN 9780316166829); page number not determined",
+        "url": "https://archive.org/details/onbecomingfearle00aria"
+      },
+      "verification": "primary",
+      "verification_note": "Matched as an exact phrase in the text of the scanned 2007 Little, Brown edition via the Internet Archive's full-text search (the book itself is lending-only, so I saw the matching text, not the page image). In the book the answer opens 'Well, fearlessness…'; 'Well,' is dropped.",
+      "image": {
+        "file": "quote-images/e17.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Arianna_Huffington_2012_Shankbone.JPG",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Arianna_Huffington_2012_Shankbone.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY 3.0",
+        "license_url": "https://creativecommons.org/licenses/by/3.0",
+        "creator": "David Shankbone",
+        "attribution": "David Shankbone, CC BY 3.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Arianna_Huffington_2012_Shankbone.JPG)"
+      }
+    },
+    {
+      "id": "e18",
+      "category": "entrepreneur",
+      "text": "Don't stop. Don't even think about stopping until you get there, and don't give much thought to where \"there\" is.",
+      "original": null,
+      "translation": null,
+      "author": "Phil Knight",
+      "author_dates": "born 1938",
+      "theme": "perseverance",
+      "source": {
+        "work": "Shoe Dog: A Memoir by the Creator of Nike (New York: Scribner)",
+        "year": "2016",
+        "locator": "Opening section, 'Dawn' (page number not determined)",
+        "url": "https://archive.org/details/shoedogmemoirbyc0000knig_w1z8"
+      },
+      "verification": "primary",
+      "verification_note": "Whole passage matched as an exact phrase in the text of three separate scans of the 2016 Scribner edition via the Internet Archive's full-text search (lending-only book: matching text seen, page image not). The snippet confirms the quotation marks around 'there'. Placement in 'Dawn' is from my knowledge of the book, not from the scan — verifier should confirm the locator.",
+      "image": {
+        "file": "quote-images/e18.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Phil_Knight_with_Tom_Matthyssens_in_Universal_Studios_Orlando_1999_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Phil_Knight_with_Tom_Matthyssens_in_Universal_Studios_Orlando_1999_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "creator": "Tom Matthyssens",
+        "attribution": "Tom Matthyssens, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Phil_Knight_with_Tom_Matthyssens_in_Universal_Studios_Orlando_1999_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "e19",
+      "category": "entrepreneur",
+      "text": "Big business, I think, is a combination of timing, hard work, and an ability to see beyond one's nose.",
+      "original": null,
+      "translation": null,
+      "author": "Estée Lauder",
+      "author_dates": "1908–2004",
+      "theme": "discipline",
+      "source": {
+        "work": "Estée: A Success Story (New York: Random House)",
+        "year": "1985",
+        "locator": "Page not determined",
+        "url": "https://archive.org/details/estesuccesssto00laud"
+      },
+      "verification": "primary",
+      "verification_note": "Matched as an exact phrase in the text of the scanned 1985 Random House edition via the Internet Archive's full-text search (lending-only book: text seen in search snippets, page image not). The widely shared 'I never dreamed about success. I worked for it.' and '…not by wishing for it or hoping for it, but by working for it' do NOT occur in this book and were rejected.",
+      "image": {
+        "file": "quote-images/e19.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Estee_Lauder_NYWTS_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Estee_Lauder_NYWTS_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Estee_Lauder_NYWTS_(cropped).jpg",
+        "creator": "Bill Sauro, New York World-Telegram and the Sun staff photographer (Library of Congress, NYWT&S collection, cph.3c09674)",
+        "attribution": "Bill Sauro, New York World-Telegram and the Sun staff photographer (Library of Congress, NYWT&S collection, cph.3c09674), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Estee_Lauder_NYWTS_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "e20",
+      "category": "entrepreneur",
+      "text": "Swim upstream. Go the other way. Ignore the conventional wisdom.",
+      "original": null,
+      "translation": null,
+      "author": "Sam Walton",
+      "author_dates": "1918–1992",
+      "theme": "ambition",
+      "source": {
+        "work": "Sam Walton: Made in America — My Story, with John Huey (New York: Doubleday)",
+        "year": "1992",
+        "locator": "'Ten Rules for Building a Business', Rule 10 (page not determined)",
+        "url": "https://archive.org/details/samwaltonmadeina00walt"
+      },
+      "verification": "primary",
+      "verification_note": "Matched as an exact phrase in two separate scans of the 1992 Doubleday edition via the Internet Archive's full-text search (lending-only book: text seen in search snippets, page image not). Book written with journalist John Huey.",
+      "image": {
+        "file": "quote-images/e20.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Sam_Walton_(1992_2)_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Sam_Walton_%281992_2%29_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Sam_Walton_(1992_2)_(cropped).jpg",
+        "creator": "George Bush Presidential Library and Museum (U.S. government photo)",
+        "attribution": "George Bush Presidential Library and Museum (U.S. government photo), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Sam_Walton_(1992_2)_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "e21",
+      "category": "entrepreneur",
+      "text": "Success is a lousy teacher. It seduces smart people into thinking they can't lose.",
+      "original": null,
+      "translation": null,
+      "author": "Bill Gates",
+      "author_dates": "born 1955",
+      "theme": "discipline",
+      "source": {
+        "work": "The Road Ahead, with Nathan Myhrvold and Peter Rinearson (New York: Viking)",
+        "year": "1995",
+        "locator": "Chapter 3, 'Lessons from the Computer Industry' (opening lines; page not determined)",
+        "url": "https://archive.org/details/roadahead00gate"
+      },
+      "verification": "primary",
+      "verification_note": "Both sentences matched in the text of two scans of the 1995 Viking first edition via the Internet Archive's full-text search; the snippet shows them directly after the chapter heading 'Lessons from the Computer Industry'. Lending-only book: page image not seen.",
+      "image": {
+        "file": "quote-images/e21.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Bill_Gates_2017_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Bill_Gates_2017_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "CC BY 3.0 de",
+        "license_url": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+        "creator": "Kuhlmann / Munich Security Conference (MSC)",
+        "attribution": "Kuhlmann / Munich Security Conference (MSC), CC BY 3.0 de, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bill_Gates_2017_(cropped).jpg)"
+      }
+    },
+    {
+      "id": "e22",
+      "category": "entrepreneur",
+      "text": "I believe in hard work. It keeps the wrinkles out of the mind and the spirit.",
+      "original": null,
+      "translation": null,
+      "author": "Helena Rubinstein",
+      "author_dates": "1872–1965",
+      "theme": "discipline",
+      "source": {
+        "work": "My Life for Beauty (London: The Bodley Head; New York: Simon and Schuster, 1966)",
+        "year": "1965",
+        "locator": "Page not determined (same wording in both the 1965 London and 1966 New York editions)",
+        "url": "https://archive.org/details/mylifeforbeauty0000hele"
+      },
+      "verification": "primary",
+      "verification_note": "Matched as an exact phrase in the text of two separate scans (Bodley Head 1965 and Simon & Schuster 1966) via the Internet Archive's full-text search; lending-only books, so text seen in search snippets, not page images. Quote books shorten it to 'Hard work keeps the wrinkles out of the mind and spirit' — the memoir's own two sentences are used.",
+      "image": {
+        "file": "quote-images/e22.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:Helena_Rubinstein.jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/6/68/Helena_Rubinstein.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:Helena_Rubinstein.jpg",
+        "creator": "George Grantham Bain Collection, Library of Congress (ggbain.39153)",
+        "attribution": "George Grantham Bain Collection, Library of Congress (ggbain.39153), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Helena_Rubinstein.jpg)"
+      }
+    },
+    {
+      "id": "e23",
+      "category": "entrepreneur",
+      "text": "Do not scatter your powers. Engage in one kind of business only, and stick to it faithfully until you succeed, or until your experience shows that you should abandon it.",
+      "original": null,
+      "translation": null,
+      "author": "P. T. Barnum",
+      "author_dates": "1810–1891",
+      "theme": "focus",
+      "source": {
+        "work": "The Art of Money Getting, or Golden Rules for Making Money (lecture, published 1880)",
+        "year": "1880",
+        "locator": "Section 'Do Not Scatter Your Powers' (heading plus its first sentence)",
+        "url": "https://www.gutenberg.org/ebooks/8581"
+      },
+      "verification": "primary",
+      "verification_note": "Matched verbatim in Project Gutenberg #8581. The first sentence is Barnum's own section heading (printed in capitals), turned into a sentence here; the rest is the section's opening sentence unchanged. 31 words.",
+      "image": {
+        "file": "quote-images/e23.jpg",
+        "commons_page": "https://commons.wikimedia.org/wiki/File:P._T._Barnum_-_02176a_(cropped).jpg",
+        "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/23/P._T._Barnum_-_02176a_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/File:P._T._Barnum_-_02176a_(cropped).jpg",
+        "creator": "Mathew Brady studio (Brady-Handy Photograph Collection, Library of Congress)",
+        "attribution": "Mathew Brady studio (Brady-Handy Photograph Collection, Library of Congress), Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:P._T._Barnum_-_02176a_(cropped).jpg)"
+      }
+    }
+  ]
+}
