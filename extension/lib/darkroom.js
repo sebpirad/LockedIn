@@ -5,13 +5,17 @@
 
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 
+/** The page colour (#1c1f24, the app's graphite). The palette's black IS the page, so a print burnt or faded to
+ *  its darkest tone meets the page without an edge; ui/blocked.css --black must equal it (unit-tested). */
+export const PAGE = Object.freeze([28, 31, 36]);
+
 export const LOOK = Object.freeze({
-  face: 0.48,          // target face tone (gamma space) …
-  faceShare: 0.6,      // … reached only 60 % of the way (log space), so skin tones stay distinct
-  contrast: 0.32,      // S-curve amount
-  ceil: 0.86,          // brightest printable value: a white backdrop never prints white
-  burnMin: 0.3, burnMax: 0.65,
-  stops: [[0, [6, 6, 7]], [0.52, [118, 110, 99]], [1, [236, 228, 213]]],
+  face: 0.55,          // target face tone (gamma space) …
+  faceShare: 0.65,     // … reached only 65 % of the way (log space), so skin tones stay distinct (dark stays dark)
+  contrast: 0.26,      // S-curve amount
+  ceil: 0.93,          // brightest printable value: a white backdrop never prints white, the quote stays brightest
+  burnMin: 0.16, burnMax: 0.55, // a dark backdrop is barely burnt; a white studio wall still is
+  stops: [[0, PAGE], [0.5, [134, 126, 114]], [1, [238, 231, 217]]],
 });
 
 /** Drawings and paintings on paper: no burn and a gentler curve, so they do not print as ghosts. */

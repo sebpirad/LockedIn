@@ -352,7 +352,9 @@ r = await js(`${P} $('planToday').click(); await w(200);
   const col = document.querySelector('#planGrid .col.today'); const now = col && col.querySelector('.now'); const dot = col && col.querySelector('.nowdot');
   return { now: !!now, nowZ: now && +getComputedStyle(now).zIndex, dotZ: dot && +getComputedStyle(dot).zIndex, minEvZ: Math.min(...evs().map((e) => +getComputedStyle(e).zIndex)), title: $('planTitle').textContent }`);
 check(r.now && r.nowZ < r.minEvZ && r.dotZ > r.minEvZ, 'R3: the now-line runs under the blocks; only its dot sits on top, in the gutter edge', JSON.stringify(r));
-await js(`document.getElementById('planNext').click(); return 1`);
+// back to the week that shows tomorrow (on a Sunday that is the next week)
+await js(`const t = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Copenhagen' }).format(new Date(Date.now() + 86400000));
+  if (!document.querySelector('#planGrid .col[data-date="' + t + '"]')) document.getElementById('planNext').click(); await new Promise((x) => setTimeout(x, 200)); return 1`);
 
 // skip tomorrow from the grid; the skipped block leaves the cascade; then undo
 r = await js(`${P}
@@ -629,7 +631,7 @@ await open('&down=1&r=down');
 r = await js(`${H} const a = $('alert'); const s = $('start');
   return { text: a.textContent, hidden: a.hidden, before: a.nextElementSibling.contains(s), disabled: s.disabled, bg: getComputedStyle(s).backgroundColor };`);
 check(!r.hidden && r.before && r.disabled && r.text === "LockedIn kører ikke lige nu — genstart Mac'en", 'down: one line directly above a disabled Start', r.text);
-check(r.bg === 'rgb(25, 28, 33)', 'down: disabled Start is neutral grey', r.bg);
+check(r.bg === 'rgb(43, 48, 56)', 'down: disabled Start is neutral grey (--surface-2)', r.bg);
 
 // ---- touch targets ----
 await open('&r=t');

@@ -298,11 +298,13 @@ function grain() {
 
 function applyFrame(f, desk, vw) {
   const zone = f.zone, p = f.print;
-  css('--zl', px(zone.left)); css('--zt', px(zone.top)); css('--zw', px(zone.width)); css('--zh', px(zone.height));
+  // whole pixels: a layer edge on a fractional pixel can leave a 1 px line when the page is resampled
+  const R = Math.round;
+  css('--zl', px(R(zone.left))); css('--zt', px(R(zone.top))); css('--zw', px(R(zone.left + zone.width) - R(zone.left))); css('--zh', px(R(zone.height)));
   $('zone').style.setProperty('--feather', px(f.feather || 0));
   const pr = $('print');
   const set = (k, v) => pr.style.setProperty(k, v);
-  set('--pl', px(p.left - zone.left)); set('--pt', px(p.top - zone.top)); set('--pw', px(p.width)); set('--ph', px(p.height));
+  set('--pl', px(R(p.left) - R(zone.left))); set('--pt', px(R(p.top) - R(zone.top))); set('--pw', px(R(p.left + p.width) - R(p.left))); set('--ph', px(R(p.top + p.height) - R(p.top)));
   let el = 0, er = 0;
   if (desk) {
     // A print narrower than its zone dissolves at its own edges too: long on the side toward the quote.

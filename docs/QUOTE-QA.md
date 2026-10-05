@@ -493,3 +493,70 @@ As before, only the built-in pane was used; a real lock is still active. No proj
   - Jordan a02/a12 is still 398 px.
 
 **APPROVED**
+
+---
+
+# Runde 4 (lighter page: graphite, brighter prints, 2026-10-05)
+
+**Verdict: APPROVED.** The lift works:
+- faces read clearly, including dark skin, black and white, busts and low resolution;
+- the print dissolves into the graphite without a seam;
+- the quote is still the brightest element;
+- rounds 1–3 show no regression.
+
+One note, which is not a blocker: the builder's "≤ 15 % bright print" claim does not hold on real pixels for a few quotes (see below).
+
+## How I tested
+
+As before, only the built-in pane was used; a real lock is still active. No project file was edited. I refreshed the module cache (`cache: 'reload'`) before testing.
+
+Note: another session navigated my earlier tab to a second dev server (:8791). It serves byte-identical files (md5 of `blocked.css` equal to the working tree). I tested on :8765 in my own tabs.
+
+- **All 69 quotes** were measured in iframes at 1440×900, 1024×768, 720×900, 390×844 and 360×740 (345 renders).
+- **By eye:** 30 distinct quotes in screenshots (`qa-shots/r4-*.png`):
+  - dark skin: a12, a02, A09, A25, a03, B22, a06;
+  - black and white: A05, B09, A20, A18, E03;
+  - busts: B03, B01, A28, A01;
+  - low resolution / drawing: A31, a12, B07;
+  - plus A30, A33, A12, A14, A26, B14, B21, C01, C11, C14, E02, E05.
+- **Real-pixel checks** with the text hidden, on B03, A05 and E03 at 1440×900 and on a12, B09 and a03 at 390×844.
+
+## Results
+
+- **Page and text contrast.** The page is `rgb(28, 31, 36)` in all 345 renders. Computed text contrast matches the claims: paper 14.1 : 1, timer `#d8d1c5` 10.9 : 1, dates 7.8 : 1, credit 6.5 : 1.
+  - On phone and at 720×900 the first-line estimate is at least **14.05 : 1** for all 207 stacked renders (= paper on graphite), so no line sits on the print.
+  - On desktop no text box enters the portrait zone.
+- **No seams or edges.**
+  - The overlay is the page colour (`rgba(28,31,36,…)`), and the darkroom's black is the page colour: the darkest print pixel (p01) equals graphite in every render, so the print never goes darker than the page.
+  - The desktop inner feather is a monotonic ramp to the page colour (B03, A05 rows at 5 % and 90 % height).
+  - The phone print fades smoothly into the page over about 30 CSS px at the top strip and about 60 CSS px above the quote (a12: 46 → 30 in 8-px steps). The rows below read exactly page colour.
+- **Faces.** They are clearly readable, with skin tones intact: Jordan, Ali, Douglass, Mandela, Washington, Bryant (`r4-01`, `r4-06`, `r4-04`, `r4-05`, `r4-07`, `r4-33`). Busts and marble keep their detail (`r4-02`, `r4-09`, `r4-29`).
+- **The quote is still the brightest.** Print p99 is ≤ 0.69 in every render (canvas), and 0.60–0.66 on real pixels, against paper at 0.843. Only grain specks exceed 0.78: 15 px (B03) and 3 px (A05) out of 400 000.
+- **The bright-area share is above the stated 15 % for some quotes.** Real pixels, share of the window above L 0.35:
+
+  | Quote | Viewport | Share |
+  |---|---|---|
+  | E03 | 1440×900 | **22.7 %** |
+  | a03 | 390×844 | **23.8 %** |
+  | B09 | 390×844 | **20.0 %** |
+  | a12 | 390×844 | 9.0 % |
+  | B03 | 1440×900 | 7.2 % |
+  | A05 | 1440×900 | 6.8 % |
+
+  The offenders are light walls and white jackets, not faces (`r4-10b`, `r4-13b`, `r4-14b`). The canvas estimate (conservative, overlay ignored) puts the p90 at 18–26 %. It does not break "the quote is brightest", so it is not blocking. If the owner finds those pages loud, lower the background highlights outside the face box for those images.
+- **No regressions from rounds 1–3.**
+  - Every size is a scale step, and nothing overflows.
+  - The fade never ends inside the quote, and no face starts above the strip.
+  - Credits: 1 line on 69/69 at 1440×900, 68/69 at 1024×768 (A30 takes 2), and exactly 2 lines on all phones.
+  - No credit junk, no "…" fragments, and dates align with the name.
+  - Sizes are unchanged from round 3: 1440×900 47/65/104 px, 1024×768 42/58/73 px, 720×900 42/65/92 px.
+- **Another quote.** At 1440×900, a double-click, a triple-click and Space give exactly 3 changes, with no text selected and the countdown fixed at "1:13" (`r4-35`).
+
+## Still open (unchanged, not blocking)
+
+- A30's stub and 2-line credit at 1024×768.
+- C13's lone "everything," at 360×740.
+- Branding in B22 ("tiff", now brighter and more legible, `r4-07`, `r4-20`) and E02.
+- A31 Sun Tzu reads as a soft lighter rectangle on graphite (`r4-08`).
+
+**APPROVED**

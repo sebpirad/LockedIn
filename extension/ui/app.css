@@ -1,16 +1,19 @@
 :root {
   color-scheme: dark;
-  --bg: #0a0b0d;
-  --surface: #131519;
-  --surface-2: #191c21;
-  --line: #23262d;
-  --line-2: #30343c;
-  --text: #ecebe8;
-  --idle: #c9c8c3;      /* the big timer before a lock: static, a step below the locked white */
-  --muted: #8d919b;
-  --subtle: #80848e;    /* smallest text: 5.26:1 on bg, 4.88:1 on surface */
-  --faint: #5d616b;     /* borders/decoration only, never text */
-  --ring: #6b6f79;      /* outline of an "off" tile: 3.9:1 on bg */
+  /* "Lysere mørkt tema" (owner 2026-10-05): graphite, not near-black. Ratios: docs/DESIGN-REVIEW.md "Lysere tema — tokens". */
+  --bg: #1b1e23;
+  --surface: #24282f;
+  --surface-2: #2b3038;
+  --raised: #323844;    /* menus and pickers */
+  --line: #4a4f59;      /* dividers and hour lines: 2.0:1 on bg */
+  --line-soft: #363a42; /* half-hour lines */
+  --line-2: #747a85;    /* edges of buttons, pills, fields: 3.9:1 on bg, 3.4:1 on surface */
+  --text: #ecebe8;      /* 14.0:1 on bg */
+  --idle: #d6d5d0;      /* the big timer before a lock: static, a step below the locked white */
+  --muted: #b4b8c0;     /* secondary text that carries information: 8.4:1 on bg, 7.4:1 on surface */
+  --subtle: #a0a4ad;    /* smallest text: 6.7:1 on bg, ≥ 4.7:1 on every surface */
+  --faint: #4b5059;     /* decoration only, never text */
+  --ring: #8a909b;      /* outline of an "off" tile: 5.2:1 on bg */
   --accent: #f2c14e;
   --accent-ink: #1a1405;
   --bad: #ff8a80;
@@ -61,7 +64,7 @@ button:disabled { cursor: not-allowed; }
 
 /* hero */
 .hero { display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 3vh 0 28px; text-align: center; }
-.seg { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); align-self: center; }
+.seg { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line-2); align-self: center; }
 .seg button {
   border: 0; background: transparent; color: var(--muted); min-height: 40px; padding: 0 18px; border-radius: 999px; font-size: 14px;
 }
@@ -161,7 +164,7 @@ input.time { font-variant-numeric: tabular-nums; }
 .name-form input { font-size: 16px; font-weight: 550; text-align: center; width: 240px; }
 .menu {
   position: absolute; top: 100%; left: 50%; transform: translateX(-50%); z-index: 5; margin-top: 6px;
-  min-width: 230px; padding: 6px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line-2);
+  min-width: 230px; padding: 6px; border-radius: 14px; background: var(--raised); border: 1px solid var(--line-2);
   box-shadow: 0 24px 60px -20px #000; display: flex; flex-direction: column; text-align: left;
 }
 .menu-item {
@@ -200,7 +203,7 @@ input.time { font-variant-numeric: tabular-nums; }
 button.tile:hover { background: var(--surface); }
 .glyph {
   position: relative; width: 44px; height: 44px; display: grid; place-items: center; flex: none;
-  border-radius: 11px; box-shadow: 0 0 0 1px rgba(255, 255, 255, .12);
+  border-radius: 11px; box-shadow: 0 0 0 1px rgba(255, 255, 255, .16);
 }
 .glyph > svg, .glyph > .mono, .glyph > img { width: 100%; height: 100%; display: block; border-radius: 11px; transition: filter .2s, opacity .2s; }
 .glyph > img { object-fit: cover; background: #fff; }
@@ -210,7 +213,7 @@ button.tile:hover { background: var(--surface); }
 .tile-label { font-size: 12px; color: var(--text); max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 /* off = present and tappable: half-strength icon inside a visible ring */
 .tile.off .glyph { box-shadow: 0 0 0 1.5px var(--ring); }
-.tile.off .glyph > svg, .tile.off .glyph > .mono, .tile.off .glyph > img { filter: grayscale(1); opacity: .5; }
+.tile.off .glyph > svg, .tile.off .glyph > .mono, .tile.off .glyph > img { filter: grayscale(1); opacity: .65; }
 .tile.off .tile-label { color: var(--subtle); }
 /* on = full colour + lock badge */
 .badge {

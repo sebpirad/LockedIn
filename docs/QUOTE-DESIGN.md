@@ -703,3 +703,64 @@ Størrelserne er 1440×900, 1280×720, 1024×768, 900×700, 720×900, 390×844 o
 ### Kontaktark
 
 `final-shots/v2-69-*.jpg`, nu også ved 720×900.
+
+## Runde 4: lysere (ejerens "forholdsvis mørk")
+
+### Siden
+
+- **Baggrund:** grafit `#1c1f24`, appens nye mørke tema. Den var `#050505`.
+- **Paletten følger siden.** Darkroom-paletten starter i præcis samme farve (`PAGE` i `lib/darkroom.js`). Lysets overlay er også sidefarven ved delvis alfa. Intet i et print kan derfor blive mørkere end siden, og der kan ikke opstå en kant. Det er unit-testet: `blocked.css --black` = `PAGE`, og overlayets farve = `PAGE`.
+
+### Mørkekammeret
+
+| Parameter | Før | Nu |
+|---|---|---|
+| Ansigtsmål | 0,48 | 0,55 |
+| Andel af vejen mod målet | 60 % | 65 % |
+| S-kurve | 0,32 | 0,26 |
+| Loft | 0,86 | 0,93 |
+| Brænding | 0,30–0,65 | 0,16–0,55 (mørke baggrunde næsten ikke) |
+| Midttone | (118,110,99) | (134,126,114) |
+
+- Lysets vignette er cirka halveret.
+- Ansigtsområderne er målt cirka 45 % lysere: middelværdi 77 → 112 på A20 og 86 → 121 på B22.
+- Mørk hud forbliver mørk med detaljer, fordi eksponeringen stadig kun går en del af vejen og er klampet.
+
+### Kontrast
+
+| Element | Farve | Kontrast |
+|---|---|---|
+| Citat | `#f2ece1` | 14,0 : 1 |
+| Timer | `#d8d1c5` | 10,9 : 1 |
+| Datoer | `#b8b1a5` | 7,8 : 1 |
+| Kreditering | `#a8a296` | 6,5 : 1 |
+
+- Timeren over printets top på telefon: 9,7 : 1 for den værste pixel (B22, målt på pixels).
+- Citatet er stadig det lyseste på siden: printets loft ligger under papirets luminans.
+
+### Kanter
+
+- Printenes sider opløses nu med en blødere rampe (fem stop). Der er ikke længere et Mach-bånd ved fjerens start.
+- Hver opløsende kant begynder med 3 px intet.
+- Zone og print lægges på hele pixels. En brøkdels-pixel-kant gav en 1 px linje, når siden blev skaleret (B07).
+
+### Chrome-driveren
+
+- Sidefarven er nu `[28,31,36]`.
+- Datoer skal have ≥ 7 : 1.
+- Andelen af printflade over L 0,35 må være højst 15 % ved p90 (var 6 %). Estimatet ligger på 10–14 % uden lysets mørkning.
+
+### Billeder
+
+- Før/efter: `final-shots/lysere/foer-efter-*.jpg`.
+- Kontaktark: `final-shots/v2-69-*.jpg`.
+
+### Chrome for Testing
+
+Låsen sluttede, og `sh test/blocked-in-chrome.sh` er kørt med standardsættet: 51 citater × 7 størrelser plus bevægelse, lås og et nyt citat.
+
+**Alt består undtagen ét tjek:** "ingen fragmenter / enlige ord" fejlede ved alle størrelser.
+
+- **Årsag:** en fejl i driveren, ikke i siden. Regex-escapes (`\s`, `\p{L}`, `\d`) i driverens målestreng (en template literal) blev til bogstaver, så ordtællingen blev 0/1 pr. linje.
+- **Rettelse:** escapes er rettet i `test/ui/drive-blocked.mjs`.
+- **Mangler:** en ny kørsel med `FULL=1` er ikke gennemført.

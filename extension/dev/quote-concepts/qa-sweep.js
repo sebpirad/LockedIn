@@ -22,6 +22,7 @@ async function measure(frame, id) {
   const frameData = r.dataset.frame ? JSON.parse(r.dataset.frame) : null;
   const q = box($('quote')), t = box($('text')), a = box($('author')), d = box($('dates')), rule = box(doc.querySelector('.rule'));
   const contrast = printContrast(doc, w, frameData);
+  const bright = printBright(doc, w, frameData);
   return {
     id, px: +$('text').dataset.px, lines, words, side: r.dataset.side, overflow: r.classList.contains('overflow'),
     col: t[2], creditLines: Math.round(cl.offsetHeight / lh), credit: cl.textContent,
@@ -29,7 +30,7 @@ async function measure(frame, id) {
     quote: q, slot: box($('slot')), credits: box(cl), author: a, dates: d, rule,
     face: frameData && frameData.face, zone: frameData && frameData.zone, print: frameData && frameData.print,
     sw: doc.documentElement.scrollWidth, vw: w.innerWidth, vh: w.innerHeight,
-    contrast, slotBottom: box($('slot'))[1] + box($('slot'))[3],
+    contrast, bright, slotBottom: box($('slot'))[1] + box($('slot'))[3],
     fadeEnd: frameData && printFadeEnd(doc, w, frameData),
   };
 }
@@ -40,6 +41,7 @@ async function measure(frame, id) {
 const sRGB = (c) => { c /= 255; return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; };
 const L = (r, g, b) => 0.2126 * sRGB(r) + 0.7152 * sRGB(g) + 0.0722 * sRGB(b);
 const PAPER = L(0xf2, 0xec, 0xe1);
+const PAGE = [28, 31, 36]; // #1c1f24 — darkroom PAGE / blocked.css --black
 const ratio = (a, b) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
 const pxv = (v, size) => (/%$/.test(v.trim()) ? (parseFloat(v) / 100) * size : parseFloat(v) || 0);
 function maskParams(doc, w) {
@@ -50,7 +52,14 @@ function maskParams(doc, w) {
 }
 function maskAlpha(m, x, y) {
   if (x < 0 || y < 0 || x > m.pw || y > m.ph) return 0;
-  const ramp = (d, len) => (len <= 0 ? 1 : d >= len ? 1 : d <= 0 ? 0 : d < 0.55 * len ? 0.45 * d / (0.55 * len) : 0.45 + 0.55 * (d - 0.55 * len) / (0.45 * len));
+  const RAMP = [[0, 0], [0.2, 0.06], [0.42, 0.25], [0.7, 0.6], [1, 1]];
+  const ramp = (d, len) => {
+    if (len <= 0 || d >= len) return 1;
+    if (d <= 0) return 0;
+    const t = d / len; let i = 0;
+    while (t > RAMP[i + 1][0]) i++;
+    return RAMP[i][1] + (RAMP[i + 1][1] - RAMP[i][1]) * (t - RAMP[i][0]) / (RAMP[i + 1][0] - RAMP[i][0]);
+  };
   let a = ramp(x, m.el) * ramp(m.pw - x, m.er);
   a *= y <= m.s0 ? 0 : y >= m.s1 ? 1 : (y - m.s0) / (m.s1 - m.s0);
   if (y > m.f0) {
@@ -72,6 +81,28 @@ function printFadeEnd(doc, w, f) {
   const m = maskParams(doc, w);
   return f.print[1] + Math.min(m.f1, m.ph);
 }
+/** Share of the window where the print (canvas × mask, no light overlay — an over-estimate) is brighter than L 0.35. */
+function printBright(doc, w, f) {
+  const canvas = doc.querySelector('.print canvas');
+  if (!canvas || !f) return 0;
+  const m = maskParams(doc, w);
+  const [pl, pt] = f.print;
+  const data = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
+  const sx = canvas.width / m.pw, sy = canvas.height / m.ph;
+  const feather = parseFloat(doc.getElementById('zone').style.getPropertyValue('--feather')) || 0;
+  let n = 0, bright = 0;
+  for (let y = 0; y < w.innerHeight; y += 4) {
+    for (let x = 0; x < w.innerWidth; x += 4) {
+      n++;
+      const px = x - pl, py = y - pt;
+      const a = maskAlpha(m, px, py) * zoneAlpha(f, feather, x, y);
+      if (a <= 0) continue;
+      const o = (Math.min(canvas.height - 1, Math.floor(py * sy)) * canvas.width + Math.min(canvas.width - 1, Math.floor(px * sx))) * 4;
+      if (L(...[0, 1, 2].map((k) => PAGE[k] + a * (data[o + k] - PAGE[k]))) > 0.35) bright++;
+    }
+  }
+  return bright / n;
+}
 function printContrast(doc, w, f) {
   const canvas = doc.querySelector('.print canvas');
   const lines = [...doc.querySelectorAll('#text .li')];
@@ -88,10 +119,10 @@ function printContrast(doc, w, f) {
       for (let x = b.left; x < b.right; x += 2) {
         const px = x - pl, py = y - pt;
         const a = maskAlpha(m, px, py) * zoneAlpha(f, feather, x, y);
-        let c = [5, 5, 5];
+        let c = [...PAGE];
         if (a > 0) {
           const o = (Math.min(canvas.height - 1, Math.floor(py * sy)) * canvas.width + Math.min(canvas.width - 1, Math.floor(px * sx))) * 4;
-          c = [0, 1, 2].map((k) => 5 + a * (data[o + k] - 5));
+          c = [0, 1, 2].map((k) => PAGE[k] + a * (data[o + k] - PAGE[k]));
         }
         vals.push(L(...c));
       }
@@ -146,6 +177,8 @@ window.sweep = async function sweep(vw, vh, ids) {
     contrastFirst: (() => { const c = rows.filter((x) => x.contrast).map((x) => x.contrast[0].p95).sort((a, b) => a - b); return c.length ? { min: c[0], p10: c[Math.floor(c.length * 0.1)] } : null; })(),
     under7: rows.filter((x) => x.contrast && x.contrast.some((c) => c.p95 < 7)).map((x) => `${x.id}:${Math.min(...x.contrast.map((c) => c.p95))}`),
     under45: rows.filter((x) => x.contrast && x.contrast.some((c) => c.worst < 4.5)).map((x) => `${x.id}:${Math.min(...x.contrast.map((c) => c.worst))}`),
+    brightP90: (() => { const b = rows.map((x) => x.bright || 0).sort((p, q) => p - q); return +(100 * b[Math.floor(b.length * 0.9)]).toFixed(1); })(),
+    brightMax: +(100 * Math.max(...rows.map((x) => x.bright || 0))).toFixed(1),
     narrowPrint: phone ? rows.filter((x) => x.print && x.print[2] < x.vw - 1).map((x) => `${x.id}:${Math.round(100 * x.print[2] / x.vw)}%`) : [],
     edgeGap: phone ? [] : bad((x) => x.print && x.print[3] >= x.vh - 1 && (x.side === 'right' ? x.print[0] + x.print[2] < x.vw - 1 : x.print[0] > 1)),
   };

@@ -81,7 +81,7 @@ const special = quotes.filter((q) => / \/ /.test(q.text) || (q.image && (q.image
 const SET = [...new Set([SHORTEST, LONGEST, ...special, ...quotes.filter((_, i) => i % 3 === 0).map((q) => q.id)])];
 const ids = process.env.FULL ? quotes.map((q) => q.id) : SET;
 const SHOTS = process.env.SHOTS || '';
-const PAGE = [5, 5, 5];
+const PAGE = [28, 31, 36]; // #1c1f24, blocked.css --black = darkroom PAGE
 
 // ---------- 1. every quote at desktop, laptop, small window and phones ----------
 const VIEWS = [
@@ -105,7 +105,7 @@ const MEASURE = `
     px: +t.dataset.px, lines: lis.length, overflow: r.classList.contains('overflow'), side: r.dataset.side,
     family: cs(t).fontFamily, style: cs(t).fontStyle, bodoni: t.classList.contains('bodoni'),
     hang: (() => { const h = t.querySelector('.hang, .mark'); return h ? { text: h.textContent, color: cs(h).color } : null; })(),
-    lineWords: lis.map((l) => l.replace(/\u2060/g, '').split(/[\s\u00a0]+/).filter((w) => /[\p{L}\d]/u.test(w)).length),
+    lineWords: lis.map((l) => l.replace(/\\u2060/g, '').split(/[\\s\\u00a0]+/).filter((w) => /[\\p{L}\\d]/u.test(w)).length),
     lineChars: lis.map((l) => [...l].length),
     creditLines: Math.round(cl.offsetHeight / parseFloat(cs(cl).lineHeight)), creditMin: +(r.dataset.creditMin || 0), credit: cl.textContent,
     links: [...document.querySelectorAll('.stage a[href]')].filter((a) => !a.closest('[hidden]') && a.offsetParent).length,
@@ -118,7 +118,7 @@ const MEASURE = `
   };`;
 const HIDE_TEXT = `const s = document.createElement('style'); s.id = '__audit'; s.textContent = '.stage, .stage * { visibility: hidden !important; }'; document.head.append(s); await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))); return true;`;
 const intersects = (a, b) => a[0] < b[0] + b[2] && b[0] < a[0] + a[2] && a[1] < b[1] + b[3] && b[1] < a[1] + a[3];
-const THRESH = { quote: 7, name: 7, timer: 7, dates: 4.5, credit: 4.5 };
+const THRESH = { quote: 7, name: 7, timer: 7, dates: 7, credit: 4.5 };
 /** Pixels in [x0, x1) × [y0, y1) (CSS px) that differ from the page colour by more than 1 on any channel. */
 function offPage(img, [x0, y0, x1, y1], dpr) {
   let n = 0;
@@ -253,15 +253,16 @@ for (const v of VIEWS) {
   check(!bad.creditLines.length, `${label}: credit at most ${phone ? 2 : 1} line(s), or what the full attribution alone needs`, list(bad.creditLines));
   if (!phone && v.w >= 1280) check(oneLine / ids.length >= 0.95, `${label}: credit on one line for ≥ 95 %`, `${oneLine}/${ids.length}`);
   if (longCredit.length) console.log(`INFO  ${label}: ${longCredit.length} attribution(s) need more than ${phone ? 2 : 1} line(s) on their own: ${list(longCredit)}`);
-  check(!bad.contrast.length, `${label}: contrast on pixels — quote/name/timer ≥ 7, dates/credit ≥ 4.5 (p95), credit ≥ 4.5 vs brightest pixel`,
+  check(!bad.contrast.length, `${label}: contrast on pixels — quote/name/timer/dates ≥ 7, credit ≥ 4.5 (p95), credit ≥ 4.5 vs brightest pixel`,
     `${list(bad.contrast)} | worst: ${Object.entries(minRatio).map(([k, x]) => `${k} ${x.r.toFixed(1)} ${x.id}`).join(', ')}, credit-max ${minCreditMax.r.toFixed(1)} ${minCreditMax.id}`);
-  check(!bad.seam.length, `${label}: no seam — outside the portrait every pixel is the page colour #050505`, list(bad.seam));
+  check(!bad.seam.length, `${label}: no seam — outside the portrait every pixel is the page colour #1c1f24`, list(bad.seam));
   if (phone) {
-    check(!bad.printUnder.length, `${label}: stacked — the print has dissolved to #050505 before the quote's first line`, list(bad.printUnder));
+    check(!bad.printUnder.length, `${label}: stacked — the print has dissolved to #1c1f24 before the quote's first line`, list(bad.printUnder));
     check(!bad.faceTop.length, `${label}: stacked — every face starts below the timer, none cropped at the top`, list(bad.faceTop));
   }
   const p90 = percentile(brightShares, 0.9);
-  check(p90 <= 0.06, `${label}: print area brighter than L 0.35 ≤ 6 % of the window at p90`, `${(p90 * 100).toFixed(1)} %, max ${(Math.max(...brightShares) * 100).toFixed(1)} %`);
+  // 1.3.x lifted the prints (owner: "forholdsvis mørk"); the words stay brightest by the p99 rule below
+  check(p90 <= 0.15, `${label}: print area brighter than L 0.35 ≤ 15 % of the window at p90`, `${(p90 * 100).toFixed(1)} %, max ${(Math.max(...brightShares) * 100).toFixed(1)} %`);
   const over = printP99.filter((x) => x.L >= x.quote);
   check(!over.length, `${label}: the print's 99th-percentile luminance stays below the quote's`, over.map((x) => x.id).join(', '));
   const pxs = rows.filter((r) => r.view === v.name).map((r) => r.px).sort((a, b) => a - b);

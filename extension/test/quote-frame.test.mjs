@@ -6,7 +6,7 @@ import {
   FLIP_YAW, ZONE, MAX_UP, MAX_UP_PHONE, isDesktop, faceOf, portraitSide, frameDesktop, framePhone, softenPx, grainOpacity,
   zoneShare, minColumn, faceMargin, EDGE_PAD, TEXT_CLEAR, phoneTopSafe, minFacePhone, stackedBand,
 } from '../lib/quote-frame.js';
-import { LOOK, exposureGamma, burnStrength, paletteLUT, toneCurve, develop, grainPixels } from '../lib/darkroom.js';
+import { LOOK, PAGE, exposureGamma, burnStrength, paletteLUT, toneCurve, develop, grainPixels } from '../lib/darkroom.js';
 
 const CHURCHILL = { W: 618, H: 800, face: faceOf({ focus: { x: 0.38, y: 0.26, w: 0.28, h: 0.22, yaw: -0.3 } }) };
 const CAESAR = { W: 589, H: 800, face: faceOf({ focus: { x: 0.46, y: 0.41, w: 0.7, h: 0.52, yaw: 0 } }) };
@@ -116,9 +116,23 @@ test('darkroom: exposure goes only part of the way, so skin tones stay distinct'
   assert.ok(outD > dark && outD < LOOK.face, `dark face lifted, not to the target (${outD.toFixed(3)})`);
   assert.ok(outL < light && outL > LOOK.face, `light face lowered, not to the target (${outL.toFixed(3)})`);
   assert.ok(outL - outD > 0.1, 'the two faces still differ');
-  assert.equal(burnStrength(0), 0.3);
-  assert.equal(burnStrength(1), 0.65);
-  assert.equal(LOOK.ceil, 0.86);
+  assert.equal(burnStrength(0), LOOK.burnMin);
+  assert.equal(burnStrength(1), LOOK.burnMax);
+  assert.ok(LOOK.ceil < 0.95, 'a white backdrop never prints white');
+});
+
+test('darkroom: the palette\'s black is the page colour, so nothing in a print is darker than the page (no seam)', () => {
+  const pal = paletteLUT();
+  assert.deepEqual([pal[0], pal[1], pal[2]], [...PAGE]);
+  for (let v = 0; v < 256; v++) for (let k = 0; k < 3; k++) assert.ok(pal[v * 3 + k] >= PAGE[k], 'never below the page');
+  const css = fs.readFileSync(new URL('../ui/blocked.css', import.meta.url), 'utf8');
+  const hex = css.match(/--black:\s*#([0-9a-f]{6})/i)[1];
+  assert.deepEqual([0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16)), [...PAGE], 'blocked.css --black = darkroom PAGE');
+  for (const m of css.matchAll(/rgba\((\d+), (\d+), (\d+), [.\d]+\)/g)) {
+    if (m.index > css.indexOf('.light {') && m.index < css.indexOf('/* ---------- the words')) {
+      assert.deepEqual([+m[1], +m[2], +m[3]], [...PAGE], 'the light overlay is the page colour');
+    }
+  }
 });
 
 test('darkroom: monochrome palette, highlights capped, drawings unburnt', () => {
@@ -137,7 +151,7 @@ test('darkroom: monochrome palette, highlights capped, drawings unburnt', () => 
     assert.ok(v >= 0, `pixel ${i} is on the palette`);
     assert.ok(rgb[0] <= pal[top] + 1, 'never brighter than the ceiling');
   }
-  assert.ok(st.burn >= 0.3 && st.burn <= 0.65);
+  assert.ok(st.burn >= LOOK.burnMin && st.burn <= LOOK.burnMax);
   const drawing = make(() => [220, 200, 170]);
   assert.equal(develop(drawing, W, H, face, 'drawing').burn, 0);
   assert.equal(grainPixels(8).length, 8 * 8 * 4);

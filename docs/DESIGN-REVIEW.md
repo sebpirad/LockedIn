@@ -506,3 +506,74 @@ All 7 required changes are in, every flow works by mouse, drag, keyboard and tou
 | **Regressions** | none | 0 ellipses and 0 overflowing labels at 900 px. No horizontal overflow at 900 or 375 px. Earlier behaviour still holds: slots before now do nothing, Esc returns focus, and the header is merged. |
 
 ## Verdict: **APPROVED**
+
+---
+
+# Lysere tema — tokens (2026-10-05)
+
+Owner: "Er skærmen ikke for mørk? Det gør det svært at se forskellige ting." He chose a **lighter dark theme**, applied to Fokus, Plan and the settings drawer. The quote page (`blocked.*`) is unchanged.
+
+**What changed**
+- The background goes from near-black `#0a0b0d` to graphite `#1b1e23`.
+- Surfaces: `#24282f` and `#2b3038`, plus a new `--raised` `#323844` for menus.
+- Secondary text is lighter.
+- Buttons, pills and fields have 3:1 edges.
+- Dividers and hour lines are clearly visible.
+- The today column is lighter (5 % instead of 2.5 %).
+- "Off" icons are at 65 % instead of 50 %.
+- Plan blocks are mixed over the surface instead of `#14161b`.
+- Nothing else changed: no new elements, the yellow accent stays, dark only.
+
+The ratios are WCAG 2.x, computed from the tokens. Text must be ≥ 4.5:1. Secondary text that carries information is ≥ 7:1 on the page and the panel. Component edges are ≥ 3:1.
+
+| Token | Value | on bg `#1b1e23` | on surface `#24282f` | on surface-2 `#2b3038` | on raised `#323844` | Used for |
+|---|---|---|---|---|---|---|
+| `--text` | `#ecebe8` | 14.0:1 | 12.4:1 | 11.1:1 | 9.9:1 | all primary text |
+| `--idle` | `#d6d5d0` | 11.4:1 | 10.1:1 | 9.0:1 | 8.0:1 | the idle big timer |
+| `--muted` | `#b4b8c0` | 8.4:1 | 7.4:1 | 6.7:1 | 5.9:1 | secondary text with information (Næste line, list names in rows, tabs, units, carets) |
+| `--subtle` | `#a0a4ad` | 6.7:1 | 5.9:1 | 5.3:1 | 4.7:1 | smallest text: hour labels, weekday names, skipped dates, gear |
+| `--accent` | `#f2c14e` | 10.0:1 | 8.8:1 | 7.9:1 | 7.0:1 | now-line, focus ring, lock badge, check marks |
+| `--bad` | `#ff8a80` | 7.3:1 | 6.5:1 | 5.8:1 | 5.2:1 | errors, the 24 h line |
+| `--ring` | `#8a909b` | 5.2:1 | 4.6:1 | 4.1:1 | 3.7:1 | outline of "off" tiles (non-text, ≥ 3:1) |
+| `--line-2` | `#747a85` | 3.9:1 | 3.4:1 | 3.1:1 | 2.7:1 | edges of buttons, pills, chips, fields (non-text, ≥ 3:1) |
+| `--line` | `#4a4f59` | 2.0:1 | 1.8:1 | 1.6:1 | 1.4:1 | dividers, hour lines, column borders (decorative) |
+| `--line-soft` | `#363a42` | 1.5:1 | 1.3:1 | 1.2:1 | 1.0:1 | half-hour lines (decorative) |
+| `--faint` | `#4b5059` | 2.1:1 | 1.8:1 | 1.6:1 | 1.5:1 | decoration only, never text |
+
+Other pairs:
+- `--accent-ink` `#1a1405` on `--accent`: 10.9:1 (the primary button).
+- Plan blocks (tint 30 % over surface), worst of the six tints: time `--text` 6.1:1, list name `#d3d5da` 4.9:1; the 3 px tint bar against bg ≥ 7.7:1; the block against bg ≥ 2.1:1.
+- The today date circle: `--bg` on `--text` 14.0:1. The selected chip / day / switch: `--bg` on `--text` likewise.
+- Before → after, for comparison: `--subtle` on bg 5.3:1 → 6.7:1; `--muted` 6.2:1 → 8.4:1; button edges `--line-2` 1.6:1 → 3.9:1; hour lines `--line` 1.3:1 → 2.0:1.
+
+**Note on dividers.** Dividers and grid lines (`--line`, `--line-soft`) are decorative. They separate rows and hours but are not what identifies a control, so they are not held to 3:1. At 3:1, 48 hour and half-hour lines would compete with the blocks. They are 2.0:1 (hours) and 1.5:1 (half hours) instead of 1.3:1 before.
+
+**Screenshots** (1440×900): `extension/dev/plan-page/theme-{before,after}-{fokus,plan}.png`.
+
+---
+
+# Lysere tema — review (2026-10-05)
+
+**How it was tested.** I used the mock: Fokus, Fokus in Rediger mode, the settings drawer, and Plan both normal and with `locked=1&planNow=1`. I looked at 1440×900 at 1× and 390×844 at 2× (CDP captures), plus the implementer's `theme-*.png`, and checked the token table against the CSS. No files were edited apart from appending this section.
+
+## Against the owner's complaint ("svært at se forskellige ting")
+
+| What | Before → now | Verdict |
+|---|---|---|
+| Pill, chip, dropdown and field edges | 1.6 → 3.9:1 | Every control now reads as a control, at a glance and on the phone. |
+| Secondary text (Næste line, list names, tabs) | 6.2 → 8.4:1 | Clear without competing with the timer. |
+| Hour labels, weekday names | 5.3 → 6.7:1 | Easy to read at 12 px. |
+| **Hour lines at 2.0:1**, half-hour lines at 1.5:1 | 1.3 → 2.0 | **Right call.** At 1440 every hour is easy to follow across seven columns, and the half hours are present without forming graph paper. At 3:1 the 48 lines would compete with the event blocks, which are now the strongest things in the grid (tint bar ≥ 7.7:1). This answers the complaint without adding noise. |
+| Today column, now-line | 2.5 % → 5 %; accent 10:1 | Today is found immediately. The now-line still runs under the blocks. |
+| Off icons in Rediger mode | 50 % → 65 % | All 17 are recognisable. On and off still separate clearly: colour plus lock badge against grey with a ring. |
+| Settings drawer | surface `#24282f` over a dimmed page | Rows, toggles and padlocks are clear, and the "Lukkes aldrig" heading is readable. |
+
+The page stays calm and minimal: no new elements, one accent, and the yellow button is still the only strong colour on Fokus. On the phone the graphite reads as "dark", not "black", which is what the owner asked for.
+
+## Notes (nice, not blocking)
+
+- **Frozen block without a lock in narrow lanes.** The lock glyph is only drawn when the label has 20 px to spare, so the cascaded "11:35–13:05" frozen block (100 px) looks like a normal block. Draw the lock as a 12 px corner mark at top-right that does not depend on label width, or give frozen blocks a 1 px accent inner edge. The panel row already says "🔒 Låst til 13:05".
+- **Tab hover on touch.** In the phone Plan capture the "Fokus" tab kept a `--surface` hover box. Wrap `.tab:hover`, and the other hover fills, in `@media (hover: hover)`.
+- **Past blocks** at 55 % opacity are clearly "done", but their text drops to about 4:1. That is fine for history; leave it.
+
+## Verdict: **APPROVED**

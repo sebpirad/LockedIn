@@ -3,12 +3,12 @@
    this file only says how things look. All motion lives in the no-preference block at the end. */
 :root {
   color-scheme: dark;
-  --black: #050505;
-  --paper: #f2ece1;
+  --black: #1c1f24;            /* graphite, the app's dark theme; = darkroom PAGE (the print's black) */
+  --paper: #f2ece1;            /* 14 : 1 on the page — the brightest thing on it */
   --name: rgba(242, 236, 225, .9);
-  --dates: #aaa397;
-  --timer: #c9c2b6;
-  --quiet: #969086;
+  --dates: #b8b1a5;            /* 7.8 : 1 */
+  --timer: #d8d1c5;            /* 10.9 : 1 */
+  --quiet: #a8a296;            /* credit, 6.5 : 1 */
   --accent: #f2c14e;
   --didot: Didot, "Bodoni 72", "Iowan Old Style", Georgia, serif;
   --bodoni: "Bodoni 72", Didot, "Iowan Old Style", Georgia, serif;
@@ -54,11 +54,12 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   opacity: 0;
   --el: 0px; --er: 0px; --s0: 0px; --s1: 0px; --f0: 100%; --f1: 100%;
   mask-image:
-    linear-gradient(to right, transparent 0, rgba(0, 0, 0, .45) calc(var(--el) * .55), #000 var(--el)),
-    linear-gradient(to left, transparent 0, rgba(0, 0, 0, .45) calc(var(--er) * .55), #000 var(--er)),
-    linear-gradient(to bottom, transparent var(--s0), #000 var(--s1)),
+    linear-gradient(to right, transparent min(3px, var(--el)), rgba(0, 0, 0, .06) calc(var(--el) * .2), rgba(0, 0, 0, .25) calc(var(--el) * .42), rgba(0, 0, 0, .6) calc(var(--el) * .7), #000 var(--el)),
+    linear-gradient(to left, transparent min(3px, var(--er)), rgba(0, 0, 0, .06) calc(var(--er) * .2), rgba(0, 0, 0, .25) calc(var(--er) * .42), rgba(0, 0, 0, .6) calc(var(--er) * .7), #000 var(--er)),
+    linear-gradient(to bottom, transparent max(var(--s0), min(3px, var(--s1))), #000 var(--s1)),
     linear-gradient(to bottom, #000 var(--f0), rgba(0, 0, 0, .55) calc(var(--f0) + (var(--f1) - var(--f0)) * .35), rgba(0, 0, 0, .15) calc(var(--f0) + (var(--f1) - var(--f0)) * .7), transparent var(--f1));
   mask-composite: intersect;
+  /* every dissolving edge starts with 3 px of nothing: a raster's outermost row must not carry print */
 }
 .print.is-lit { opacity: 1; }
 .is-ended .print.is-lit { filter: brightness(1.12); }
@@ -67,19 +68,19 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   position: absolute; inset: 0; background-image: var(--grain); background-size: 192px 192px;
   mix-blend-mode: overlay; opacity: var(--grain-o, .34);
 }
-/* Light: the face is lit, the print falls toward black around it. The overlay is the page colour (#050505) at
+/* Light: the face is lit, the print falls toward the page around it. The overlay is the page colour (#1c1f24) at
    partial alpha, never darker than the page, so it cannot draw an edge where it ends. */
 .light {
   position: absolute; inset: 0;
   background:
-    radial-gradient(circle at var(--fx, 50%) var(--fy, 40%), transparent 0, transparent calc(var(--fh, 200px) * 1.05), rgba(5, 5, 5, .3) calc(var(--fh, 200px) * 1.9), rgba(5, 5, 5, .6) calc(var(--fh, 200px) * 3), rgba(5, 5, 5, .7) calc(var(--fh, 200px) * 4.2)),
-    linear-gradient(0deg, rgba(5, 5, 5, .5) 0, rgba(5, 5, 5, 0) 26%);
+    radial-gradient(circle at var(--fx, 50%) var(--fy, 40%), transparent 0, transparent calc(var(--fh, 200px) * 1.2), rgba(28, 31, 36, .16) calc(var(--fh, 200px) * 2.1), rgba(28, 31, 36, .34) calc(var(--fh, 200px) * 3.2), rgba(28, 31, 36, .46) calc(var(--fh, 200px) * 4.4)),
+    linear-gradient(0deg, rgba(28, 31, 36, .32) 0, rgba(28, 31, 36, 0) 24%);
 }
-/* Phone: the timer strip sits over ≥ 0.9 black. */
+/* Phone: the timer strip sits over ≥ 0.88 page colour. */
 [data-side="top"] .light {
   background:
-    linear-gradient(180deg, rgba(5, 5, 5, .94) 0, rgba(5, 5, 5, .9) var(--strip, 64px), rgba(5, 5, 5, 0) calc(var(--strip, 64px) + 56px)),
-    radial-gradient(circle at var(--fx, 50%) var(--fy, 30%), transparent 0, transparent calc(var(--fh, 120px) * 1.0), rgba(5, 5, 5, .34) calc(var(--fh, 120px) * 1.8), rgba(5, 5, 5, .66) calc(var(--fh, 120px) * 2.8), rgba(5, 5, 5, .76) calc(var(--fh, 120px) * 4));
+    linear-gradient(180deg, rgba(28, 31, 36, .94) 0, rgba(28, 31, 36, .88) var(--strip, 64px), rgba(28, 31, 36, 0) calc(var(--strip, 64px) + 56px)),
+    radial-gradient(circle at var(--fx, 50%) var(--fy, 30%), transparent 0, transparent calc(var(--fh, 120px) * 1.15), rgba(28, 31, 36, .18) calc(var(--fh, 120px) * 2), rgba(28, 31, 36, .38) calc(var(--fh, 120px) * 3), rgba(28, 31, 36, .5) calc(var(--fh, 120px) * 4.2));
 }
 
 /* ---------- the words ---------- */
@@ -129,7 +130,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
   position: absolute; left: var(--credit-left, var(--col-left)); width: var(--credit-width, var(--col-width)); bottom: var(--credit-bottom); margin: 0;
   font: 400 12px/1.5 var(--sans); color: var(--quiet); visibility: hidden; text-wrap: balance;
 }
-.credits a { text-decoration-color: rgba(150, 144, 134, .5); white-space: nowrap; } /* "CC BY-SA 4.0 ↗" never breaks at its hyphen */
+.credits a { text-decoration-color: rgba(168, 162, 150, .55); white-space: nowrap; } /* "CC BY-SA 4.0 ↗" never breaks at its hyphen */
 .is-set .quote, .is-set .credits { visibility: visible; }
 
 [data-layout="phone"] .remain { font-size: 24px; }
