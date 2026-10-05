@@ -17,6 +17,8 @@ public struct SiteRule: Codable, Equatable {
     public var allowHosts: [String]
     /// Explicit /etc/hosts entries (hosts has no wildcards).
     public var hostsFile: [String]
+    /// Desktop apps of the same service (e.g. the Slack app) — closed whenever the site is in an active list.
+    public var apps: [String] = []
 
     public init(id: String, label: String, builtin: Bool, blocked: Bool, mode: String,
                 suffixes: [String], exactHosts: [String] = [], regexFilters: [String] = [],
@@ -26,7 +28,7 @@ public struct SiteRule: Codable, Equatable {
         self.allowHosts = allowHosts; self.hostsFile = hostsFile
     }
 
-    enum CodingKeys: String, CodingKey { case id, label, builtin, blocked, mode, suffixes, exactHosts, regexFilters, allowHosts, hostsFile }
+    enum CodingKeys: String, CodingKey { case id, label, builtin, blocked, mode, suffixes, exactHosts, regexFilters, allowHosts, hostsFile, apps }
 
     public init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
@@ -40,6 +42,7 @@ public struct SiteRule: Codable, Equatable {
         regexFilters = try c.decodeIfPresent([String].self, forKey: .regexFilters) ?? []
         allowHosts = try c.decodeIfPresent([String].self, forKey: .allowHosts) ?? []
         hostsFile = try c.decodeIfPresent([String].self, forKey: .hostsFile) ?? []
+        apps = try c.decodeIfPresent([String].self, forKey: .apps) ?? []
     }
 }
 

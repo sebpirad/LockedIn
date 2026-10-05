@@ -575,6 +575,19 @@ do {
     expectError("locked", "R7-1: app on a chained period's list cannot be exempted") { try e.setNeverClose(bundleId: "com.readdle.SparkDesktop", on: true, now: now) }
 }
 
+// MARK: A site's desktop app
+
+do {
+    let now = t("2026-10-05T12:00:00Z")
+    let e = Engine(state: State()); e.boot(now: now, mono: 0)
+    var slack = SiteRule(id: "slack", label: "Slack", builtin: true, blocked: true, mode: "full", suffixes: ["slack.com"])
+    slack.apps = ["com.tinyspeck.slackmacgap"]
+    e.mergeCatalog([slack], now: now); e.migrateToLists()
+    check(!e.effectiveAppRules(now: now).contains { $0.bundleId == "com.tinyspeck.slackmacgap" && $0.blocked }, "Slack app not closed while unlocked")
+    try! e.startSession(minutes: 10, now: now)
+    check(e.effectiveAppRules(now: now).contains { $0.bundleId == "com.tinyspeck.slackmacgap" && $0.blocked }, "Slack app closed when the Slack site is on the active list")
+}
+
 // MARK: Catalog file
 
 do {

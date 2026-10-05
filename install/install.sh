@@ -17,10 +17,17 @@ BIN="/Library/PrivilegedHelperTools/dk.lockedin.daemon"
 DPLIST="/Library/LaunchDaemons/dk.lockedin.daemon.plist"
 APLIST="/Library/LaunchAgents/dk.lockedin.menu.plist"
 
-echo "1/6  Bygger (som $USER_NAME) …"
-sudo -u "$USER_NAME" bash -c "cd '$ROOT/daemon' && swift build -c release --product lockedind && swift build -c release --product LockedInMenu && swift build -c release --product CoreTests && .build/release/CoreTests" \
-  || { echo "Bygning eller tests fejlede — intet er installeret."; exit 1; }
-sudo -u "$USER_NAME" python3 tools/build-catalog.py >/dev/null
+if [ -x bin/lockedind ] && [ -x bin/LockedInMenu ] && [ -d dist/extension ]; then
+  echo "1/6  Bruger den færdigbyggede pakke …"
+  DAEMON_BIN=bin/lockedind; MENU_BIN=bin/LockedInMenu
+else
+  echo "1/6  Bygger (som $USER_NAME) …"
+  sudo -u "$USER_NAME" bash -c "cd '$ROOT/daemon' && swift build -c release --product lockedind && swift build -c release --product LockedInMenu && swift build -c release --product CoreTests && .build/release/CoreTests" \
+    || { echo "Bygning eller tests fejlede — intet er installeret."; exit 1; }
+  sudo -u "$USER_NAME" python3 tools/build-catalog.py >/dev/null
+  sudo -u "$USER_NAME" extension/tools/pack.sh >/dev/null
+  DAEMON_BIN=daemon/.build/release/lockedind; MENU_BIN=daemon/.build/release/LockedInMenu
+fi
 
 echo "2/6  Stopper en eventuel tidligere version …"
 launchctl bootout system/dk.lockedin.daemon 2>/dev/null || true
@@ -29,12 +36,12 @@ for i in $(seq 1 20); do launchctl print system/dk.lockedin.daemon >/dev/null 2>
 
 echo "3/6  Installerer filer (root-ejet) …"
 install -d -o root -g wheel -m 755 "$SUPPORT" /Library/PrivilegedHelperTools /Library/Logs/LockedIn
-install -o root -g wheel -m 755 daemon/.build/release/lockedind "$BIN"
+install -o root -g wheel -m 755 "$DAEMON_BIN" "$BIN"
 install -o root -g wheel -m 644 config/catalog.json "$SUPPORT/catalog.json"
 APP="$SUPPORT/Locked in.app"
 rm -rf "$APP"
 install -d -o root -g wheel -m 755 "$APP/Contents/MacOS"
-install -o root -g wheel -m 755 daemon/.build/release/LockedInMenu "$APP/Contents/MacOS/LockedInMenu"
+install -o root -g wheel -m 755 "$MENU_BIN" "$APP/Contents/MacOS/LockedInMenu"
 install -o root -g wheel -m 644 install/menu-Info.plist "$APP/Contents/Info.plist"
 codesign --force --sign - "$BIN" >/dev/null 2>&1 || true
 codesign --force --sign - "$APP" >/dev/null 2>&1 || true
@@ -43,7 +50,6 @@ install -o root -g wheel -m 644 install/dk.lockedin.menu.plist "$APLIST"
 
 # Chrome only force-installs Web Store extensions on a Mac that is not company-managed (TESTLOG T3), so the extension
 # is also placed in a root-owned folder for "Indlæs upakket". The manifest key gives it the same id.
-sudo -u "$USER_NAME" extension/tools/pack.sh >/dev/null
 rm -rf "$SUPPORT/extension"
 cp -R dist/extension "$SUPPORT/extension"
 chown -R root:wheel "$SUPPORT/extension"

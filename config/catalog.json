@@ -672,6 +672,9 @@
     "downloads.slack-edge.com",
     "a.slack-imgs.com",
     "b.slack-imgs.com"
+   ],
+   "apps": [
+    "com.tinyspeck.slackmacgap"
    ]
   },
   {

@@ -16,6 +16,7 @@ public struct Catalog: Codable {
             s.exactHosts = s.exactHosts.filter(Validation.isDomain)
             s.allowHosts = s.allowHosts.filter(Validation.isDomain)
             s.hostsFile = s.hostsFile.filter(Validation.isDomain)
+            s.apps = s.apps.filter(Validation.isBundleId)
             s.builtin = true
             return s
         }.filter { Validation.isBundleId($0.id) && !$0.suffixes.isEmpty }

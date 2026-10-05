@@ -216,12 +216,18 @@ public final class Engine {
     /// The app rules for app control: an app is closed if it is "always closed" (browsers, unknown engines) or in an
     /// active list.
     public func effectiveAppRules(now: Date) -> [AppRule] {
-        let ids = Set(activeLists(now).flatMap(\.apps))
-        return state.apps.map { a in
+        let siteApps = Set(effectiveSites(now: now).flatMap(\.apps))
+        let ids = Set(activeLists(now).flatMap(\.apps)).union(siteApps)
+        var rules = state.apps.map { a -> AppRule in
             var r = a
             r.blocked = !a.neverClose && (a.blocked || ids.contains(a.bundleId))
             return r
         }
+        // A service's desktop app that LockedIn has never seen (e.g. Slack installed later) is still closed.
+        for id in siteApps where !rules.contains(where: { $0.bundleId == id }) && Validation.isBundleId(id) {
+            rules.append(AppRule(bundleId: id, name: id, kind: .app, blocked: true))
+        }
+        return rules
     }
 
     func cleanList(name: String, sites: [String], apps: [String]) throws -> (String, [String], [String]) {
@@ -386,7 +392,10 @@ public final class Engine {
             let closedNow = effectiveAppRules(now: now).first { $0.bundleId == bundleId }?.blocked ?? false
             // Also any list that is part of the running lock later (a chained period) — review 7, R7-1.
             let frozen = frozenListIds(now: now)
-            let onFrozenList = state.lists.contains { frozen.contains($0.id) && $0.apps.contains(bundleId) }
+            let onFrozenList = state.lists.contains { l in
+                frozen.contains(l.id) && (l.apps.contains(bundleId)
+                    || l.sites.contains { sid in state.sites.first { $0.id == sid }?.apps.contains(bundleId) ?? false })
+            }   // also via a site's desktop app on a frozen list (review 8, R8-1)
             if closedNow || onFrozenList { throw EngineError.locked() }
         }
         state.apps[i].neverClose = on
@@ -532,6 +541,7 @@ public final class Engine {
                     n.exactHosts = union(prev.exactHosts, c.exactHosts)
                     n.regexFilters = union(prev.regexFilters, c.regexFilters)
                     n.hostsFile = union(prev.hostsFile, c.hostsFile)
+                    n.apps = union(prev.apps, c.apps)
                     n.allowHosts = prev.allowHosts.filter(c.allowHosts.contains)
                     if prev.mode == "full" { n.mode = "full" }
                 }

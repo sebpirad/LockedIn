@@ -37,6 +37,11 @@ index = f"""
 <p class="lead">Fokus til Mac. Vælg en liste og en varighed, et sluttidspunkt eller en planlagt periode. Så er de sider og apps låst, til tiden er gået.</p>
 <nav><a href="{repo}/docs/INSTALL.md">Installation</a><a href="citater.html">Citater</a><a href="{repo}/docs/TESTLOG.md">Testrapport</a><a href="https://github.com/sebpirad/LockedIn">Kode</a></nav>
 
+<h2>Installér</h2>
+<p>Åbn Terminal, og indsæt:</p>
+<p><code>curl -fsSL https://sebpirad.github.io/LockedIn/install.sh | bash</code></p>
+<p class="mut">Kræver en Mac med Google Chrome og din Mac-adgangskode.</p>
+
 <h2>Sådan virker det</h2>
 <ul>
 <li>Gemte lister, fx "Locked In 1: Slack, Adversus, Instagram". Du vælger listen, når du starter eller planlægger.</li>

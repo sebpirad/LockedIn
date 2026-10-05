@@ -62,6 +62,8 @@ sites = [
 ]
 # Adversus: never anything but app/website tabs; the suffix adversus.io covers app.adversus.io.
 assert sites[3]["hostsFile"] == []
+# Owner 2026-10-05: the Slack tile also closes the Slack desktop app.
+next(x for x in sites if x["id"] == "slack")["apps"] = ["com.tinyspeck.slackmacgap"]
 fb = next(x for x in sites if x["id"] == "facebook")
 assert not any(h.endswith(("fbcdn.net", "whatsapp.com", "whatsapp.net", "messenger.com")) for h in fb["hostsFile"] + fb["suffixes"])
 yt = sites[1]

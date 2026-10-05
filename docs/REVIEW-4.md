@@ -321,3 +321,34 @@ R7-1 is a one-condition fix in `setNeverClose`. Everything else holds:
 - the owner's use (Spark, Wispr Flow, Claude set before a lock) is safe;
 - browsers cannot be exempted;
 - spoofed bundle ids are still caught by the team check.
+
+---
+
+# Round 8 (site apps: the Slack tile also closes the Slack app) — working tree on 9d196c9
+Method:
+- `CoreTests` **183/183**, `node --test` **151/151**.
+- Chrome for Testing suites skipped: the live daemon (1.4.0) reported `active:true`, so a real lock was running. Only GET was used.
+- Probe `review/r9`.
+
+| Check | Result |
+|---|---|
+| Unregistered Slack app while the Slack site is effective | A synthetic rule `com.tinyspeck.slackmacgap blocked=true team=nil` → Slack is judged `kill` (CONFIRMED). |
+| Registered Slack app set to "Tillad", site effective | `kill` (the site app overrides "Tillad" during the lock). neverClose ON now → **423** (CONFIRMED). |
+| Unrelated apps | The synthetic rule only matches the **outer** bundle id `com.tinyspeck.slackmacgap`, so nothing else is affected. Its `teamId=nil` only matters on the kill path, never for an allow. Other apps' verdicts are unchanged. |
+| API apps list | `/v1/status.apps` comes from `state.apps`, so synthetic rules do not appear (CONFIRMED). |
+| Catalog | `apps` is sanitised with `isBundleId`; during a lock `mergeCatalog` only unions `apps`. There is no API to edit a site's apps. |
+| neverClose vs site app | neverClose set **before** the lock wins (Slack runs while slack.com is still sunk in hosts). That is the owner's explicit choice, outside the lock. |
+
+**R8-1 (MEDIUM in principle, low in practice; CONFIRMED) — neverClose can still be switched on mid-lock for an app that a later part of the lock closes through a site.**
+- `setNeverClose`'s R7-1 guard looks for the bundle id in the **apps** of frozen lists, but not in the **site apps** of the sites on those lists.
+- Probe: a timer 10–11 on list A (no Slack), chained to a period 11–13 on list B, which has the Slack **site**.
+  - During the timer, `PATCH /v1/apps/com.tinyspeck.slackmacgap {"neverClose":true}` → **200**.
+  - At 11:30 the lock runs and slack.com is blocked, but the Slack app is judged **`allow`**.
+- Impact is small, because hosts still sink slack.com, but it breaks the "no weakening during a lock" rule that R7-1 was meant to close.
+- Fix: in `onFrozenList`, also match `state.sites.filter { frozen lists' sites }.flatMap(\.apps)`.
+
+**R8-2 (LOW) — two cosmetic gaps.**
+- `/v1/status.apps[].inActiveList` does not reflect closure through a site, so the UI can show the Slack app as not closed while it is.
+- The synthetic rule's name is the bundle id, which makes the log/kill reason read "com.tinyspeck.slackmacgap er blokeret under fokus". Use the site's label instead.
+
+## Round 8 verdict: **FIX FIRST** (one line in `setNeverClose`; everything else holds)

@@ -3,3 +3,4 @@ keys/
 .build/
 dist/
 .DS_Store
+daemon/.build-x86/
