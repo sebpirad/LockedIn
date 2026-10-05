@@ -433,3 +433,171 @@ Several of these are popular online, but none is in ODQ, Bartlett's or Yale. If 
 - **CC BY-SA images**: A01/A02, A25 and A27/A28 must keep CC BY-SA on the resized copies.
 
 **Method:** source texts (Gutenberg, Wikisource, ICS, Hansard, FDPP, mkgandhi, Monticello, APP, Beacon, King Papers, LacusCurtius, NCERT) were matched by script. Archive.org OCR and search-inside were used for the Correspondance, Œuvres, Fitzpatrick, Moores, You Learn by Living, Strength to Love, Long Walk to Freedom and the seven dictionaries. Only true/false results and page numbers were read.
+
+## v2 A — revideret
+
+The 14 fame-only REJECTs were re-judged on 2026-10-04 under the owner's new rule. A quote now qualifies if it is in ODQ, Bartlett's or Yale, **or** if it is documented as the person's most-cited genuine line. Genuineness stays mandatory. `research/verification-v2-A.json` is updated.
+
+| Verdict | Count |
+|---|---|
+| PASS | 19 |
+| FIX | 5 |
+| REJECT | 10 |
+
+**Now qualify (4):**
+- **A18 Booker T. Washington → PASS.** Quote Investigator has a dedicated article (2022/02/01/obstacle) that credits Up from Slavery (1901). Wikipedia's article on him quotes the line.
+- **A24 MLK → FIX.** Fame: the line is on the inscription wall of the Martin Luther King Jr. Memorial (NPS "Quotations" page; Wikipedia's Memorial article). The fix upgrades the source to primary: Strength to Love (1963), p. 20.
+- **A25 Mandela → FIX.** Fame: CNN's "Mandela in his own words" (2008) features the line. The fix adds "…" for the 19 words left out between the two sentences, and cites Long Walk to Freedom (Little, Brown 1994), p. 542 as the primary source.
+- **A28 Alexander → PASS.** Plutarch, his biographer, calls it "the celebrated answer". Arrian reports the same refusal.
+
+**Still REJECT (10).** All are genuine, but none is documented as the person's signature line:
+- A02 Marcus Aurelius: famous only in Hays's wording.
+- A04 T. Roosevelt: his signature line is the Arena passage (A03).
+- A08 Lincoln.
+- A11 Gandhi.
+- A16 and A17 Jefferson.
+- A23 MLK: no QI article and not on the memorial; only Wikiquote bolding, which is common on that page.
+- A26 Frederick the Great: famous only in other wording.
+- A27 Alexander: famous only in de Sélincourt's wording.
+- A34 Washington.
+
+On Wikiquote, bold type is used for hundreds of lines per page, so I did not count it as evidence on its own.
+
+**Kept from the first pass:** the FIXes for A30 (ODQ 1999 translation), A12 and A13 (primary source, p. 36).
+
+**Images**
+- **A31/A32 Sun Tzu**: the modern statue in Japan still **needs replacing**. It is a copyrighted sculpture.
+- **A11 Gandhi**: not PD in the US until 2027, which does not matter in the EU. The entry is a REJECT anyway.
+- **CC BY-SA images** (A01/A02, A25, A27/A28): the resized copies must stay CC BY-SA with credit.
+
+## v2 B1
+
+Independent check of `research/quotes-v2-B1.json` (23 quotes, B01–B23), run 2026-10-04 under the owner's fame rule: a quote qualifies if it is in ODQ, Bartlett's or Yale, or if it is documented as the person's most-cited genuine line. Genuineness is always required. Verdicts, with `fame_confirmed`, are in `research/verification-v2-B1.json`.
+
+| Verdict | Count |
+|---|---|
+| PASS | 16 |
+| FIX | 1 |
+| REJECT | 6 |
+
+**Genuine: all 23.** Every quote was matched in its source.
+
+**Named translations**
+- **Aristotle, Welldon 1892**: B01 on p. 35, B02 on p. 16.
+- **Van Gogh, Jo van Gogh-Bonger 1927 (Constable)**: B16 is in vol. I, p. 538 and B17 in vol. II, p. 332, both whole sentences. The 1927 preface's passage on the English translation is consistent with her having made it herself (she died in 1925, so it is public domain).
+
+**Shakespeare.** The Folger line ids confirm Julius Caesar 4.3.249–252 and Measure for Measure 1.4.85–87.
+
+**Denzel Washington.** Both lines are in Penn's Almanac transcript of the 16 May 2011 address, checked via a Wayback copy.
+
+**Fame confirmed (17)**
+- In the dictionaries (ODQ, Bartlett's, Yale): B01–B07, B12–B15 and B21.
+- By dedicated Quote Investigator articles: B10 and B11 Einstein (B10 also in Isaacson, pp. 13 and 367), B16 and B17 Van Gogh, B18 Tesla.
+
+**REJECT, on fame only (6).** All six are genuine:
+- B08 Leonardo, "price of labour".
+- B09 Darwin.
+- B19 Amundsen.
+- B20 Shackleton.
+- B22 and B23 Denzel Washington.
+
+None is in the seven dictionaries, has a QI article, or is used on Wikipedia or in major media. Popularity on quote sites is not part of the owner's evidence list.
+
+**FIX**
+- **B14 Hemingway**: the locator said "printed page not read". The sentences are on p. 114 of the 1952 Scribner first edition.
+
+**Images.** All 14 files match Commons for licence and creator, depict the right person, and exist locally.
+- **B14/B15 Hemingway** (Lloyd Arnold, 1939–40; PD-US-not-renewed): in most EU states this is public domain under the rule of the shorter term (Term Directive Art. 7(1)), including Denmark. The exception is Germany, which does not apply that rule to US works because of the 1892 US–German agreement. I did not establish the photographer's death year. Acceptable for a Danish app; replace if Germany-wide safety matters.
+- **The same German caveat** applies in principle to the other PD-US-only photos: B05 Edison (Bachrach, 1922) and B19 Amundsen (Lomen Bros., 1920).
+- **B22/B23 Denzel**: the local file is a crop of the CC BY 4.0 original. The credit should note "cropped". Both entries are REJECT anyway.
+
+**Method:** the same scripted matching and archive.org search-inside as in the earlier v2 sections, plus Folger line-id mapping and the QI articles. Only true/false results and page numbers were read.
+
+## v2 — bedste ægte citat pr. person
+
+Under the owner's clarification of 2026-10-04, every approved person gets at least one quote: their best-evidenced, most-recognised genuine line. Evidence ranks anthology > QI article > major media or biography > Wikiquote Sourced. Among the genuine candidates I also required a fit with the app's themes (discipline, focus, ambition, adversity, perseverance, courage, action). Where a person's anthology lines are off-theme, I chose the best on-theme line and list the anthology line as an alternative. `fame_confirmed` is `"relative"` where the evidence is below anthology level.
+
+| Person | Chosen | Evidence | Off-theme alternatives the owner may prefer |
+|---|---|---|---|
+| Thomas Jefferson | **D01 (new)** "When angry, count ten, before you speak; if very angry, an hundred." | Bartlett's 18th p. 338 and 17th p. 359. Verbatim in the Memorial ed. vol. XVI p. 111 (letter to T. J. Smith, 21 Feb 1825, Decalogue canon 10) | — (A16/A17 stay REJECT) |
+| Ernest Shackleton | **B20** "Difficulties are just things to overcome after all." | **ODQ 2014 p. 681**, whole sentence. This corrects my B1 REJECT, which wrongly said it was in no dictionary: the earlier snippet check missed the author heading | — |
+| Mahatma Gandhi | **A11** (relative) | Wikiquote Sourced (Young India 1920); verbatim on mkgandhi.org | "Non-violence is the first article of my faith" (ODQ, Bartlett's, Yale); "Forgiveness is the attribute of the strong" (ODQ 2014 p. 335) |
+| Frederick the Great | **A26** (relative) | Genuine maxim (Œuvres vol. 28; Phillips 1940); the idea is widely cited as "defends everything defends nothing" | the "first servant of his state" line (Bartlett's 18th p. 312) |
+| Charles Darwin | **B09** (relative) | Wikiquote Sourced; Life and Letters; Darwin Correspondence Project | his anthology lines are about evolution |
+| Roald Amundsen | **B19** (relative) | Wikiquote Sourced; documented source of "adventure is just bad planning" | Yale 2006 p. 18 has a different Amundsen line, not on-theme |
+| Denzel Washington | **B22** (relative) | Heads his most-circulated quotation, from "Fall Forward" (Penn 2011); verbatim in the transcript | the only Wikiquote line from the speech is off-theme |
+
+**Files**
+- New: `research/quotes-v2-B3.json` (D01, with the portrait reused from A16/A17) and `research/verification-v2-B3.json`.
+- Updated: `verification-v2-A.json` (A11 and A26 are now PASS, relative) and `verification-v2-B1.json` (B09, B19 and B22 are PASS, relative; B20 is PASS with anthology fame).
+
+**Corrections to "v2 B1" above**
+- B20 is in ODQ 2014.
+- B22's image credit already includes "cropped".
+
+**Totals now:** v2-A 21 PASS / 5 FIX / 8 REJECT; v2-B1 20 PASS / 1 FIX / 2 REJECT; v2-B3 1 PASS.
+
+## v2 B2
+
+Independent check of `research/quotes-v2-B2.json` (14 quotes, C01–C14), run 2026-10-05 under the owner's rule: genuine always; fame from an anthology or documented evidence; each person keeps their best genuine line. Verdicts are in `research/verification-v2-B2.json`.
+
+| Verdict | Count |
+|---|---|
+| PASS | 7 |
+| FIX | 2 |
+| REJECT | 5 |
+
+**Genuine: all 14.** Sources checked:
+- Stanford text (Wayback), CBS transcripts, Gutenberg #7213 and #64059.
+- Bezos's 2016 shareholder letter (SEC copy via Wayback, plus aboutamazon.com).
+- Berkshire letters for 1985 and 1986, the Princeton text (Wayback) and The Road Ahead.
+
+**Fame from an anthology:**
+- C01 Jobs (Bartlett's 18th p. 873).
+- C09 Watson (Yale 2006 p. 801 and 2021 p. 865).
+- C10 Gates (Bartlett's 18th p. 873).
+- C11 Buffett (ODQ 2014 p. 161).
+- C14 Disney (dedicated Quote Investigator article).
+
+**Best line per person, fame "relative":**
+- C03 Musk: the real source of the paraphrase that leads his Wikiquote page.
+- C05 Ford.
+- C07 Bezos: Amazon's "Day 1" tower and its own reprints.
+- C13 Rockefeller.
+
+**REJECT, on fame only (5):** C02 Jobs, C04 Musk, C06 Ford, C08 Bezos and C12 Buffett. All are genuine, and each person keeps another line.
+
+**Primary sources reached (FIX):**
+- **C09 Watson**: both sentences are on p. 427 of B. C. Forbes, America's Fifty Foremost Business Leaders (1948), published in Watson's lifetime. This is better than IBM's page, which gives the wrong year (1915).
+- **C14 Disney**: the sentence is on p. 89 of The Story of Walt Disney (Holt 1957) itself.
+- The Buffett lines were already primary (his own shareholder letters).
+
+**Images.** All nine files match Commons, show the right person and exist locally at the Commons aspect ratio. On the three mild EU flags:
+- **Jobs** (PD-Gotfryd) and **Disney** (PD-NYWT&S): both rest on the rights holder's dedication through a gift to the Library of Congress, which is valid in the EU as well. Acceptable.
+- **Watson** (Smithsonian CC0): an institutional release, valid if the Smithsonian holds the rights. Acceptable, mild doubt.
+- Musk, Bezos (personality rights) and Buffett (CC BY-SA, VRT ticket) need no change. The resized Buffett copy must stay CC BY-SA.
+
+## v2 B4 sport
+
+Verification of `research/quotes-v2-B4.json` (E01–E05), plus the picks for six athletes from `quotes-athlete.json`, run 2026-10-05. Verdicts are in `research/verification-v2-B4.json`.
+
+**New athletes**
+- **E01 Brady → FIX (or REJECT).** At the 2021 ceremony Brady said he learned "My favorite ring is the next one" from Michigan equipment manager Jon Falk, so that wording should not be shown as Brady's own. His own words are in CBS's 60 Minutes transcript (Kroft, 2005): "I've always said the next one. The next one's the best." The fix uses these, with marked editorial context "[My favourite ring?]". If the owner does not want brackets, REJECT.
+- **E02 Messi → PASS (relative).** The Spanish is verbatim in Milenio and the English is Marca in English's printed translation. Theme fit is **weak**: the line is about faith and destiny, and reads as perseverance only in context. Kept under the one-line-per-person rule.
+- **E03 Bruce Lee → FIX.** The text is confirmed on p. 23 of the 1998 Tuttle edition (search-inside). **Image rejected**: the 1972 Fist of Fury still has an unclear EU status, since it is probably Hong Kong in origin and rests only on "no notice" via a Worthpoint scan. Replace it, for example with File:Bruce-Lee-as-Kato-1967-restored.jpg (ABC Television 1967, US origin, PD-Pre1978; only 500×671 px).
+- **E04 Khabib → FIX.** The entry shows the first 19 of 27 words, so it needs a closing "…". The language of delivery is not stated; the line is acceptable as Esquire Middle East's published English. The kremlin.ru CC BY 4.0 licence is valid.
+- **E05 Guardiola → PASS (relative).** Verbatim in the Guardian (3 Jan 2017) and the first entry on his Wikiquote page.
+
+None of E01–E05 is in ODQ, Bartlett's or Yale.
+
+**Picks from quotes-athlete.json**
+- **Jordan**: a02, his book title (also cited on Wikipedia), and a12, the closing words of his Hall of Fame speech.
+- **Ali**: a03, which has a dedicated Quote Investigator article.
+- **Kobe**: a06, with the earlier FIX (leading "…").
+- **Federer**: a04, "It's only a point".
+- **Nadal**: a22, which TIME used as the interview's headline.
+- **Phelps**: a17, from No Limits p. 14.
+
+None of these lines is in the anthologies, so apart from a02 and a03 their fame is "relative".
+
+**Images.** E01, E02 and E05 (CC BY-SA 4.0) and E04 (CC BY 4.0) match Commons and exist locally at the Commons aspect ratio. Only E03's image is rejected.

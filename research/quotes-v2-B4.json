@@ -1,0 +1,166 @@
+{
+ "quotes": [
+  {
+   "id": "E01",
+   "text": "My favorite ring is the next one.",
+   "original": null,
+   "translation": null,
+   "author": "Tom Brady",
+   "author_dates": "b. 1977",
+   "theme": "ambition",
+   "source": {
+    "work": "Speech at the Tampa Bay Buccaneers' Super Bowl LV ring ceremony (official Buccaneers video); reported verbatim by theScore, 23 July 2021",
+    "year": "2021",
+    "locator": "Ceremony Thu 22 July 2021; video timestamp NOT obtained (YouTube unreachable from the sandbox). Earlier on-air form: CBS 60 Minutes (Steve Kroft, 2005): 'I've always said the next one.'",
+    "url": "https://www.buccaneers.com/video/bucs-quarterback-tom-brady-super-bowl-lv-ring-ceremony-speech"
+   },
+   "verification": "secondary",
+   "verification_note": "Checked 2026-10-05 (booleans only): exact wording 'my favorite ring is the next one' present in theScore (https://www.thescore.com/nfl/news/2188343, published 2021-07-23) and Yardbarker (2021-07-23) = True, both naming the Thursday ring ceremony and Jon Falk. Official video (buccaneers.com page / YouTube qWjlMnUTQpc) not opened, so no timestamp. CBS transcript of the 2005 60 Minutes interview (https://www.cbsnews.com/news/transcript-tom-brady-part-3/) contains his answer 'I've always said the next one' = True. Caveat: at the ceremony Brady credited the saying to Michigan equipment manager Jon Falk; Brady's line, but not his coinage. Not in TB12 Method, QI or Wikiquote.",
+   "image": {
+    "file": "quote-images/v2-tom-brady.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Tom_Brady_-_240422_191334_(headshot_cropped).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/b5/25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Tom_Brady_-_240422_191334_%28headshot_cropped%29.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "creator": "Barcex (own work), 22 April 2024, 25th Laureus World Sports Awards, Madrid",
+    "attribution": "Barcex, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Tom_Brady_-_240422_191334_(headshot_cropped).jpg)",
+    "flag": "Crop of Commons file '...Tom Brady - 240422 191334.jpg' (description names Brady; category 'Tom Brady in 2024'). Original 773x1036 (already below 800 px); re-encoded JPEG q70 to 182 KB (source 601 KB). ShareAlike: derivative must carry CC BY-SA 4.0 and attribution. {{personality rights}} tag on Commons."
+   },
+   "verified": "PASS",
+   "category": "athlete",
+   "fame": "high",
+   "fame_evidence": "Signature Brady line: CBS 60 Minutes re-aired the 2005 exchange in 2019 and 2021 ('favorite Super Bowl ring? The next one'); repeated at the 2021 ceremony and printed on Bucs T-shirts (BucsNation, 29 Jul 2021). Not in Wikiquote/QI."
+  },
+  {
+   "id": "E02",
+   "text": "I knew that at some point God was going to give it to me",
+   "original": "Sabía que en algún momento Dios me lo iba a regalar",
+   "translation": {
+    "translator": "Marca in English (outlet's printed translation; not mine)",
+    "edition": "Marca in English, 'Messi: I knew I was going to win the World Cup, I don't know why', 18 Dec 2022",
+    "year": 2022,
+    "date": "2022-12-18",
+    "type": "English-language outlet's printed translation",
+    "url": "https://www.marca.com/en/world-cup/2022/12/18/639f867e46163f5a628b4616.html"
+   },
+   "author": "Lionel Messi",
+   "author_dates": "b. 1987",
+   "theme": "perseverance",
+   "source": {
+    "work": "Interview with Televisión Pública (Argentina) minutes after the 2022 World Cup final, Lusail, 18 December 2022; Spanish text as printed by Milenio and Crónica Global",
+    "year": "2022",
+    "locator": "18 Dec 2022, post-match pitchside interview; broadcast video/timestamp NOT obtained. The sentence continues in the original ('y no sé por qué presentía y sentía que iba a ser esta'); the entry uses its first clause only.",
+    "url": "https://www.milenio.com/futbol-internacional/mundial/leo-messi-su-copa-del-mundo-sabia-que-dios-lo-iba-a-regalar"
+   },
+   "verification": "secondary",
+   "verification_note": "Checked 2026-10-05 (booleans only). Spanish: exact 'sabía que en algún momento dios me lo iba a regalar' present in Milenio (published 2022-12-18, names Televisión Pública) = True; 'dios me lo iba a regalar' also in Crónica Global (2022-12-18, https://cronicaglobal.elespanol.com/culemania/culemaniacos/20221218/messi-sabia-que-dios-me-iba-regalar/726927319_0.html) = True. English: Marca in English (2022-12-18) prints 'I knew that at some point God was going to give it to me' and the full sentence continuing 'and I don't know why, but I felt it was going to be like this' = True; same wording is on Wikiquote citing Marca. Caveat: Spanish 'regalar' is literally 'gift'; Marca renders it 'give'. Broadcast video not opened, so no timestamp.",
+   "image": {
+    "file": "quote-images/v2-lionel-messi.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Lionel_Messi_NE_Revolution_Inter_Miami_7.9.25-178_(cropped_2).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Lionel_Messi_NE_Revolution_Inter_Miami_7.9.25-178_%28cropped_2%29.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "creator": "Bryan Berlin (own work), 9 July 2025, New England Revolution v Inter Miami CF",
+    "attribution": "Bryan Berlin, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Lionel_Messi_NE_Revolution_Inter_Miami_7.9.25-178_(cropped_2).jpg)",
+    "flag": "Crop of '...7.9.25-178.jpg'; description names Messi, category 'Lionel Messi in 2025'. Inter Miami shirt, not the 2022 Argentina kit. 800x1105 re-encoded JPEG q60 (165 KB). ShareAlike: derivative must carry CC BY-SA 4.0 and attribution. The 2022-kit Commons images are AI-upscaled low-res (Tasnim) and were rejected."
+   },
+   "verified": "PASS",
+   "category": "athlete",
+   "fame": "high",
+   "fame_evidence": "Signature line of his 2022 World Cup win: headlined worldwide the same night ('Sabía que Dios me lo iba a regalar' at Milenio, Crónica Global, COPE, El Colombiano, Marca in English) and listed on Wikiquote. Not in QI."
+  },
+  {
+   "id": "E03",
+   "text": "There are no limits. There are plateaus, but you must not stay there, you must go beyond them.",
+   "original": null,
+   "translation": null,
+   "author": "Bruce Lee",
+   "author_dates": "1940–1973",
+   "theme": "perseverance",
+   "source": {
+    "work": "The Art of Expressing the Human Body, ed. John Little (Tuttle, 1998): posthumous compilation of Lee's notes and talks; Lee spoke English",
+    "year": "1998",
+    "locator": "p. 23 (page as cited by Wikiquote and Goodreads; book itself not opened, the archive.org copy is lending-restricted). The passage continues 'If it kills you, it kills you. A man must constantly exceed his level.'",
+    "url": "https://archive.org/details/artofexpressingh0000leeb"
+   },
+   "verification": "secondary",
+   "verification_note": "Checked 2026-10-05 (booleans only): exact wording present on Wikiquote (https://en.wikiquote.org/wiki/Bruce_Lee, cites the book, ed. John R. Little, p. 23) = True and on Goodreads' quote page for that book = True. Book text not read; a PDFy mirror of it exists on archive.org but is an unauthorised copy, so I did not download it. Quote Investigator site search ('bruce lee', 'plateaus', '10,000 kicks') = no article on this line or on the kicks line. Posthumous and editor-compiled, so date and setting are unknown. Rejected: 'I fear not the man who has practiced 10,000 kicks…' (Lee's most-quoted focus line): no publication or page traceable; Snopes (19 Feb 2022) only relays the Bruce Lee Foundation's statement that it is authentic, 'Bruce Lee Family Archive'. 'Be water' belongs to the 1971 Longstreet script, and its theme is adaptability.",
+   "image": {
+    "file": "quote-images/v2-bruce-lee.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Bruce_Lee_as_Chen_Zhen_(4x5_cropped).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Bruce_Lee_as_Chen_Zhen_%284x5_cropped%29.jpg",
+    "license": "Public domain (Commons {{PD-scan|PD-US-no notice}}: US publicity still, no copyright mark)",
+    "license_url": "https://commons.wikimedia.org/wiki/File:Bruce_Lee_as_Chen_Zhen_(4x5_cropped).jpg",
+    "creator": "National General Pictures (publicity photo for The Chinese Connection / Fist of Fury, 1972), scan via a Worthpoint listing; the lead image of English Wikipedia's Bruce Lee article",
+    "attribution": "National General Pictures, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bruce_Lee_as_Chen_Zhen_(4x5_cropped).jpg)",
+    "flag": "WEAK LICENCE: PD rests on the US 'published without notice, pre-1978' rule for a studio publicity still, judged from a scan; photographer unknown and the estate or rights-holders could contest. US-only basis (EU term not expired for an unknown-author photo of 1972 is unproven). No CC/PD alternative that is a real photograph exists on Commons (others are statues, drawings, graves or the same kind of 1967/1973 studio stills). Film still of Lee in costume, shirtless, not a plain portrait. Crop of '...as Chen Zhen.jpg'; re-encoded 800x998 JPEG q80 (194 KB)."
+   },
+   "verified": "PASS",
+   "category": "athlete",
+   "fame": "relative",
+   "fame_evidence": "Widely circulated Lee line (Wikiquote 'Quotes' section; Goodreads; many quote sites). Not treated by QI or major media as a signature line: his signature focus line, the 10,000 kicks, has no traceable source."
+  },
+  {
+   "id": "E04",
+   "text": "Every day I woke up in the morning and started training, and in the evening my body was exhausted",
+   "original": null,
+   "translation": null,
+   "author": "Khabib Nurmagomedov",
+   "author_dates": "b. 1988",
+   "theme": "discipline",
+   "source": {
+    "work": "Esquire Middle East, 'Exclusive: Khabib Nurmagomedov's first interview since his retirement', published 1 March 2021",
+    "year": "2021",
+    "locator": "Printed as Khabib's own words in English; the article does not say whether he spoke English or Russian. The sentence continues with a short 'because' clause that this entry leaves out (verbatim first 19 words of a 27-word sentence).",
+    "url": "https://www.esquireme.com/culture/features/51023-exclusive-khabib-nurmagomedov-first-interview-since-retirement-muslim-faither-ufc-future"
+   },
+   "verification": "primary",
+   "verification_note": "Checked 2026-10-05 (booleans only): the full sentence is present in the Esquire ME page text = True; page metadata datePublished 2021-03-01. 'Primary' = reputable outlet's own interview, with outlet/date/URL; no video, so no timestamp. Language of delivery not stated: if the interview ran in Russian, this is Esquire's printed English rendering, not mine. Rejected: (1) the UFC 254 retirement line ('this was my last fight … without my father'): famous but outlets print three different wordings (Yahoo 'was', Sky 'is', Yahoo 'can come' vs Sky 'am I coming') and I could not open the video; its theme is loyalty, not work. (2) 'Send me location', 'smash your boy': famous, no theme fit. (3) '5 hours in the gym', 'discipline is the key', 'stay humble': appear only on quote-aggregator sites, no source found.",
+   "image": {
+    "file": "quote-images/v2-khabib-nurmagomedov.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:%D0%A5%D0%B0%D0%B1%D0%B8%D0%B1_%D0%9D%D1%83%D1%80%D0%BC%D0%B0%D0%B3%D0%BE%D0%BC%D0%B5%D0%B4%D0%BE%D0%B2-2._12.9.2019_(cropped).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/c3/%D0%A5%D0%B0%D0%B1%D0%B8%D0%B1_%D0%9D%D1%83%D1%80%D0%BC%D0%B0%D0%B3%D0%BE%D0%BC%D0%B5%D0%B4%D0%BE%D0%B2-2._12.9.2019_%28cropped%29.jpg",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "creator": "Presidential Administration of Russia (kremlin.ru), 12 September 2019, meeting with V. Putin",
+    "attribution": "Presidential Executive Office of Russia (kremlin.ru), CC BY 4.0, via Wikimedia Commons (source http://www.kremlin.ru/catalog/persons/409/events/61516/photos/60878)",
+    "flag": "Licence rests on kremlin.ru's site-wide CC BY 4.0 notice (Commons {{Kremlin.ru}} + cc-by-4.0), not on a photographer's own grant. Crop of 'Хабиб Нурмагомедов-2. 12.9.2019.jpg'; description names Khabib; Commons category 'Khabib Nurmagomedov'. Native 730x970 (below 800 px), re-encoded JPEG q80 to 187 KB. Political source: shot at a meeting with Putin, no sign of it in the crop."
+   },
+   "verified": "PASS",
+   "category": "athlete",
+   "fame": "relative",
+   "fame_evidence": "Best-evidenced discipline line, not his most famous: his signature lines ('Send me location', the UFC 254 retirement statement) have no theme fit or unstable wording. Source is a major magazine's first post-retirement interview (RT and Sportskeeda covered it)."
+  },
+  {
+   "id": "E05",
+   "text": "If every player plays like a jazz musician, it will be chaos.",
+   "original": null,
+   "translation": null,
+   "author": "Pep Guardiola",
+   "author_dates": "b. 1971",
+   "theme": "discipline",
+   "source": {
+    "work": "The Guardian, 'Pep Guardiola: \"When I finish I will disappear. You won't find me in your life\"', interview by Roger Bennett, 3 January 2017",
+    "year": "2017",
+    "locator": "Printed in English as Guardiola's answer on structure versus freedom; one sentence from the answer. The article does not state the language of delivery; no video, so no timestamp.",
+    "url": "https://www.theguardian.com/football/2017/jan/03/pep-guardiola-manchester-city-manager-football-interview"
+   },
+   "verification": "primary",
+   "verification_note": "Checked 2026-10-05 (booleans only): the exact sentence is present in the Guardian page text = True (webPublicationDate 2017-01-03T22:30Z; byline 'Interview by Roger Bennett' = True). Also the first entry on Wikiquote's Pep Guardiola page, citing this article. 'Primary' = reputable outlet's own interview with outlet/date/URL. Rejected: the Gamper 2008 'we will try and we will persist' address to Camp Nou (more famous; delivered in Catalan/Spanish, and I found no original text or named translation, only FourFourTwo's printed English); 'Criticise all you want…' (source given only as an unspecified GQ feature).",
+   "image": {
+    "file": "quote-images/v2-pep-guardiola.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Pep_Guardiola_2021.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Pep_Guardiola_2021.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "creator": "Steffen Prößdorf (own work, 7 Dec 2021, RB Leipzig v Manchester City), crop by ArsenalGhanaPartey",
+    "attribution": "Steffen Prößdorf (crop by ArsenalGhanaPartey), CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Pep_Guardiola_2021.jpg)",
+    "flag": "Description names Guardiola; Commons category 'Pep Guardiola | portrait'. Touchline shot of him looking disappointed. Re-encoded 800x955 JPEG q80 (190 KB). ShareAlike: a derivative must carry CC BY-SA 4.0 and attribution. {{Personality rights}} tag on Commons."
+   },
+   "verified": "PASS",
+   "category": "athlete",
+   "fame": "relative",
+   "fame_evidence": "One of his best-known statements of method (first quote on Wikiquote, from a widely read Guardian profile interview); not treated as a signature line by QI. His more famous lines (2008 Gamper address) are in Catalan or Spanish with no traceable original."
+  }
+ ]
+}

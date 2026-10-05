@@ -58,6 +58,7 @@ export function createApi({ base = DAEMON, fetchImpl = (...a) => fetch(...a), ti
     installed: () => call('GET', '/v1/installed'),
     addApp: (bundleId, list) => call('POST', '/v1/apps', list ? { bundleId, list } : { bundleId }),
     setAppBlocked: (bundleId, blocked) => call('PATCH', `/v1/apps/${enc(bundleId)}`, { blocked }),
+    setNeverClose: (bundleId, on) => call('PATCH', `/v1/apps/${enc(bundleId)}`, { neverClose: on }),
     deleteApp: (bundleId) => call('DELETE', `/v1/apps/${enc(bundleId)}`),
     addSchedule: (s) => call('POST', '/v1/schedules', s),
     putSchedule: (id, s) => call('PUT', `/v1/schedules/${enc(id)}`, s),

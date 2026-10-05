@@ -99,3 +99,125 @@ test('P1: overlapping periods get separate lanes; others keep one', async () => 
   assert.deepEqual(assignLanes([{ start: 1, end: 2 }, { start: 3, end: 4 }]).map((x) => [x.lane, x.lanes]), [[0, 1], [0, 1]]);
   assert.deepEqual(assignLanes([{ start: 1, end: 3 }, { start: 3, end: 4 }]).map((x) => [x.lane, x.lanes]), [[0, 1], [0, 1]]); // touching ≠ overlapping
 });
+
+// ---------- v1.3 Plan page ----------
+test('week view: Monday-first weeks, DST-safe days, long dates, lengths', async () => {
+  const { weekStart, dayBounds, dateLong, lengthText, addDays } = await import('../lib/plan.js');
+  assert.equal(weekStart(Date.parse('2026-10-04T12:00:00Z')), '2026-09-28');       // søndag → that week's Monday
+  assert.equal(weekStart(Date.parse('2026-10-05T06:00:00Z'), 1), '2026-10-12');
+  assert.equal(addDays('2026-12-31', 1), '2027-01-01');
+  const { d0, d1 } = dayBounds('2026-10-25');                                       // summer time ends: 25 hours
+  assert.equal((d1 - d0) / 3600000, 25);
+  assert.equal(dateLong('2026-10-06'), 'Tirsdag 6. okt.');
+  assert.equal(lengthText('13:00', '15:00'), '2 t');
+  assert.equal(lengthText('09:00', '10:30'), '1 t 30 min');
+  assert.equal(lengthText('22:00', '10:00'), 'næste dag · 12 t');
+});
+
+test('R2: overlaps cascade like Google Calendar; a skipped day takes part in no cascade', async () => {
+  const { dayLayout, cascadeIndent, occurrences } = await import('../lib/plan.js');
+  const now = Date.parse('2026-10-05T06:00:00Z');
+  const scs = [
+    { id: 'a', weekdays: [2], start: '13:00', end: '15:00' },
+    { id: 'b', weekdays: [2], start: '14:00', end: '16:00' },
+    { id: 'c', weekdays: [2], start: '13:30', end: '14:30', skip: ['2026-10-06'] },
+    { id: 'n', weekdays: [1], start: '22:00', end: '10:00' },
+  ];
+  const occ = occurrences(scs, now, now + 3 * 86400000);
+  const tue = dayLayout(occ, '2026-10-06');
+  assert.deepEqual(tue.filter((x) => x.o.sc.id !== 'n').map((x) => [x.o.sc.id, x.top, x.bottom, x.level]), [['c', 810, 870, -1], ['a', 780, 900, 0], ['b', 840, 960, 1]]);
+  assert.deepEqual(tue.find((x) => x.o.sc.id === 'n').cont, { before: true, after: false });  // monday 22 → tuesday 10
+  assert.equal(cascadeIndent(0, 140), 0);
+  assert.equal(cascadeIndent(1, 140), 39);   // 28 % of the column
+  assert.equal(cascadeIndent(1, 60), 24);    // at least 24 px
+  assert.equal(cascadeIndent(3, 60), 30);    // never past the column
+});
+
+test('R1: a label never ends in "…": full time, else the start, else nothing; the name only whole', async () => {
+  const { labelFit } = await import('../lib/plan.js');
+  const t = { timeW: 34, startW: 16, nameW: 70 };
+  assert.deepEqual(labelFit({ w: 120, h: 44, ...t }), { time: 'full', name: 'below' });
+  assert.deepEqual(labelFit({ w: 120, h: 22, ...t }), { time: 'full', name: 'inline' });   // 34 + 6 + 70 ≤ 120, one line
+  assert.deepEqual(labelFit({ w: 80, h: 22, ...t }), { time: 'full', name: null });
+  assert.deepEqual(labelFit({ w: 60, h: 44, ...t }), { time: 'full', name: null });         // name does not fit whole
+  assert.deepEqual(labelFit({ w: 20, h: 44, ...t }), { time: 'start', name: null });
+  assert.deepEqual(labelFit({ w: 12, h: 44, ...t }), { time: null, name: null });
+});
+
+test('drag and keyboard slot', async () => {
+  const { dragRange, moveSlot } = await import('../lib/plan.js');
+  assert.deepEqual(dragRange(785, 899), { start: 780, end: 900 });
+  assert.deepEqual(dragRange(899, 785), { start: 780, end: 900 });   // upwards works too
+  assert.deepEqual(dragRange(600, 601), { start: 600, end: 615 });   // at least one step
+  assert.deepEqual(dragRange(1435, 1500), { start: 1425, end: 1440 });
+  const s = { date: '2026-10-06', start: 540, len: 60 };
+  assert.deepEqual(moveSlot(s, 'ArrowDown'), { ...s, start: 570 });
+  assert.deepEqual(moveSlot(s, 'ArrowUp'), { ...s, start: 510 });
+  assert.deepEqual(moveSlot(s, 'ArrowRight'), { ...s, date: '2026-10-07' });
+  assert.deepEqual(moveSlot(s, 'ArrowLeft'), { ...s, date: '2026-10-05' });
+  assert.deepEqual(moveSlot(s, 'ArrowDown', true), { ...s, len: 90 });
+  assert.deepEqual(moveSlot({ ...s, len: 30 }, 'ArrowUp', true), { ...s, len: 30 });   // never shorter than 30 min
+  assert.deepEqual(moveSlot({ ...s, start: 1380 }, 'ArrowDown'), { ...s, start: 1380 }); // stays inside the day
+  assert.deepEqual(moveSlot(s, 'End'), { ...s, start: 1380 });
+});
+
+test('R4: saving a period that covers now locks at once — and says until when', async () => {
+  const { lockIfSaved } = await import('../lib/plan.js');
+  const now = Date.parse('2026-10-05T08:20:00Z'); // mandag 10:20
+  const iso = (t) => new Date(t).toISOString();
+  assert.equal(iso(lockIfSaved({ start: '10:00', end: '11:00', weekdays: [1, 2, 3, 4, 5] }, [], now)), '2026-10-05T09:00:00.000Z');
+  assert.equal(lockIfSaved({ start: '11:00', end: '12:00', weekdays: [1] }, [], now), null);              // later today: nothing now
+  assert.equal(lockIfSaved({ start: '10:00', end: '11:00', weekdays: [2] }, [], now), null);              // another day
+  const next = [{ id: 'x', weekdays: [1], start: '11:00', end: '12:30' }];
+  assert.equal(iso(lockIfSaved({ start: '10:00', end: '11:00', weekdays: [1] }, next, now)), '2026-10-05T10:30:00.000Z'); // runs into 11–12:30
+  // during a lock until 11:00: touching it lengthens the lock, a later period changes nothing now
+  const until = Date.parse('2026-10-05T09:00:00Z');
+  assert.equal(iso(lockIfSaved({ start: '11:00', end: '13:00', date: '2026-10-05' }, [], now, until)), '2026-10-05T11:00:00.000Z');
+  assert.equal(lockIfSaved({ start: '14:00', end: '15:00', date: '2026-10-05' }, [], now, until), null);
+  assert.equal(lockIfSaved({ start: '10:00', end: '10:30', weekdays: [1] }, [], now, until), null);         // inside the lock: nothing new
+  // editing: the old version of the same period does not count, its skipped days do
+  const old = [{ id: 'e', weekdays: [1], start: '10:00', end: '11:00', skip: ['2026-10-05'] }];
+  assert.equal(lockIfSaved({ start: '10:00', end: '11:30', weekdays: [1] }, old, now, null, 'e'), null);
+});
+
+test('PB1: a click reuses the last length only up to 3 h; otherwise 1 hour', async () => {
+  const { slotLength } = await import('../lib/plan.js');
+  assert.equal(slotLength(90), 90);
+  assert.equal(slotLength(180), 180);
+  assert.equal(slotLength(181), 60);
+  assert.equal(slotLength(720), 60);   // after a 12-hour period
+  assert.equal(slotLength(0), 60);
+  assert.equal(slotLength(undefined), 60);
+});
+
+test('the 24-hour rule is checked before saving, like the daemon', async () => {
+  const { chainOverLimit, minutesText } = await import('../lib/plan.js');
+  const now = Date.parse('2026-10-05T05:20:00Z'); // mandag 07:20
+  const scs = [{ id: 'a', weekdays: [1, 2, 3, 4, 5], start: '09:00', end: '12:00' }];
+  assert.equal(chainOverLimit({ start: '12:00', end: '08:00', weekdays: [1, 2, 3, 4, 5] }, scs, now), null); // 09 → 08 next day = 23 h
+  assert.equal(chainOverLimit({ start: '12:00', end: '09:00', weekdays: [2] }, scs, now), 27 * 60);       // tue 09 → wed 12
+  assert.equal(minutesText(27 * 60), '27 t');
+  // the running lock counts: locked since 06:00, until 08:00; a period 08–07:00 next day makes 25 h
+  const lock = { since: Date.parse('2026-10-05T04:00:00Z'), until: Date.parse('2026-10-05T06:00:00Z') };
+  assert.equal(chainOverLimit({ start: '08:00', end: '07:00', date: '2026-10-05' }, [], now, lock), 25 * 60);
+  assert.equal(chainOverLimit({ start: '08:30', end: '07:00', date: '2026-10-05' }, [], now, lock), null);   // a gap: no chain
+  // a chain that already existed without this period does not count (the daemon allows it)
+  const long = [{ id: 'x', date: '2026-10-06', start: '00:00', end: '23:30' }, { id: 'y', date: '2026-10-06', start: '23:30', end: '06:00' }];
+  assert.equal(chainOverLimit({ start: '02:00', end: '03:00', date: '2026-10-06' }, long, now), null);
+  // editing: the old version of the period is not counted
+  assert.equal(chainOverLimit({ start: '12:00', end: '08:00', weekdays: [1, 2, 3, 4, 5] }, [...scs, { id: 'e', weekdays: [2], start: '12:00', end: '09:00' }], now, null, 'e'), null);
+});
+
+test('a new draft goes on top of what it overlaps, indented — it never hides a block', async () => {
+  const { dayLayout, occurrences } = await import('../lib/plan.js');
+  const now = Date.parse('2026-10-05T05:00:00Z');
+  const scs = [
+    { id: 'a', weekdays: [2], start: '09:00', end: '12:00' },
+    { id: 'b', date: '2026-10-06', start: '09:00', end: '12:00' },
+    { id: '__draft', _draft: true, date: '2026-10-06', start: '07:00', end: '19:00' },
+  ];
+  const lay = dayLayout(occurrences(scs, now, now + 3 * 86400000), '2026-10-06');
+  assert.deepEqual(lay.map((x) => [x.o.sc.id, x.level]), [['a', 0], ['b', 1], ['__draft', 2]]);
+  const alone = dayLayout(occurrences([{ ...scs[2], date: '2026-10-07' }], now, now + 3 * 86400000), '2026-10-07');
+  assert.equal(alone[0].level, 0);
+});

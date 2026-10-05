@@ -8,7 +8,7 @@ import {
 } from '../lib/time.js';
 import { normalizeDomain } from '../lib/domains.js';
 import { extendOptions } from '../lib/extend.js';
-import { pickList, nextListName, toggleMember, lockedTarget, blockedNow } from '../lib/lists.js';
+import { pickList, nextListName, toggleMember, lockedTarget, blockedNow, listableApps, neverCloseRows } from '../lib/lists.js';
 import { occurrences, chainEnd } from '../lib/plan.js';
 import {
   nameCommit, deletePrompt, blockPrompt, confirmLine, idleTimer, tileLabel, appLabel, appLetters,
@@ -157,8 +157,8 @@ const maxMinutes = () => (status() && status().maxSessionMinutes) || 1440;
 const reachable = () => !!(ui.view && ui.view.reachable);
 const currentList = () => lists().find((l) => l.id === ui.listId) || null;
 const listName = (id) => (lists().find((l) => l.id === id) || {}).name || '';
-/** Apps that can be on a list (not "always closed"). */
-const listApps = () => apps().filter((a) => !a.blocked);
+/** Apps that can be on a list: not "always closed" and not "Lukkes aldrig". */
+const listApps = () => listableApps(apps());
 
 function lockInfo() {
   const v = ui.view || {};
@@ -455,9 +455,13 @@ async function deleteCurrentList() {
 
 // ---------- icon row ----------
 
+// Each glyph gets its own gradient ids: a duplicate id inside a hidden page (Fokus while Plan is shown)
+// would otherwise leave every later copy without its fill.
+let glyphSeq = 0;
+const uniqueIds = (svg) => { const n = ++glyphSeq; return svg.replace(/id="([\w-]+)"/g, `id="$1-${n}"`).replace(/url\(#([\w-]+)\)/g, `url(#$1-${n})`); };
 function siteIcon(site, cls = 'glyph') {
   const glyph = glyphFor(site);
-  if (glyph) return h('span', { class: cls, html: glyph });
+  if (glyph) return h('span', { class: cls, html: uniqueIds(glyph) });
   const own = !site.builtin && site.suffixes && ui.icons[site.suffixes[0]];
   if (own && own.data && own.data.startsWith('data:image/png;base64,')) {
     return h('span', { class: cls }, h('img', { src: own.data, alt: '', draggable: 'false' }));
@@ -588,6 +592,8 @@ function setAddKind(kind) {
 }
 
 function openAdd() {
+  ui.addNever = false;
+  $('addKind').hidden = false;
   const { locked, until } = lockInfo();
   $('addSite').reset();
   $('siteErr').hidden = true;
@@ -613,18 +619,25 @@ async function loadInstalled() {
 function renderPicker() {
   const q = $('pickerSearch').value.trim().toLowerCase();
   const list = lists().find((l) => l.id === addTargetList());
-  const onList = new Set(list ? list.apps : []);
-  const always = new Set(apps().filter((a) => a.blocked).map((a) => a.bundleId));
+  // "Lukkes aldrig" mode hides what is already never closed; list mode hides what cannot go on a list.
+  const skip = ui.addNever
+    ? new Set(apps().filter((a) => a.neverClose).map((a) => a.bundleId))
+    : new Set([...(list ? list.apps : []), ...apps().filter((a) => a.blocked || a.neverClose).map((a) => a.bundleId)]);
   if (!ui.installed) { $('pickerList').replaceChildren(h('li', { class: 'muted' }, '…')); return; }
   const rows = ui.installed
-    .filter((a) => a.kind !== 'browser' && !onList.has(a.bundleId) && !always.has(a.bundleId))
+    .filter((a) => a.kind !== 'browser' && !skip.has(a.bundleId))
     .filter((a) => !q || (a.name || '').toLowerCase().includes(q))
     .sort((a, b) => (a.name || '').localeCompare(b.name || '', 'da'))
     .slice(0, 300);
   $('pickerList').replaceChildren(...rows.map((a) => h('li', {},
     h('button', {
       type: 'button', class: 'pick',
-      onclick: async () => { if (await act(() => api.addApp(a.bundleId, addTargetList()))) $('addDlg').close(); },
+      onclick: async () => {
+        const call = ui.addNever
+          ? async () => { if (!apps().some((x) => x.bundleId === a.bundleId)) await api.addApp(a.bundleId); return api.setNeverClose(a.bundleId, true); }
+          : () => api.addApp(a.bundleId, addTargetList());
+        if (await act(call)) $('addDlg').close();
+      },
     }, appIcon(a, 'glyph small'), h('span', { class: 'row-title' }, a.name)))));
 }
 
@@ -679,28 +692,29 @@ async function setupIcons() {
 function lockMark(tip = LOCK_TIP) { return h('span', { class: 'lock', title: tip, html: LOCK_ICON }); }
 
 function renderAppList(locked) {
-  const always = apps().filter((a) => a.blocked);
-  $('appsSection').hidden = !always.length;
-  $('appList').replaceChildren(...always.map((a) => {
-    if (a.kind === 'browser') {
+  // One switch per app: on = LockedIn never closes it. Browsers are always closed (greyed, no switch).
+  $('neverAdd').hidden = locked; // registering an app during a lock would record it as "always closed"
+  $('appList').replaceChildren(...neverCloseRows(apps()).map(({ app: a, browser }) => {
+    const name = a.name || a.bundleId;
+    if (browser) {
       return h('li', { class: 'row fixed', title: BROWSER_TIP },
-        appIcon(a, 'glyph small'), h('span', { class: 'row-title' }, a.name || a.bundleId), lockMark(BROWSER_TIP));
+        appIcon(a, 'glyph small'), h('span', { class: 'row-title' }, name), lockMark(BROWSER_TIP));
     }
+    const on = !!a.neverClose;
     return h('li', { class: 'row' },
-      appIcon(a, 'glyph small'), h('span', { class: 'row-title' }, a.name || a.bundleId),
-      locked ? lockMark() : h('button', {
-        type: 'button', class: 'ghost small', disabled: ui.busy,
-        onclick: () => act(() => api.setAppBlocked(a.bundleId, false)),
-      }, 'Fjern'));
+      appIcon(a, 'glyph small'), h('span', { class: 'row-title' }, name),
+      h('button', {
+        // Not disabled while busy: act() ignores a click then, and the list would otherwise stay greyed until the next refresh.
+        type: 'button', class: 'switch', role: 'switch', 'aria-checked': String(on), 'aria-label': `Lukkes aldrig: ${name}`,
+        onclick: () => act(() => api.setNeverClose(a.bundleId, !on)),
+      }, h('span', { class: 'knob' })));
   }));
 }
 
 function renderSettings() {
-  // The gear only exists when there is something to set.
-  $('gear').hidden = !apps().some((a) => a.blocked);
   if (!$('settings').open) return;
   const { locked } = lockInfo();
-  const sig = JSON.stringify([locked, ui.busy, apps()]);
+  const sig = JSON.stringify([locked, apps()]);
   if (ui.sigs.settings === sig) return;
   ui.sigs.settings = sig;
   renderAppList(locked);
@@ -709,6 +723,13 @@ function renderSettings() {
 function setupSettings() {
   const dlg = $('settings');
   $('gear').onclick = () => { ui.sigs.settings = null; dlg.showModal(); renderSettings(); };
+  $('neverAdd').onclick = () => {
+    ui.addNever = true;
+    $('addKind').hidden = true;
+    $('pickerSearch').value = '';
+    $('addDlg').showModal();
+    setAddKind('app');
+  };
   $('settingsClose').onclick = () => dlg.close();
   dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
 }
@@ -722,7 +743,7 @@ function renderAlert() {
   $('alert').hidden = !m;
 }
 
-/** One clickable line; it opens the plan on that period. Nothing at all when nothing is planned. */
+/** One clickable line; it opens the Plan page on that period. Nothing at all when nothing is planned. */
 function renderNext() {
   const ns = status() && status().nextSession;
   const { locked } = lockInfo();
@@ -853,13 +874,40 @@ async function setup() {
     api, act, toast, h, $, lockInfo, siteIcon, appIcon, LOCK_ICON, status, refresh,
     currentListId: () => ui.listId,
   });
-  $('calBtn').onclick = () => plan.open();
+  // Two pages: Fokus (this front page) and Plan (#plan). Back/forward and reload keep the page; a new tab opens Fokus.
+  let pendingOpen = null;
+  const route = () => {
+    const onPlan = location.hash === '#plan';
+    $('fokusPage').hidden = onPlan;
+    $('planPage').hidden = !onPlan;
+    $('planTools').hidden = !onPlan;
+    document.body.classList.toggle('on-plan', onPlan);
+    for (const [id, on] of [['tabFokus', !onPlan], ['tabPlan', onPlan]]) { $(id).setAttribute('aria-selected', String(on)); $(id).tabIndex = on ? 0 : -1; }
+    const open = pendingOpen;
+    pendingOpen = null;
+    if (onPlan) plan.show(open && open.id, open && open.date); else plan.hide();
+  };
+  const goPlan = (open = null) => { pendingOpen = open; if (location.hash === '#plan') route(); else location.hash = 'plan'; };
+  const goFokus = () => { if (location.hash) history.pushState(null, '', location.pathname + location.search); route(); };
+  $('tabFokus').onclick = goFokus;
+  $('tabPlan').onclick = () => goPlan();
+  $('tabFokus').parentElement.addEventListener('keydown', (e) => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+    e.preventDefault();
+    const toPlan = e.key === 'ArrowRight' || e.key === 'End';
+    if (toPlan) goPlan(); else goFokus();
+    $(toPlan ? 'tabPlan' : 'tabFokus').focus();
+  });
+  addEventListener('hashchange', route);
+  addEventListener('popstate', route);
+  // "Næste …" opens the Plan page on that period.
   $('nextBtn').onclick = () => {
     const ns = status() && status().nextSession;
-    if (!ns) { plan.open(); return; }
-    const p = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Copenhagen', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(ns.start));
-    plan.open(ns.scheduleId, p);
+    if (!ns) { goPlan(); return; }
+    const date = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Copenhagen', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(ns.start));
+    goPlan({ id: ns.scheduleId, date });
   };
+  route();
 
   render();
   refresh();

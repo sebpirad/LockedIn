@@ -1,0 +1,109 @@
+[
+ {
+  "id": "E01",
+  "verdict": "FIX",
+  "fame_confirmed": "relative",
+  "fix": {
+   "text": "[My favourite ring?] I've always said the next one. The next one's the best.",
+   "source.work": "60 Minutes (CBS News), interview by Steve Kroft",
+   "source.year": "2005",
+   "source.locator": "CBS transcript 'Tom Brady, Part 3': Brady's answer when asked about his favourite ring (the bracketed words are editorial context, not his)",
+   "source.url": "https://www.cbsnews.com/news/transcript-tom-brady-part-3/"
+  },
+  "reason": "Attribution problem: at the 2021 ring ceremony Brady said he had learned 'My favorite ring is the next one' from Michigan equipment manager Jon Falk (theScore's report has 'learned' + 'from' + 'equipment manager' in the Falk sentence), so that wording is Falk's saying in Brady's mouth. Brady's own words, verified in CBS's 2005 transcript, are 'I've always said the next one. The next one's the best.' The fix uses those words with marked editorial context. If the owner does not want brackets, REJECT. Fame: re-aired by 60 Minutes and printed on Bucs merchandise (researcher's evidence, not re-checked); not in ODQ 2014, Bartlett's 18th or Yale 2006/2021 (archive.org search-inside). Image CC BY-SA 4.0 OK."
+ },
+ {
+  "id": "E02",
+  "verdict": "PASS",
+  "fix": null,
+  "fame_confirmed": "relative",
+  "reason": "Spanish verbatim in Milenio (Televisión Pública, 18 Dec 2022), and the English is Marca in English's own printed translation (named outlet translation, verbatim). Messi's best-evidenced genuine line: headlined worldwide that night and on Wikiquote; not in ODQ 2014, Bartlett's 18th or Yale 2006/2021 (archive.org search-inside). Theme fit: WEAK. It is about faith and destiny, and reads as perseverance only with the context of his long wait for the World Cup. Kept under the 'every person keeps one line' rule; the owner may drop Messi if fit matters more. Image CC BY-SA 4.0 OK (Inter Miami kit)."
+ },
+ {
+  "id": "E03",
+  "verdict": "FIX",
+  "fame_confirmed": "relative",
+  "fix": {
+   "source.locator": "p. 23 (Tuttle, Boston 1998; confirmed by archive.org search-inside)",
+   "image.commons_page": "https://commons.wikimedia.org/wiki/File:Bruce-Lee-as-Kato-1967-restored.jpg",
+   "image.license": "Public domain (PD-Pre1978: US television publicity photo published without notice)",
+   "image.creator": "ABC Television (publicity photo for The Green Hornet, 1967); restoration by BevinKacon",
+   "image.attribution": "ABC Television (restoration by BevinKacon), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bruce-Lee-as-Kato-1967-restored.jpg)"
+  },
+  "reason": "Text confirmed on p. 23 of The Art of Expressing the Human Body (1998): every part matched, with the sentence split across two OCR blocks ('…must not stay there, you | must go beyond them'). Posthumous editor-compiled notes, so the secondary label stays. Fame relative: Wikiquote Sourced; Yale 2021 has a Bruce Lee entry (p. 477) but not this line. IMAGE REJECTED: the 1972 Fist of Fury still rests on 'PD-US no notice' via a Worthpoint scan, and its country of origin is probably Hong Kong (Golden Harvest), so EU status is unclear. Replace it with the 1967 ABC Television publicity photo (US origin, PD-Pre1978, so free in most EU states by the rule of the shorter term), or another photo. It is only 500×671 px, so re-download it."
+ },
+ {
+  "id": "E04",
+  "verdict": "FIX",
+  "fame_confirmed": "relative",
+  "fix": {
+   "text": "Every day I woke up in the morning and started training, and in the evening my body was exhausted …"
+  },
+  "reason": "The 27-word sentence is in Esquire Middle East (1 Mar 2021); the entry shows the first 19 words without marking the cut, so the fix adds a closing '…'. Language: the outlet prints it as his words in English and does not say whether it was translated. Acceptable as the outlet's published English, to be credited to Esquire Middle East. Theme fit good (discipline). His most famous lines are off-theme. Image: CC BY 4.0 via kremlin.ru's site licence, valid; living person, personality rights apply."
+ },
+ {
+  "id": "E05",
+  "verdict": "PASS",
+  "fix": null,
+  "fame_confirmed": "relative",
+  "reason": "Verbatim in the Guardian interview by Roger Bennett (3 Jan 2017); Wikiquote's first Guardiola entry. not in ODQ 2014, Bartlett's 18th or Yale 2006/2021 (archive.org search-inside). Fit: discipline/structure, good. Image CC BY-SA 4.0 OK."
+ },
+ {
+  "id": "a02",
+  "source_file": "quotes-athlete.json",
+  "verdict": "PASS",
+  "fix": null,
+  "fame_confirmed": true,
+  "reason": "Jordan pick 1: the line that gives his 1994 book its title (p. 12). Wikipedia's Michael Jordan article and Wikiquote cite it. Not the Nike 'Failure' ad. Verified earlier."
+ },
+ {
+  "id": "a12",
+  "source_file": "quotes-athlete.json",
+  "verdict": "PASS",
+  "fix": null,
+  "fame_confirmed": "relative",
+  "reason": "Jordan pick 2: closing words of his Hall of Fame speech, confirmed in the official OfficialHoophall video transcript; the Hall of Fame uses the line as its clip caption; on Wikiquote."
+ },
+ {
+  "id": "a03",
+  "source_file": "quotes-athlete.json",
+  "verdict": "PASS",
+  "fix": null,
+  "fame_confirmed": true,
+  "reason": "Ali: the only Ali entry in that file. A dedicated Quote Investigator article (2019/06/23) traces it to 1977 and credits Ali."
+ },
+ {
+  "id": "a06",
+  "source_file": "quotes-athlete.json",
+  "verdict": "FIX",
+  "fix": {
+   "text": "… those times when you don't feel like working and you're tired and you don't want to push yourself, but you do it anyway. That is actually the dream."
+  },
+  "fame_confirmed": "relative",
+  "reason": "Kobe: from his jersey-retirement speech as reported by Sports Illustrated. The earlier FIX (leading '…') still applies. Not in the anthologies or on Wikiquote; it is his best-evidenced genuine line among the candidates (the others are anthology-only)."
+ },
+ {
+  "id": "a04",
+  "source_file": "quotes-athlete.json",
+  "verdict": "PASS",
+  "fix": null,
+  "fame_confirmed": "relative",
+  "reason": "Federer: the central line of the 'It's only a point' lesson of his Dartmouth 2024 address (verbatim on Dartmouth's page). Chosen over a05 because that lesson carries the speech's best-known statistic. Neither line is in the anthologies or on Wikiquote."
+ },
+ {
+  "id": "a22",
+  "source_file": "quotes-athlete.json",
+  "verdict": "PASS",
+  "fix": null,
+  "fame_confirmed": "relative",
+  "reason": "Nadal: TIME used 'I Doubt About Myself' as the interview's headline (22 May 2014), so the line is documented by major media as the interview's signature statement."
+ },
+ {
+  "id": "a17",
+  "source_file": "quotes-athlete.json",
+  "verdict": "PASS",
+  "fix": null,
+  "fame_confirmed": "relative",
+  "reason": "Phelps: from No Limits (2008) p. 14, the sentence behind the book's title idea. Genuine, unlike the popular 'You can't put a limit on anything…', which is not in the book."
+ }
+]

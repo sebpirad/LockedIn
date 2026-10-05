@@ -6,8 +6,8 @@ WEB = ROOT / "web"
 src = ROOT / "research" / ("quotes-final.json" if (ROOT / "research/quotes-final.json").exists() else "quotes.json")
 quotes = json.loads(src.read_text())["quotes"]
 e = html.escape
-CATS = {"entrepreneur": "Iværksættere", "athlete": "Sportsfolk", "leader": "Ledere og verdensforandrere",
-        "thinker": "Forskere, opfindere, forfattere og filosoffer", "explorer": "Eventyrere og opdagelsesrejsende"}
+CATS = {"leader": "Ledere og verdensforandrere", "conqueror": "Erobrere og strateger", "entrepreneur": "Iværksættere",
+        "athlete": "Sportsfolk", "thinker": "Tænkere, videnskab og kunst", "explorer": "Eventyrere", "screen": "Film"}
 
 CSS = """
 :root{--bg:#0b0b0c;--fg:#f4f4f2;--mut:#8a8a86;--line:#222224;--acc:#f2c14e}
@@ -78,7 +78,7 @@ for cat in order:
 <div><blockquote>{e(q['text'])}</blockquote><span class="who">{e(q['author'])}</span> <span class="mut">{e(q.get('author_dates',''))}</span>
 <small>{src_link}, {e(str(s.get('year','')))} · {e(s.get('locator',''))}{trs}</small>
 <small>Foto: {e(im.get('attribution') or im.get('creator',''))} · <a href="{e(im['license_url'])}">{e(im['license'])}</a></small></div></div>""")
-cit = f"""<h1>Citater</h1><p class="lead">{len(quotes)} citater med kilde og billedlicens. Hvert citat er kontrolleret mod kilden af en uafhængig gennemgang.</p>
+cit = f"""<h1>Citater</h1><p class="lead">{len(quotes)} citater med kilde og billedlicens. Hvert citat er kontrolleret mod kilden af en uafhængig gennemgang, og hver person er godkendt af ejeren.</p>
 <nav><a href="index.html">← Locked in</a></nav>{''.join(rows)}"""
 (WEB / "citater.html").write_text(page("Citater · Locked in", cit))
 (WEB / ".nojekyll").write_text("")

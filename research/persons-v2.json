@@ -1,0 +1,74 @@
+{
+ "approved_by_owner": "2026-10-04",
+ "rule": "1–2 quotes per person, only if BOTH among the most recognized ever (Oxford / Bartlett's / Yale / widely cited) AND genuine (primary or Quote Investigator). Fewer than 100 in total is fine.",
+ "groups": {
+  "leaders": [
+   "Marcus Aurelius",
+   "Theodore Roosevelt",
+   "Winston Churchill",
+   "Abraham Lincoln",
+   "Frederick Douglass",
+   "Mahatma Gandhi",
+   "Eleanor Roosevelt",
+   "Benjamin Franklin",
+   "Thomas Jefferson",
+   "Booker T. Washington",
+   "Franklin D. Roosevelt",
+   "John F. Kennedy",
+   "Martin Luther King Jr.",
+   "Nelson Mandela",
+   "Frederick the Great",
+   "George Washington"
+  ],
+  "conquerors": [
+   "Alexander the Great",
+   "Napoleon Bonaparte",
+   "Hannibal",
+   "Sun Tzu"
+  ],
+  "thinkers": [
+   "Aristotle",
+   "Socrates",
+   "Thomas Edison",
+   "Leonardo da Vinci",
+   "Charles Darwin",
+   "Albert Einstein",
+   "William Shakespeare",
+   "Ernest Hemingway",
+   "Vincent van Gogh",
+   "Nikola Tesla"
+  ],
+  "business": [
+   "Steve Jobs",
+   "Elon Musk",
+   "Henry Ford",
+   "Jeff Bezos",
+   "Thomas J. Watson",
+   "Bill Gates",
+   "Warren Buffett",
+   "John D. Rockefeller",
+   "Walt Disney"
+  ],
+  "sport": [
+   "Michael Jordan",
+   "Kobe Bryant",
+   "Muhammad Ali",
+   "Roger Federer",
+   "Rafael Nadal",
+   "Michael Phelps",
+   "Lionel Messi",
+   "Tom Brady",
+   "Bruce Lee",
+   "Khabib Nurmagomedov",
+   "Pep Guardiola"
+  ],
+  "explorers": [
+   "Roald Amundsen",
+   "Ernest Shackleton",
+   "Neil Armstrong"
+  ],
+  "screen": [
+   "Denzel Washington"
+  ]
+ }
+}

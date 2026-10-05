@@ -540,6 +540,41 @@ do {
     expectError("locked", "cannot skip the running occurrence") { try e.skipOccurrence(id: s.id, date: "2026-10-09", now: during) }
 }
 
+// MARK: Lukkes aldrig
+
+do {
+    let now = t("2026-10-05T07:00:00Z")
+    let e = Engine(state: State()); e.boot(now: now, mono: 0)
+    e.testMutate { $0.apps = [AppRule(bundleId: "com.readdle.SparkDesktop", name: "Spark", kind: .webengine, blocked: false, teamId: "T"),
+                              AppRule(bundleId: "com.anthropic.claudefordesktop", name: "Claude", kind: .webengine, blocked: false, teamId: "Q")] }
+    e.migrateToLists()
+    let L = try! e.addList(name: "Alt", sites: [], apps: ["com.readdle.SparkDesktop"], now: now)
+    try! e.startSession(minutes: 60, list: L.id, now: now)
+    eq(e.effectiveAppRules(now: now).first { $0.bundleId == "com.readdle.SparkDesktop" }?.blocked, true, "Spark on the active list is closed")
+    expectError("locked", "cannot exempt an app that is closed right now") { try e.setNeverClose(bundleId: "com.readdle.SparkDesktop", on: true, now: now) }
+    try! e.setNeverClose(bundleId: "com.anthropic.claudefordesktop", on: true, now: now)   // not closed now → allowed
+    try! e.updateList(id: L.id, name: "Alt", sites: [], apps: ["com.readdle.SparkDesktop", "com.anthropic.claudefordesktop"], now: now)
+    check(!e.state.lists[1].apps.contains("com.anthropic.claudefordesktop"), "a never-close app cannot be put on a list")
+    let later = now.addingTimeInterval(7200)
+    e.advance(now: later, mono: 7200)
+    try! e.setNeverClose(bundleId: "com.readdle.SparkDesktop", on: true, now: later)
+    check(!e.state.lists[1].apps.contains("com.readdle.SparkDesktop"), "turning it on removes it from all lists")
+    try! e.startSession(minutes: 30, list: L.id, now: later)
+    eq(e.effectiveAppRules(now: later).first { $0.bundleId == "com.readdle.SparkDesktop" }?.blocked, false, "never-close app stays open in a lock")
+}
+do {
+    // R7-1: an app only on the list of a period chained LATER to the running lock cannot be exempted mid-lock.
+    let now = t("2026-10-05T07:00:00Z")   // Monday 09:00 local
+    let e = Engine(state: State()); e.boot(now: now, mono: 0)
+    e.testMutate { $0.apps = [AppRule(bundleId: "com.readdle.SparkDesktop", name: "Spark", kind: .webengine, blocked: false, teamId: "T")] }
+    e.migrateToLists()
+    let A = e.state.lists[0]
+    let B = try! e.addList(name: "B", sites: [], apps: ["com.readdle.SparkDesktop"], now: now)
+    try! e.startSession(minutes: 60, list: A.id, now: now)
+    _ = try! e.addSchedule(Schedule(id: "", name: "", weekdays: [1], start: "10:00", end: "12:00", enabled: true, list: B.id), now: now)
+    expectError("locked", "R7-1: app on a chained period's list cannot be exempted") { try e.setNeverClose(bundleId: "com.readdle.SparkDesktop", on: true, now: now) }
+}
+
 // MARK: Catalog file
 
 do {

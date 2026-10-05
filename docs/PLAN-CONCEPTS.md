@@ -336,3 +336,318 @@ The recommendation of C does not hold up once it is used rather than measured.
 - It puts the chain rule into the confirm step, where it actually stops a surprise.
 
 **Build size:** smaller than C. The strip is a read-only rendering of `intervals()`, plus one drag handler that can be cut without loss.
+
+---
+
+## Plan-side — specifikation (2026-10-04, replaces the 1.2.0 plan sheet)
+
+**Why.** The owner rejected the 1.2.0 sheet: "Kan ikke lide den kalender pop up. Fandme useriøst bygget. Byg det ordentlig." In a narrow window the sheet was cramped and the clock pickers overflowed the card.
+
+**What he chose.** A real full page, "Plan", built like a proper calendar: the week on the left and a fixed detail panel on the right. There is no modal and no popover anywhere.
+
+**Mockup.** `extension/dev/plan-page/mock.html` (dev only, so `pack.sh` leaves it out). It reuses the real `ui/app.css`, `ui/combo.js`, `ui/dropdown.js`, `ui/glyphs.js` and `lib/plan.js` (`assignLanes`). It is clickable: click a slot, an event, the panel rows, Én gang / Hverdage / Vælg dage, "Spring over", 🗑 → "Fortryd", the tabs and ‹ I dag ›.
+
+**Deep links:**
+- `?state=edit|new|skipped|frozen` opens those panel states.
+- `?s=locked|empty` opens those scenarios.
+- `?view=fokus` opens the Fokus tab.
+- `&scroll=panel` scrolls the phone view down to the panel.
+
+**Screenshots** (next to the mockup):
+
+| File | Size | Shows |
+|---|---|---|
+| `plan-1440-edit.png` | 1440×900 | a weekly occurrence open |
+| `plan-1440-locked.png` | 1440×900 | frozen, read-only |
+| `plan-1440-fokus.png` | 1440×900 | the tabs on the front page |
+| `plan-1280.png` | 1280×720 | resting |
+| `plan-1280-new.png` | 1280×720 | a clicked slot |
+| `plan-900-edit.png` | 900×700 | week + narrower panel |
+| `plan-390.png` | 390×844 | day view |
+| `plan-390-edit.png` | 390×844 | panel below the day view |
+
+### 1. Page structure
+- **App header** (60 px, hairline below):
+  - Tabs **`Fokus | Plan`** on the left (`role=tablist`, 40 px targets, 2 px underline on the active tab), and the gear on the right.
+  - The tabs replace the calendar icon (`#calBtn`).
+  - Plan is a page state, not a dialog. It lives at `app.html#plan`, so Back, Forward and reload keep it. A new tab (⌘T) always opens Fokus.
+- **Fokus** is today's front page, unchanged except for the header. "Næste: i dag 13–15 · Locked In 1 ›" opens Plan with that occurrence selected.
+- **Plan** is the calendar (fluid) beside the detail panel (fixed width), both full height under the header.
+  - Each part scrolls on its own. On desktop the page itself never scrolls.
+
+### 2. Widths
+
+| Window width | Calendar | Panel |
+|---|---|---|
+| ≥ 1180 px | Week, 7 columns, 48 px per hour, 52 px hour gutter | 380 px, on the right |
+| 860–1179 px | Week, 44 px per hour, 44 px gutter | 344 px, on the right |
+| < 860 px | **One day**, plus a 7-day strip (Ma 5 … Sø 11; a dot means the day has periods; 52 px tall). The grid is 56 vh. | **Below** the grid. Selecting something scrolls the panel into view. |
+
+- **Nothing can overflow.** The panel puts one time per row (Fra / Til), so its content needs about 300 px and fits a 320 px phone.
+- **‹ ›** move a week on wide screens and a day on narrow ones.
+
+### 3. Calendar
+- **Toolbar:** `I dag` (ghost, 40 px), then ‹ › (40 px), then the title in 20 px/600: "5.–11. okt. 2026" for a week, or "Tirsdag 6. okt." for a day.
+  - ‹ is disabled on the current week.
+  - › goes up to 8 weeks ahead.
+  - With the focus outside a field, PageUp/PageDown move a week (a day on narrow screens) and **T** jumps to I dag.
+- **Week = mandag–søndag.**
+  - The day header shows "man." over the date number.
+  - Today has the date in a filled light circle, the weekday in bold, and a column 2.5 % lighter.
+- **Hour grid 00–24.**
+  - Hour labels are 12 px `--subtle`, tabular figures (5.26:1).
+  - Hour lines use `--line`; half-hour lines are fainter.
+  - The grid opens scrolled to 07:00, or to the earliest period of the week if that is earlier.
+- **Now line.** A 2 px `--accent` line across today's column, with a 10 px dot (11.7:1). It is the same yellow marker as in 1.2.0. Today's time before now is shaded.
+- **Events.** One button per occurrence. Each is an opaque block:
+  - The list tint at 30 % over `#14161b`, with a 3 px tint bar on the left and an 8 px radius.
+  - Text: "13–15" in 13 px/600 `--text`, and the list name in 12 px `#c4c6cc`. A ↻ (12 px) marks a weekly period.
+  - Measured with all six 1.2.0 tints: the time is 7.4–8.3:1 and the name 5.2–5.8:1, so both pass AA.
+  - **Weekly** periods are drawn on every matching day.
+  - **Short** blocks (under 50 min) use one line.
+  - **Overlaps** sit side by side in lanes, using `assignLanes`, which is already tested. The label shrinks with the lane width: the full label from 64 px, the start time only from 36 px, nothing below that. The `aria-label` and tooltip always carry the full text.
+  - **Over midnight:** the block is split at 24:00. The first part reads "22–10", the next day's part "→ 10", and the edges are flat where it continues.
+  - **Skipped** day: transparent fill, a 1.5 px tint outline, and the time and name struck through in `--subtle`. It is still clickable, so the skip can be undone.
+  - **Frozen** (part of the running lock): a yellow lock replaces ↻. It is clickable, and opens the read-only panel.
+  - **Past:** 50 % opacity.
+  - **Selected:** a 2 px `--text` ring.
+  - **Draft:** a 14 % white fill with a 1.5 px white outline, labelled "Ny periode". It is drawn live on every day it covers, so choosing "Hverdage" shows five drafts.
+- **Creating a period:**
+  - **Click an empty slot.** The panel opens "Ny periode" for that day. The start is the half hour clicked, the length is the last one used (`li.lastTimes`, otherwise 1 t), and the list is the one chosen on the front page.
+  - **Drag** (mouse only, optional). It snaps to 15 minutes and shows the draft live; releasing opens the same panel. `pointercancel` and `lostpointercapture` reset the drag, which fixes the phantom-ghost bug the challenger found.
+  - **Touch:** a tap only, so vertical scrolling stays native.
+  - Today, nothing can be created before "now".
+- **Keyboard** (a complete path):
+  - The grid is one tab stop (`role=grid`, `aria-label` "Uge, timer").
+  - ←↑→↓ move a 30-minute slot cursor (a 2 px accent ring inside the slot).
+  - Shift+↑/↓ lengthens the slot.
+  - Enter opens "Ny periode" for the slot.
+  - Tab then goes through the events in time order, and Enter opens one.
+  - In the panel, Esc closes it and returns the focus to the event or slot that opened it.
+
+### 4. Detail panel (always on the page, never a popup)
+
+**1. Resting** (nothing selected)
+- "+ Ny periode" (44 px, full width).
+- Below it, the periods, soonest first. Each row shows:
+  - The rule, using `periodText`: "Hverdage 13–15", or "Fre 22 → lør 10".
+  - "● Locked In 1".
+  - Any skipped dates, struck through.
+- A frozen row shows "🔒 Låst til 15:00".
+- A row is 56 px. Clicking it moves the calendar to the next occurrence and opens it.
+- This is the screen-reader path, and the only place you see periods outside the visible week.
+- When there are no periods, only "+ Ny periode" is shown, with no text.
+
+**2. Ny periode / edit** (top to bottom)
+- **Title:** "Ny periode", or the rule as text, for example "Hverdage 13–15". × closes it.
+- **Hvornår:** a segmented control, `Én gang | Hverdage | Vælg dage`.
+  - Én gang shows a date button, for example "Onsdag 7. okt.". It opens the native date picker, and dates before today are blocked.
+  - Vælg dage shows 7 toggles, Ma–Sø (each at least 40 px, one row), with the clicked day already on.
+- **Fra** `[HH▾]:[MM▾]` and **Til** `[HH▾]:[MM▾]`, each on its own row. These are the approved clock pickers with type-ahead.
+  - The length is shown at the right, for example "2 t", or "næste dag · 12 t" for a period over midnight.
+  - End times that would make one continuous lock longer than 24 hours are left out. When that cuts the list short, the length reads "maks. 24 t".
+- **List dropdown** (dot + name), with the list's icons below it (28 px, read-only, with tooltips).
+- **Spring over** (only for an existing weekly period): "Spring over i morgen", or "Spring over torsdag 8. okt.", for the occurrence that was clicked (`POST /v1/skip`).
+  - A skipped day reads "~~Torsdag 8. okt.~~ springes over [Fortryd]" (`DELETE /v1/skip`).
+  - Both take effect at once.
+- **Footer:** `[Gem] [Annullér]`, and `[🗑]` at the right.
+  - Gem reads **"Lås til 17:00"** when the period joins the running lock, with the 500 ms guard, as in 1.2.0.
+  - 🗑 deletes at once. A toast "Perioden er slettet [Fortryd]" stays 5 s at the bottom centre of the page, and Fortryd re-creates the period with its skips.
+  - Daemon errors (423, 24 h, 400) show under the footer in `--bad`.
+
+**3. Frozen** (the period is part of the running lock)
+- The title, "🔒 Låst til 15:00", the list name and the icons. Nothing can be edited.
+- If the clicked occurrence is a *later* one of the same weekly period, "Spring over …" is still offered. The API allows it, because only the occurrence inside the lock is refused.
+
+### 5. Visual rules
+- **Same tokens as Fokus** (`app.css`): the same select buttons, chips, segmented control, primary and ghost buttons.
+- **New colour:** only the list tints from 1.2.0, used at 30 % inside the blocks.
+- **Targets:** at least 40 px everywhere, with one exception. An event block is as tall as its duration, so a 30-minute period is 24 px. Every period is also a 56 px row in the panel, and reachable by keyboard.
+- **Text:** no explanatory text anywhere on the page. The only words are the labels Fra and Til, the button labels, "Låst til …" and "springes over".
+
+### 6. Production mapping (step 2)
+- **Remove:**
+  - `#calBtn`.
+  - The `#planDlg` sheet.
+  - The week-strip CSS (`.week`, `.rail`, `.blk`, `.plan-sheet`).
+  - `wireDrag` on the rails.
+- **Keep:**
+  - `lib/plan.js` (`occurrences`, `assignLanes`, `chainEnd`, `scheduleBody`, `periodText`, `nextOccurrence`).
+  - The editor logic in `ui/plan.js`: when, times, list, skip, the "Lås til" guard and delete + undo. It moves from the card into the panel.
+  - `combo` and `dropdown`.
+- **New:**
+  - `app.html` gets the header tabs and a `<section id="planPage">`.
+  - `ui/plan.js` renders the calendar and the panel.
+  - `ui/plan.css` holds the page styles.
+  - `app.js` handles `#plan` routing and the slot keyboard.
+- **Not touched:** `blocked.html`, `ui/blocked.*` and the manifest version.
+
+### 7. Edge cases
+- **Summer time ends (25 Oct 2026, a 25-hour day):** the grid keeps 24 rows. Occurrences come from `lib/plan.js` in Copenhagen time, and a time inside the spring gap moves forward, as the daemon does.
+- **Daemon down:** the last known plan stays visible. The panel controls are disabled, and the Fokus page's line "Locked in kører ikke lige nu — genstart Mac'en" is shown above the panel.
+- **50 periods:** "+ Ny periode" is disabled, with a tooltip.
+- **More than 6 lists:** the tints repeat, and the list name is always on the block.
+
+### 8. Click counts (mouse)
+
+| Task | Clicking a slot | With a drag |
+|---|---|---|
+| **i morgen 09–12 med Locked In 2** | Plan → slot tir 09:00 → Til ▾ → 12 → Liste ▾ → Locked In 2 → Gem = **7**¹ | Plan → drag 09→12 → Liste ▾ → Locked In 2 → Gem = **5** |
+| **hver hverdag 07–09** | Plan → slot man 07:00 → Hverdage → Til ▾ → 09 → Gem = **6**¹ | Plan → drag → Hverdage → Gem = **4** |
+| Change Hverdage 13–15 to 13–16 | Plan → event → Til ▾ → 16 → Gem = **5** | — |
+| Skip tomorrow | Plan → event → "Spring over i morgen" = **3** | — |
+| Delete | Plan → event → 🗑 = **3** (Fortryd for 5 s) | — |
+
+¹ With a slot click, the end comes from the last length used. When that length already matches, the click count drops by 2.
+
+### 9. For the reviewer to challenge
+1. **The resting panel** shows the list of periods. Keep it (keyboard and screen-reader path, periods outside the week), or leave the panel empty until something is selected?
+2. **Overlaps at 860–1179 px** lose their labels when the lanes are narrower than 36 px. They still have a tooltip and `aria-label`, and the panel row.
+3. **30-minute blocks are 24 px tall**, under the 40 px target rule. The panel row and the keyboard path are the fallback.
+4. **Tabs placement:** "Fokus | Plan" sits at the top left as page navigation. Is it clear enough beside the centred "Varighed | Indtil" pill on Fokus?
+
+## Plan-side — udfordring (independent challenger, 2026-10-04)
+
+**How it was tested.** I used `dev/plan-page/mock.html` through a CDP driver with exact viewports at **1440×900, 1280×720 and 900×700 (1×)** and **390×844 (2×, touch)**. I opened the resting, `edit`, `new`, `skipped`, `frozen`, `empty` and `fokus` states. I also clicked a slot (Thursday 10:00), chose "Hverdage" and saved. I compared the result with the spec above. No file other than this section was changed.
+
+**Overall.** At 1440×900 this already looks like a serious calendar:
+- Google-like day headers with a filled circle for today;
+- a clean hour gutter;
+- opaque tinted blocks with a 3 px bar;
+- a calm fixed panel that uses the approved controls;
+- no popups anywhere.
+
+The phone day view, with its 7-day strip and dots, is good. The panel's edit, skip and frozen states read well. What keeps it below Google/Apple quality is detail at the block level: **ellipses inside blocks, a now-line that strikes through text, and labels that disappear**. One flow is also unsafe. All of these can be fixed in the spec before anything is built.
+
+### Required changes (must be in the build)
+
+1. **No "…" inside an event block, ever.**
+   - **Evidence:** at 1440 px, Tuesday's overlaps read "Locke…" and "Kold k…", and the draft reads "Ny per…". At 1280 px "09–1…" appears, and at 900 px nearly every block is truncated ("08–0…", "Locked…").
+   - **Rule:** use a label ladder chosen by the measured inner width *w* and height *h*:
+
+     | Condition | Label |
+     |---|---|
+     | w ≥ 96 and h ≥ 40 | time on line 1, list name on line 2 (the name only if it fits whole) |
+     | w ≥ 44 | full time only, for example "13–15" |
+     | w ≥ 26 | start hour only, for example "13" |
+     | otherwise | nothing; the tint bar carries the block |
+
+     The full text always goes in `aria-label` and `title`.
+2. **Overlaps: a cascade instead of equal lanes, as Google Calendar does.**
+   - Each later overlapping event is indented by `max(24px, 28 % of the column)` and still runs to the right edge of the column. The later one sits on top, with a 1 px `--bg` outline.
+   - **Skipped** occurrences take part in no lane or cascade. They are drawn as an outline *under* active blocks, so they never narrow a real period. Today a skipped Thursday halves the purple block.
+3. **The now-line must never cross text.**
+   - **Evidence:** in `frozen`, and after saving "Hverdage 10–11", the 2 px yellow line runs through "Locked In 1" and "10–11". It looks exactly like the **strikethrough used for skipped**.
+   - **Fix:** put the line on a layer under the event blocks. The opaque blocks cover it. Keep the 10 px dot in the gutter edge of today's column so "now" is still found.
+4. **Saving a period that covers *now* starts a lock, and must say so.**
+   - **Evidence:** at 10:20 I clicked Thursday 10:00 and chose Hverdage. The draft included today's 10–11, and the button still read "Gem". Saving would lock immediately until 11:00, without the 500 ms guard.
+   - **Rule:** extend the spec's "Lås til …" rule. If any occurrence of the draft contains now, or joins the running lock, the primary button reads **"Lås nu til 11:00"**, with the same guard.
+5. **Sticky labels for blocks that start above the visible area.**
+   - **Evidence:** Saturday's "→ 10" part of "Fre 22 → lør 10" fills 00–10, but at the 07:00 scroll it shows **no label at all**, just a big teal slab.
+   - **Fix:** when a block's top is above the scroll edge, pin its label to the visible top (`position: sticky; top: 4px` inside the block).
+6. **The empty state renders the word `null`** in the panel under "+ Ny periode". It must render nothing.
+7. **Recover vertical space, and stop clipping the first hour label.**
+   - Header, toolbar and day header take **194 px**, 27 % of a 720 px window.
+   - **On Plan, merge the toolbar into the 60 px app header:** tabs, then `I dag ‹ ›` and the title, with the gear at the right. That saves 72 px, so at 1280×720 the grid shows 07:00–19:00 instead of 07:00–17:30.
+   - Open the grid at `firstHour × hh − 14 px`, so the "07" label is not cut in half as it is today.
+
+### Strongly recommended
+
+- **Drop the ↻ from blocks.** Today it appears only when a lane is at least 92 px wide, so Monday has it and Tuesday doesn't. A weekly period already shows as repeated blocks, and the panel title says "Hverdage". One less glyph.
+- **Hour height:** 52 px at a width ≥ 1180 px and a height ≥ 860 px; otherwise 48 px. The minimum block height is 20 px, so a 15-minute period is never 12 px.
+- **Panel width:** 380 px at ≥ 1180 px, **320 px** at 860–1179 px. The content needs about 300 px. At 900 px wide that gives each day column 85 px instead of 73.
+- **Resting list: upcoming only.**
+  - A one-off that has ended ("I dag 08–09:30" at 10:20) leaves the list.
+  - Hovering a row outlines its blocks in the calendar (1.5 px `--text`).
+  - Hovering a block highlights its row.
+- **Fokus page:** no hairline under the header. The new-tab page keeps its chrome-free calm, and the tabs alone mark the header.
+- **Keyboard path:** the mockup has none. The `role=grid` has `tabindex=0`, but nothing handles arrows, Shift+arrows or Enter, and there is no drag either. Both must be built and tested exactly as specified, plus Esc returning focus, before the build is reviewed.
+
+### Answers to the designer's four questions
+
+1. **Panel at rest:** **keep the list.** It is the keyboard and screen-reader path, and the only view of periods outside the visible week. Show upcoming items only, with hover linking as above. No heading text is needed: "+ Ny periode" above the rows makes clear what they are.
+2. **Overlap labels at 860–1179 px:** do not accept label loss caused by equal lanes. Use the **cascade** (change 2) and the **ladder** (change 1). With a 320 px panel, a 900 px window has 85 px columns, so the top event of a pair keeps about 61 px, enough for "13–15".
+3. **30-minute blocks of 24 px:** **accept the exception.** The height must stay honest to the duration, which is what Google and Apple do, and the panel row (56 px) plus the keyboard path cover reach. Raise the hour to 52 px where there is room (26 px per half hour), and never draw a block under 20 px.
+4. **Tab clarity:** **clear enough.** The underlined page tabs top left and the centred "Varighed | Indtil" pill do different jobs and look different. Make the inactive tab `--muted` 15 px/500 and the active one `--text` 600 with a 2 px `--text` underline (never accent). Use no hairline on Fokus.
+
+### Click counts (my measurement)
+These match the spec's table, with one difference:
+- a slot click with the right last-used length: "hver hverdag" = Plan → slot → Hverdage → Gem = **4** clicks;
+- "i morgen 09–12 · Locked In 2" = **7** when the last length differs.
+
+1.2.0 needed 5 for the same task, so creation got more expensive than the sheet. That is acceptable only if **drag** (mouse) ships in the first build, bringing it back to 5. Do not postpone drag.
+
+## Verdict: **GO WITH CHANGES**
+
+The structure, page model, panel and phone layout are right. Changes 1–7 must be in the build: no ellipses, the cascade, the now-line under blocks, "Lås nu til …" for drafts covering now, sticky labels, no `null`, and the merged header. The keyboard path and drag also have to be built and verified, because the mockup has neither.
+
+---
+
+## Plan-side — bygget (step 2, 2026-10-04)
+
+**Files**
+- `extension/app.html`:
+  - The header now holds the tabs, the toolbar and the gear.
+  - It has two pages: `#fokusPage` and `#planPage`.
+  - The calendar icon and `#planDlg` are gone.
+- `extension/ui/plan.js`: the page itself (rewritten).
+- `extension/ui/plan.css`: new.
+- `extension/ui/app.js`: routing to `#plan`, ←/→ on the tabs, the "Næste" line opening that period, and unique glyph ids (see below).
+- `extension/ui/app.css`: the header and tabs; the old sheet and week-strip rules are removed.
+- `extension/lib/plan.js`, new pure helpers, all covered by `test/plan.test.mjs`:
+  - `weekStart`, `dayBounds`, `wallMinutes`, `dateLong`, `lengthText`
+  - `dayLayout` (the cascade), `cascadeIndent`
+  - `labelFit` (the label rule)
+  - `dragRange`, `moveSlot`
+  - `lockIfSaved`
+- `extension/test/ui/drive-ui.mjs`: the Plan section is rewritten (32 checks, the size check runs at 4 viewports).
+
+**All seven of the reviewer's required changes are in**
+1. **No ellipsis in a block.** The label ladder uses the measured text width. The full time is shown if it fits, otherwise the start time, otherwise nothing. The list name is shown only if it fits whole: on its own line when the block is at least 40 px tall, otherwise after the time. The full text is always in `aria-label` and the tooltip.
+2. **Overlaps cascade.** Each later period is indented `max(24 px, 28 %)`, runs to the right edge and sits on top. A skipped day is drawn underneath and takes part in no cascade.
+3. **The now-line runs under the opaque blocks** (z-index 1). Only its 10 px dot is drawn on top, in the gutter edge.
+4. **"Lås nu til HH:MM".** This shows whenever saving would start the lock now, or lengthen the lock that is running. Saving then takes the front page's second step: "Kan ikke stoppes før kl. …", then [Lås nu] (with the 500 ms / double-click guard) or [Tilbage].
+5. **Sticky labels.** These needed `overflow: clip` (not `hidden`) and a top-aligned flex column, because a button centres its content.
+6. **The empty panel** shows only "+ Ny periode".
+7. **The toolbar is in the 60 px header**, and the grid opens at `firstHour × hh − 14`.
+
+**Also built**
+- Upcoming-only periods in the resting list.
+- Hovering a row outlines its blocks; hovering a block highlights its row.
+- 52 px per hour at ≥ 1180 × 860, otherwise 48 px. Blocks are never under 20 px.
+- No hairline under the header on Fokus.
+
+**Keyboard**
+- The grid is one tab stop.
+- ←↑→↓ move a 30-minute slot, Shift+↑/↓ change its length, and PageUp/PageDown move a week (a day on narrow screens). **T** jumps to I dag.
+- Enter opens "Ny periode" for the slot.
+- Tab reaches the events, and Enter opens one.
+- Esc closes the editor and gives the focus back to what opened it.
+- Saving puts the focus back in the grid, on the saved period.
+
+**Mouse and touch**
+- Drag a range with 15-minute snap and a live ghost.
+- A click makes a slot from that half hour, with the last length used.
+- A drag that is cancelled (`pointercancel` or `lostpointercapture`) leaves nothing behind.
+- On touch a tap makes a slot, and vertical scrolling stays native.
+
+**Deviations, for the next review**
+- **The panel is 336 px at 860–1179 px, not 320.** The seven 40 px day toggles in "Vælg dage" need 304 px of content.
+- **The end-time picker does not leave out times that break the 24-hour rule.** Computing that per option was too slow. The daemon's "En samlet lås kan højst vare 24 timer." shows under the buttons instead.
+- **Bug found and fixed in passing:** while the Fokus page was hidden, the Instagram glyph lost its gradient on the Plan page, because two SVGs shared the id `gi`. `siteIcon` now gives every glyph its own ids.
+
+**Tests**
+- `node --test test/*.test.mjs`: 134 pass.
+- `test/ui-in-chrome.sh`: all 82 checks passed. Later reruns on this Mac hang at the old mouse-wheel step (a wheel event is never acknowledged). The unchanged HEAD build hangs at the same place, and all 81 other checks pass.
+- `test/load-in-chrome.sh` (the packed extension, real CSP): passes.
+- **Screenshots:** `extension/dev/plan-page/build-*.png` (1440, 1280, 900, 390).
+
+**After review round 1 (2026-10-05)**
+- **PB1:** clicks and the keyboard slot reuse the last length only up to 3 h, otherwise 1 h (`slotLength`). Drag sets its own length.
+- **The 24-hour rule is checked in the panel** (`chainOverLimit`, the same chain logic as the daemon, including the running lock). It shows "Samlet lås 120 t · højst 24 t" in `--bad` and disables Gem. The dev mock now refuses such chains too.
+- **"Én gang" today:** past start times are not offered, and a start that has passed moves to the next 5 minutes, keeping the length.
+- **A new draft cascades on top** of what it overlaps (indented), so it never hides a block. The drag ghost is translucent.
+- **Verification:**
+  - Unit tests: 137 pass.
+  - `ui-in-chrome.sh` could not run: a real LockedIn lock was active until 12:00, and the script rightly refuses. The new checks were verified by hand in the built-in browser pane instead: a real mouse click, the keyboard slot, the cascade, the 24 h line and the past start.
+  - The wheel step in the driver now reports SKIP instead of hanging when Chrome never acknowledges the event.

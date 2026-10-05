@@ -96,3 +96,8 @@ En **liste** er et navngivet sæt hjemmesider og apps, fx "Locked In 1": Slack, 
 - `POST /v1/skip/{scheduleId}` `{"date": "2026-10-09"}`: "Spring over denne gang". Kun ugentlige perioder og kun en dag, hvor perioden ligger. Svarer 423, hvis forekomsten er en del af den kørende lås.
 - `DELETE /v1/skip/{scheduleId}` `{"date": "…"}`: fortryder. Svarer 400, hvis det ville skabe en samlet lås på over 24 timer.
 - "Næste" og forekomster beregnes 14 dage frem.
+
+## Lukkes aldrig (v1.4)
+- `apps[].neverClose` er `true` for apps, der aldrig lukkes af LockedIn (ejerens ønske 2026-10-05: fx Spark, Wispr Flow og Claude). Signaturkontrollen gælder stadig, så en anden app med samme navn er ikke undtaget.
+- `PATCH /v1/apps/{bundleId}` `{"neverClose": true|false}`. Når feltet slås til, fjernes appen fra alle lister. Daemonen svarer 423, hvis appen er lukket lige nu under en lås, og 400 for browsere.
+- Lister kan ikke indeholde apps med `neverClose`.

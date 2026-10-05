@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "LockedIn",
   "short_name": "LockedIn",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Fokus uden flugtveje: blokerer hjemmesider i Chrome under en LockedIn-session.",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6KtthvDdjDP4ufD0wh9Y+OcW0zbNhstUpmRyFh24b7SGXQS2SYsiN90le04gMME+eFYBhxs4shBpaQHWYjUBYYF48yUXytE5zI85OJfs4rVQlRfXAnfioNnvGNjtPzIiq2weOPUJFoctQxuNLW3TMTU1watRl3k/XI0sOBYW8nakXTY0g7pATUbb7+TktkptD3gFB3CksfapR+eHwim21GRGHcfM4jXoorvOZsEE29HR6kHhfEsEkH0NJluPp6zTCZSTn1M7QiAThNphFLf7SPjR6A0f30B2rXVipmJZXMKPbByLqR+2cSNqwMWsslolgvgbXfsUM8dhYgxy0UTMEwIDAQAB",
   "update_url": "https://sebpirad.github.io/LockedIn/updates.xml",

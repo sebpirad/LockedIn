@@ -224,37 +224,57 @@
       "bundleId": "com.tinyspeck.slackmacgap",
       "name": "Slack",
       "kind": "webengine",
-      "blocked": false
+      "blocked": false,
+      "neverClose": false
     },
     {
       "bundleId": "org.mozilla.firefox",
       "name": "Firefox",
       "kind": "browser",
-      "blocked": true
+      "blocked": true,
+      "neverClose": false
     },
     {
       "bundleId": "com.apple.Safari",
       "name": "Safari",
       "kind": "browser",
-      "blocked": true
+      "blocked": true,
+      "neverClose": false
     },
     {
       "bundleId": "com.electron.fiddle",
       "name": "Electron Fiddle",
       "kind": "webengine",
-      "blocked": true
+      "blocked": true,
+      "neverClose": false
     },
     {
       "bundleId": "com.spotify.client",
       "name": "Spotify",
       "kind": "webengine",
-      "blocked": false
+      "blocked": false,
+      "neverClose": false
     },
     {
       "bundleId": "com.todoist.mac.Todoist",
       "name": "Todoist",
       "kind": "webengine",
-      "blocked": false
+      "blocked": false,
+      "neverClose": false
+    },
+    {
+      "bundleId": "com.anthropic.claudefordesktop",
+      "name": "Claude",
+      "kind": "webengine",
+      "blocked": true,
+      "neverClose": false
+    },
+    {
+      "bundleId": "com.electron.wispr-flow",
+      "name": "Wispr Flow",
+      "kind": "webengine",
+      "blocked": false,
+      "neverClose": true
     }
   ],
   "schedules": [

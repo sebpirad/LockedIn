@@ -1,0 +1,264 @@
+[
+ {
+  "id": "A01",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Long (Gutenberg #15877). Fame: the same Meditations passage is in ODQ 8th ed. 2014 p. 43, in a different translation.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A02",
+  "verdict": "REJECT",
+  "fix": null,
+  "reason": "Re-judged 2026-10-04 under the owner's rule (anthology OR documented most-cited genuine line). Still REJECT, genuine but failing the fame test. No documentation that Long's wording is a signature line. The passage is famous only in Hays's 2002 wording (Holiday's book title), and A01 already covers Marcus Aurelius.",
+  "fame_confirmed": false
+ },
+ {
+  "id": "A03",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim on Wikisource. Fame: ODQ 8th ed. 2014 p. 655, Bartlett's 18th ed. 2012 p. 571, Yale Book of Quotations 2006 p. 649.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A04",
+  "verdict": "REJECT",
+  "fix": null,
+  "reason": "Re-judged 2026-10-04 under the owner's rule (anthology OR documented most-cited genuine line). Still REJECT, genuine but failing the fame test. Not documented as TR's most-cited line; the Arena passage (A03) is. Wikiquote bolding is common on that page and is not evidence.",
+  "fame_confirmed": false
+ },
+ {
+  "id": "A05",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim on the ICS transcript. Fame: ODQ 8th ed. 2014 p. 217, Bartlett's 18th ed. 2012 p. 620, Yale Book of Quotations 2006 p. 153.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A06",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in historic Hansard; the quote falls under the column-1502 anchor, so the locator is right. Fame: ODQ 8th ed. 2014 p. 216, Bartlett's 18th ed. 2012 p. 619, Yale Book of Quotations 2006 p. 152.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A07",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim on Wikisource. Fame: ODQ 8th ed. 2014 p. 480, Bartlett's 18th ed. 2012 p. 444, Yale Book of Quotations 2006 p. 461.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A08",
+  "verdict": "REJECT",
+  "fix": null,
+  "reason": "Re-judged 2026-10-04 under the owner's rule (anthology OR documented most-cited genuine line). Still REJECT, genuine but failing the fame test. No QI article and no media or biography treating it as Lincoln's signature line; his most-cited lines are elsewhere (A07 is in ODQ, Bartlett's and Yale).",
+  "fame_confirmed": false
+ },
+ {
+  "id": "A09",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the Douglass Papers edition. Fame: Bartlett's 18th ed. 2012 p. 477, Yale Book of Quotations 2006 p. 212.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A10",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the Douglass Papers edition. Fame: Yale Book of Quotations 2006 p. 212 (Douglass entry, same page as A09).",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A11",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Best genuine line per person (owner's clarification 2026-10-04): chosen as Gandhi's one quote. It is the most-recognised genuine Gandhi line that fits the app's themes: Wikiquote Sourced (Young India, 11 Aug 1920), widely reprinted, verbatim on mkgandhi.org. His anthology lines are off-theme and are listed as alternatives: 'Non-violence is the first article of my faith' (ODQ 1999 p. 329, ODQ 2014 p. 335, Bartlett's 17th p. 650 and 18th p. 604, Yale 2006 p. 298) and 'The weak can never forgive. Forgiveness is the attribute of the strong' (ODQ 2014 p. 335, Young India 1931). The image's US PD date (2027) does not matter in the EU.",
+  "fame_confirmed": "relative"
+ },
+ {
+  "id": "A12",
+  "verdict": "FIX",
+  "fix": {
+   "verification": "primary",
+   "source.locator": "Chapter 2, 'Fear—the Great Enemy'; p. 36 in the London (Hutchinson, 1961) edition, checked by archive.org search-inside",
+   "source.url": "https://archive.org/details/youlearnbyliving0000elea_n4p6"
+  },
+  "reason": "Primary reached: the exact sentence is on p. 36 of You Learn by Living (1961 London ed., archive.org search-inside), so it can be upgraded from secondary. Fame: Bartlett's 18th ed. 2012 p. 660 (cites You Learn by Living, 1960) and Yale Book of Quotations 2006 p. 644.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A13",
+  "verdict": "FIX",
+  "fix": {
+   "verification": "primary",
+   "source.locator": "Chapter 2, 'Fear—the Great Enemy'; p. 36 in the London (Hutchinson, 1961) edition, checked by archive.org search-inside",
+   "source.url": "https://archive.org/details/youlearnbyliving0000elea_n4p6"
+  },
+  "reason": "Primary reached: the exact sentence is on p. 36 of You Learn by Living (1961 London ed.). Fame: Bartlett's 18th ed. 2012 p. 660 and Yale Book of Quotations 2006 p. 644, the same entry as A12.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A14",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #43855. Fame: Bartlett's 18th ed. 2012 p. 302, Yale Book of Quotations 2006 p. 287.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A15",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #43855. Fame: Bartlett's 18th ed. 2012 p. 302 (as Poor Richard).",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A16",
+  "verdict": "REJECT",
+  "fix": null,
+  "reason": "Re-judged 2026-10-04 under the owner's rule (anthology OR documented most-cited genuine line). Still REJECT, genuine but failing the fame test. No documentation; Jefferson's most-cited lines are the Declaration's. Superseded: Jefferson's one quote is now D01 ('When angry, count ten…', Bartlett's) in quotes-v2-B3.json.",
+  "fame_confirmed": false
+ },
+ {
+  "id": "A17",
+  "verdict": "REJECT",
+  "fix": null,
+  "reason": "Re-judged 2026-10-04 under the owner's rule (anthology OR documented most-cited genuine line). Still REJECT, genuine but failing the fame test. Monticello has a page for it, but nothing shows it is Jefferson's most-cited line. Superseded: Jefferson's one quote is now D01 ('When angry, count ten…', Bartlett's) in quotes-v2-B3.json.",
+  "fame_confirmed": false
+ },
+ {
+  "id": "A18",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Re-judged 2026-10-04 under the owner's rule (anthology OR documented most-cited genuine line). Fame documented: Quote Investigator has a dedicated article (2022/02/01/obstacle) that credits Washington and Up from Slavery (1901), and Wikipedia's Booker T. Washington article quotes this line. Genuine: verbatim in Gutenberg #2376, ch. II.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A19",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the APP transcript. Fame: ODQ 8th ed. 2014 p. 654, Bartlett's 18th ed. 2012 p. 652, Yale Book of Quotations 2006 p. 645.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A20",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the APP transcript. Fame: Bartlett's 18th ed. 2012 p. 651, Bartlett's 16th ed. 1992 p. 648 (cites Oglethorpe), New Yale Book of Quotations 2021 p. 692.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A21",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the APP transcript. Fame: Yale Book of Quotations 2006 p. 422.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A22",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the APP transcript. Fame: ODQ 8th ed. 2014 p. 446, Bartlett's 18th ed. 2012 p. 785, Yale Book of Quotations 2006 p. 421.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A23",
+  "verdict": "REJECT",
+  "fix": null,
+  "reason": "Re-judged 2026-10-04 under the owner's rule (anthology OR documented most-cited genuine line). Still REJECT, genuine but failing the fame test. No QI article, not on the King Memorial or the NPS quotations page, no Wikipedia use; only Wikiquote bolding. A24 now carries King's documented line. (Genuine: King Papers, Spelman College 1960.)",
+  "fame_confirmed": false
+ },
+ {
+  "id": "A24",
+  "verdict": "FIX",
+  "fix": {
+   "verification": "primary",
+   "source.locator": "Chapter 3, 'On Being a Good Neighbor', p. 20 (Harper & Row, 1963; checked by archive.org search-inside)",
+   "source.url": "https://archive.org/details/strengthtolove0000king_f7v9"
+  },
+  "reason": "Re-judged 2026-10-04 under the owner's rule (anthology OR documented most-cited genuine line). Fame documented: the line is carved on the inscription wall of the Martin Luther King Jr. Memorial, Washington DC (NPS 'Quotations' page and Wikipedia's Memorial article both list it). Genuine: the exact sentence is on p. 20 of Strength to Love (1963), so it upgrades to primary.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A25",
+  "verdict": "FIX",
+  "fix": {
+   "text": "I learned that courage was not the absence of fear, but the triumph over it. … The brave man is not he who does not feel afraid, but he who conquers that fear.",
+   "verification": "primary",
+   "source.locator": "p. 542 of the Little, Brown (Boston, 1994) edition, closing chapter; checked by archive.org search-inside",
+   "source.url": "https://archive.org/details/longwalktofreedo00mand"
+  },
+  "reason": "Re-judged 2026-10-04 under the owner's rule (anthology OR documented most-cited genuine line). Fame documented: CNN's 'Mandela in his own words' (2008) features this line, and it is on his Wikiquote page under Long Walk to Freedom. Genuine, but in the book a 19-word sentence sits between the two sentences; the NCERT reprint drops it silently. The fix adds '…' and cites the book itself.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A26",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Best genuine line per person (owner's clarification 2026-10-04): chosen as Frederick's one quote. It is his genuine on-theme maxim (French verified in Œuvres vol. 28, Phillips's 1940 English), and the idea is widely cited in strategy writing as 'He who defends everything defends nothing'. Off-theme anthology alternative: the 'first servant of his state' line, Bartlett's 18th ed. p. 312 (Memoirs of Brandenburg). The anthology's 'Rascals, would you live for ever?' is only attributed by tradition.",
+  "fame_confirmed": "relative"
+ },
+ {
+  "id": "A27",
+  "verdict": "REJECT",
+  "fix": null,
+  "reason": "Re-judged 2026-10-04 under the owner's rule (anthology OR documented most-cited genuine line). Still REJECT, genuine but failing the fame test. Chinnock's wording is not the one people cite (that is de Sélincourt's 1958 version, in copyright), and there is no documentation.",
+  "fame_confirmed": false
+ },
+ {
+  "id": "A28",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Re-judged 2026-10-04 under the owner's rule (anthology OR documented most-cited genuine line). Fame documented by the biographer himself: Plutarch (Alex. 31) calls it 'the celebrated answer', Arrian III.10 reports the same refusal, and Wikiquote lists it as Sourced. It is the best-attested genuine Alexander saying. Genuine: verbatim in Perrin on LacusCurtius.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A29",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "French verbatim in Correspondance vol. XXV (OCR). Fame: Bartlett's 18th ed. 2012 p. 365 and Yale Book of Quotations 2006 p. 545, both citing the 1813 Lemarois letter as the origin of 'impossible'.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A30",
+  "verdict": "FIX",
+  "fix": {
+   "text": "In war, three-quarters turns on personal character and relations; the balance of manpower and materials counts only for the remaining quarter.",
+   "translation": {
+    "translator": "The Oxford Dictionary of Quotations (ed. Elizabeth Knowles); translator not named in the entry",
+    "edition": "The Oxford Dictionary of Quotations, 5th ed. (Oxford University Press, 1999), p. 538, Napoleon I",
+    "year": 1999
+   }
+  },
+  "reason": "The researcher's own translation is not allowed. A named published English rendering of this exact line exists: ODQ 5th ed. 1999 p. 538, in the Napoleon I entry with the 'affaires' 1808 source line (search-inside matched the whole sentence); ODQ 8th ed. 2014 p. 555 opens the same way. French verified on p. 472 of Correspondance vol. XVII (OCR 'quarls', 'îles'). Text rights: OUP copyright, short quote.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A31",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Giles (Gutenberg #132). Fame: ODQ 8th ed. 2014 p. 755 ('Art of War', 'hundred battles') and Yale Book of Quotations 2006 p. 739. IMAGE DOUBT: a 1995-era bronze statue in Enchoen garden, Japan; the sculptor's copyright is likely still running, and Japanese freedom of panorama excludes selling copies. Consider a public-domain depiction.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A32",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Giles (Gutenberg #132). Fame: Bartlett's 18th ed. 2012 p. 80 (Art of War, in the modern 'win first' wording). Same image doubt as A31.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A33",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Fitzpatrick vol. 2 p. 114 (archive.org search-inside). Fame: ODQ 8th ed. 2014 p. 811, Bartlett's 18th ed. 2012 p. 328.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "A34",
+  "verdict": "REJECT",
+  "fix": null,
+  "reason": "Re-judged 2026-10-04 under the owner's rule (anthology OR documented most-cited genuine line). Still REJECT, genuine but failing the fame test. No documentation that it is Washington's signature line; A33 is his anthology line.",
+  "fame_confirmed": false
+ }
+]

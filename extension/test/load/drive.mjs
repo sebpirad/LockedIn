@@ -130,13 +130,15 @@ for (const url of ['https://www.instagram.com/', 'https://app.adversus.io/dialer
   check(href.startsWith(`${ORIGIN}blocked.html`), `navigate ${url} → blocked.html`, href);
 }
 const quote = await evaluate(tabS, `new Promise((r) => setTimeout(() => r({
-  host: document.getElementById('host').textContent,
+  host: document.documentElement.dataset.host,
+  hostShown: document.body.innerText.includes('adversus'),
   text: document.getElementById('text').textContent.length,
   remain: document.getElementById('remain').textContent,
 }), 1200))`);
 check(quote.host === 'adversus.io' || quote.host === 'app.adversus.io', 'quote page knows the attempted host', quote.host);
+check(!quote.hostShown, 'quote page does not show the blocked site during the lock');
 check(quote.text > 0, 'quote page shows a quote', `${quote.text} chars`);
-check(/^\d\d:\d\d:\d\d$/.test(quote.remain), 'quote page counts down', quote.remain);
+check(/^(\d+:\d\d|\d+ s)$/.test(quote.remain), 'quote page counts down (h:mm, seconds only in the last minute)', quote.remain);
 
 // ---------- 4. control page renders under the CSP ----------
 const { result: { targetId: appId } } = await send('Target.createTarget', { url: `${ORIGIN}app.html` });

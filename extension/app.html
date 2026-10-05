@@ -6,19 +6,28 @@
 <title>LockedIn</title>
 <link rel="icon" href="icons/icon32.png">
 <link rel="stylesheet" href="ui/app.css">
+<link rel="stylesheet" href="ui/plan.css">
 <script type="module" src="ui/app.js"></script>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <button id="calBtn" class="gear" type="button" aria-label="Plan" title="Plan">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 10h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </button>
-    <button id="gear" class="gear" type="button" aria-label="Indstillinger" title="Indstillinger">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.6-2-3.4-2.4 1a7.6 7.6 0 0 0-2.6-1.5L14 2.5h-4l-.4 2.5A7.6 7.6 0 0 0 7 6.5l-2.4-1-2 3.4 2 1.6a7.6 7.6 0 0 0 0 3l-2 1.6 2 3.4 2.4-1a7.6 7.6 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a7.6 7.6 0 0 0 2.6-1.5l2.4 1 2-3.4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-    </button>
-  </header>
+<header class="apphead">
+  <div class="tabs" role="tablist" aria-label="Side">
+    <button id="tabFokus" class="tab" role="tab" type="button" aria-controls="fokusPage" aria-selected="true">Fokus</button>
+    <button id="tabPlan" class="tab" role="tab" type="button" aria-controls="planPage" aria-selected="false" tabindex="-1">Plan</button>
+  </div>
+  <div id="planTools" class="plan-tools" hidden>
+    <button id="planToday" class="ghost small" type="button">I dag</button>
+    <button id="planPrev" class="navbtn" type="button" aria-label="Forrige uge"><svg viewBox="0 0 8 12" aria-hidden="true"><path d="M6 1L1 6l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button id="planNext" class="navbtn" type="button" aria-label="Næste uge"><svg viewBox="0 0 8 12" aria-hidden="true"><path d="M2 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <h1 id="planTitle" class="plan-title" aria-live="polite"></h1>
+  </div>
+  <span class="grow"></span>
+  <button id="gear" class="gear" type="button" aria-label="Indstillinger" title="Indstillinger">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.6-2-3.4-2.4 1a7.6 7.6 0 0 0-2.6-1.5L14 2.5h-4l-.4 2.5A7.6 7.6 0 0 0 7 6.5l-2.4-1-2 3.4 2 1.6a7.6 7.6 0 0 0 0 3l-2 1.6 2 3.4 2.4-1a7.6 7.6 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a7.6 7.6 0 0 0 2.6-1.5l2.4 1 2-3.4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+  </button>
+</header>
 
+<div id="fokusPage" class="wrap" role="tabpanel" aria-labelledby="tabFokus">
   <main class="hero">
     <div id="modeSwitch" class="seg" role="group" aria-label="Starttype">
       <button type="button" data-mode="dur">Varighed</button>
@@ -114,31 +123,26 @@
     <button id="settingsClose" class="icon-btn" type="button" aria-label="Luk">×</button>
   </div>
 
-  <section id="appsSection" hidden>
-    <h3>Altid lukket under fokus</h3>
-    <ul id="appList" class="list"></ul>
+  <section id="appsSection">
+    <h3 id="neverTitle">Lukkes aldrig</h3>
+    <ul id="appList" class="list" aria-labelledby="neverTitle"></ul>
+    <button id="neverAdd" class="add" type="button">+ App</button>
   </section>
 </dialog>
 
-<dialog id="planDlg" class="sheet plan-sheet" aria-label="Plan">
-  <div class="sheet-head">
-    <h2>Plan</h2>
-    <button id="planClose" class="icon-btn" type="button" aria-label="Luk">×</button>
-  </div>
-  <div class="week" id="week">
-    <div class="week-nav">
-      <button id="weekPrev" class="icon-btn" type="button" aria-label="Forrige uge">‹</button>
-      <div class="week-axis" aria-hidden="true"><span>00</span><span>06</span><span>12</span><span>18</span><span>24</span></div>
-      <button id="weekNext" class="icon-btn" type="button" aria-label="Næste uge">›</button>
+<section id="planPage" class="planpage" role="tabpanel" aria-labelledby="tabPlan" hidden>
+  <div class="cal">
+    <div id="dayStrip" class="daystrip" role="group" aria-label="Dag"></div>
+    <div id="planScroll" class="gridwrap">
+      <div id="planHead" class="ghead" aria-hidden="true"></div>
+      <div id="planGrid" class="gbody" tabindex="0" role="group" aria-label="Kalender. Piletasterne flytter tiden, Skift og pil ændrer længden, Enter opretter en periode." aria-describedby="planLive"></div>
     </div>
-    <div id="weekRows" class="week-rows"></div>
+    <p id="planLive" class="sr-only" aria-live="polite"></p>
   </div>
-  <button id="newPeriod" class="add" type="button">+ Ny periode</button>
-  <div id="planNewSlot"></div>
-  <ul id="planList" class="list plist"></ul>
-  <!-- inside the modal dialog, or it would be inert -->
-  <div id="undo" class="toast undo" role="status" hidden><span id="undoText"></span><button id="undoBtn" class="ghost small" type="button">Fortryd</button></div>
-</dialog>
+  <aside id="planPanel" class="panel" aria-label="Periode"></aside>
+</section>
+
+<div id="undo" class="toast undo" role="status" hidden><span id="undoText"></span><button id="undoBtn" class="ghost small" type="button">Fortryd</button></div>
 
 <div id="toast" class="toast" role="alert" hidden></div>
 </body>

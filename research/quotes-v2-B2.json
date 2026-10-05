@@ -1,0 +1,438 @@
+{
+ "quotes": [
+  {
+   "id": "C01",
+   "text": "Your time is limited, so don't waste it living someone else's life.",
+   "original": null,
+   "translation": null,
+   "author": "Steve Jobs",
+   "author_dates": "1955–2011",
+   "theme": "focus",
+   "source": {
+    "work": "Commencement address, Stanford University (text as prepared for delivery, published by Stanford Report, 14 June 2005)",
+    "year": "2005",
+    "locator": "Delivered 12 June 2005; third story ('death')",
+    "url": "https://news.stanford.edu/stories/2005/06/youve-got-find-love-jobs-says"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final e01. Re-checked 2026-10-04: live Stanford page answers 403 to scripts; normalised match = True in Wayback copies of Stanford's own page (2024-05-15 snapshot of the cited URL, and 2012-12-23 snapshot of news.stanford.edu/news/2005/june15/jobs-061505.html).",
+   "image": {
+    "file": "quote-images/e01.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Steve_Jobs_January_1984.jpg",
+    "license": "Public domain (Bernard Gotfryd Photograph Collection, Library of Congress: no known restrictions)",
+    "license_url": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg",
+    "creator": "Bernard Gotfryd (Library of Congress, Bernard Gotfryd Photograph Collection), January 1984",
+    "attribution": "Bernard Gotfryd (Library of Congress), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg)",
+    "flag": "EU: PD rests on the Bernard Gotfryd collection's release to the Library of Congress ('no known restrictions', Commons PD-Gotfryd), not on age (Gotfryd d. 2016). Mild doubt; widely used as PD (Commons Featured Picture)."
+   },
+   "verified": "PASS",
+   "category": "entrepreneur",
+   "fame": "top",
+   "fame_evidence": "Stanford 2005 address is among the most-cited commencement speeches ever; this line is one of its most-quoted. Wikiquote: under 'Quotes' (sourced, 2000s), not 'Misattributed'."
+  },
+  {
+   "id": "C02",
+   "text": "Sometimes life hits you in the head with a brick. Don't lose faith.",
+   "original": null,
+   "translation": null,
+   "author": "Steve Jobs",
+   "author_dates": "1955–2011",
+   "theme": "adversity",
+   "source": {
+    "work": "Commencement address, Stanford University (text as prepared for delivery, published by Stanford Report, 14 June 2005)",
+    "year": "2005",
+    "locator": "Delivered 12 June 2005; second story ('love and loss')",
+    "url": "https://news.stanford.edu/stories/2005/06/youve-got-find-love-jobs-says"
+   },
+   "verification": "primary",
+   "verification_note": "Replaces quotes-final e02's 'life's gonna hit you' (the delivered-audio wording, which I could not re-confirm on any Stanford text: False in both snapshots). Re-checked 2026-10-04: 'Sometimes life hits you…' normalised match = True in the 2024-05-15 Wayback copy of the cited Stanford URL and in the 2012 copy. The app may use either; the prepared text is the one in print.",
+   "image": {
+    "file": "quote-images/e01.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Steve_Jobs_January_1984.jpg",
+    "license": "Public domain (Bernard Gotfryd Photograph Collection, Library of Congress: no known restrictions)",
+    "license_url": "https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg",
+    "creator": "Bernard Gotfryd (Library of Congress, Bernard Gotfryd Photograph Collection), January 1984",
+    "attribution": "Bernard Gotfryd (Library of Congress), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Steve_Jobs_January_1984.jpg)",
+    "flag": "EU: PD rests on the Bernard Gotfryd collection's release to the Library of Congress ('no known restrictions', Commons PD-Gotfryd), not on age (Gotfryd d. 2016). Mild doubt; widely used as PD (Commons Featured Picture)."
+   },
+   "verified": "PASS",
+   "category": "entrepreneur",
+   "fame": "high",
+   "fame_evidence": "Widely quoted line from the Stanford 2005 address (Apple ouster passage). Wikiquote: under 'Quotes' (sourced, 2000s)."
+  },
+  {
+   "id": "C03",
+   "text": "If something's important enough you should try. Even if … the probable outcome is failure.",
+   "original": null,
+   "translation": null,
+   "author": "Elon Musk",
+   "author_dates": "born 1971",
+   "theme": "ambition",
+   "source": {
+    "work": "60 Minutes (CBS News), interview by Scott Pelley ('Tesla and SpaceX: Elon Musk's industrial empire')",
+    "year": "2014",
+    "locator": "Broadcast 30 March 2014; CBS transcript, Musk's answer to 'Then why try?'",
+    "url": "https://www.cbsnews.com/news/tesla-and-spacex-elon-musks-industrial-empire/"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final e03. Re-checked 2026-10-04: normalised match on CBS's own transcript = True for the spoken form 'Even if you -- the probable outcome is failure'; the '…' removes only the false start 'you --'. The circulated version ('When something is important enough, you do it even if the odds are not in your favor') = False on the same page — it is a paraphrase of this answer and is not used.",
+   "image": {
+    "file": "quote-images/e03.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Elon_Musk_2015.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Elon_Musk_2015.jpg",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "creator": "Steve Jurvetson (2015 Tesla annual meeting, 9 June 2015)",
+    "attribution": "Steve Jurvetson, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Elon_Musk_2015.jpg)",
+    "flag": "Commons carries a personality-rights warning (living person): fine for a portrait beside his own words, not for endorsement."
+   },
+   "verified": "PASS",
+   "category": "entrepreneur",
+   "fame": "top",
+   "fame_evidence": "The genuine source of Musk's most-quoted line: the paraphrase 'When something is important enough…' is the lead quote at the top of his Wikiquote page (checked: before the first section). The real wording is the CBS transcript's."
+  },
+  {
+   "id": "C04",
+   "text": "I don't ever give up. I mean, I'd have to be dead or completely incapacitated.",
+   "original": null,
+   "translation": null,
+   "author": "Elon Musk",
+   "author_dates": "born 1971",
+   "theme": "perseverance",
+   "source": {
+    "work": "60 Minutes (CBS News), interview by Scott Pelley ('SpaceX: Entrepreneur's race to space')",
+    "year": "2012",
+    "locator": "Broadcast 18 March 2012 (rebroadcast 3 June 2012); CBS transcript, answer to whether he ever thought of packing it in",
+    "url": "https://www.cbsnews.com/news/spacex-entrepreneurs-race-to-space/"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final e04. Re-checked 2026-10-04: normalised match on CBS's own transcript = True. Usually circulated without 'I mean,'; the transcript wording is kept.",
+   "image": {
+    "file": "quote-images/e03.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Elon_Musk_2015.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Elon_Musk_2015.jpg",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "creator": "Steve Jurvetson (2015 Tesla annual meeting, 9 June 2015)",
+    "attribution": "Steve Jurvetson, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Elon_Musk_2015.jpg)",
+    "flag": "Commons carries a personality-rights warning (living person): fine for a portrait beside his own words, not for endorsement."
+   },
+   "verified": "PASS",
+   "category": "entrepreneur",
+   "fame": "high",
+   "fame_evidence": "Widely recirculated as a stand-alone Musk line (e.g. anniversary posts of the 2012 interview, 'Sunday motivation' media pieces, every major quote site). Not on Wikiquote."
+  },
+  {
+   "id": "C05",
+   "text": "Failure is only the opportunity more intelligently to begin again. There is no disgrace in honest failure; there is disgrace in fearing to fail.",
+   "original": null,
+   "translation": null,
+   "author": "Henry Ford",
+   "author_dates": "1863–1947",
+   "theme": "perseverance",
+   "source": {
+    "work": "My Life and Work, in collaboration with Samuel Crowther (Garden City, NY: Doubleday, Page & Co.)",
+    "year": "1922",
+    "url": "https://www.gutenberg.org/ebooks/7213",
+    "locator": "Introduction, 'What Is the Idea?' (the same sentences recur in Chapter XIX)"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final e05. Re-checked 2026-10-04: normalised match in Project Gutenberg #7213 plain text = True. Ghost-writer caveat: written with Samuel Crowther, published as Ford's own account. The circulated 'Failure is simply the opportunity to begin again, this time more intelligently' is a rewording of this sentence.",
+   "image": {
+    "file": "quote-images/e05.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Henry_ford_1919_(cropped).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Henry_ford_1919_%28cropped%29.jpg",
+    "license": "Public domain (PD-US; Library of Congress cph.3c11278)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Hartsook (photographer), c. 1919",
+    "attribution": "Hartsook, c. 1919, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Henry_ford_1919_(cropped).jpg)",
+    "flag": "PD-US (published 1919). EU: photographer Fred Hartsook died 1930, so PD by 70 years p.m.a. as well — no doubt."
+   },
+   "verified": "PASS",
+   "category": "entrepreneur",
+   "fame": "top",
+   "fame_evidence": "Ford's most-cited genuine line (usually in the reworded 'simply the opportunity to begin again' form). Wikiquote: passage under 'Quotes' → 1920s (sourced)."
+  },
+  {
+   "id": "C06",
+   "text": "Thinking is the hardest work any one can do — which is probably the reason why we have so few thinkers.",
+   "original": null,
+   "translation": null,
+   "author": "Henry Ford",
+   "author_dates": "1863–1947",
+   "theme": "focus",
+   "source": {
+    "work": "My Life and Work, in collaboration with Samuel Crowther (Garden City, NY: Doubleday, Page & Co.)",
+    "year": "1922",
+    "url": "https://www.gutenberg.org/ebooks/7213",
+    "locator": "Chapter XVII, 'Things in General'"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-entrepreneur e06 (verified PASS there; not carried into quotes-final). Re-checked 2026-10-04: normalised match in Project Gutenberg #7213 = True (Gutenberg prints the dash as '--'; 'any one' is two words in 1922). The circulated 'Thinking is the hardest work there is, which is probably the reason so few engage in it' is a paraphrase.",
+   "image": {
+    "file": "quote-images/e05.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Henry_ford_1919_(cropped).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Henry_ford_1919_%28cropped%29.jpg",
+    "license": "Public domain (PD-US; Library of Congress cph.3c11278)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Hartsook (photographer), c. 1919",
+    "attribution": "Hartsook, c. 1919, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Henry_ford_1919_(cropped).jpg)",
+    "flag": "PD-US (published 1919). EU: photographer Fred Hartsook died 1930, so PD by 70 years p.m.a. as well — no doubt."
+   },
+   "verified": "PASS",
+   "category": "entrepreneur",
+   "fame": "high",
+   "fame_evidence": "One of Ford's most-repeated lines; Wikiquote lists it under 'Quotes' (sourced)."
+  },
+  {
+   "id": "C07",
+   "text": "Day 2 is stasis. Followed by irrelevance. Followed by excruciating, painful decline. Followed by death. And that is why it is always Day 1.",
+   "original": null,
+   "translation": null,
+   "author": "Jeff Bezos",
+   "author_dates": "born 1964",
+   "theme": "discipline",
+   "source": {
+    "work": "2016 Letter to Shareholders (Amazon.com, Inc.), filed with the SEC as Exhibit 99.1 to Form 8-K",
+    "year": "2017",
+    "locator": "Letter dated April 2017 (8-K filed 12 April 2017), opening paragraph, answering 'Jeff, what does Day 2 look like?'",
+    "url": "https://www.sec.gov/Archives/edgar/data/1018724/000119312517120198/d373368dex991.htm"
+   },
+   "verification": "primary",
+   "verification_note": "New. Checked 2026-10-04: normalised match in the SEC EDGAR exhibit = True (offset 352, right after the all-hands question, also True); signed 'Jeffrey P. Bezos' (True). Same text on aboutamazon.com '2016 Letter to Shareholders'.",
+   "image": {
+    "file": "quote-images/e12.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_in_Seattle_-_2018_(39074799225)_(cropped).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_in_Seattle_-_2018_%2839074799225%29_%28cropped%29.jpg",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "creator": "Seattle City Council (Flickr), 29 January 2018",
+    "attribution": "Seattle City Council, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_in_Seattle_-_2018_(39074799225)_(cropped).jpg)",
+    "flag": "Personality-rights warning on Commons (living person)."
+   },
+   "verified": "PASS",
+   "category": "entrepreneur",
+   "fame": "top",
+   "fame_evidence": "Bezos's best-known business maxim ('It's always Day 1'); Amazon named its Seattle HQ tower 'Day 1'; the passage is reprinted by Amazon/AWS itself and widely in business media (e.g. Entrepreneur, Retail Dive). Not on Wikiquote."
+  },
+  {
+   "id": "C08",
+   "text": "In the end, we are our choices. Build yourself a great story.",
+   "original": null,
+   "translation": null,
+   "author": "Jeff Bezos",
+   "author_dates": "born 1964",
+   "theme": "ambition",
+   "source": {
+    "work": "'We Are What We Choose', remarks to the Princeton University Class of 2010 at Baccalaureate (text as delivered, posted by Princeton)",
+    "year": "2010",
+    "locator": "Delivered 30 May 2010; closing lines",
+    "url": "https://web.archive.org/web/20121227125450/http://www.princeton.edu/main/news/archive/S27/52/51O99/index.xml"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final e12. Re-checked 2026-10-04: normalised match = True in the Wayback copy of Princeton's own 'as delivered' posting (original URL now redirects).",
+   "image": {
+    "file": "quote-images/e12.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_in_Seattle_-_2018_(39074799225)_(cropped).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_in_Seattle_-_2018_%2839074799225%29_%28cropped%29.jpg",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "creator": "Seattle City Council (Flickr), 29 January 2018",
+    "attribution": "Seattle City Council, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_in_Seattle_-_2018_(39074799225)_(cropped).jpg)",
+    "flag": "Personality-rights warning on Commons (living person)."
+   },
+   "verified": "PASS",
+   "category": "entrepreneur",
+   "fame": "high",
+   "fame_evidence": "Closing lines of one of the most-reprinted commencement talks (alongside 'it's harder to be kind than clever'); reprinted by Speakola, Rev and many outlets. Not on Wikiquote."
+  },
+  {
+   "id": "C09",
+   "text": "The trouble with every one of us is that we don't think enough. We don't get paid for working with our feet — we get paid for working with our heads.",
+   "original": null,
+   "translation": null,
+   "author": "Thomas J. Watson",
+   "author_dates": "1874–1956",
+   "theme": "focus",
+   "source": {
+    "work": "Impromptu talk at a sales meeting of the National Cash Register Company, Dayton, Ohio — the origin of the THINK motto he took to IBM; wording as recorded by IBM",
+    "year": "1911 (IBM's page says 1915, impossible for an NCR meeting — Watson ran CTR from 1914)",
+    "locator": "IBM Heritage, 'The origins of THINK'; the same two sentences were printed in his lifetime in B. C. Forbes, America's Fifty Foremost Business Leaders (New York: B. C. Forbes & Sons, 1948), Watson chapter (Internet Archive americasfiftyfor0000unse; page not determined)",
+    "url": "https://www.ibm.com/history/think"
+   },
+   "verification": "secondary",
+   "verification_note": "Reused from quotes-final e24. Re-checked 2026-10-04: normalised match on ibm.com/history/think = True. New: Open Library search-inside finds both sentences in B. C. Forbes's 1948 book (published in Watson's lifetime) and in Belden & Belden, The Lengthening Shadow (1962) — book text not opened beyond the hit. Spoken, not written; no contemporaneous 1911 transcript seen.",
+   "image": {
+    "file": "quote-images/e24.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Thomas_J._Watson_-_National_Portrait_Gallery.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/25/Thomas_J._Watson_-_National_Portrait_Gallery.jpg",
+    "license": "CC0 (Smithsonian Open Access)",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "creator": "Oscar White, 1950 (National Portrait Gallery, Smithsonian Institution, NPG.93.388.38)",
+    "attribution": "Oscar White / National Portrait Gallery, Smithsonian Institution, CC0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Thomas_J._Watson_-_National_Portrait_Gallery.jpg)",
+    "flag": "EU doubt (mild): validity rests on the Smithsonian's CC0 release; the photographer Oscar White's death date (c. 1967, from memory — not checked) would otherwise protect a 1950 photo in the EU until c. 2038."
+   },
+   "verified": "PASS",
+   "category": "entrepreneur",
+   "fame": "high",
+   "fame_evidence": "The origin speech of THINK, IBM's motto for a century; 'THINK' is under 'Quotes' on Watson's Wikiquote page. The motto's listing in the Yale Book of Quotations is cited from memory, not re-checked."
+  },
+  {
+   "id": "C10",
+   "text": "Success is a lousy teacher. It seduces smart people into thinking they can't lose.",
+   "original": null,
+   "translation": null,
+   "author": "Bill Gates",
+   "author_dates": "born 1955",
+   "theme": "discipline",
+   "source": {
+    "work": "The Road Ahead, with Nathan Myhrvold and Peter Rinearson (New York: Viking)",
+    "year": "1995",
+    "locator": "Chapter 3, 'Lessons from the Computer Industry', opening lines (p. 35 of the Viking first edition, per the earlier verification)",
+    "url": "https://archive.org/details/roadahead00gate"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-entrepreneur e21 (PASS there). Re-checked 2026-10-04: Open Library search-inside returns the exact two-sentence phrase in three scans of the book — roadahead00gate (Viking 1995), roadahead00gate_1 (Penguin 1996), roadahead00gate_2 (Wheeler 1995). Lending-only; page image not seen by me. Co-written book, published as Gates's own first-person text.",
+   "image": {
+    "file": "quote-images/v2-bill-gates.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Bill_Gates_2017_(cropped).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Bill_Gates_2017_%28cropped%29.jpg",
+    "license": "CC BY 3.0 DE",
+    "license_url": "https://creativecommons.org/licenses/by/3.0/de/deed.en",
+    "creator": "Kuhlmann / Munich Security Conference (MSC), 18 February 2017",
+    "attribution": "Kuhlmann/MSC, CC BY 3.0 DE, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bill_Gates_2017_(cropped).jpg)",
+    "flag": "Subject confirmed: Commons category 'Bill Gates in 2017', MSC 2017. 800 px, 158 KB. Same Commons file as quotes-entrepreneur e21."
+   },
+   "verified": "PASS",
+   "category": "entrepreneur",
+   "fame": "top",
+   "fame_evidence": "Gates's most-quoted line on success/failure; Wikiquote lists it under 'Quotes' → The Road Ahead (1995) (sourced); Open Library finds it reprinted in 120+ books."
+  },
+  {
+   "id": "C11",
+   "text": "We simply attempt to be fearful when others are greedy and to be greedy only when others are fearful.",
+   "original": null,
+   "translation": null,
+   "author": "Warren Buffett",
+   "author_dates": "born 1930",
+   "theme": "discipline",
+   "source": {
+    "work": "Chairman's letter to the shareholders of Berkshire Hathaway Inc., 1986 annual report",
+    "year": "1987",
+    "locator": "Letter dated 27 February 1987, section on marketable securities",
+    "url": "https://www.berkshirehathaway.com/letters/1986.html"
+   },
+   "verification": "primary",
+   "verification_note": "New. Checked 2026-10-04: normalised match on berkshirehathaway.com/letters/1986.html = True. He restated it in his New York Times op-ed 'Buy American. I Am.' (16 Oct 2008) as 'Be fearful when others are greedy, and be greedy when others are fearful' — that wording not checked by me (NYT paywall); the letter's wording is used.",
+   "image": {
+    "file": "quote-images/v2-warren-buffett.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Warren_Buffett_KU_Visit.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/51/Warren_Buffett_KU_Visit.jpg",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "creator": "Mark Hirschey, 6 May 2005 (Buffett meeting University of Kansas School of Business students)",
+    "attribution": "Mark Hirschey, CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Warren_Buffett_KU_Visit.jpg)",
+    "flag": "Subject confirmed: Commons category 'Warren Buffett'; VRTS permission confirmed. Resized to 800 px (94 KB) — share-alike applies to the resized copy. No EU doubt. Alternative PD-USGov frame (SelectUSA 2015) not used."
+   },
+   "verified": "PASS",
+   "category": "entrepreneur",
+   "fame": "top",
+   "fame_evidence": "Buffett's most-cited line; Wikiquote lists it under 'Quotes' (sourced to 2008). Yale Book of Quotations listing cited from memory — not re-checked."
+  },
+  {
+   "id": "C12",
+   "text": "Should you find yourself in a chronically leaking boat, energy devoted to changing vessels is likely to be more productive than energy devoted to patching leaks.",
+   "original": null,
+   "translation": null,
+   "author": "Warren Buffett",
+   "author_dates": "born 1930",
+   "theme": "action",
+   "source": {
+    "work": "Chairman's letter to the shareholders of Berkshire Hathaway Inc., 1985 annual report",
+    "year": "1986",
+    "locator": "Letter dated 4 March 1986, passage on closing the textile business",
+    "url": "https://www.berkshirehathaway.com/letters/1985.html"
+   },
+   "verification": "primary",
+   "verification_note": "New. Checked 2026-10-04: normalised match on berkshirehathaway.com/letters/1985.html = True.",
+   "image": {
+    "file": "quote-images/v2-warren-buffett.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Warren_Buffett_KU_Visit.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/51/Warren_Buffett_KU_Visit.jpg",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+    "creator": "Mark Hirschey, 6 May 2005 (Buffett meeting University of Kansas School of Business students)",
+    "attribution": "Mark Hirschey, CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Warren_Buffett_KU_Visit.jpg)",
+    "flag": "Subject confirmed: Commons category 'Warren Buffett'; VRTS permission confirmed. Resized to 800 px (94 KB) — share-alike applies to the resized copy. No EU doubt. Alternative PD-USGov frame (SelectUSA 2015) not used."
+   },
+   "verified": "PASS",
+   "category": "entrepreneur",
+   "fame": "high",
+   "fame_evidence": "Widely quoted on its own as Buffett's 'leaking boat rule' (e.g. Ritholtz Wealth, Medium essays, every major quote site). Not on Wikiquote."
+  },
+  {
+   "id": "C13",
+   "text": "I do not think there is any other quality so essential to success of any kind as the quality of perseverance. It overcomes almost everything, even nature.",
+   "original": null,
+   "translation": null,
+   "author": "John D. Rockefeller",
+   "author_dates": "1839–1937",
+   "theme": "perseverance",
+   "source": {
+    "work": "Interview with Orison Swett Marden, in How They Succeeded: Life Stories of Successful Men Told by Themselves (Boston: Lothrop Publishing Co.)",
+    "year": "1901",
+    "locator": "Chapter 'John D. Rockefeller', Rockefeller's quoted answer to the interviewer; p. 206 (±1, from the OCR page headers of archive.org scan howtheysucceeded00mardrich)",
+    "url": "https://www.gutenberg.org/ebooks/64059"
+   },
+   "verification": "primary",
+   "verification_note": "New. Checked 2026-10-04: normalised match in Project Gutenberg #64059 = True, inside the chapter headed 'JOHN D. ROCKEFELLER' and inside the quotation marks of a reply that the paragraph introduces with 'I asked Mr. Rockefeller' (structure checked by offsets, not read out). Same sentence found in the 1901 Lothrop scan on archive.org. Note the usual circulated form adds 'that' ('I do not think that there is…') — False in the book; the book's wording is used. Published in his lifetime; Marden's interview, not Rockefeller's own writing. Not in his Random Reminiscences (1909, Gutenberg #17090: False).",
+   "image": {
+    "file": "quote-images/v2-john-d-rockefeller.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Portrait_of_J._D._Rockefeller.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Portrait_of_J._D._Rockefeller.jpg",
+    "license": "Public domain (PD-US-expired)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Davis & Sanford studio(?), 1895; published by Scientific American Compiling Dep't, New York, 1907 (per Commons; Rockefeller Archive Center source)",
+    "attribution": "Photograph 1895, published 1907, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Portrait_of_J._D._Rockefeller.jpg)",
+    "flag": "Subject confirmed: Commons category 'John D. Rockefeller'; Wikipedia's lead image; Rockefeller Archive Center record '1003-jdr-sr-1895'. 800 px, 174 KB. EU: 1895 studio photo published 1907 — anonymous/studio work, PD in the EU too; no doubt flagged."
+   },
+   "verified": "PASS",
+   "category": "entrepreneur",
+   "fame": "high",
+   "fame_evidence": "His most-circulated line on success; Wikiquote lists it under 'Quotes' (sourced to How They Succeeded, 1901)."
+  },
+  {
+   "id": "C14",
+   "text": "You may not realize it when it happens, but a kick in the teeth may be the best thing in the world for you.",
+   "original": null,
+   "translation": null,
+   "author": "Walt Disney",
+   "author_dates": "1901–1966",
+   "theme": "adversity",
+   "source": {
+    "work": "Diane Disney Miller, as told to Pete Martin, The Story of Walt Disney (New York: Henry Holt), quoting Walt Disney directly",
+    "year": "1957",
+    "locator": "p. 89 (per QI); earlier form 'a kick in the pants…' in the Saturday Evening Post serial 'My Dad, Walt Disney' (1956)",
+    "url": "https://quoteinvestigator.com/2013/05/21/disney-kick/"
+   },
+   "verification": "secondary",
+   "verification_note": "Reused from quotes-entrepreneur e07 (PASS there); image replaced. Re-checked 2026-10-04 on QI (21 May 2013): exact wording = True (5 occurrences, incl. after the citation of 'The Story of Walt Disney', 1957); 'Diane Disney Miller', 'Pete Martin', 'Saturday Evening Post', 'kick in the pants', 'Page 89' all True; QI's conclusion names Walt Disney and the book. Book itself not seen by me: an authorised family account published in his lifetime, not Disney's own text.",
+   "image": {
+    "file": "quote-images/v2-walt-disney.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Walt_Disney_NYWTS.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/9/90/Walt_Disney_NYWTS.jpg",
+    "license": "Public domain (New York World-Telegram & Sun collection, Library of Congress: no known copyright restrictions)",
+    "license_url": "https://commons.wikimedia.org/wiki/File:Walt_Disney_NYWTS.jpg",
+    "creator": "Alan Fisher, New York World-Telegram and the Sun staff photographer, 1938 (Library of Congress, NYWT&S collection)",
+    "attribution": "Alan Fisher / New York World-Telegram & Sun (Library of Congress), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Walt_Disney_NYWTS.jpg)",
+    "flag": "Subject confirmed: Commons category 'Walt Disney in 1938'; cropped by Commons from a photo of Disney shaking hands with Robert Taylor. 800 px, 117 KB. EU doubt (mild): PD rests on the newspaper's donation of its rights to the LoC, not on age (photographer's death date unknown). EU-safe-by-age fallback: File:Walt_Disney_1935.jpg (Agence Meurisse, BnF/Gallica, PD-old). Replaces e07's NASA-tagged 1954 photo, whose PD tag was doubtful."
+   },
+   "verified": "PASS",
+   "category": "entrepreneur",
+   "fame": "high",
+   "fame_evidence": "One of Disney's best-known genuine sayings; Wikiquote lists it under 'Quotations' sourced to The Story of Walt Disney (1957); QI devoted an article to it (2013)."
+  }
+ ]
+}

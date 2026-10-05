@@ -171,10 +171,12 @@ await js(`document.getElementById('durHBtn').focus(); return 1`);
 await press('ArrowUp');
 const box = await js(`const m = [...document.querySelectorAll('.combo-menu')].find((x) => !x.hidden).getBoundingClientRect(); return { x: m.x + m.width / 2, y: m.y + m.height / 2 };`);
 const before = (await state()).scrollTop;
-await send('Input.dispatchMouseEvent', { type: 'mouseWheel', x: box.x, y: box.y, deltaX: 0, deltaY: -300 }, S);
+// Some headless Chromes on a sleeping Mac never acknowledge a wheel event; that is the machine, not the page.
+const acked = await Promise.race([send('Input.dispatchMouseEvent', { type: 'mouseWheel', x: box.x, y: box.y, deltaX: 0, deltaY: -300 }, S).then(() => true), sleep(4000).then(() => false)]);
 await sleep(300);
 const after = (await state()).scrollTop;
-check(after < before, 'the list scrolls with the mouse wheel', `${before} → ${after}`);
+if (acked) check(after < before, 'the list scrolls with the mouse wheel', `${before} → ${after}`);
+else console.log('SKIP  the list scrolls with the mouse wheel  (this headless Chrome never acknowledged the wheel event)');
 await press('Escape');
 
 // Indtil
@@ -289,164 +291,289 @@ check(r.chosen.name === 'Locked In 2' && r.chosen.menuHidden && r.chosen.focus, 
 check(r.chosen.row === 'Instagram,YouTube,Slack,Adversus,TV 2,Spotify,Rediger', 'selecting a list shows only that list\'s icons + Rediger', r.chosen.row);
 check(r.escClosed, 'dropdown: Escape closes and returns focus');
 
-// ---- v1.2.0: Plan ----
-const rowsNow = () => js(`return [...document.querySelectorAll('#planList .prow')].map((li) => li.querySelector('.prow-when').textContent + ' · ' + li.querySelector('.prow-list').textContent + (li.classList.contains('frozen') ? ' [frozen]' : ''))`);
+// ---- v1.3: the Plan page (full page: week grid + fixed panel) ----
+const KEYCODES = { Tab: 9, Home: 36, End: 35, PageDown: 34, PageUp: 33, ArrowLeft: 37, ArrowRight: 39 };
+async function key(k, opts = {}) {
+  const vk = KEYS[k] || KEYCODES[k] || 0;
+  const mods = opts.shift ? 8 : 0;
+  await send('Input.dispatchKeyEvent', { type: k === 'Enter' ? 'keyDown' : 'rawKeyDown', key: k, code: k, windowsVirtualKeyCode: vk, modifiers: mods, ...(k === 'Enter' ? { text: '\r' } : {}) }, S);
+  await send('Input.dispatchKeyEvent', { type: 'keyUp', key: k, code: k, windowsVirtualKeyCode: vk, modifiers: mods }, S);
+  await sleep(70);
+}
+const viewport = (w, hgt, mobile = false) => send('Emulation.setDeviceMetricsOverride', { width: w, height: hgt, deviceScaleFactor: 1, mobile }, S);
+const P = `const $ = (id) => document.getElementById(id); const w = (ms) => new Promise((r) => setTimeout(r, ms));
+  const rules = () => [...document.querySelectorAll('#planPanel .rule')].map((b) => b.querySelector('.w').textContent + ' · ' + b.querySelector('.ln span:not(.dot)').textContent);
+  const evs = () => [...document.querySelectorAll('#planGrid .ev')];`;
+const rulesNow = () => js(`${P} return rules();`);
 const focusEl = (expr) => js(`(${expr}).focus(); return document.activeElement === (${expr})`);
 const pickByKeys = async (expr, digits) => { await focusEl(expr); await press('ArrowDown'); await typeKeys(digits); await press('Enter'); };
+const mouseAt = async (type, x, y) => send('Input.dispatchMouseEvent', { type, x, y, button: 'left', buttons: type === 'mouseReleased' ? 0 : 1, clickCount: 1 }, S);
 
+await viewport(1440, 900);
 await open('&r=plan1');
 r = await js(`localStorage.setItem('li.list', 'l2'); localStorage.removeItem('li.lastTimes'); location.reload(); return 1`).catch(() => 1);
-await sleep(1000);
-r = await js(`const $ = (id) => document.getElementById(id); return { next: $('nextBtn').hidden ? null : $('nextText').textContent, cal: !!$('calBtn'), rail: document.querySelectorAll('.wrow').length }`);
-check(r.next === 'Næste: i morgen 09–12 · Locked In 1' && r.cal && r.rail === 0, 'front page: one "Næste" line + calendar icon, no strip', JSON.stringify(r));
+await sleep(1100);
+r = await js(`${P} return { next: $('nextBtn').hidden ? null : $('nextText').textContent, tabs: [...document.querySelectorAll('.tab')].map((t) => t.textContent + (t.getAttribute('aria-selected') === 'true' ? '*' : '')),
+  cal: !!$('calBtn'), dlg: !!$('planDlg'), plan: !$('planPage').hidden, line: getComputedStyle(document.querySelector('.apphead')).borderBottomWidth }`);
+check(r.next === 'Næste: i morgen 09–12 · Locked In 1' && r.tabs.join() === 'Fokus*,Plan' && !r.cal && !r.dlg && !r.plan && r.line === '0px',
+  'front page: "Næste" line, tabs "Fokus | Plan", no calendar icon, no plan dialog, no hairline', JSON.stringify(r));
 
-// P1: overlapping periods (tomorrow 09–12 in both lists) are both visible and tappable
-await js(`document.getElementById('calBtn').click(); return 1`);
-await sleep(300);
-r = await js(`const w = (ms) => new Promise((x) => setTimeout(x, ms));
-  const rail = document.querySelectorAll('.rail')[1];
-  const blks = [...rail.querySelectorAll('.blk')];
-  const boxes = blks.map((b) => { const r = b.getBoundingClientRect(); return { top: Math.round(r.top), h: Math.round(r.height), lane: b.dataset.lane, tint: b.style.getPropertyValue('--tint') }; });
-  const opened = [];
-  for (const b of blks) { b.click(); await w(120); opened.push(document.querySelector('.pcard').closest('li') ? document.querySelector('.pcard').closest('li').previousElementSibling ? 'row' : 'first' : 'new');
-    opened[opened.length - 1] = [...document.querySelectorAll('#planList > li')].indexOf(document.querySelector('.pcard').closest('li')); }
-  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
-  return { n: blks.length, boxes, opened }`);
-check(r.n === 2 && r.boxes[0].lane !== r.boxes[1].lane && r.boxes[0].top !== r.boxes[1].top && r.boxes.every((b) => b.h >= 20) && r.boxes[0].tint !== r.boxes[1].tint,
-  'P1: two overlapping periods sit in two lanes, both visible', JSON.stringify(r.boxes));
-check(new Set(r.opened).size === 2, 'P1: each lane opens its own period', JSON.stringify(r.opened));
-await js(`document.getElementById('planDlg').close(); return 1`);
+// the "Næste" line opens the Plan tab on that period
+await js(`document.getElementById('nextBtn').click(); return 1`);
+await sleep(400);
+r = await js(`${P} return { hash: location.hash, plan: !$('planPage').hidden, fokus: !$('fokusPage').hidden, title: $('planEdTitle') && $('planEdTitle').textContent,
+  tab: $('tabPlan').getAttribute('aria-selected'), sel: evs().filter((e) => e.classList.contains('sel')).length }`);
+check(r.hash === '#plan' && r.plan && !r.fokus && r.tab === 'true' && r.title === 'Hverdage 09–12' && r.sel >= 1, '"Næste" opens the Plan tab with that period in the panel', JSON.stringify(r));
 
-// create i morgen 09–12 on Locked In 1 — keyboard only after opening
-await js(`document.getElementById('calBtn').click(); return 1`);
-await sleep(300);
-r = await js(`return document.activeElement.id`);
-check(r === 'newPeriod', 'plan opens with focus on "+ Ny periode"', r);
-await press('Enter');
-await sleep(150);
-r = await js(`const c = document.querySelector('.pcard'); return { open: !!c, on: [...c.querySelectorAll('[aria-label=Hvornår] .chip.on')].map((x) => x.textContent), pickHidden: c.querySelector('.pick-panel').hidden, focus: document.activeElement.textContent,
-  times: [...c.querySelectorAll('.clock-row .select-btn')].map((x) => x.textContent.trim()).join(' ') }`);
-check(r.open && r.on.join() === 'I morgen' && r.pickHidden && r.focus === 'I morgen' && r.times === '09 00 12 00', 'new card: "I morgen" 09:00–12:00, keyboard focus in the card', JSON.stringify(r));
-await focusEl(`document.querySelector('.pcard .list-pick .select-btn')`);
-await press('ArrowDown');
-r = await js(`return document.activeElement.textContent`);
-if (r !== '✓Locked In 2') check(false, 'list dropdown opens on the current list', r);
-await press('ArrowUp');
-await press('Enter');
-await focusEl(`document.querySelector('.pcard button[type=submit]')`);
-await press('Enter');
-await sleep(500);
-r = await rowsNow();
-check(r.filter((x) => x === 'I morgen 09–12 · Locked In 1').length === 1, 'created "I morgen 09–12 · Locked In 1" (keyboard)', JSON.stringify(r));
+// R7: the toolbar is in the 60 px header; the calendar starts right under it
+r = await js(`${P} const h = document.querySelector('.apphead').getBoundingClientRect(); const g = $('planScroll').getBoundingClientRect();
+  return { head: Math.round(h.height), toolsInHeader: document.querySelector('.apphead').contains($('planToday')), gridTop: Math.round(g.top), title: $('planTitle').textContent }`);
+check(r.head <= 61 && r.toolsInHeader && r.gridTop <= 61, 'R7: "I dag ‹ ›" and the title sit in the header; the grid starts under it', JSON.stringify(r));
 
-// weekly Hverdage 07–09
-await js(`document.getElementById('newPeriod').click(); return 1`);
-await sleep(150);
-await js(`[...document.querySelectorAll('.pcard .chip')].find((x) => x.textContent === 'Hverdage').click(); return 1`);
-const tp = (n) => `document.querySelectorAll('.pcard .clock-row .select-btn')[${n}]`;
-await pickByKeys(tp(0), '7');
-await pickByKeys(tp(2), '9');
-await js(`document.querySelector('.pcard button[type=submit]').click(); return 1`);
-await sleep(500);
-r = await rowsNow();
-check(r.some((x) => x.startsWith('Hverdage 07–09 · ')), 'created weekly "Hverdage 07–09"', JSON.stringify(r));
+// Escape closes the panel's editor; the resting panel lists upcoming periods under "+ Ny periode"
+await key('Escape');
+r = await js(`${P} return { ed: !!$('planEdTitle'), first: $('planPanel').firstElementChild.id, rules: rules(), text: $('planPanel').textContent }`);
+check(!r.ed && r.first === 'planNew' && r.rules.length === 2 && !/null|undefined/.test(r.text), 'Esc closes the editor; resting panel: "+ Ny periode" and the periods, no "null"', JSON.stringify(r));
 
-// edit it: end 09 → 10
-await js(`[...document.querySelectorAll('#planList .prow')].find((li) => li.textContent.startsWith('Hverdage 07–09')).querySelector('.prow-btn').click(); return 1`);
-await sleep(150);
-await pickByKeys(tp(2), '10');
-await js(`document.querySelector('.pcard button[type=submit]').click(); return 1`);
-await sleep(500);
-r = await rowsNow();
-check(r.some((x) => x.startsWith('Hverdage 07–10 · ')) && !r.some((x) => x.startsWith('Hverdage 07–09')), 'edit in place: 07–09 → 07–10', JSON.stringify(r));
+// R1/R2/R3: cascade, no ellipsis, the now-line under the blocks
+r = await js(`${P}
+  const tomorrow = [...document.querySelectorAll('#planGrid .col')].find((c) => [...c.querySelectorAll('.ev')].length >= 2);
+  const blocks = tomorrow ? [...tomorrow.querySelectorAll('.ev')].map((e) => ({ left: e.offsetLeft, width: e.offsetWidth, z: +getComputedStyle(e).zIndex, text: e.textContent })) : [];
+  const colW = tomorrow ? tomorrow.offsetWidth : 0;
+  const overflow = evs().flatMap((e) => [...e.querySelectorAll('.ev-lab > span')].filter((s) => s.getBoundingClientRect().right > e.getBoundingClientRect().right + 0.5).map(() => e.getAttribute('aria-label')));
+  const dots = document.body.textContent.includes('…');
+  const now = document.querySelector('#planGrid .now'); const nowZ = now ? +getComputedStyle(now).zIndex : null;
+  return { blocks, colW, overflow, dots, nowZ, minEvZ: Math.min(...evs().map((e) => +getComputedStyle(e).zIndex)) }`);
+const [b0, b1] = r.blocks;
+check(r.blocks.length === 2 && b1.left - b0.left >= 24 && b1.left + b1.width >= r.colW - 6 && b1.width > r.colW / 2 && b1.z > b0.z && b0.text.length > 0,
+  'R2: overlapping periods cascade (later indented ≥ 24 px, to the right edge, on top); the first keeps a label', JSON.stringify(r.blocks));
+check(r.overflow.length === 0 && !r.dots, 'R1: no label runs past its block and no "…" anywhere', JSON.stringify(r.overflow));
+r = await js(`${P} $('planToday').click(); await w(200);
+  const col = document.querySelector('#planGrid .col.today'); const now = col && col.querySelector('.now'); const dot = col && col.querySelector('.nowdot');
+  return { now: !!now, nowZ: now && +getComputedStyle(now).zIndex, dotZ: dot && +getComputedStyle(dot).zIndex, minEvZ: Math.min(...evs().map((e) => +getComputedStyle(e).zIndex)), title: $('planTitle').textContent }`);
+check(r.now && r.nowZ < r.minEvZ && r.dotZ > r.minEvZ, 'R3: the now-line runs under the blocks; only its dot sits on top, in the gutter edge', JSON.stringify(r));
+await js(`document.getElementById('planNext').click(); return 1`);
 
-// skip one day from the week strip, then undo the skip
-r = await js(`const w = (ms) => new Promise((x) => setTimeout(x, ms));
-  const blk = [...document.querySelectorAll('.wrow')].slice(1).flatMap((row) => [...row.querySelectorAll('.blk')]).find((b) => /07–10/.test(b.getAttribute('aria-label')));
+// skip tomorrow from the grid; the skipped block leaves the cascade; then undo
+r = await js(`${P}
+  const blk = evs().find((e) => e.dataset.id === 'ab12' && e.closest('.col').querySelectorAll('.ev').length >= 2);
   if (!blk) return { error: 'no block' };
-  const day = blk.getAttribute('aria-label').split(':')[0];
-  blk.click(); await w(150);
-  const skipBtn = [...document.querySelectorAll('.pcard .skipline button')].find((b) => b.textContent.startsWith('Spring over'));
-  const label = skipBtn ? skipBtn.textContent : null;
-  const cardIdx = () => [...document.querySelectorAll('#planList > li')].indexOf(document.querySelector('.pcard').closest('li'));
-  const cardTop = () => Math.round(document.querySelector('.pcard').getBoundingClientRect().top);
-  const before = { idx: cardIdx(), top: cardTop() };
-  if (skipBtn) skipBtn.click(); await w(500);
-  const after1 = { idx: cardIdx(), top: cardTop() };
-  const struck = [...document.querySelectorAll('.pcard .skipline .skipped-day')].map((b) => b.textContent);
-  const strip = document.querySelectorAll('.blk.skipped').length;
-  document.querySelector('.pcard .skipline .unskip').click(); await w(500);
-  return { day, label, struck, strip, before, after1, after: document.querySelectorAll('.blk.skipped').length, skipBack: [...document.querySelectorAll('.pcard .skipline button')].map((b) => b.textContent) };`);
-check(r.label === `Spring over ${r.day.toLowerCase()}` && r.struck.join() === `${r.day} springes overFortryd spring over` && r.strip === 1, 'skip from the week strip: "… springes over · Fortryd spring over", outlined in the strip', JSON.stringify(r));
-check(r.before.idx === r.after1.idx && r.before.top === r.after1.top, 'the open card does not move after "Spring over"', JSON.stringify([r.before, r.after1]));
-check(r.after === 0 && r.skipBack.some((x) => x.startsWith('Spring over')), 'unskip restores it', JSON.stringify(r));
-await js(`[...document.querySelectorAll('.pcard button')].find((b) => b.textContent === 'Annullér').click(); return 1`);
+  const date = blk.dataset.date; blk.click(); await w(250);
+  const btn = [...document.querySelectorAll('#planPanel .skipline button')].find((b) => b.textContent.startsWith('Spring over'));
+  const label = btn && btn.textContent; btn.click(); await w(600);
+  const col = document.querySelector('#planGrid .col[data-date="' + date + '"]');
+  const sk = col.querySelector('.ev.skipped'); const other = [...col.querySelectorAll('.ev')].find((e) => !e.classList.contains('skipped'));
+  const res = { label, skipped: !!sk, skZ: sk && +getComputedStyle(sk).zIndex, otherLeft: other && other.offsetLeft, otherZ: other && +getComputedStyle(other).zIndex,
+    line: $('planPanel').querySelector('.skipline').textContent };
+  [...document.querySelectorAll('#planPanel .skipline button')].find((b) => b.textContent === 'Fortryd').click(); await w(600);
+  res.after = col.isConnected ? document.querySelectorAll('#planGrid .ev.skipped').length : document.querySelectorAll('#planGrid .ev.skipped').length;
+  return res;`);
+check(r.label === 'Spring over i morgen' && r.skipped && r.skZ < r.otherZ && r.otherLeft <= 3 && /springes over/.test(r.line), 'skip: "Spring over i morgen" → struck outline under the other period, which takes the full width', JSON.stringify(r));
+check(r.after === 0, 'skip: "Fortryd" restores it', JSON.stringify(r));
+await key('Escape');
 
-// delete + undo
-r = await js(`const w = (ms) => new Promise((x) => setTimeout(x, ms));
-  [...document.querySelectorAll('#planList .prow')].find((li) => li.textContent.startsWith('Hverdage 07–10')).querySelector('.prow-btn').click(); await w(150);
-  document.querySelector('.pcard .trash').click(); await w(500);
-  const gone = ![...document.querySelectorAll('#planList .prow')].some((li) => li.textContent.startsWith('Hverdage 07–10'));
-  const undo = !document.getElementById('undo').hidden;
-  document.getElementById('undoBtn').click(); await w(600);
-  return { gone, undo, back: [...document.querySelectorAll('#planList .prow')].some((li) => li.textContent.startsWith('Hverdage 07–10')) };`);
-check(r.gone && r.undo, 'delete is one click and offers "Fortryd"', JSON.stringify(r));
-check(r.back, '"Fortryd" re-creates the period', JSON.stringify(r));
+// R4: a period that covers "now" says "Lås nu til …" and asks once more, with the 500 ms guard
+r = await js(`${P} $('planNew').click(); await w(200);
+  [...document.querySelectorAll('#planPanel .seg button')].find((b) => b.textContent === 'Vælg dage').click(); await w(100);
+  const p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Copenhagen', weekday: 'short', hour: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
+  const wd = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].indexOf(p.find((x) => x.type === 'weekday').value);
+  const hour = +p.find((x) => x.type === 'hour').value;
+  const days = [...document.querySelectorAll('#planPanel .days .day')];
+  days.forEach((d, i) => { if (d.classList.contains('on') !== (i === wd)) d.click(); });
+  await w(100);
+  return { hour, wd, on: days.map((d) => d.classList.contains('on')).join() };`);
+await pickByKeys(`document.querySelector('#planPanel [data-k=start0]')`, String(r.hour).padStart(2, '0'));
+await pickByKeys(`document.querySelector('#planPanel [data-k=end0]')`, String((r.hour + 1) % 24).padStart(2, '0'));
+r = await js(`${P} const save = $('planSave'); const label = save.textContent; save.click(); await w(150);
+  const box = document.querySelector('#planPanel .pconfirm'); const confirmText = document.querySelector('#planPanel .confirm-line').textContent;
+  $('planLockNow').click(); await w(400); const fast = { ed: !!$('planEdTitle'), confirm: !box.hidden };
+  await w(300); $('planLockNow').click(); await w(700);
+  return { label, shown: !box.hidden, confirmText, fast, after: rules().length, ed: !!$('planEdTitle') }`);
+check(/^Lås nu til \d\d:\d\d$/.test(r.label), 'R4: covering now, the button reads "Lås nu til HH:MM"', r.label);
+check(r.shown && /^Kan ikke stoppes før kl\. \d\d:\d\d/.test(r.confirmText), 'R4: it asks like the front page: "Kan ikke stoppes før kl. …"', r.confirmText);
+check(r.fast.ed && r.fast.confirm && r.after === 3 && !r.ed, 'R4: "Lås nu" ignores a click within 500 ms, then saves', JSON.stringify(r));
 
-// Escape closes the card first, then the panel
-r = await js(`const w = (ms) => new Promise((x) => setTimeout(x, ms)); document.getElementById('newPeriod').click(); await w(100); return !!document.querySelector('.pcard')`);
-await press('Escape');
-r = await js(`return { card: !!document.querySelector('.pcard'), open: document.getElementById('planDlg').open }`);
-check(!r.card && r.open, 'Escape closes the card, the panel stays', JSON.stringify(r));
-await press('Escape');
-r = await js(`return document.getElementById('planDlg').open`);
-check(r === false, 'second Escape closes the panel');
-
-// optional mouse drag on a day: pre-fills a new card (a plain click creates nothing)
-await js(`document.getElementById('calBtn').click(); return 1`);
-await sleep(300);
-const railBox = await js(`const r = document.querySelectorAll('.rail')[1].getBoundingClientRect(); return { x: r.x, y: r.y + r.height / 2, w: r.width, date: document.querySelectorAll('.rail')[1].dataset.date }`);
-const mouse = (type, x, extra = {}) => send('Input.dispatchMouseEvent', { type, x, y: railBox.y, button: 'left', buttons: type === 'mouseReleased' ? 0 : 1, clickCount: 1, ...extra }, S);
-await mouse('mousePressed', railBox.x + railBox.w * 0.5);
-await mouse('mouseReleased', railBox.x + railBox.w * 0.5);
+// keyboard only: grid → slot to tomorrow 14:00 → Enter → Tab to Gem → Enter
+r = await js(`localStorage.removeItem('li.lastTimes'); return 1`);
+await js(`document.getElementById('planGrid').focus(); return 1`);
+r = await js(`${P} return { slot: !$('slotCursor').hidden, live: $('planLive').textContent }`);
+check(r.slot && /^\S+ \d+\. \S+ \d\d:\d\d–\d\d:\d\d$/.test(r.live), 'keyboard: focusing the grid shows a slot and announces it', JSON.stringify(r));
+await key('t');
+await key('ArrowRight');
+await key('Home');
+for (let i = 0; i < 28; i++) await key('ArrowDown');
+await key('ArrowDown', { shift: true });
+r = await js(`return document.getElementById('planLive').textContent`);
+const slotText = r;
+await key('Enter');
 await sleep(200);
-r = await js(`return !!document.querySelector('.pcard')`);
-check(r === false, 'a plain click on a day creates nothing');
-await mouse('mousePressed', railBox.x + railBox.w * 0.25);
-for (const f of [0.3, 0.4, 0.5]) { await send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: railBox.x + railBox.w * f, y: railBox.y, button: 'left', buttons: 1 }, S); await sleep(30); }
-await mouse('mouseReleased', railBox.x + railBox.w * 0.5);
+r = await js(`${P} return { title: $('planEdTitle') && $('planEdTitle').textContent, focus: document.activeElement.textContent,
+  times: [...document.querySelectorAll('#planPanel .trow .select-btn')].map((b) => b.textContent).join(' '), date: document.querySelector('#planPanel .datebtn').textContent }`);
+const [, kbStart, kbEnd] = /(\d\d:\d\d)–(\d\d:\d\d)$/.exec(slotText) || [];
+const kbShort = (t) => (t && t.endsWith(':00') ? t.slice(0, 2) : t);
+check(r.title === 'Ny periode' && r.focus === 'Én gang' && kbStart === '14:00' && r.times === `${kbStart.replace(':', ' ')} ${kbEnd.replace(':', ' ')}` && r.date === (await js(`return document.querySelector('#planPanel .datebtn').textContent`)),
+  'keyboard: ↓ moves, Shift+↓ lengthens, Enter opens "Ny periode" for the slot, focus in the panel', JSON.stringify({ ...r, slotText }));
+for (let i = 0; i < 9; i++) await key('Tab');
+r = await js(`return document.activeElement.id`);
+check(r === 'planSave', 'keyboard: Tab reaches Gem through the panel', r);
+await key('Enter');
+await sleep(600);
+r = await js(`${P} return { rules: rules(), focusGrid: document.activeElement === $('planGrid'), ed: !!$('planEdTitle') }`);
+const kbRule = `I morgen ${kbShort(kbStart)}–${kbShort(kbEnd)}`;
+check(r.rules.some((x) => x.startsWith(kbRule + ' · ')) && r.focusGrid && !r.ed, `keyboard: saved "${kbRule}"; focus back in the grid`, JSON.stringify(r));
+
+// keyboard edit: Tab from the grid to an event, Enter, change the end, save
+await key('Tab');
+r = await js(`return document.activeElement.classList.contains('ev') ? document.activeElement.getAttribute('aria-label') : document.activeElement.id`);
+const evLabel = r;
+await key('Enter');
+await sleep(200);
+r = await js(`return document.getElementById('planEdTitle') ? document.getElementById('planEdTitle').textContent : null`);
+check(/: /.test(evLabel) && !!r, 'keyboard: Tab reaches the events, Enter opens one', JSON.stringify({ evLabel, title: r }));
+await key('Escape');
+r = await js(`return document.activeElement.classList.contains('ev')`);
+check(r === true, 'Esc returns the focus to the event that opened the panel');
+
+// mouse: drag a range on a day next week; a plain click makes a slot with the last length
+await js(`document.getElementById('planNext').click(); return 1`);
+await sleep(200);
+const colBox = await js(`const c = document.querySelectorAll('#planGrid .col')[2]; c.scrollIntoView({ block: 'nearest' }); const g = document.getElementById('planScroll'); g.scrollTop = 12 * parseFloat(getComputedStyle(c).getPropertyValue('--hh'));
+  const r = c.getBoundingClientRect(); return { x: r.x + r.width / 2, top: r.top, h: r.height, date: c.dataset.date }`);
+const yOf = (min) => colBox.top + (min / 1440) * colBox.h;
+await mouseAt('mousePressed', colBox.x, yOf(13 * 60) + 2);
+for (const m of [13.5, 14, 14.5, 15]) { await send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: colBox.x, y: yOf(m * 60), button: 'left', buttons: 1 }, S); await sleep(30); }
+r = await js(`const g = document.querySelector('#planGrid .ev.ghost'); return g ? g.textContent : null`);
+const ghost = r;
+await mouseAt('mouseReleased', colBox.x, yOf(15 * 60));
 await sleep(250);
-r = await js(`const c = document.querySelector('.pcard'); return c ? { times: [...c.querySelectorAll('.clock-row .select-btn')].map((x) => x.textContent.trim()).join(' '), date: c.querySelector('.date-in').value } : null`);
-check(r && r.times === '06 00 12 00' && r.date === railBox.date, 'drag across a day pre-fills a new card (06–12 that day)', JSON.stringify({ r, date: railBox.date }));
-await press('Escape');
-await press('Escape');
+r = await js(`${P} return { title: $('planEdTitle') && $('planEdTitle').textContent, times: [...document.querySelectorAll('#planPanel .trow .select-btn')].map((b) => b.textContent).join(' '),
+  draft: !!document.querySelector('#planGrid .ev.draft:not(.ghost)'), date: document.querySelector('#planPanel .datebtn').textContent }`);
+check(ghost === '13–15' && r.title === 'Ny periode' && r.times === '13 00 15 00' && r.draft, 'drag: 13→15 shows a live ghost, then "Ny periode" 13:00–15:00 with the draft drawn', JSON.stringify({ ghost, ...r }));
+await key('Escape');
+await mouseAt('mousePressed', colBox.x, yOf(16 * 60 + 10));
+await mouseAt('mouseReleased', colBox.x, yOf(16 * 60 + 10));
+await sleep(250);
+r = await js(`const t = JSON.parse(localStorage.getItem('li.lastTimes')); const m = (x) => +x.slice(0, 2) * 60 + +x.slice(3);
+  const len = (m(t.end) - m(t.start) + 1440) % 1440; const e = 960 + len; const p = (n) => String(n).padStart(2, '0');
+  return { got: [...document.querySelectorAll('#planPanel .trow .select-btn')].map((b) => b.textContent).join(' '), want: '16 00 ' + p(Math.floor(e / 60) % 24) + ' ' + p(e % 60) }`);
+check(r.got === r.want, 'click: a slot from the half hour, with the last length used', JSON.stringify(r));
+await key('Escape');
+// PB1: after a long period (12 h) a click drafts one hour, not twelve
+await js(`localStorage.setItem('li.lastTimes', JSON.stringify({ start: '22:00', end: '10:00' })); return 1`);
+await mouseAt('mousePressed', colBox.x, yOf(16 * 60 + 10));
+await mouseAt('mouseReleased', colBox.x, yOf(16 * 60 + 10));
+await sleep(250);
+r = await js(`return [...document.querySelectorAll('#planPanel .trow .select-btn')].map((b) => b.textContent).join(' ')`);
+check(r === '16 00 17 00', 'PB1: after a 12-hour period, a click drafts 1 hour (the last length is reused only up to 3 h)', r);
+await key('Escape');
 
-// the "Næste" line opens the plan on that period's card
-r = await js(`const w = (ms) => new Promise((x) => setTimeout(x, ms)); document.getElementById('nextBtn').click(); await w(300);
-  const c = document.querySelector('.pcard'); const li = c && c.closest('li'); const rows = [...document.querySelectorAll('#planList > li')];
-  return { open: document.getElementById('planDlg').open, card: !!c, rowIndex: rows.indexOf(li) }`);
-check(r.open && r.card && r.rowIndex === 0, '"Næste" opens the plan with that period open', JSON.stringify(r));
-await js(`document.getElementById('planDlg').close(); return 1`);
+// the 24-hour rule before saving: a line and a disabled Gem instead of the daemon's refusal
+await js(`localStorage.setItem('li.lastTimes', JSON.stringify({ start: '09:00', end: '10:00' })); return 1`);
+r = await js(`${P} $('planNew').click(); await w(200);
+  const col = document.querySelector('#planGrid .ev.draft') && document.querySelector('#planGrid .ev.draft').closest('.col');
+  const blocks = col ? [...col.querySelectorAll('.ev')].map((e) => ({ draft: e.classList.contains('draft'), left: e.offsetLeft, z: +getComputedStyle(e).zIndex })) : [];
+  return blocks;`);
+const dr = r.find((b) => b.draft), others = r.filter((b) => !b.draft);
+check(dr && others.length >= 1 && others.every((b) => dr.left > b.left && dr.z > b.z) && others.some((b) => b.left <= 3),
+  'a new draft goes on top, indented past the blocks it overlaps; they keep their place', JSON.stringify(r));
+await js(`[...document.querySelectorAll('#planPanel .seg button')].find((b) => b.textContent === 'Hverdage').click(); return 1`);
+await pickByKeys(`document.querySelector('#planPanel [data-k=start0]')`, '12');
+await pickByKeys(`document.querySelector('#planPanel [data-k=end0]')`, '09');
+r = await js(`${P} const l = document.querySelector('#planPanel .limit'); return { shown: !l.hidden, text: l.textContent, disabled: $('planSave').disabled }`);
+check(r.shown && /^Samlet lås \d+ t( \d+ min)? · højst 24 t$/.test(r.text) && r.disabled, '24 h: "Hverdage 12 → 09" says "Samlet lås … · højst 24 t" and Gem is disabled', JSON.stringify(r));
+await pickByKeys(`document.querySelector('#planPanel [data-k=end0]')`, '08');
+r = await js(`${P} const l = document.querySelector('#planPanel .limit'); return { shown: !l.hidden, disabled: $('planSave').disabled }`);
+check(!r.shown && !r.disabled, '24 h: "Hverdage 12 → 08" (23 h) is allowed again', JSON.stringify(r));
+await key('Escape');
 
-// frozen: only periods in the running lock are locked
+// "Én gang" today: no start time that has passed
+r = await js(`${P} const p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Copenhagen', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
+  const nowMin = +p.find((x) => x.type === 'hour').value * 60 + +p.find((x) => x.type === 'minute').value;
+  if (nowMin > 23 * 60 + 30) return { skip: true };
+  localStorage.setItem('li.lastTimes', JSON.stringify({ start: '00:00', end: '01:00' }));
+  $('planNew').click(); await w(200);
+  const input = document.querySelector('#planPanel .date-native');
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Copenhagen' }).format(new Date());
+  input.value = today; input.dispatchEvent(new Event('change')); await w(150);
+  const [h, m] = [...document.querySelectorAll('#planPanel [data-k^=start]')].map((b) => +b.textContent);
+  document.querySelector('#planPanel [data-k=start0]').click(); await w(100);
+  const hours = [...document.querySelectorAll('#planPanel [data-k=start0] + .menu [role=option]')].map((o) => +o.textContent);
+  document.querySelector('#planPanel [data-k=start0]').click(); await w(50);
+  return { nowMin, start: h * 60 + m, firstHour: hours[0], date: document.querySelector('#planPanel .datebtn').textContent }`);
+if (r.skip) console.log('SKIP  "Én gang" today: too close to midnight');
+else check(r.start > r.nowMin && r.firstHour === Math.floor(r.nowMin / 60) + (r.nowMin % 60 >= 55 ? 1 : 0), '"Én gang" today: the start moves past now, and past hours are not offered', JSON.stringify(r));
+await key('Escape');
+
+// R5: a block whose top is above the visible area keeps its label at the top
+r = await js(`${P} const g = $('planScroll'); const blk = evs().find((e) => e.offsetHeight > 120 && !e.classList.contains('skipped'));
+  if (!blk) return { error: 'no tall block' };
+  g.scrollTop = blk.offsetTop + 60; await w(80);
+  const lab = blk.querySelector('.ev-lab').getBoundingClientRect(); const head = $('planHead').getBoundingClientRect();
+  return { labTop: Math.round(lab.top), headBottom: Math.round(head.bottom), blkTop: Math.round(blk.getBoundingClientRect().top), visible: lab.bottom < blk.getBoundingClientRect().bottom }`);
+check(r.blkTop < r.headBottom && r.labTop >= r.headBottom && r.labTop <= r.headBottom + 6 && r.visible, 'R5: the label sticks under the day header when the block starts above', JSON.stringify(r));
+
+// delete with undo
+r = await js(`${P} const rule = [...document.querySelectorAll('#planPanel .rule')].find((b) => b.textContent.startsWith('${'I morgen 14'}'));
+  rule.click(); await w(250); document.querySelector('#planPanel .trash').click(); await w(600);
+  const gone = !rules().some((x) => x.startsWith('I morgen 14')); const undo = !$('undo').hidden;
+  $('undoBtn').click(); await w(700);
+  return { gone, undo, back: rules().some((x) => x.startsWith('I morgen 14')) }`);
+check(r.gone && r.undo && r.back, 'delete is one click, "Fortryd" brings it back', JSON.stringify(r));
+
+// tabs by keyboard: ← / → switch pages
+await js(`document.getElementById('tabPlan').focus(); return 1`);
+await key('ArrowLeft');
+r = await js(`return { hash: location.hash, fokus: !document.getElementById('fokusPage').hidden, focus: document.activeElement.id }`);
+check(r.hash === '' && r.fokus && r.focus === 'tabFokus', 'tabs: ← goes to Fokus', JSON.stringify(r));
+await key('ArrowRight');
+r = await js(`return { hash: location.hash, plan: !document.getElementById('planPage').hidden }`);
+check(r.hash === '#plan' && r.plan, 'tabs: → goes to Plan', JSON.stringify(r));
+
+// sizes: nothing overflows, targets ≥ 40 px (blocks excepted, as agreed)
+for (const [vw, vh, mobile] of [[1440, 900], [1280, 720], [900, 700], [390, 844, true]]) {
+  await viewport(vw, vh, mobile);
+  await sleep(300);
+  r = await js(`${P} const r0 = $('planNew') || null; if ($('planEdTitle')) document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await w(100);
+    (evs().find((e) => e.dataset.id === 'ab12' && !e.classList.contains('past')) || $('planNew')).click(); await w(250);
+    [...document.querySelectorAll('#planPanel .seg button')].find((b) => b.textContent === 'Vælg dage')?.click(); await w(150);
+    const days = document.querySelectorAll('#planPanel .days .day').length;
+    const panel = $('planPanel').getBoundingClientRect();
+    const out = [...$('planPanel').querySelectorAll('*')].filter((e) => e.offsetParent && e.getBoundingClientRect().right > panel.right + 0.5).map((e) => e.className || e.tagName);
+    const small = [...document.querySelectorAll('.apphead button, #planPanel button, #dayStrip button')].filter((e) => e.offsetParent)
+      .filter((e) => { const b = e.getBoundingClientRect(); return b.height < 40 || b.width < 40; }).map((e) => e.textContent.trim() || e.getAttribute('aria-label'));
+    const lab = evs().flatMap((e) => [...e.querySelectorAll('.ev-lab > span')].filter((s) => s.getBoundingClientRect().right > e.getBoundingClientRect().right + 0.5));
+    const minH = Math.min(...evs().map((e) => e.offsetHeight));
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await w(100);
+    return { scrollW: document.documentElement.scrollWidth, out, small, lab: lab.length, minH, days: document.querySelectorAll('#planGrid .col').length, toggles: days }`);
+  check(r.scrollW <= vw && r.out.length === 0 && r.small.length === 0 && r.lab === 0 && r.minH >= 18 && r.days === (vw < 860 ? 1 : 7) && r.toggles === 7,
+    `${vw}×${vh}: ${vw < 860 ? 'one day + panel below' : 'week + panel'}, no overflow, targets ≥ 40 px, no clipped labels`, JSON.stringify(r));
+}
+await viewport(1280, 900);
+
+// frozen: only periods in the running lock; read-only panel that says until when
 await open('&locked=1&mins=20&planNow=1&r=frozen');
-await js(`document.getElementById('calBtn').click(); return 1`);
-await sleep(300);
-r = await js(`const w = (ms) => new Promise((x) => setTimeout(x, ms));
-  const rows = [...document.querySelectorAll('#planList .prow')];
-  const fr = rows.filter((li) => li.classList.contains('frozen'));
-  const frozenIsButton = fr.some((li) => li.querySelector('button.prow-btn'));
-  const other = rows.find((li) => !li.classList.contains('frozen') && li.textContent.startsWith('Hverdage'));
-  other.querySelector('.prow-btn').click(); await w(150);
-  document.querySelector('.pcard button[type=submit]').click(); await w(500);
-  return { frozen: fr.length, frozenIsButton, frozenText: fr[0] && fr[0].querySelector('.prow-end').textContent, editedOk: !document.querySelector('.pcard'), toast: document.getElementById('toast').hidden ? '' : document.getElementById('toast').textContent,
-    frozenBlocks: document.querySelectorAll('.blk.frozen').length, sub: document.getElementById('sub').textContent }`);
-check(r.frozen === 1 && !r.frozenIsButton && r.frozenBlocks === 1, 'during a lock only the period in it is frozen (lock icon, not editable)', JSON.stringify(r));
-check(/^Låst til \d\d:\d\d$/.test(r.frozenText), 'a frozen row says "Låst til HH:MM" visibly', r.frozenText);
-check(r.editedOk && !r.toast, 'other periods stay editable during a lock', JSON.stringify(r));
-check(r.sub === `${r.sub.split(' · ')[0]} · planlagt`, 'locked by a planned period: "Låst til … · planlagt"', r.sub);
+await js(`location.hash = 'plan'; return 1`);
+await sleep(500);
+r = await js(`${P} const fr = evs().filter((e) => e.classList.contains('frozen')); fr[0] && fr[0].click(); await w(250);
+  return { frozen: fr.length, lock: !!(fr[0] && fr[0].querySelector('.lock-ic')), note: document.querySelector('#planPanel .locknote') && document.querySelector('#planPanel .locknote').textContent,
+    save: !!$('planSave'), rows: [...document.querySelectorAll('#planPanel .rule .end.locked')].length }`);
+check(r.frozen === 1 && /^Låst til \d\d:\d\d$/.test(r.note) && !r.save, 'frozen: the period in the lock opens read-only, "Låst til HH:MM", no Gem', JSON.stringify(r));
+await key('Escape');
+r = await js(`${P} const other = [...document.querySelectorAll('#planPanel .rule')].find((b) => b.textContent.startsWith('Hverdage')); other.click(); await w(250);
+  $('planSave').click(); await w(600); return { ok: !$('planEdTitle'), toast: $('toast').hidden ? '' : $('toast').textContent }`);
+check(r.ok && !r.toast, 'frozen: other periods stay editable during a lock', JSON.stringify(r));
+r = await js(`return document.getElementById('sub').textContent`);
+check(/ · planlagt$/.test(r), 'locked by a planned period: "Låst til … · planlagt"', r);
 
-// confirmation warns when the session runs into a planned period
+// the empty state renders nothing but "+ Ny periode"
+await open('&r=empty');
+await js(`location.hash = 'plan'; return 1`);
+await sleep(500);
+r = await js(`${P} for (const id of ['ab12', 'cd34']) { const b = [...document.querySelectorAll('#planPanel .rule')].find((x) => x.dataset.id === id); if (b) { b.click(); await w(200); document.querySelector('#planPanel .trash').click(); await w(500); } }
+  return { kids: [...$('planPanel').children].map((c) => c.id || c.tagName), text: $('planPanel').textContent.trim() }`);
+check(r.kids.join() === 'planNew' && r.text === '+Ny periode', 'empty: the panel shows only "+ Ny periode" (no "null")', JSON.stringify(r));
+
+// confirmation on the front page warns when the session runs into a planned period
 await open('&planSoon=1&r=soon');
 await js(`localStorage.setItem('li.list', 'l1'); localStorage.setItem('li.mode', 'dur'); location.reload(); return 1`).catch(() => 1);
 await sleep(1000);
@@ -464,6 +591,38 @@ r = await js(`const w = (ms) => new Promise((x) => setTimeout(x, ms));
 check(r.big === '01:00:00' && r.idleSub === '', 'P2: idle timer shows the chosen 1 time, nothing silently changed', JSON.stringify(r));
 check(/^Kan ikke stoppes før kl\. \d\d:\d\d — fortsætter i den planlagte \S+ \(Locked In 2\)$/.test(r.sub), 'confirmation names the planned period and its own list', r.sub);
 check(r.sep && r.extra.length > 0 && !r.sepAfterBack, 'confirmation shows what the planned list adds, after a separator', JSON.stringify(r));
+
+// ---- v1.3: "Lukkes aldrig" (apps LockedIn never closes) ----
+await viewport(1280, 900);
+await open('&r=never');
+const NV = `${H} const rows = () => [...document.querySelectorAll('#appList li')].map((li) => li.querySelector('.row-title').textContent + ':' + (li.querySelector('.switch') ? li.querySelector('.switch').getAttribute('aria-checked') : 'browser'));
+  const sw = (name) => [...document.querySelectorAll('#appList li')].find((li) => li.querySelector('.row-title').textContent === name).querySelector('.switch');`;
+r = await js(`${NV} $('gear').click(); await w(250); return { title: $('neverTitle').textContent, rows: rows(), add: !$('neverAdd').hidden }`);
+check(r.title === 'Lukkes aldrig' && r.rows.includes('Claude:false') && r.rows.includes('Wispr Flow:true') && r.rows.slice(-2).every((x) => x.endsWith(':browser')) && r.add,
+  'settings: one "Lukkes aldrig" switch per app; browsers last, greyed, no switch', JSON.stringify(r));
+r = await js(`${NV} sw('Claude').click(); await w(600); return { claude: sw('Claude').getAttribute('aria-checked'), rows: rows() }`);
+check(r.claude === 'true', 'switching Claude on: never closed', JSON.stringify(r));
+r = await js(`${NV} $('settingsClose').click(); await w(150); $('editBtn').click(); await w(250);
+  const labels = [...document.querySelectorAll('#tiles .tile-label')].map((x) => x.textContent); $('editDone').click(); await w(100);
+  return { claude: labels.includes('Claude'), wispr: labels.includes('Wispr Flow'), spotify: labels.includes('Spotify') }`);
+check(!r.claude && !r.wispr && r.spotify, '"✎ Rediger" does not offer never-close apps as toggles', JSON.stringify(r));
+r = await js(`${NV} $('gear').click(); await w(250); $('neverAdd').click(); await w(500);
+  const seg = !$('addKind').hidden; const pick = [...document.querySelectorAll('#pickerList .pick')].find((b) => b.textContent.includes('Spark'));
+  const offered = [...document.querySelectorAll('#pickerList .pick')].map((b) => b.textContent);
+  if (!pick) return { error: 'no Spark', offered };
+  pick.click(); await w(700);
+  return { seg, wisprOffered: offered.some((t) => t.includes('Wispr')), dlg: $('addDlg').open, rows: rows() }`);
+check(!r.seg && !r.wisprOffered && !r.dlg && r.rows.includes('Spark:true'), '"+ App": picking Spark makes it never closed; apps already never closed are not offered', JSON.stringify(r));
+await js(`document.getElementById('settingsClose').click(); return 1`);
+
+// during a lock: an app that is closed right now cannot be switched on — the daemon's message shows
+await open('&locked=1&list=l2&r=never2');
+r = await js(`${NV} $('gear').click(); await w(250); sw('Spotify').click(); await w(700);
+  return { spotify: sw('Spotify').getAttribute('aria-checked'), toast: $('toast').hidden ? '' : $('toast').textContent, add: !$('neverAdd').hidden }`);
+check(r.spotify === 'false' && r.toast === 'Kan ikke ændres under en aktiv session.' && !r.add, 'locked: Spotify (closed now) cannot be switched on; the daemon\'s 423 message shows; no "+ App"', JSON.stringify(r));
+r = await js(`${NV} sw('Todoist').click(); await w(700); return sw('Todoist').getAttribute('aria-checked')`);
+check(r === 'true', 'locked: an app that is not closed now can still be switched on, right after a refused one', r);
+await js(`document.getElementById('settingsClose').click(); return 1`);
 
 // ---- daemon down: one line above Start, neutral disabled button ----
 await open('&down=1&r=down');

@@ -13,7 +13,7 @@ public struct EnforcementReport {
 /// Routes /v1/* to the Engine. Pure apart from the injected closures; tested without a socket.
 public final class API {
     public static let extensionOrigin = "chrome-extension://nildondjeeibacombanbjnokenmhfhie"
-    public static let version = "1.3.0"
+    public static let version = "1.4.0"
 
     let engine: Engine
     let installed: () -> [AppRule]
@@ -82,8 +82,13 @@ public final class API {
                       let app = installed().first(where: { $0.bundleId == bid }) else { return Self.bad("Vælg en app fra listen.") }
                 try engine.addApp(app, list: body["list"] as? String, now: now)
             case ("PATCH", "apps", let id?):
-                guard let b = body["blocked"] as? Bool else { return Self.bad("Angiv blocked.") }
-                try engine.setAppBlocked(bundleId: id, blocked: b, now: now)
+                if let n = body["neverClose"] as? Bool {
+                    try engine.setNeverClose(bundleId: id, on: n, now: now)
+                } else if let b = body["blocked"] as? Bool {
+                    try engine.setAppBlocked(bundleId: id, blocked: b, now: now)
+                } else {
+                    return Self.bad("Angiv blocked eller neverClose.")
+                }
             case ("DELETE", "apps", let id?):
                 try engine.removeApp(bundleId: id, now: now)
             case ("POST", "schedules", nil):
@@ -121,7 +126,7 @@ public final class API {
     }
 
     static func appJSON(_ a: AppRule) -> [String: Any] {
-        ["bundleId": a.bundleId, "name": a.name, "kind": a.kind.rawValue, "blocked": a.blocked]
+        ["bundleId": a.bundleId, "name": a.name, "kind": a.kind.rawValue, "blocked": a.blocked, "neverClose": a.neverClose]
     }
 
     public func status(now: Date) -> [String: Any] {

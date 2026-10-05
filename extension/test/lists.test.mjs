@@ -49,3 +49,15 @@ test('blocked now = sites.blocked ∪ apps.inActiveList', () => {
   assert.deepEqual([...b.sites], ['a']);
   assert.deepEqual([...b.apps], ['y']);
 });
+
+test('Lukkes aldrig: never-close apps are not list members; the section lists every app, browsers last', async () => {
+  const { listableApps, neverCloseRows } = await import('../lib/lists.js');
+  const apps = [
+    { bundleId: 'org.mozilla.firefox', name: 'Firefox', kind: 'browser', blocked: true },
+    { bundleId: 'com.anthropic.claudefordesktop', name: 'Claude', kind: 'webengine', blocked: true },
+    { bundleId: 'com.spotify.client', name: 'Spotify', kind: 'webengine', blocked: false },
+    { bundleId: 'com.wispr.flow', name: 'Wispr Flow', kind: 'webengine', blocked: false, neverClose: true },
+  ];
+  assert.deepEqual(listableApps(apps).map((a) => a.name), ['Spotify']);
+  assert.deepEqual(neverCloseRows(apps).map((r) => `${r.app.name}${r.browser ? ' (browser)' : ''}`), ['Claude', 'Spotify', 'Wispr Flow', 'Firefox (browser)']);
+});

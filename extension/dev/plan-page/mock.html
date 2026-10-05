@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LockedIn · Plan (mockup)</title>
+<!-- DEV ONLY mockup of the full-page "Plan" (never shipped: tools/pack.sh copies a whitelist and refuses dev/). -->
+<link rel="stylesheet" href="../../ui/app.css">
+<style>
+  :root { --hh: 48px; --gutter: 52px; --panel: 380px; --head: 60px; }
+  body { overflow: hidden; }
+
+  /* ---------- app header: Fokus | Plan ---------- */
+  .apphead { height: var(--head); display: flex; align-items: center; gap: 8px; padding: 0 16px 0 20px; border-bottom: 1px solid var(--line); }
+  .tabs { display: flex; gap: 4px; height: 100%; }
+  .tab {
+    position: relative; border: 0; background: transparent; color: var(--muted); min-height: 40px; padding: 0 14px;
+    font: 600 16px/1 var(--display); letter-spacing: -.01em; border-radius: 10px; align-self: center;
+  }
+  .tab:hover { color: var(--text); background: var(--surface); }
+  .tab[aria-selected="true"] { color: var(--text); }
+  .tab[aria-selected="true"]::after { content: ""; position: absolute; left: 14px; right: 14px; bottom: -11px; height: 2px; border-radius: 2px; background: var(--text); }
+  .apphead .grow { flex: 1; }
+
+  /* ---------- Fokus (the existing front page, unchanged) ---------- */
+  .fokus { height: calc(100vh - var(--head)); overflow: auto; }
+  .fokus .hero { padding-top: 4vh; }
+  .nextline { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font-size: 14px; }
+  .nextline:hover { color: var(--text); background: var(--surface); }
+
+  /* ---------- Plan page ---------- */
+  .planpage { height: calc(100vh - var(--head)); display: grid; grid-template-columns: minmax(0, 1fr) var(--panel); }
+  .cal { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+  .caltool { display: flex; align-items: center; gap: 6px; padding: 12px 16px 10px 20px; }
+  .caltool h1 { margin: 0 0 0 10px; font: 600 20px/1.2 var(--display); letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .caltool .ghost.small { min-height: 40px; }
+  .navbtn { width: 40px; height: 40px; border-radius: 50%; border: 0; background: transparent; color: var(--muted); display: grid; place-items: center; }
+  .navbtn:hover { color: var(--text); background: var(--surface); }
+  .daystrip { display: none; }
+
+  .gridwrap { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; position: relative; }
+  .ghead { position: sticky; top: 0; z-index: 6; display: grid; grid-template-columns: var(--gutter) repeat(var(--days), minmax(0, 1fr)); background: var(--bg); border-bottom: 1px solid var(--line); }
+  .ghead .dh { text-align: center; padding: 2px 0 10px; color: var(--muted); font-size: 12px; letter-spacing: .02em; }
+  .ghead .dh b { display: grid; place-items: center; width: 36px; height: 36px; margin: 2px auto 0; border-radius: 50%; font: 500 19px/1 var(--display); color: var(--text); font-variant-numeric: tabular-nums; }
+  .ghead .dh.today { color: var(--text); font-weight: 600; }
+  .ghead .dh.today b { background: var(--text); color: var(--bg); font-weight: 600; }
+  .gbody { position: relative; display: grid; grid-template-columns: var(--gutter) repeat(var(--days), minmax(0, 1fr)); height: calc(24 * var(--hh)); }
+  .hours { position: relative; }
+  .hours span { position: absolute; right: 10px; transform: translateY(-50%); font-size: 12px; color: var(--subtle); font-variant-numeric: tabular-nums; }
+  .col {
+    position: relative; border-left: 1px solid var(--line); cursor: cell;
+    background-image:
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, transparent calc(var(--hh) / 2), rgba(35, 38, 45, .45) calc(var(--hh) / 2), rgba(35, 38, 45, .45) calc(var(--hh) / 2 + 1px), transparent calc(var(--hh) / 2 + 1px));
+    background-size: 100% var(--hh);
+  }
+  .col:last-child { border-right: 1px solid var(--line); }
+  .col.today { background-color: rgba(236, 235, 232, .025); }
+  .col .past { position: absolute; left: 0; right: 0; top: 0; background: rgba(10, 11, 13, .5); pointer-events: none; }
+  .col .now { position: absolute; left: -1px; right: 0; height: 2px; background: var(--accent); z-index: 5; pointer-events: none; }
+  .col .now::before { content: ""; position: absolute; left: -5px; top: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+  .slotcur { position: absolute; left: 2px; right: 2px; border-radius: 6px; box-shadow: inset 0 0 0 2px var(--accent); pointer-events: none; z-index: 4; }
+
+  .ev {
+    position: absolute; box-sizing: border-box; overflow: hidden; text-align: left; z-index: 2;
+    padding: 5px 8px 4px 10px; border: 0; border-radius: 8px; color: var(--text);
+    background: color-mix(in srgb, var(--tint) 30%, #14161b);
+    box-shadow: inset 3px 0 0 var(--tint), 0 0 0 1px var(--bg);
+    display: flex; flex-direction: column; gap: 1px; font-variant-numeric: tabular-nums;
+  }
+  .ev:hover { background: color-mix(in srgb, var(--tint) 40%, #14161b); }
+  .ev .t { font-size: 13px; font-weight: 600; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 14px; }
+  .ev .l { font-size: 12px; line-height: 1.25; color: #c4c6cc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ev .mark { position: absolute; top: 5px; right: 5px; width: 12px; height: 12px; color: #c4c6cc; }
+  .ev.tight { padding: 5px 3px 4px 7px; }
+  .ev.short { flex-direction: row; align-items: center; gap: 6px; padding-top: 0; padding-bottom: 0; }
+  .ev.past { opacity: .5; }
+  .ev.sel { box-shadow: inset 3px 0 0 var(--tint), 0 0 0 2px var(--text); z-index: 3; }
+  .ev.skipped { background: transparent; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--tint) 70%, transparent); }
+  .ev.skipped .t, .ev.skipped .l { text-decoration: line-through; color: var(--subtle); }
+  .ev.frozen .mark { color: var(--accent); }
+  .ev.cont-top { border-top-left-radius: 0; border-top-right-radius: 0; }
+  .ev.cont-bot { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+  .ev.draft { background: color-mix(in srgb, var(--text) 14%, transparent); box-shadow: inset 0 0 0 1.5px var(--text); z-index: 4; }
+  .ev.draft .l { color: var(--text); }
+
+  /* ---------- detail panel (fixed, never a popup) ---------- */
+  .panel { border-left: 1px solid var(--line); background: var(--surface); overflow: auto; padding: 16px 20px 32px; display: flex; flex-direction: column; gap: 14px; }
+  .p-new { justify-content: flex-start; width: 100%; min-height: 44px; display: flex; align-items: center; gap: 10px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line-2); background: transparent; color: var(--text); font-size: 15px; font-weight: 550; }
+  .p-new:hover { border-color: var(--ring); background: var(--surface-2); }
+  .p-new .plus { font: 300 22px/1 var(--display); color: var(--muted); }
+  .rules { list-style: none; margin: 0; padding: 0; }
+  .rule { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; align-items: center; min-height: 56px; padding: 8px 8px 8px 4px; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; border-radius: 0; }
+  .rule:hover { background: var(--surface-2); }
+  .rule .w { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .rule .ln { grid-column: 1; display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
+  .rule .ln s { color: var(--subtle); }
+  .rule .end { grid-row: 1 / span 2; grid-column: 2; color: var(--subtle); display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+  .rule.sel { background: var(--surface-2); box-shadow: inset 2px 0 0 var(--text); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; display: inline-block; background: var(--tint); }
+
+  .ed { display: flex; flex-direction: column; gap: 14px; }
+  .ed-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 40px; }
+  .ed-head h2 { margin: 0; font: 600 18px/1.25 var(--display); font-variant-numeric: tabular-nums; }
+  .ed .seg { align-self: flex-start; }
+  .ed .seg button { padding: 0 14px; }
+  .ed .days { gap: 4px; flex-wrap: nowrap; }
+  .ed .day { min-width: 40px; padding: 0; flex: 1; }
+  .trow { display: grid; grid-template-columns: 36px auto auto auto 1fr; align-items: center; gap: 6px; }
+  .trow > .lab { color: var(--muted); font-size: 14px; }
+  .trow .dur { justify-self: end; color: var(--subtle); font-size: 13px; font-variant-numeric: tabular-nums; }
+  .ed .dd { align-self: flex-start; }
+  .ed .select-btn { background: var(--surface-2); }
+  .ed .menu { background: #1f2329; }
+  .ed .menu.left { left: 0; transform: none; }
+  .ed .datebtn { min-width: 220px; }
+  .ed .mini-icons { gap: 6px; }
+  .ed hr { border: 0; border-top: 1px solid var(--line); margin: 2px 0; width: 100%; }
+  .ed .skipline { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 14px; }
+  .ed .skipline s { color: var(--muted); }
+  .ed .foot { display: flex; align-items: center; gap: 10px; }
+  .ed .foot .grow { flex: 1; }
+  .ed .locknote { display: flex; align-items: center; gap: 10px; font-size: 15px; min-height: 40px; }
+  .ed .locknote .lk { width: 18px; height: 18px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; }
+  .ed .locknote .lk svg { width: 10px; height: 10px; }
+  .ed .ro { font-size: 15px; display: flex; align-items: center; gap: 10px; min-height: 40px; }
+  .trash svg { width: 18px; height: 18px; }
+  .trash:hover { color: var(--bad) !important; }
+  .toast.undo { display: flex; align-items: center; gap: 14px; background: var(--surface-2); border-color: var(--line-2); color: var(--text); padding: 8px 8px 8px 16px; }
+
+  .mocklabel { position: fixed; left: 8px; bottom: 6px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); pointer-events: none; z-index: 50; }
+
+  /* ---------- medium: still a week, narrower panel ---------- */
+  @media (max-width: 1179px) { :root { --panel: 344px; --hh: 44px; --gutter: 44px; } .panel { padding: 14px 16px 28px; } .ev .l { font-size: 11.5px; } }
+  /* ---------- narrow / phone: one day, panel below ---------- */
+  @media (max-width: 859px) {
+    :root { --hh: 44px; --gutter: 44px; }
+    body { overflow: auto; }
+    .apphead { padding: 0 8px 0 8px; }
+    .planpage { display: block; height: auto; }
+    .caltool { padding: 10px 16px 6px; }
+    .caltool h1 { font-size: 18px; margin-left: 6px; }
+    .daystrip { display: grid; grid-template-columns: repeat(7, minmax(40px, 1fr)); gap: 2px; padding: 0 16px 8px; }
+    .daystrip button { border: 0; background: transparent; border-radius: 12px; min-height: 52px; color: var(--muted); font-size: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+    .daystrip button b { font: 500 16px/1 var(--display); color: var(--text); font-variant-numeric: tabular-nums; }
+    .daystrip button i { width: 5px; height: 5px; border-radius: 50%; background: var(--subtle); visibility: hidden; }
+    .daystrip button.has i { visibility: visible; }
+    .daystrip button.on { background: var(--text); color: var(--bg); }
+    .daystrip button.on b { color: var(--bg); }
+    .daystrip button.on i { background: var(--bg); }
+    .ghead { display: none; }
+    .gridwrap { flex: none; height: 56vh; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0; }
+    .gbody { margin-right: 16px; }
+    .panel { border-left: 0; background: var(--bg); padding: 16px 16px 40px; overflow: visible; }
+    .fokus { height: auto; }
+  }
+</style>
+</head>
+<body>
+<header class="apphead">
+  <div class="tabs" role="tablist" aria-label="Side">
+    <button class="tab" role="tab" id="tabFokus" aria-selected="false" type="button">Fokus</button>
+    <button class="tab" role="tab" id="tabPlan" aria-selected="true" type="button">Plan</button>
+  </div>
+  <span class="grow"></span>
+  <button class="gear" type="button" aria-label="Indstillinger" title="Indstillinger"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.6-2-3.4-2.4 1a7.6 7.6 0 0 0-2.6-1.5L14 2.5h-4l-.4 2.5A7.6 7.6 0 0 0 7 6.5l-2.4-1-2 3.4 2 1.6a7.6 7.6 0 0 0 0 3l-2 1.6 2 3.4 2.4-1a7.6 7.6 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a7.6 7.6 0 0 0 2.6-1.5l2.4 1 2-3.4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
+</header>
+
+<section id="fokus" class="fokus" role="tabpanel" aria-labelledby="tabFokus" hidden></section>
+
+<section id="plan" class="planpage" role="tabpanel" aria-labelledby="tabPlan">
+  <div class="cal">
+    <div class="caltool">
+      <button id="today" class="ghost small" type="button">I dag</button>
+      <button id="prev" class="navbtn" type="button" aria-label="Forrige uge"><svg width="8" height="12" viewBox="0 0 8 12" aria-hidden="true"><path d="M6 1L1 6l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button id="next" class="navbtn" type="button" aria-label="Næste uge"><svg width="8" height="12" viewBox="0 0 8 12" aria-hidden="true"><path d="M2 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <h1 id="title"></h1>
+    </div>
+    <div id="daystrip" class="daystrip" role="group" aria-label="Dag"></div>
+    <div id="gridwrap" class="gridwrap">
+      <div id="ghead" class="ghead"></div>
+      <div id="gbody" class="gbody" role="grid" tabindex="0" aria-label="Uge, timer"></div>
+    </div>
+  </div>
+  <aside id="panel" class="panel" aria-label="Detaljer"></aside>
+</section>
+
+<div id="toast" class="toast undo" role="status" hidden><span>Perioden er slettet</span><button class="ghost small" type="button" id="undoBtn">Fortryd</button></div>
+<div class="mocklabel">mockup</div>
+
+<script type="module">
+import { combo } from '../../ui/combo.js';
+import { dropdown } from '../../ui/dropdown.js';
+import { glyphFor, LOCK_ICON, monogramColor } from '../../ui/glyphs.js';
+import { assignLanes } from '../../lib/plan.js';
+
+// ---------- mock model: minutes since Monday 5 Oct 2026 00:00 (Copenhagen); day 0 = mandag 5. okt. ----------
+const P = new URLSearchParams(location.search);
+const LOCKED = P.get('s') === 'locked';
+const NOW = LOCKED ? 13 * 60 + 40 : 10 * 60 + 20;
+const DAY = 1440;
+const TINTS = ['#8fb3ff', '#6fd3b5', '#e59cff'];
+const LISTS = [
+  { id: 'l1', name: 'Locked In 1', sites: ['instagram', 'slack', 'adversus'], apps: [] },
+  { id: 'l2', name: 'Locked In 2', sites: ['instagram', 'youtube', 'slack', 'adversus', 'tv2'], apps: ['Spotify'] },
+  { id: 'l3', name: 'Kold kanvas', sites: ['instagram', 'youtube', 'facebook'], apps: [] },
+];
+const periods = P.get('s') === 'empty' ? [] : [
+  { id: 'p1', list: 'l1', start: 780, end: 900, date: null, weekdays: [1, 2, 3, 4, 5], skip: [3] },  // Hverdage 13–15, skipped torsdag
+  { id: 'p2', list: 'l2', start: 540, end: 690, date: 2, weekdays: [], skip: [] },                    // ons 7. okt. 09–11:30
+  { id: 'p3', list: 'l2', start: 1320, end: 600, date: null, weekdays: [5], skip: [] },               // fre 22 → lør 10
+  { id: 'p4', list: 'l3', start: 840, end: 960, date: null, weekdays: [2, 4], skip: [] },             // ti, to 14–16 (overlaps 13–15)
+  { id: 'p5', list: 'l2', start: 480, end: 570, date: 0, weekdays: [], skip: [] },                    // i dag 08–09:30 (past)
+];
+const SITE = { instagram: 'Instagram', youtube: 'YouTube', slack: 'Slack', adversus: 'Adversus', tv2: 'TV 2', facebook: 'Facebook' };
+const WD = ['mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag', 'søndag'];
+const W3 = ['man', 'tir', 'ons', 'tor', 'fre', 'lør', 'søn'];
+const WS = ['Ma', 'Ti', 'On', 'To', 'Fr', 'Lø', 'Sø'];
+const pad = (n) => String(n).padStart(2, '0');
+const hm = (m) => { const x = ((m % DAY) + DAY) % DAY; return `${pad(Math.floor(x / 60))}:${pad(x % 60)}`; };
+const sh = (m) => { const t = hm(m); return t.endsWith(':00') ? t.slice(0, 2) : t; };
+const wd = (d) => (((d % 7) + 7) % 7) + 1;
+const dnum = (d) => new Date(Date.UTC(2026, 9, 5 + d)).getUTCDate();
+const cap = (s) => s[0].toUpperCase() + s.slice(1);
+const tint = (id) => TINTS[LISTS.findIndex((l) => l.id === id)] || TINTS[0];
+const listOf = (id) => LISTS.find((l) => l.id === id) || LISTS[0];
+const dayName = (d) => (d === 0 ? 'I dag' : d === 1 ? 'I morgen' : `${cap(WD[wd(d) - 1])} ${dnum(d)}. okt.`);
+const hours = (m) => { const h = Math.floor(m / 60), r = m % 60; return h && r ? `${h} t ${r} min` : h ? `${h} t` : `${r} min`; };
+function ruleText(p) {
+  const over = p.end <= p.start;
+  if (p.date != null) return over ? `${dayName(p.date)} ${sh(p.start)} → ${W3[wd(p.date + 1) - 1]} ${sh(p.end)}` : `${p.date > 1 ? cap(W3[wd(p.date) - 1]) + ' ' + dnum(p.date) + '. okt.' : dayName(p.date)} ${sh(p.start)}–${sh(p.end)}`;
+  const d = [...p.weekdays].sort();
+  const days = d.join() === '1,2,3,4,5' ? 'Hverdage' : d.length === 7 ? 'Alle dage' : d.length === 1 ? cap(W3[d[0] - 1]) : d.map((x) => WS[x - 1]).join(', ');
+  if (over && d.length === 1) return `${days} ${sh(p.start)} → ${W3[d[0] % 7]} ${sh(p.end)}`;
+  return `${days} ${sh(p.start)}${over ? ' → ' : '–'}${sh(p.end)}`;
+}
+function occ(p, from, to) {
+  const out = [];
+  for (let d = from - 1; d < to; d++) {
+    if (p.date != null ? d !== p.date : !p.weekdays.includes(wd(d))) continue;
+    const s = d * DAY + p.start, e = d * DAY + p.end + (p.end <= p.start ? DAY : 0);
+    if (e > from * DAY && s < to * DAY) out.push({ p, day: d, s, e, skipped: (p.skip || []).includes(d) });
+  }
+  return out;
+}
+const allOcc = (from, to) => periods.flatMap((p) => occ(p, from, to)).sort((a, b) => a.s - b.s);
+const lockUntil = LOCKED ? 900 : null;
+const frozenOcc = (o) => LOCKED && !o.skipped && o.s <= NOW && o.e > NOW;
+const isFrozen = (p) => LOCKED && occ(p, 0, 1).some(frozenOcc);
+
+// ---------- state ----------
+const narrow = () => matchMedia('(max-width: 859px)').matches;
+let week = 0;
+let dayIdx = 0;                  // narrow: the day shown
+let sel = null;                  // {kind:'ev', id, day} | {kind:'new', day, s, e} | null
+let draft = null;
+const $ = (id) => document.getElementById(id);
+function h(tag, attrs, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v == null || v === false) continue;
+    if (k === 'class') el.className = v; else if (k === 'html') el.innerHTML = v; else if (k === 'style') el.style.cssText = v;
+    else if (k.startsWith('on')) el.addEventListener(k.slice(2), v); else el.setAttribute(k, v === true ? '' : v);
+  }
+  for (const c of kids.flat()) if (c != null && c !== false) el.append(c.nodeType ? c : String(c));
+  return el;
+}
+const REP = '<svg class="mark" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 5.2a4 4 0 0 1 7-1.9M10 6.8a4 4 0 0 1-7 1.9" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M9.6 1.3v2.4H7.2M2.4 10.7V8.3h2.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const LOCKMARK = LOCK_ICON.replace('class="lock-ic"', 'class="mark"');
+const CARET = '<svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const TRASH = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const CHEV = '<svg viewBox="0 0 8 12" width="8" height="12" aria-hidden="true"><path d="M2 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+// ---------- calendar ----------
+function shownDays() { return narrow() ? [dayIdx] : Array.from({ length: 7 }, (_, i) => week * 7 + i); }
+
+function renderCal() {
+  const days = shownDays();
+  const d0 = week * 7;
+  $('title').textContent = narrow() ? `${cap(WD[wd(dayIdx) - 1])} ${dnum(dayIdx)}. okt.` : `${dnum(d0)}.–${dnum(d0 + 6)}. okt. 2026`;
+  $('prev').setAttribute('aria-label', narrow() ? 'Forrige dag' : 'Forrige uge');
+  $('next').setAttribute('aria-label', narrow() ? 'Næste dag' : 'Næste uge');
+  document.documentElement.style.setProperty('--days', days.length);
+  // narrow: a 7-day strip to jump between days
+  $('daystrip').replaceChildren(...Array.from({ length: 7 }, (_, i) => {
+    const d = d0 + i;
+    return h('button', { type: 'button', class: (d === dayIdx ? 'on' : '') + (allOcc(d, d + 1).some((o) => !o.skipped) ? ' has' : ''), 'aria-pressed': String(d === dayIdx),
+      'aria-label': dayName(d), onclick: () => { dayIdx = d; renderCal(); } }, WS[wd(d) - 1], h('b', {}, dnum(d)), h('i', {}));
+  }));
+  $('ghead').replaceChildren(h('div', {}), ...days.map((d) => h('div', { class: 'dh' + (d === 0 ? ' today' : '') }, W3[wd(d) - 1] + '.', h('b', {}, dnum(d)))));
+  const body = $('gbody');
+  body.replaceChildren(h('div', { class: 'hours' }, ...Array.from({ length: 23 }, (_, i) => h('span', { style: `top:calc(${i + 1} * var(--hh))` }, pad(i + 1)))));
+  for (const d of days) body.append(column(d));
+}
+const Y = (min) => `calc(${min / 60} * var(--hh))`;
+
+function column(d) {
+  const col = h('div', { class: 'col' + (d === 0 ? ' today' : ''), 'data-day': d, role: 'gridcell' });
+  const ds = d * DAY;
+  if (d === 0) col.append(h('div', { class: 'past', style: `height:${Y(NOW)}` }), h('div', { class: 'now', style: `top:${Y(NOW)}` }));
+  const items = allOcc(d, d + 1).map((o) => ({ o, start: Math.max(o.s, ds), end: Math.min(o.e, ds + DAY) }));
+  if (draft && sel && sel.kind === 'new') {
+    for (const dd of draftDays()) if (dd === d) items.push({ o: { draft: true, p: { list: draft.list, start: draft.start, end: draft.end } }, start: ds + draft.start, end: ds + draft.start + len(draft) });
+  }
+  const colW = ($('gbody').clientWidth - parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gutter'))) / shownDays().length;
+  for (const it of assignLanes(items)) {
+    const { o } = it;
+    const laneW = colW / it.lanes - 4;
+    const top = it.start - ds, hgt = it.end - it.start;
+    const w = 100 / it.lanes;
+    const style = `--tint:${tint(o.p.list)};top:calc(${Y(top)} + 1px);height:calc(${Y(hgt)} - 2px);left:calc(${w * it.lane}% + 2px);width:calc(${w}% - 4px)`;
+    const short = hgt < 50;
+    const full = `${sh(o.p.start)}–${sh(o.p.end)}`;
+    const label = laneW >= 64 ? full : laneW >= 36 ? sh(o.p.start) : '';
+    const showName = laneW >= 64, showMark = laneW >= 92;
+    if (o.draft) { col.append(h('div', { class: 'ev draft' + (short ? ' short' : ''), style }, h('span', { class: 't' }, label), h('span', { class: 'l' }, 'Ny periode'))); continue; }
+    const frozen = frozenOcc(o);
+    const isSel = sel && sel.kind === 'ev' && sel.id === o.p.id && sel.day === o.day;
+    const cls = 'ev' + (short ? ' short' : '') + (o.skipped ? ' skipped' : '') + (frozen ? ' frozen' : '') + (o.e <= NOW && !frozen ? ' past' : '') + (isSel ? ' sel' : '')
+      + (o.s < ds ? ' cont-top' : '') + (o.e > ds + DAY ? ' cont-bot' : '');
+    col.append(h('button', { type: 'button', class: cls + (laneW < 64 ? ' tight' : ''), style,
+      title: `${full} · ${listOf(o.p.list).name}`,
+      'aria-label': `${dayName(o.day)} ${full}, ${listOf(o.p.list).name}${o.p.date == null ? ', gentages' : ''}${o.skipped ? ', springes over' : ''}${frozen ? ', låst' : ''}`,
+      onclick: (e) => { e.stopPropagation(); select({ kind: 'ev', id: o.p.id, day: o.day }); } },
+      h('span', { class: 't', style: showMark ? '' : 'padding-right:0' }, o.s < ds && label ? `→ ${sh(o.p.end)}` : label), showName ? h('span', { class: 'l' }, listOf(o.p.list).name) : null,
+      frozen ? h('span', { html: LOCKMARK, style: 'display:contents' }) : o.p.date == null && showMark ? h('span', { html: REP, style: 'display:contents' }) : null));
+  }
+  col.addEventListener('click', (e) => {
+    const r = col.getBoundingClientRect();
+    const m = Math.floor(((e.clientY - r.top) / r.height) * DAY / 30) * 30;
+    if (d === 0 && m + 30 <= NOW) return;
+    select({ kind: 'new', day: d, s: Math.max(m, d === 0 ? Math.ceil(NOW / 15) * 15 : 0) });
+  });
+  return col;
+}
+
+// ---------- panel ----------
+const len = (x) => ((x.end - x.start + DAY) % DAY) || DAY;
+function draftDays() {
+  if (!draft) return [];
+  if (draft.mode === 'once') return [draft.date];
+  return shownDays().filter((d) => draft.weekdays.includes(wd(d)));
+}
+
+function select(s) {
+  sel = s;
+  if (s && s.kind === 'new') {
+    draft = { mode: 'once', date: s.day, weekdays: [wd(s.day)], start: s.s, end: (s.s + 60) % DAY, list: 'l1' };
+  } else if (s && s.kind === 'ev') {
+    const p = periods.find((x) => x.id === s.id);
+    const hv = p.date == null && p.weekdays.join() === '1,2,3,4,5';
+    draft = { mode: p.date != null ? 'once' : hv ? 'hv' : 'pick', date: p.date ?? s.day, weekdays: [...p.weekdays], start: p.start, end: p.end, list: p.list };
+  } else draft = null;
+  renderCal();
+  renderPanel();
+  if (s && narrow() && !booting) $('panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+let booting = true;
+
+function renderPanel() {
+  const panel = $('panel');
+  if (!sel) { panel.replaceChildren(...resting()); return; }
+  panel.replaceChildren(editor());
+}
+
+function resting() {
+  const rows = [...periods].map((p) => {
+    const next = occ(p, 0, 14).find((o) => !o.skipped && o.e > NOW);
+    return { p, at: next ? next.s : 1e9 };
+  }).sort((a, b) => a.at - b.at).map(({ p }) => {
+    const skips = (p.skip || []).map((d) => h('s', {}, dayName(d)));
+    const frozen = isFrozen(p);
+    return h('li', {}, h('button', { type: 'button', class: 'rule', style: `--tint:${tint(p.list)}`,
+      onclick: () => { const o = occ(p, 0, 14).find((x) => x.e > NOW); week = Math.floor(o.day / 7); dayIdx = o.day; select({ kind: 'ev', id: p.id, day: o.day }); } },
+      h('span', { class: 'w' }, ruleText(p)),
+      h('span', { class: 'ln' }, h('span', { class: 'dot' }), listOf(p.list).name, ...skips),
+      frozen ? h('span', { class: 'end', html: `${LOCK_ICON}<span>Låst til ${hm(lockUntil)}</span>` }) : h('span', { class: 'end', html: CHEV })));
+  });
+  return [
+    h('button', { type: 'button', class: 'p-new', onclick: () => select({ kind: 'new', day: 1, s: 9 * 60 }) }, h('span', { class: 'plus' }, '+'), 'Ny periode'),
+    periods.length ? h('ul', { class: 'rules' }, ...rows) : null,
+  ];
+}
+
+function editor() {
+  const existing = sel.kind === 'ev' ? periods.find((x) => x.id === sel.id) : null;
+  const o = existing ? occ(existing, sel.day, sel.day + 1).find((x) => x.day === sel.day) : null;
+  const frozen = existing && o && frozenOcc(o);
+  const title = existing ? ruleText(existing) : 'Ny periode';
+  const close = h('button', { type: 'button', class: 'icon-btn', 'aria-label': 'Luk', onclick: () => select(null) }, '×');
+  const l = listOf(draft.list);
+  const icons = h('div', { class: 'mini-icons', 'aria-label': 'Det blokeres' }, ...l.sites.map((s) => h('span', { class: 'glyph small', title: SITE[s], html: glyphFor({ id: s, label: SITE[s] }) || '' })),
+    ...l.apps.map((a) => h('span', { class: 'glyph small', title: a }, h('span', { class: 'mono', style: `background:${monogramColor(a)}` }, a.slice(0, 2)))));
+
+  if (frozen) {
+    // In the running lock: read-only. It says until when, nothing else.
+    return h('div', { class: 'ed' },
+      h('div', { class: 'ed-head' }, h('h2', {}, title), close),
+      h('div', { class: 'locknote' }, h('span', { class: 'lk', html: LOCK_ICON }), `Låst til ${hm(lockUntil)}`),
+      h('div', { class: 'ro', style: `--tint:${tint(l.id)}` }, h('span', { class: 'dot' }), l.name), icons);
+  }
+
+  // Hvornår
+  const segBtn = (key, label) => h('button', { type: 'button', class: draft.mode === key ? 'on' : '', 'aria-pressed': String(draft.mode === key),
+    onclick: () => { draft.mode = key; if (key === 'hv') draft.weekdays = [1, 2, 3, 4, 5]; if (key === 'pick' && !draft.weekdays.length) draft.weekdays = [wd(sel.day)]; renderCal(); renderPanel(); } }, label);
+  const seg = h('div', { class: 'seg', role: 'group', 'aria-label': 'Hvornår' }, segBtn('once', 'Én gang'), segBtn('hv', 'Hverdage'), segBtn('pick', 'Vælg dage'));
+  const dateRow = draft.mode === 'once'
+    ? h('button', { type: 'button', class: 'select-btn datebtn', 'aria-label': 'Dato', html: `<span>${cap(WD[wd(draft.date) - 1])} ${dnum(draft.date)}. okt.</span>${CARET}` })
+    : null;
+  const days = draft.mode === 'pick' ? h('div', { class: 'days', role: 'group', 'aria-label': 'Ugedage' }, ...[1, 2, 3, 4, 5, 6, 7].map((n) => {
+    const on = draft.weekdays.includes(n);
+    return h('button', { type: 'button', class: 'day' + (on ? ' on' : ''), 'aria-pressed': String(on), onclick: () => { draft.weekdays = on ? draft.weekdays.filter((x) => x !== n) : [...draft.weekdays, n].sort(); renderCal(); renderPanel(); } }, WS[n - 1]);
+  })) : null;
+
+  // Fra / Til: the approved clock pickers, one time per row so they never overflow
+  const pick = (key, i, label) => {
+    const val = h('span', {}, pad(i === 0 ? Math.floor(draft[key] / 60) : draft[key] % 60));
+    const btn = h('button', { type: 'button', class: 'select-btn compact' }, val);
+    btn.insertAdjacentHTML('beforeend', CARET);
+    const menu = h('div', { class: 'menu combo-menu', hidden: true });
+    const root = h('div', { class: 'dd clock' }, btn, menu);
+    combo({ root, button: btn, menu, label,
+      getOptions: () => (i === 0 ? Array.from({ length: 24 }, (_, v) => ({ value: v, label: pad(v) })) : Array.from({ length: 12 }, (_, v) => ({ value: v * 5, label: pad(v * 5) }))),
+      getValue: () => (i === 0 ? Math.floor(draft[key] / 60) : draft[key] % 60),
+      onSelect: (v) => { draft[key] = i === 0 ? v * 60 + (draft[key] % 60) : Math.floor(draft[key] / 60) * 60 + v; renderCal(); renderPanel(); } });
+    return root;
+  };
+  const over = draft.end <= draft.start;
+  const trow = (lab, key, extra) => h('div', { class: 'trow' }, h('span', { class: 'lab' }, lab), pick(key, 0, `${lab}, time`), h('span', { class: 'sep' }, ':'), pick(key, 1, `${lab}, minut`), extra || h('span', {}));
+  const times = [trow('Fra', 'start'), trow('Til', 'end', h('span', { class: 'dur' }, (over ? 'næste dag · ' : '') + hours(len(draft))))];
+
+  // list
+  const lbtn = h('button', { type: 'button', class: 'select-btn', 'aria-label': 'Liste', style: `--tint:${tint(l.id)}` }, h('span', { style: 'display:inline-flex;align-items:center;gap:10px' }, h('span', { class: 'dot' }), l.name));
+  lbtn.insertAdjacentHTML('beforeend', CARET);
+  const lmenu = h('div', { class: 'menu left', role: 'menu', hidden: true });
+  const lroot = h('div', { class: 'dd' }, lbtn, lmenu);
+  const ldd = dropdown({ root: lroot, button: lbtn, menu: lmenu, render: () => lmenu.replaceChildren(...LISTS.map((x) => h('button', { type: 'button', role: 'menuitemradio', 'aria-checked': String(x.id === draft.list), class: 'menu-item' + (x.id === draft.list ? ' current' : ''), style: `--tint:${tint(x.id)}`,
+    onclick: () => { draft.list = x.id; ldd.close(true); renderCal(); renderPanel(); } }, h('span', { class: 'check' }, x.id === draft.list ? '✓' : ''), h('span', { class: 'dot' }), x.name))) });
+
+  // skip one occurrence (weekly only)
+  let skip = null;
+  if (existing && existing.date == null && o) {
+    skip = o.skipped
+      ? h('div', { class: 'skipline' }, h('s', {}, dayName(o.day)), h('span', { style: 'color:var(--muted)' }, 'springes over'), h('button', { type: 'button', class: 'ghost small', onclick: () => { existing.skip = existing.skip.filter((x) => x !== o.day); renderCal(); renderPanel(); } }, 'Fortryd'))
+      : h('div', { class: 'skipline' }, h('button', { type: 'button', class: 'ghost small', onclick: () => { existing.skip.push(o.day); renderCal(); renderPanel(); } }, `Spring over ${dayName(o.day).toLowerCase()}`));
+  }
+
+  // footer
+  const lockTo = LOCKED && !existing && draft.mode === 'once' && draft.date === 0 && draft.start <= lockUntil && draft.start + len(draft) > lockUntil ? hm(draft.start + len(draft)) : null;
+  const save = h('button', { type: 'button', class: 'primary small', onclick: () => doSave(existing) }, lockTo ? `Lås til ${lockTo}` : 'Gem');
+  const cancel = h('button', { type: 'button', class: 'ghost small', onclick: () => select(null) }, 'Annullér');
+  const del = existing ? h('button', { type: 'button', class: 'icon-btn trash', 'aria-label': 'Slet perioden', title: 'Slet', html: TRASH, onclick: () => doDelete(existing) }) : null;
+
+  return h('div', { class: 'ed' },
+    h('div', { class: 'ed-head' }, h('h2', {}, title), close),
+    seg, dateRow, days, ...times,
+    lroot, icons,
+    skip ? h('hr') : null, skip, h('hr'),
+    h('div', { class: 'foot' }, save, cancel, h('span', { class: 'grow' }), del));
+}
+
+function doSave(existing) {
+  const body = { list: draft.list, start: draft.start, end: draft.end, date: draft.mode === 'once' ? draft.date : null, weekdays: draft.mode === 'once' ? [] : [...draft.weekdays], skip: existing ? existing.skip : [] };
+  if (existing) Object.assign(existing, body); else periods.push({ id: 'n' + Date.now(), ...body });
+  select(null);
+}
+let undoT;
+function doDelete(p) {
+  const i = periods.indexOf(p);
+  periods.splice(i, 1);
+  select(null);
+  const t = $('toast');
+  t.hidden = false;
+  $('undoBtn').onclick = () => { periods.splice(i, 0, p); t.hidden = true; select(null); };
+  clearTimeout(undoT); undoT = setTimeout(() => { t.hidden = true; }, 5000);
+}
+
+// ---------- Fokus tab: the existing front page (static replica) ----------
+function renderFokus() {
+  const tile = (id) => h('div', { class: 'tile on' }, h('span', { class: 'glyph', html: glyphFor({ id, label: SITE[id] }) }), h('span', { class: 'tile-label' }, SITE[id]));
+  $('fokus').replaceChildren(h('main', { class: 'hero' },
+    h('div', { class: 'seg' }, h('button', { type: 'button', class: 'on' }, 'Varighed'), h('button', { type: 'button' }, 'Indtil')),
+    h('div', { class: 'big' }, '01:00:00'),
+    h('div', { class: 'chips' }, ...['30 min', '1 time', '2 timer', '4 timer', 'Andet'].map((t) => h('button', { type: 'button', class: 'chip' + (t === '1 time' ? ' on' : '') }, t))),
+    h('div', { class: 'list-line' }, h('button', { type: 'button', class: 'select-btn', html: `<span>Locked In 1</span>${CARET}` })),
+    h('div', { class: 'tiles' }, ...['instagram', 'slack', 'adversus'].map(tile)),
+    h('div', { class: 'actions' }, h('button', { type: 'button', class: 'primary' }, 'Start Locked in')),
+    h('button', { type: 'button', class: 'nextline', style: `--tint:${tint('l1')}`, onclick: () => { show('plan'); select({ kind: 'ev', id: 'p1', day: 0 }); } }, 'Næste: i dag 13–15', h('span', { class: 'dot' }), 'Locked In 1', h('span', { html: CHEV, style: 'display:contents' }))));
+}
+function show(which) {
+  $('tabFokus').setAttribute('aria-selected', String(which === 'fokus'));
+  $('tabPlan').setAttribute('aria-selected', String(which === 'plan'));
+  $('fokus').hidden = which !== 'fokus';
+  $('plan').hidden = which !== 'plan';
+  if (which === 'fokus') renderFokus(); else $('fokus').replaceChildren();
+  if (which === 'plan') { renderCal(); renderPanel(); }
+}
+$('tabFokus').onclick = () => show('fokus');
+$('tabPlan').onclick = () => show('plan');
+$('today').onclick = () => { week = 0; dayIdx = 0; renderCal(); };
+$('prev').onclick = () => { if (narrow()) dayIdx = Math.max(0, dayIdx - 1); else week = Math.max(0, week - 1); renderCal(); };
+$('next').onclick = () => { if (narrow()) dayIdx++; else week++; renderCal(); };
+addEventListener('resize', () => renderCal());
+
+renderCal();
+renderPanel();
+$('gridwrap').scrollTop = 0;
+requestAnimationFrame(() => { const hh = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hh')); $('gridwrap').scrollTop = 7 * hh; });
+
+// deep links for screenshots: ?view=fokus, ?state=edit | new | skipped | frozen, ?s=locked | empty
+const st = P.get('state');
+if (P.get('view') === 'fokus') show('fokus');
+if (st === 'edit') select({ kind: 'ev', id: 'p1', day: 1 });
+if (st === 'new') select({ kind: 'new', day: 2, s: 14 * 60 });
+if (st === 'skipped') select({ kind: 'ev', id: 'p1', day: 3 });
+if (st === 'frozen') select({ kind: 'ev', id: 'p1', day: 0 });
+if (st === 'new' || st === 'edit' || st === 'frozen' || st === 'skipped') { dayIdx = sel.day; renderCal(); }
+booting = false;
+if (P.get('scroll') === 'panel') $('panel').scrollIntoView({ block: 'start' });
+</script>
+</body>
+</html>

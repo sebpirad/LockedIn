@@ -424,3 +424,85 @@ Both are small and local. With P1 and P2 fixed, this is **APPROVED** from my sid
 **Nice (optional):** on a phone, the confirm icons wrap after Adversus, which leaves the list separator at the end of the first row. Put the separator at the start of the second group, or hide it when the groups wrap.
 
 ## Verdict: **APPROVED**
+
+---
+
+# Plan-side — bygget, runde 1 (extension 1.3.0, 2026-10-05)
+
+**How it was tested.** I used the real `app.html?mock=1` in the built-in browser, in my own tab, at **1440×900, 1280×720, 900×700 and 375×812** (mobile preset), with real clicks, a real drag and real key presses. I also used the `locked=1&planNow=1` scenario, ran DOM checks for overflow and "…", and checked z-index and sticky labels. Test time: Monday 07:22–07:35. No files were edited apart from appending this section.
+
+## The 7 required changes from "Plan-side — udfordring"
+
+| # | Status | Evidence |
+|---|---|---|
+| 1 No "…" in blocks | **DONE** | The DOM scan at 1440, 1280 and 900 found 0 ellipses and 0 overflowing spans. The ladder works: at 1440 "09–12 / Locked In 1"; at 900 (74 px columns) "09–12"; a cascaded 46 px block "09"; a fully covered block shows nothing. |
+| 2 Cascade | **DONE** | Tuesday's "I morgen 09–12" sits cascaded over the weekly 09–12 (indent `max(24 px, 28 %)`, running to the right edge), and the block underneath keeps a visible "09". A skipped Wednesday is drawn as an outline and takes no lane. |
+| 3 Now-line under blocks | **DONE** | The line has z-index 1 and the blocks 3 or more. Under the frozen "06:55–08:25" and the 07–08 draft the line disappears, with the dot in the gutter. No more fake strikethrough. |
+| 4 "Lås nu til …" | **DONE** | A weekly 07:00–08:00 draft at 07:27 → "Lås nu til 08:00" → the two-step "Kan ikke stoppes før kl. 08:00 · Locked In 1" with [Lås nu] [Tilbage]. |
+| 5 Sticky labels | **DONE** | Saturday's "→ 10 / Locked In 1" (the 00–10 part of "Fre 22 → lør 10") is pinned at the visible top (label at y 125, header bottom 122). |
+| 6 No `null` | **DONE** | After deleting all periods the panel shows only "+ Ny periode". |
+| 7 Merged header | **DONE** | Tabs, I dag, ‹ ›, title and gear sit in one 60 px row. At 1280×720 the grid shows **12.5 hours** (07:00–19:30), and the "07" label is not clipped. |
+
+## Verified by use (all pass)
+
+- **Fokus | Plan.**
+  - Fokus has no hairline (0 px); Plan has one.
+  - The tabs are 15 px, 600 active / 500 `--muted` inactive, and 40 px tall. ← and → switch them.
+  - `#plan` survives reload, and Back returns to Fokus.
+- **"Næste: i dag 09–12 · Locked In 1 ›"** opens Plan with "Hverdage 09–12" in the panel, and its five occurrences are ringed. That shows the scope of an edit well.
+- **Empty slot → panel.**
+  - Wednesday 13:00 → "Ny periode, Onsdag 7. okt., 13–14".
+  - Changing Fra to 10 keeps the length (10–11) and moves the draft live.
+  - A slot before now does nothing.
+- **Drag-select:** Thursday 14→16 → "Torsdag 8. okt. 14–16 · 2 t", saved with one click.
+- **Overnight:** Vælg dage Fr, 22 → 10 → "næste dag · 12 t" → the row reads "Fre 22 → lør 10".
+- **Skip:** "Spring over ons 7. okt." → the block is struck through and outlined, and the panel reads "~~Ons 7. okt.~~ springes over [Fortryd]".
+- **Frozen:** the block has a lock and is hatched. The row reads "🔒 Låst til 08:25" and cannot be opened.
+- **Delete + Fortryd:** the toast reads "Perioden er slettet [Fortryd]" (fixed, z 60, hit-testable), and Fortryd restored the period.
+- **Keyboard:**
+  - grid → ←/→/↓ moves a visible 2 px accent slot ring, with the live region reading "Onsdag 7. okt. 09:30–…";
+  - Shift+↓ lengthens it;
+  - Enter opens "Ny periode";
+  - Esc returns focus to the grid;
+  - Tab walks the events in time order, Enter opens one, and Esc returns focus to that event.
+- **Phone (375 px):** the header wraps to two rows (108 px). The day strip has dots. The day view has no horizontal overflow (scrollWidth 375). Tapping an event scrolls the panel into view (panel top at 296 px).
+- **Overflow:** none at any size (scrollWidth equals the viewport), and nothing inside the panel overflows.
+
+This is now a real calendar page: Google-grade structure, honest block heights, and no popups. It answers the owner's "Byg det ordentlig".
+
+## MUST-FIX
+
+### PB1. Slot clicks and the keyboard slot inherit the last saved length, uncapped
+- **Evidence:** after saving the overnight "Fre 22 → lør 10" (12 h), clicking today 07:45 produced **07:30–19:30**, and the keyboard slot on Wednesday became **09:30–22:00** ("12 t 30 min"). A recruiter who once plans a working day (08–17) gets 9-hour drafts from every later click. That is exactly the "sløset" feeling the owner rejected.
+- **Cause:** `ui/plan.js` `lastLen()` (line 65) feeds `newAt(…)` (lines 366 and 385) and the cursor (line 272).
+- **Fix:** for clicks and the keyboard slot, use `lastLen()` only when it is **≤ 180 minutes**; otherwise use 60. Drag is unaffected, because it sets its own length.
+
+## SHOULD-FIX
+
+- **The 24-hour rule** (known deviation). The end picker offers times that make one continuous lock longer than 24 hours.
+  - In the mock, "Fre 22 → lør 10" plus "Lø 10–23" (25 h) was even **saved**. Production will only show the daemon's error after Gem.
+  - `chainEnd()` is already in `lib/plan.js`. Compute the chain for the draft as it changes. When it is over 24 h, show `Samlet lås 25 t · højst 24 t` in `--bad` next to the length (where "maks. 24 t" was specced) and disable Gem.
+  - That is one line of text and no round trip, and it matches the approved "Indtil" pattern.
+- **"Én gang" today with a start already past** (07:00 at 07:27) keeps "Gem" and fails at the daemon, because a single period must lie in the future. For today's date, leave past start times out of the Fra picker (the approved Indtil pattern). "Lås nu til …" stays the path for weekly periods that cover now.
+- **The draft is drawn full width at level 0,** so it hides the blocks under it. A 07–19 draft covered Monday's 09–12 completely. Cascade the draft like any event (it is the newest, so it goes on top and indented), or give it 60 % opacity.
+- **Panel 336 px at 860–1179 px** (known deviation): **accepted.** At 900 px the columns are 74 px against the 76 px I asked for; the label ladder copes, and nothing overflows.
+
+## Verdict: **CHANGES REQUIRED** (one small item)
+
+All 7 required changes are in, every flow works by mouse, drag, keyboard and touch, and nothing overflows at any size. **PB1** must be fixed before release: it is the default length of the most common action, and it is a one-line cap. The 24-hour pre-check and the past-start rule are strongly recommended in the same pass. With PB1 fixed, this is **APPROVED** from my side.
+
+---
+
+# Plan-side — bygget, runde 2 (recheck, 2026-10-05)
+
+**How it was tested.** I used the mock at 1440×900, 900×700 and 375×812 (mobile preset), with real clicks and keys. Test time was Monday 07:46–07:50. No files were edited apart from appending this section.
+
+| Item | Status | Evidence |
+|---|---|---|
+| **PB1: slot length** | **FIXED** | Last-used 22→10 (12 h): a click on Thursday 14:00 gave **14–15 (1 t)**. Last-used 13–15 (2 h): the same click gave **14–16 (2 t)**, and the keyboard slot was 09:30–11:30. On the phone, last-used 08–17 (9 h): a tap at 15:00 gave **15–16 (1 t)**, and the panel scrolled into view. |
+| 24-hour chain | **FIXED** | After saving "Fre 22 → lør 10", a draft "Lø 10–23" shows **"Samlet lås 25 t · højst 24 t"** in `--bad` under Til, and **Gem is disabled**. Changing Til to 21 (23 h in total) clears the message and enables Gem. |
+| No past starts for "Én gang" today | **FIXED** | At 07:47 the Fra hours start at **07**, and the minutes for 07 are only **50, 55**. |
+| Draft on top and indented | **FIXED** | A 10–11 draft on Wednesday is placed at left 42 px, z 40, over the weekly 09–12, which stays readable at full width ("09–12 / Locked In 1"). |
+| **Regressions** | none | 0 ellipses and 0 overflowing labels at 900 px. No horizontal overflow at 900 or 375 px. Earlier behaviour still holds: slots before now do nothing, Esc returns focus, and the header is merged. |
+
+## Verdict: **APPROVED**

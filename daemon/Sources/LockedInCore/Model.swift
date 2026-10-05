@@ -60,8 +60,21 @@ public struct AppRule: Codable, Equatable {
     /// Code-signing team of the copy that was allowed. An allowed rule only matches a process signed by the same
     /// team, so a browser cannot borrow an allowed app's bundle id, and a modified copy (broken signature) is unknown.
     public var teamId: String?
-    public init(bundleId: String, name: String, kind: AppKind, blocked: Bool, teamId: String? = nil) {
+    /// "Lukkes aldrig": never closed by any list or rule (owner 2026-10-05: Spark, Wispr Flow, Claude). Browsers can't be.
+    public var neverClose: Bool
+    public init(bundleId: String, name: String, kind: AppKind, blocked: Bool, teamId: String? = nil, neverClose: Bool = false) {
         self.bundleId = bundleId; self.name = name; self.kind = kind; self.blocked = blocked; self.teamId = teamId
+        self.neverClose = neverClose
+    }
+    enum CodingKeys: String, CodingKey { case bundleId, name, kind, blocked, teamId, neverClose }
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        bundleId = try c.decode(String.self, forKey: .bundleId)
+        name = try c.decodeIfPresent(String.self, forKey: .name) ?? bundleId
+        kind = try c.decodeIfPresent(AppKind.self, forKey: .kind) ?? .webengine
+        blocked = try c.decodeIfPresent(Bool.self, forKey: .blocked) ?? false
+        teamId = try c.decodeIfPresent(String.self, forKey: .teamId)
+        neverClose = try c.decodeIfPresent(Bool.self, forKey: .neverClose) ?? false
     }
 }
 

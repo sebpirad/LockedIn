@@ -1,0 +1,165 @@
+[
+ {
+  "id": "B01",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Welldon 1892 (archive.org text; search-inside p. 35). Fame: the same passage (NE II.1, 'learn by doing' / 'what we repeatedly do') is in ODQ 2014 p. 30 and Bartlett's 18th (2012) p. 78, citing Nicomachean Ethics.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B02",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Welldon 1892, p. 16. Fame: 'one swallow' (NE I.7) is in Bartlett's 18th (2012) p. 78 (Nicomachean), Yale 2006 p. 25 and New Yale 2021 p. 27.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B03",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Jowett (Gutenberg #1656). Fame: ODQ 2014 p. 737 and ODQ 1999 p. 727 (Plato, Apology), New Yale 2021 p. 1118.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B04",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Jowett (Gutenberg #1656). Fame: Bartlett's 16th (1992) p. 74 and Bartlett's 17th (2002) p. 76 (Plato/Socrates entry, snippet has 'good man' and 'death').",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B05",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Display wording, Rosanoff, 'Edison in His Laboratory' and p. 406 all on QI 2012/12/14; the numeral form is in Dyer & Martin (Gutenberg #820). Fame: Yale 2006 p. 226 (Edison), ODQ 2014 p. 291, Bartlett's 18th (2012) p. 550.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B06",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Dyer & Martin (Gutenberg #820) and on QI 2012/07/31. Fame: ODQ 2014 p. 291 (Edison entry, 'several thousand things … won't work').",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B07",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Richter (Gutenberg #5000). Fame: ODQ 2014 p. 476 (Leonardo) and Bartlett's 18th (2012) p. 140 (the looser 'iron rusts from disuse' form).",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B08",
+  "verdict": "REJECT",
+  "fix": null,
+  "reason": "Genuine (verbatim in Richter, Gutenberg #5000). Fame fails: not in ODQ 1999/2014, Bartlett's 16th–18th or Yale 2006/2021 (archive.org search-inside); no QI article; no Wikipedia or major-media use found. The Bartlett's 'price of labor' hits belong to other authors.",
+  "fame_confirmed": false
+ },
+ {
+  "id": "B09",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Best genuine line per person (owner's clarification 2026-10-04): chosen as Darwin's one quote. It is his most-cited genuine line that fits the app's themes (Wikiquote Sourced; Life and Letters 1887; DCP-LETT-306, verified). His anthology lines are about evolution and off-theme.",
+  "fame_confirmed": "relative"
+ },
+ {
+  "id": "B10",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Fame documented: dedicated QI article (2015/06/28) credits the 5 Feb 1930 letter to Eduard, and Isaacson's biography uses it on p. 13 and p. 367 (search-inside: display wording exact on p. 367, matching the stated locator). Not in ODQ/Bartlett's/Yale.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B11",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Fame documented: dedicated QI article (2017/11/20) with LIFE, 2 May 1955, 'Death of a Genius', William Miller. The display wording is on that page (QI also gives a variant word order).",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B12",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #100. Folger line ids for the passage are 4.3.249–252, so the locator is right. Fame: ODQ 2014 p. 697 and ODQ 1999 p. 676 (Julius Caesar), New Yale 2021 p. 738.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B13",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #100. Folger line ids are 1.4.85–87, so the locator is right; Folger prints 'makes'. Fame: ODQ 2014 p. 705 and Bartlett's 18th (2012) p. 206 (Shakespeare section).",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B14",
+  "verdict": "FIX",
+  "fix": {
+   "source.locator": "Santiago, after the first shark attack; 1952 Charles Scribner's Sons first edition, p. 114 (archive.org search-inside of bwb_O8-BOU-944)"
+  },
+  "reason": "Both sentences are on p. 114 of the 1952 Scribner first edition, with 'he said' between them (dropping the tag is fine). The locator said 'printed page not read'; the fix supplies p. 114. Fame: Bartlett's 18th (2012) p. 722 (The Old Man and the Sea) and New Yale 2021 p. 373.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B15",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #75201, inside Book IV, Chapter XXXIV (between the XXXIV and XXXV headings). Fame: New Yale 2021 p. 371 (A Farewell to Arms), Bartlett's 18th (2012) p. 721, Yale 2006 p. 352.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B16",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Jo van Gogh-Bonger 1927 wording confirmed on p. 538 of vol. I (search-inside, whole sentence). The 1927 preface's 'English translation' passage reads 'she had made' and 'finished', consistent with her own translation. Fame: dedicated QI article (2015/12/14/impulse) credits Van Gogh's 1882 letter. Not in the anthologies' Van Gogh entries.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B17",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "1927 wording confirmed on p. 332 of vol. II (search-inside, whole sentence). Fame: dedicated QI article (2026/06/24/voice-paint) credits Van Gogh's 1883 letter. The Yale 'no painter' hit on p. 541 is a different author.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B18",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Fame documented: dedicated QI article (2021/10/06/invent-alone) credits Tesla, from the NYT interview by Dunlap, 8 April 1934. The display wording is on that page.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B19",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Best genuine line per person (owner's clarification 2026-10-04): chosen as Amundsen's one quote. It is his best-evidenced genuine line (Wikiquote Sourced, Sydpolen 1912; verbatim in Chater, Gutenberg #3414) and the documented source of the unsourced 'adventure is just bad planning'. Yale's Amundsen entry (2006 p. 18) holds a different, non-thematic line.",
+  "fame_confirmed": "relative"
+ },
+ {
+  "id": "B20",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "CORRECTION of my first B1 pass: the line IS in ODQ 8th ed. 2014, p. 681, in the Shackleton entry (search-inside matched the whole sentence 'Difficulties are just things to overcome after all'). My earlier per-snippet author check missed it. Genuine: p. 321 of Heart of the Antarctic vol. I. Anthology fame, not just 'relative'.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B21",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim on NASA ALSJ at 109:24:23. Fame: Yale 2006 p. 26 and New Yale 2021 p. 1039 (Armstrong), ODQ 1999 p. 25, Bartlett's 18th (2012) p. 825.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "B22",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Best genuine line per person (owner's clarification 2026-10-04): chosen as Denzel Washington's one quote. It heads the most-circulated quotation from his best-known speech ('Fall Forward', Penn 2011), and is verbatim in Penn's Almanac transcript. Not in any anthology, QI or major-media check. The only Wikiquote-sourced line from the speech ('But I do see you today…') is off-theme. Image credit already says 'cropped', so it is fine (my earlier remark was wrong).",
+  "fame_confirmed": "relative"
+ },
+ {
+  "id": "B23",
+  "verdict": "REJECT",
+  "fix": null,
+  "reason": "Genuine (Penn Almanac transcript). Fame fails: not in ODQ 1999/2014, Bartlett's 16th–18th or Yale 2006/2021 (archive.org search-inside); no QI article; no Wikipedia or major-media use found. Not chosen: Denzel's one quote is B22.",
+  "fame_confirmed": false
+ }
+]

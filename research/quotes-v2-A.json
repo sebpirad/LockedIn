@@ -1,0 +1,1066 @@
+{
+ "quotes": [
+  {
+   "id": "A01",
+   "text": "No longer talk at all about the kind of man that a good man ought to be, but be such.",
+   "original": "Μηκέθ᾽ ὅλως περὶ τοῦ οἷόν τινα εἶναι τὸν ἀγαθὸν ἄνδρα διαλέγεσθαι, ἀλλὰ εἶναι τοιοῦτον.",
+   "translation": {
+    "translator": "George Long",
+    "edition": "The Thoughts of the Emperor M. Aurelius Antoninus (London: Bell & Daldy)",
+    "year": 1862
+   },
+   "author": "Marcus Aurelius",
+   "author_dates": "121–180 CE",
+   "theme": "action",
+   "source": {
+    "work": "Meditations",
+    "year": "c. 170–180 CE",
+    "locator": "Book X, §16",
+    "url": "https://www.gutenberg.org/ebooks/15877"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final q003. Re-checked 2026-10-04: normalised match in Long's text (Gutenberg #15877) = True. Greek from standard text, not re-collated.",
+   "image": {
+    "file": "quote-images/q003.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:MSR-ra-61-b-1-DM.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/ec/MSR-ra-61-b-1-DM.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "creator": "Daniel Martin",
+    "attribution": "Daniel Martin, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:MSR-ra-61-b-1-DM.jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "Wikiquote 'Sourced' (Book X); among the most-cited Meditations lines in its modern form 'Waste no more time arguing what a good man should be. Be one.'"
+  },
+  {
+   "id": "A02",
+   "text": "That which is a hindrance is made a furtherance to an act; and that which is an obstacle on the road helps us on this road.",
+   "original": "καὶ πρὸ ἔργου γίνεται τὸ τοῦ ἔργου τούτου ἐφεκτικὸν καὶ πρὸ ὁδοῦ τὸ τῆς ὁδοῦ ταύτης ἐνστατικόν.",
+   "translation": {
+    "translator": "George Long",
+    "edition": "The Thoughts of the Emperor M. Aurelius Antoninus (London: Bell & Daldy)",
+    "year": 1862
+   },
+   "author": "Marcus Aurelius",
+   "author_dates": "121–180 CE",
+   "theme": "adversity",
+   "source": {
+    "work": "Meditations",
+    "year": "c. 170–180 CE",
+    "locator": "Book V, §20 (end of the section)",
+    "url": "https://www.gutenberg.org/ebooks/15877"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match in Long's text (Gutenberg #15877) = True. Long's sentence opens 'The mind converts and changes every hindrance to its activity into an aid; and so …' — the excerpt drops 'and so'. Greek matched on el.wikisource 'Τα εις εαυτόν/5' §20. The famous wording 'The impediment to action advances action. What stands in the way becomes the way.' is Gregory Hays's 2002 translation (in copyright) — same passage, not used.",
+   "image": {
+    "file": "quote-images/q003.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:MSR-ra-61-b-1-DM.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/ec/MSR-ra-61-b-1-DM.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "creator": "Daniel Martin",
+    "attribution": "Daniel Martin, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:MSR-ra-61-b-1-DM.jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "The 'obstacle is the way' passage — title source of Ryan Holiday's The Obstacle Is the Way (2014); Wikiquote 'Sourced' (Book V). Fame attaches to the idea/Hays wording; Long's wording itself is less familiar."
+  },
+  {
+   "id": "A03",
+   "text": "The credit belongs to the man who is actually in the arena, whose face is marred by dust and sweat and blood; who strives valiantly; who errs, who comes short again and again.",
+   "original": null,
+   "translation": null,
+   "author": "Theodore Roosevelt",
+   "author_dates": "1858–1919",
+   "theme": "courage",
+   "source": {
+    "work": "'Citizenship in a Republic', speech at the Sorbonne, Paris",
+    "year": "1910 (23 April)",
+    "locator": "'The Man in the Arena' passage",
+    "url": "https://en.wikisource.org/wiki/Citizenship_in_a_Republic"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final q055. Re-checked 2026-10-04: normalised match on Wikisource = True. Sentence continues '…because there is no effort without error and shortcoming'. Image creator already corrected to Pach Brothers (restoration Adam Cuerden).",
+   "image": {
+    "file": "quote-images/q055.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Theodore_Roosevelt_by_the_Pach_Bros_(4x5_cropped)_(2).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Theodore_Roosevelt_by_the_Pach_Bros_%284x5_cropped%29_%282%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Pach Brothers (1904); restoration by Adam Cuerden",
+    "attribution": "Pach Brothers, 1904 (restored by Adam Cuerden), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Theodore_Roosevelt_by_the_Pach_Bros_(4x5_cropped)_(2).jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "'The Man in the Arena' — Bartlett's Familiar Quotations; Wikiquote 'Sourced'; the most-cited Roosevelt passage. [Anthology listing cited from memory — not re-checked in the book.]"
+  },
+  {
+   "id": "A04",
+   "text": "Far and away the best prize that life offers is the chance to work hard at work worth doing.",
+   "original": null,
+   "translation": null,
+   "author": "Theodore Roosevelt",
+   "author_dates": "1858–1919",
+   "theme": "ambition",
+   "source": {
+    "work": "Labor Day address at the New York State Fair, Syracuse",
+    "year": "1903 (7 September)",
+    "locator": "Presidential Addresses and State Papers, vol. 2 (Review of Reviews Co.)",
+    "url": "https://www.gutenberg.org/ebooks/74680"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match in Gutenberg #74680 = True, inside the speech headed 'At the State Fair, Syracuse, N. Y., September 7, 1903' (no other heading between). Original continues '; and this is …' — excerpt ends at 'doing'.",
+   "image": {
+    "file": "quote-images/q055.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Theodore_Roosevelt_by_the_Pach_Bros_(4x5_cropped)_(2).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Theodore_Roosevelt_by_the_Pach_Bros_%284x5_cropped%29_%282%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Pach Brothers (1904); restoration by Adam Cuerden",
+    "attribution": "Pach Brothers, 1904 (restored by Adam Cuerden), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Theodore_Roosevelt_by_the_Pach_Bros_(4x5_cropped)_(2).jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "high",
+   "fame_evidence": "Wikiquote 'Sourced' (1903); one of TR's most-reprinted work/effort lines in quotation collections."
+  },
+  {
+   "id": "A05",
+   "text": "Never give in, never give in, never, never, never—in nothing, great or small, large or petty—never give in except to convictions of honour and good sense.",
+   "original": null,
+   "translation": null,
+   "author": "Winston Churchill",
+   "author_dates": "1874–1965",
+   "theme": "perseverance",
+   "source": {
+    "work": "Speech at Harrow School",
+    "year": "1941 (29 October)",
+    "locator": "International Churchill Society transcript",
+    "url": "https://winstonchurchill.org/resources/speeches/1941-1945-war-leader/never-give-in/"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final q079. Re-checked 2026-10-04: normalised match on the ICS transcript = True. Portrait confirmed visually as the IWM NYP 45063 image (not Karsh). Text rights: Churchill estate (†1965).",
+   "image": {
+    "file": "quote-images/q079.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Churchill_portrait_NYP_45063.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/35/Churchill_portrait_NYP_45063.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain (PD-UKGov)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "British Government (Imperial War Museum NYP 45063)",
+    "attribution": "British Government / Imperial War Museum, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Churchill_portrait_NYP_45063.jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "Oxford Dictionary of Quotations (Churchill, Harrow 1941); Langworth, Churchill by Himself; Wikiquote 'Sourced'. [Anthology listing cited from memory — not re-checked in the book.]"
+  },
+  {
+   "id": "A06",
+   "text": "I have nothing to offer but blood, toil, tears and sweat.",
+   "original": null,
+   "translation": null,
+   "author": "Winston Churchill",
+   "author_dates": "1874–1965",
+   "theme": "adversity",
+   "source": {
+    "work": "First speech as Prime Minister, House of Commons ('His Majesty's Government')",
+    "year": "1940 (13 May)",
+    "locator": "Hansard, HC Deb 13 May 1940, vol. 360, col. 1502",
+    "url": "https://api.parliament.uk/historic-hansard/commons/1940/may/13/his-majestys-government-1"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match in Hansard (historic-hansard) = True; Hansard prints it in quotation marks as what he said to the new Government. Column number from standard citations, not re-read on the page. Text rights: Churchill estate (†1965); Hansard under Open Parliament Licence.",
+   "image": {
+    "file": "quote-images/q079.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Churchill_portrait_NYP_45063.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/35/Churchill_portrait_NYP_45063.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain (PD-UKGov)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "British Government (Imperial War Museum NYP 45063)",
+    "attribution": "British Government / Imperial War Museum, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Churchill_portrait_NYP_45063.jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "Oxford Dictionary of Quotations and Bartlett's (Churchill, 13 May 1940); one of the best-known lines of the 20th century. [Anthology listing cited from memory — not re-checked in the book.]"
+  },
+  {
+   "id": "A07",
+   "text": "Let us have faith that right makes might, and in that faith, let us, to the end, dare to do our duty as we understand it.",
+   "original": null,
+   "translation": null,
+   "author": "Abraham Lincoln",
+   "author_dates": "1809–1865",
+   "theme": "courage",
+   "source": {
+    "work": "Address at Cooper Institute (Cooper Union), New York",
+    "year": "1860 (27 February)",
+    "locator": "Closing sentence (printed in capitals in the 1860 text)",
+    "url": "https://en.wikisource.org/wiki/Cooper_Union_Speech"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match on Wikisource 'Cooper Union Speech' = True (capitals, with commas). Same words, fewer commas, in Nicolay & Hay, Papers and Writings (Gutenberg #3253) = True. Rendered here in sentence case.",
+   "image": {
+    "file": "quote-images/q091.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Abraham_Lincoln_O-77_matte_collodion_print.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Abraham_Lincoln_O-77_matte_collodion_print.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Alexander Gardner",
+    "attribution": "Alexander Gardner, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Abraham_Lincoln_O-77_matte_collodion_print.jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "Bartlett's Familiar Quotations and Oxford Dictionary of Quotations (Lincoln, Cooper Union 1860); Wikiquote 'Sourced'. [Anthology listing cited from memory — not re-checked in the book.]"
+  },
+  {
+   "id": "A08",
+   "text": "Always bear in mind that your own resolution to succeed, is more important than any other one thing.",
+   "original": null,
+   "translation": null,
+   "author": "Abraham Lincoln",
+   "author_dates": "1809–1865",
+   "theme": "perseverance",
+   "source": {
+    "work": "Letter to Isham Reavis, Springfield",
+    "year": "1855 (5 November)",
+    "locator": "Lincoln: Addresses and Letters, ed. Charles W. Moores (American Book Co., 1914), p. 64; also Collected Works, ed. Basler, vol. 2",
+    "url": "https://archive.org/details/lincolnaddresses02linc"
+   },
+   "verification": "primary",
+   "verification_note": "Upgraded from quotes-final q091 (secondary). Normalised match in the 1914 Moores edition on archive.org = True (OCR splits 'suc- ceed'); the comma after 'succeed' is in that print too. Michigan Collected Works still 403.",
+   "image": {
+    "file": "quote-images/q091.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Abraham_Lincoln_O-77_matte_collodion_print.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Abraham_Lincoln_O-77_matte_collodion_print.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Alexander Gardner",
+    "attribution": "Alexander Gardner, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Abraham_Lincoln_O-77_matte_collodion_print.jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "high",
+   "fame_evidence": "Wikiquote 'Sourced' (1855); one of the most-reprinted Lincoln lines on perseverance; not his single most famous."
+  },
+  {
+   "id": "A09",
+   "text": "If there is no struggle there is no progress.",
+   "original": null,
+   "translation": null,
+   "author": "Frederick Douglass",
+   "author_dates": "1818–1895",
+   "theme": "perseverance",
+   "source": {
+    "work": "'West India Emancipation' (The Significance of Emancipation in the West Indies), address at Canandaigua, New York",
+    "year": "1857 (3 August)",
+    "locator": "Frederick Douglass Papers Project digital edition, item 10509",
+    "url": "https://frederickdouglasspapersproject.com/s/digitaledition/item/10509"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final q080. Re-checked 2026-10-04: normalised match in the Douglass Papers Project edition = True.",
+   "image": {
+    "file": "quote-images/q080.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Frederick_Douglass_(circa_1879)_(cropped).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Frederick_Douglass_%28circa_1879%29_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "George Kendall Warren",
+    "attribution": "George Kendall Warren, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frederick_Douglass_(circa_1879)_(cropped).jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "Bartlett's Familiar Quotations / Yale Book of Quotations (Douglass, 1857); Wikiquote 'Sourced'; his most-cited line. [Anthology listing cited from memory — not re-checked in the book.]"
+  },
+  {
+   "id": "A10",
+   "text": "Power concedes nothing without a demand. It never did and it never will.",
+   "original": null,
+   "translation": null,
+   "author": "Frederick Douglass",
+   "author_dates": "1818–1895",
+   "theme": "action",
+   "source": {
+    "work": "'West India Emancipation' (The Significance of Emancipation in the West Indies), address at Canandaigua, New York",
+    "year": "1857 (3 August)",
+    "locator": "Frederick Douglass Papers Project digital edition, item 10509",
+    "url": "https://frederickdouglasspapersproject.com/s/digitaledition/item/10509"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match in the Douglass Papers Project edition = True (about 400 characters after A09, same paragraph).",
+   "image": {
+    "file": "quote-images/q080.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Frederick_Douglass_(circa_1879)_(cropped).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Frederick_Douglass_%28circa_1879%29_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "George Kendall Warren",
+    "attribution": "George Kendall Warren, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Frederick_Douglass_(circa_1879)_(cropped).jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "Bartlett's / Oxford Dictionary of Quotations (Douglass, 1857); Wikiquote 'Sourced'. [Anthology listing cited from memory — not re-checked in the book.]"
+  },
+  {
+   "id": "A11",
+   "text": "Strength does not come from physical capacity. It comes from an indomitable will.",
+   "original": null,
+   "translation": null,
+   "author": "Mahatma Gandhi",
+   "author_dates": "1869–1948",
+   "theme": "discipline",
+   "source": {
+    "work": "'The Doctrine of the Sword', Young India",
+    "year": "1920 (11 August)",
+    "locator": "Young India, 11 Aug 1920; Collected Works of Mahatma Gandhi vol. 18 (volume not re-confirmed)",
+    "url": "https://www.mkgandhi.org/nonviolence/D_sword.php"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final q090. Re-checked 2026-10-04: normalised match on mkgandhi.org (Gandhi Book Centre transcription) = True. Gandhi wrote this in English. Only one entry: his best-known lines on the app's themes are unsourced or paraphrases (see REJECTED-V2).",
+   "image": {
+    "file": "quote-images/q090.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Mahatma-Gandhi,_studio,_1931.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Mahatma-Gandhi%2C_studio%2C_1931.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Elliott & Fry",
+    "attribution": "Elliott & Fry, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Mahatma-Gandhi,_studio,_1931.jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "high",
+   "fame_evidence": "Wikiquote 'Sourced' (Young India 1920); among the most-reprinted genuine Gandhi lines; less famous than the (paraphrased) 'Be the change'."
+  },
+  {
+   "id": "A12",
+   "text": "You must do the thing you think you cannot do.",
+   "original": null,
+   "translation": null,
+   "author": "Eleanor Roosevelt",
+   "author_dates": "1884–1962",
+   "theme": "courage",
+   "source": {
+    "work": "You Learn by Living",
+    "year": "1960",
+    "locator": "Chapter 2, 'Fear—the Great Enemy' (Harper & Brothers, 1960; page not seen)",
+    "url": "https://quoteinvestigator.com/2013/08/09/scare/"
+   },
+   "verification": "secondary",
+   "verification_note": "Reused from quotes-final q095. Re-checked 2026-10-04: exact sentence present on the QI article citing You Learn by Living (1960) = True. Book text itself not accessible (in copyright, lending-only scans). Text rights: Roosevelt estate (†1962).",
+   "image": {
+    "file": "quote-images/q095.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Eleanor_Roosevelt_at_the_United_Nations,_circa_1946-1947_(3x4_cropped).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Eleanor_Roosevelt_at_the_United_Nations%2C_circa_1946-1947_%283x4_cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "creator": "FDR Presidential Library & Museum",
+    "attribution": "FDR Presidential Library & Museum, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Eleanor_Roosevelt_at_the_United_Nations,_circa_1946-1947_(3x4_cropped).jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "Quote Investigator (2013/08/09/scare) cites it from You Learn by Living; Wikiquote 'Sourced'; her most-cited genuine line on courage."
+  },
+  {
+   "id": "A13",
+   "text": "You gain strength, courage, and confidence by every experience in which you really stop to look fear in the face.",
+   "original": null,
+   "translation": null,
+   "author": "Eleanor Roosevelt",
+   "author_dates": "1884–1962",
+   "theme": "courage",
+   "source": {
+    "work": "You Learn by Living",
+    "year": "1960",
+    "locator": "Chapter 2, 'Fear—the Great Enemy' (Harper & Brothers, 1960; page not seen)",
+    "url": "https://quoteinvestigator.com/2013/08/09/scare/"
+   },
+   "verification": "secondary",
+   "verification_note": "Exact sentence (with serial comma) present on the QI article quoting You Learn by Living (1960) = True. Same passage as A12, a few sentences earlier. Book not opened. Text rights: Roosevelt estate.",
+   "image": {
+    "file": "quote-images/q095.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Eleanor_Roosevelt_at_the_United_Nations,_circa_1946-1947_(3x4_cropped).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Eleanor_Roosevelt_at_the_United_Nations%2C_circa_1946-1947_%283x4_cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "creator": "FDR Presidential Library & Museum",
+    "attribution": "FDR Presidential Library & Museum, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Eleanor_Roosevelt_at_the_United_Nations,_circa_1946-1947_(3x4_cropped).jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "high",
+   "fame_evidence": "Quote Investigator (2013/08/09/scare); Wikiquote 'Sourced' (You Learn by Living, 1960); widely reprinted."
+  },
+  {
+   "id": "A14",
+   "text": "Dost thou love life? then do not squander time, for that is the stuff life is made of.",
+   "original": null,
+   "translation": null,
+   "author": "Benjamin Franklin",
+   "author_dates": "1706–1790",
+   "theme": "focus",
+   "source": {
+    "work": "The Way to Wealth (Father Abraham's speech, preface to Poor Richard Improved)",
+    "year": "1758",
+    "locator": "quoting 'Poor Richard'; text as in the 1810 and 1814 printings",
+    "url": "https://www.gutenberg.org/ebooks/43855"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final q040. Re-checked 2026-10-04: same words in Gutenberg #43855 (1810 printing) and archive.org waytowealthorpoo00franiala (1814 printing) = True. First printed in Poor Richard's Almanack for 1746; the 1746/1758 originals reportedly read 'that's' — not seen (Founders Online blocked my tools).",
+   "image": {
+    "file": "quote-images/q040.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Joseph_Siffrein_Duplessis_-_Benjamin_Franklin_-_Google_Art_Project.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/87/Joseph_Siffrein_Duplessis_-_Benjamin_Franklin_-_Google_Art_Project.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Joseph-Siffred Duplessis",
+    "attribution": "Joseph-Siffred Duplessis, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Joseph_Siffrein_Duplessis_-_Benjamin_Franklin_-_Google_Art_Project.jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "Bartlett's Familiar Quotations (Poor Richard / The Way to Wealth); Wikiquote 'Sourced'; one of Franklin's best-known maxims. [Anthology listing cited from memory — not re-checked in the book.]"
+  },
+  {
+   "id": "A15",
+   "text": "Lost time is never found again.",
+   "original": null,
+   "translation": null,
+   "author": "Benjamin Franklin",
+   "author_dates": "1706–1790",
+   "theme": "focus",
+   "source": {
+    "work": "The Way to Wealth (Father Abraham's speech, preface to Poor Richard Improved)",
+    "year": "1758",
+    "locator": "quoting 'Poor Richard'; text as in the 1810 and 1814 printings",
+    "url": "https://www.gutenberg.org/ebooks/43855"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match in Gutenberg #43855 (1810) and the 1814 archive.org printing = True. Sentence continues '; and what we call time enough, always proves little enough.' Franklin presents it as a Poor Richard saying (first in the 1748 almanac).",
+   "image": {
+    "file": "quote-images/q040.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Joseph_Siffrein_Duplessis_-_Benjamin_Franklin_-_Google_Art_Project.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/87/Joseph_Siffrein_Duplessis_-_Benjamin_Franklin_-_Google_Art_Project.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Joseph-Siffred Duplessis",
+    "attribution": "Joseph-Siffred Duplessis, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Joseph_Siffrein_Duplessis_-_Benjamin_Franklin_-_Google_Art_Project.jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "high",
+   "fame_evidence": "Bartlett's Familiar Quotations (The Way to Wealth maxims); Wikiquote 'Sourced'; widely reprinted Poor Richard proverb. [Anthology listing cited from memory — not re-checked in the book.]"
+  },
+  {
+   "id": "A16",
+   "text": "Determine never to be idle. No person will have occasion to complain of the want of time, who never loses any. It is wonderful how much may be done, if we are always doing.",
+   "original": null,
+   "translation": null,
+   "author": "Thomas Jefferson",
+   "author_dates": "1743–1826",
+   "theme": "focus",
+   "source": {
+    "work": "Letter to Martha Jefferson, Marseilles",
+    "year": "1787 (5 May)",
+    "locator": "Papers of Thomas Jefferson, vol. 11 (Founders Online 01-11-02-0327); Monticello Jefferson Quotes & Family Letters no. 2407",
+    "url": "https://tjrs.monticello.org/letter/2407"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final q067. Re-checked 2026-10-04: three consecutive sentences, normalised match on Monticello's transcription = True. Manuscript uses lower-case sentence openings; capitalised for display. Founders Online blocked to my tools.",
+   "image": {
+    "file": "quote-images/q067.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Official_Presidential_portrait_of_Thomas_Jefferson_(by_Rembrandt_Peale,_1800).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/07/Official_Presidential_portrait_of_Thomas_Jefferson_%28by_Rembrandt_Peale%2C_1800%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Rembrandt Peale",
+    "attribution": "Rembrandt Peale, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Official_Presidential_portrait_of_Thomas_Jefferson_(by_Rembrandt_Peale,_1800).jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "high",
+   "fame_evidence": "Wikiquote 'Sourced' (letter of 5 May 1787); Monticello's curated Jefferson Quotes collection; 'It is wonderful how much may be done if we are always doing' is widely reprinted."
+  },
+  {
+   "id": "A17",
+   "text": "I like the dreams of the future better than the history of the past.",
+   "original": null,
+   "translation": null,
+   "author": "Thomas Jefferson",
+   "author_dates": "1743–1826",
+   "theme": "ambition",
+   "source": {
+    "work": "Letter to John Adams, Monticello",
+    "year": "1816 (1 August)",
+    "locator": "Papers of Thomas Jefferson, Retirement Series vol. 10 (Founders Online 03-10-02-0173); Monticello Jefferson Quotes no. 1388",
+    "url": "https://tjrs.monticello.org/letter/1388"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match on Monticello's transcription of the letter extract = True. Adams's reply of 9 Aug 1816 echoes the phrase, confirming the wording in context (per Founders Online listing; not opened).",
+   "image": {
+    "file": "quote-images/q067.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Official_Presidential_portrait_of_Thomas_Jefferson_(by_Rembrandt_Peale,_1800).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/07/Official_Presidential_portrait_of_Thomas_Jefferson_%28by_Rembrandt_Peale%2C_1800%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Rembrandt Peale",
+    "attribution": "Rembrandt Peale, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Official_Presidential_portrait_of_Thomas_Jefferson_(by_Rembrandt_Peale,_1800).jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "high",
+   "fame_evidence": "Monticello Thomas Jefferson Encyclopedia has a dedicated 'dreams of the future' quotation page; Wikiquote 'Sourced'."
+  },
+  {
+   "id": "A18",
+   "text": "I have learned that success is to be measured not so much by the position that one has reached in life as by the obstacles which he has overcome while trying to succeed.",
+   "original": null,
+   "translation": null,
+   "author": "Booker T. Washington",
+   "author_dates": "1856–1915",
+   "theme": "adversity",
+   "source": {
+    "work": "Up from Slavery: An Autobiography",
+    "year": "1901",
+    "locator": "Chapter II, 'Boyhood Days'",
+    "url": "https://www.gutenberg.org/ebooks/2376"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final q014. Re-checked 2026-10-04: normalised match in Gutenberg #2376 = True. One entry only: his other famous line on these themes ('lift up someone else') is unsourced.",
+   "image": {
+    "file": "quote-images/q014.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Booker_T_Washington_retouched_flattened-crop.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Booker_T_Washington_retouched_flattened-crop.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "Public domain",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Harris & Ewing",
+    "attribution": "Harris & Ewing, Public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Booker_T_Washington_retouched_flattened-crop.jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "Bartlett's Familiar Quotations (Up from Slavery); Wikiquote 'Sourced'; his most-quoted sentence. [Anthology listing cited from memory — not re-checked in the book.]"
+  },
+  {
+   "id": "A19",
+   "text": "The only thing we have to fear is fear itself.",
+   "original": null,
+   "translation": null,
+   "author": "Franklin D. Roosevelt",
+   "author_dates": "1882–1945",
+   "theme": "courage",
+   "source": {
+    "work": "First Inaugural Address, Washington, D.C.",
+    "year": "1933 (4 March)",
+    "locator": "American Presidency Project transcript",
+    "url": "https://www.presidency.ucsb.edu/documents/inaugural-address-8"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match on the American Presidency Project text = True (page dated March 04, 1933). Sentence opens 'So, first of all, let me assert my firm belief that …' and continues '—nameless, unreasoning, unjustified terror …'. Excerpt starts at 'the only'. US federal speech — public domain.",
+   "image": {
+    "file": "quote-images/v2-franklin-d-roosevelt.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:FDR_1944_Color_Portrait.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/42/FDR_1944_Color_Portrait.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "creator": "Leon A. Perskie (FDR Presidential Library & Museum)",
+    "attribution": "Leon A. Perskie / FDR Presidential Library & Museum, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:FDR_1944_Color_Portrait.jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "Oxford Dictionary of Quotations, Bartlett's and Yale Book of Quotations (FDR, 1933); one of the most famous lines in American political speech. [Anthology listing cited from memory — not re-checked in the book.]"
+  },
+  {
+   "id": "A20",
+   "text": "It is common sense to take a method and try it. If it fails, admit it frankly and try another. But above all, try something.",
+   "original": null,
+   "translation": null,
+   "author": "Franklin D. Roosevelt",
+   "author_dates": "1882–1945",
+   "theme": "action",
+   "source": {
+    "work": "Address at Oglethorpe University, Atlanta, Georgia",
+    "year": "1932 (22 May)",
+    "locator": "American Presidency Project transcript",
+    "url": "https://www.presidency.ucsb.edu/documents/address-oglethorpe-university-atlanta-georgia"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match on the American Presidency Project text = True (page dated May 22, 1932). Given as Governor of New York, during the campaign.",
+   "image": {
+    "file": "quote-images/v2-franklin-d-roosevelt.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:FDR_1944_Color_Portrait.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/42/FDR_1944_Color_Portrait.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "creator": "Leon A. Perskie (FDR Presidential Library & Museum)",
+    "attribution": "Leon A. Perskie / FDR Presidential Library & Museum, CC BY 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:FDR_1944_Color_Portrait.jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "high",
+   "fame_evidence": "Wikiquote 'Sourced' (Oglethorpe 1932); the 'bold, persistent experimentation' passage is a standard FDR entry in quotation collections."
+  },
+  {
+   "id": "A21",
+   "text": "We choose to go to the moon in this decade and do the other things, not because they are easy, but because they are hard.",
+   "original": null,
+   "translation": null,
+   "author": "John F. Kennedy",
+   "author_dates": "1917–1963",
+   "theme": "ambition",
+   "source": {
+    "work": "Address at Rice University, Houston, on the Nation's Space Effort",
+    "year": "1962 (12 September)",
+    "locator": "American Presidency Project transcript",
+    "url": "https://www.presidency.ucsb.edu/documents/address-rice-university-houston-the-nations-space-effort"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match on the American Presidency Project text = True (page dated September 12, 1962). Preceded by 'We choose to go to the moon.'; sentence continues ', because that goal will serve …' — excerpt ends at 'hard'. Portrait: US federal work; EU use rests on PD-USGov (generally accepted).",
+   "image": {
+    "file": "quote-images/v2-john-f-kennedy.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:John_F._Kennedy,_White_House_color_photo_portrait.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/c3/John_F._Kennedy%2C_White_House_color_photo_portrait.jpg",
+    "license": "Public domain (PD-USGov-POTUS)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Cecil W. Stoughton, White House photographer (11 July 1963)",
+    "attribution": "Cecil W. Stoughton / White House, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:John_F._Kennedy,_White_House_color_photo_portrait.jpg)",
+    "flag": "US federal work (PD-USGov). EU status follows the US public-domain status — generally accepted."
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "Oxford Dictionary of Quotations / Yale Book of Quotations (Kennedy, Rice 1962); Wikiquote 'Sourced'. [Anthology listing cited from memory — not re-checked in the book.]"
+  },
+  {
+   "id": "A22",
+   "text": "Ask not what your country can do for you—ask what you can do for your country.",
+   "original": null,
+   "translation": null,
+   "author": "John F. Kennedy",
+   "author_dates": "1917–1963",
+   "theme": "action",
+   "source": {
+    "work": "Inaugural Address, Washington, D.C.",
+    "year": "1961 (20 January)",
+    "locator": "American Presidency Project transcript",
+    "url": "https://www.presidency.ucsb.edu/documents/inaugural-address-2"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match on the American Presidency Project text = True (page dated January 20, 1961); preceded by 'And so, my fellow Americans:'. US federal speech — public domain.",
+   "image": {
+    "file": "quote-images/v2-john-f-kennedy.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:John_F._Kennedy,_White_House_color_photo_portrait.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/c3/John_F._Kennedy%2C_White_House_color_photo_portrait.jpg",
+    "license": "Public domain (PD-USGov-POTUS)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Cecil W. Stoughton, White House photographer (11 July 1963)",
+    "attribution": "Cecil W. Stoughton / White House, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:John_F._Kennedy,_White_House_color_photo_portrait.jpg)",
+    "flag": "US federal work (PD-USGov). EU status follows the US public-domain status — generally accepted."
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "Oxford Dictionary of Quotations, Bartlett's, Yale Book of Quotations (Kennedy, Inaugural 1961). [Anthology listing cited from memory — not re-checked in the book.]"
+  },
+  {
+   "id": "A23",
+   "text": "If you can’t fly, run. If you can’t run, walk. If you can’t walk, crawl. But by all means, keep moving.",
+   "original": null,
+   "translation": null,
+   "author": "Martin Luther King Jr.",
+   "author_dates": "1929–1968",
+   "theme": "perseverance",
+   "source": {
+    "work": "'What Is Your Life's Blueprint?', address to students at Barratt Junior High School, Philadelphia",
+    "year": "1967 (26 October)",
+    "locator": "Transcript published by Beacon Press (King's publisher), 50th-anniversary post",
+    "url": "https://www.beaconbroadside.com/broadside/2017/10/the-50th-anniversary-of-martin-luther-king-jrs-what-is-your-lifes-blueprint.html"
+   },
+   "verification": "secondary",
+   "verification_note": "Normalised match on Beacon Press's transcript = True (preceded by 'We must keep going.' in some transcripts). Spoken address, preserved on recording; recording not checked. King used the same figure in other speeches. Text rights: King estate.",
+   "image": {
+    "file": "quote-images/v2-martin-luther-king-jr.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Martin_Luther_King_Jr_NYWTS.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/84/Martin_Luther_King_Jr_NYWTS.jpg",
+    "license": "Public domain (PD-NYWT&S; Library of Congress cph.3c26559, no known restrictions)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Dick DeMarsico, New York World-Telegram & Sun (1964)",
+    "attribution": "Dick DeMarsico / New York World-Telegram & Sun, public domain, Library of Congress, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Martin_Luther_King_Jr_NYWTS.jpg)",
+    "flag": "US press photo; LoC states no known restrictions (NYWT&S collection). EU use rests on that release — generally accepted."
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "Among King's most-cited lines outside 'I Have a Dream'; Wikiquote 'Sourced' (1967); reprinted by his publisher Beacon Press."
+  },
+  {
+   "id": "A24",
+   "text": "The ultimate measure of a man is not where he stands in moments of comfort and convenience, but where he stands at times of challenge and controversy.",
+   "original": null,
+   "translation": null,
+   "author": "Martin Luther King Jr.",
+   "author_dates": "1929–1968",
+   "theme": "courage",
+   "source": {
+    "work": "Strength to Love (Harper & Row)",
+    "year": "1963",
+    "locator": "Chapter 3, 'On Being a Good Neighbor'",
+    "url": "https://kinginstitute.stanford.edu/king-papers/documents/draft-chapter-iii-being-good-neighbor"
+   },
+   "verification": "secondary",
+   "verification_note": "King's own typed draft of the chapter (King Papers Project, Stanford) contains the sentence in draft form ('…moments of challenge…') — confirms authorship. Published 1963 wording matched (True) on National Constitution Center and Seattle Pacific University 'Excerpts from Strength to Love'; the book scan itself is lending-only. Text rights: King estate.",
+   "image": {
+    "file": "quote-images/v2-martin-luther-king-jr.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Martin_Luther_King_Jr_NYWTS.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/84/Martin_Luther_King_Jr_NYWTS.jpg",
+    "license": "Public domain (PD-NYWT&S; Library of Congress cph.3c26559, no known restrictions)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Dick DeMarsico, New York World-Telegram & Sun (1964)",
+    "attribution": "Dick DeMarsico / New York World-Telegram & Sun, public domain, Library of Congress, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Martin_Luther_King_Jr_NYWTS.jpg)",
+    "flag": "US press photo; LoC states no known restrictions (NYWT&S collection). EU use rests on that release — generally accepted."
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "National Constitution Center '10 famous quotes from Dr. Martin Luther King Jr.'; Wikiquote 'Sourced' (Strength to Love); standard entry in King anthologies."
+  },
+  {
+   "id": "A25",
+   "text": "I learned that courage was not the absence of fear, but the triumph over it. The brave man is not he who does not feel afraid, but he who conquers that fear.",
+   "original": null,
+   "translation": null,
+   "author": "Nelson Mandela",
+   "author_dates": "1918–2013",
+   "theme": "courage",
+   "source": {
+    "work": "Long Walk to Freedom (Little, Brown)",
+    "year": "1994",
+    "locator": "Closing chapters (inauguration, 10 May 1994); reprinted in NCERT First Flight (Class X English), ch. 2 'Nelson Mandela: Long Walk to Freedom'",
+    "url": "https://ncert.nic.in/textbook/pdf/jeff102.pdf"
+   },
+   "verification": "secondary",
+   "verification_note": "Both sentences, consecutive, normalised match in the official NCERT textbook reprint of the Long Walk to Freedom passage = True. The book itself not opened (in copyright). Text rights: Mandela estate / Little, Brown. Only one Mandela entry: his most famous 'motivational' line is not his (see REJECTED-V2).",
+   "image": {
+    "file": "quote-images/v2-nelson-mandela.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Nelson_Mandela_1994.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/02/Nelson_Mandela_1994.jpg",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "creator": "John Mathew Smith (Kingkongphoto & www.celebrity-photos.com), Washington D.C., 4 October 1994",
+    "attribution": "John Mathew Smith & www.celebrity-photos.com, CC BY-SA 2.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Nelson_Mandela_1994.jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "top",
+   "fame_evidence": "His most-cited genuine line on courage; Wikiquote 'Sourced' (Long Walk to Freedom); CNN 'Mandela in his own words' (2008); set as a school text (NCERT)."
+  },
+  {
+   "id": "A26",
+   "text": "He who would preserve everything, preserves nothing.",
+   "original": "qui conserve tout ne conserve rien.",
+   "translation": {
+    "translator": "Thomas R. Phillips",
+    "edition": "Roots of Strategy: A Collection of Military Classics (Harrisburg: Military Service Publishing Co.) — 'The Instruction of Frederick the Great for His Generals'",
+    "year": 1940
+   },
+   "author": "Frederick the Great",
+   "author_dates": "1712–1786",
+   "theme": "focus",
+   "source": {
+    "work": "Les principes généraux de la guerre (Instruction for his generals)",
+    "year": "1748",
+    "locator": "Art. XI, 'Quand et pourquoi il faut faire des détachements'; Œuvres de Frédéric le Grand vol. 28 (Œuvres militaires I, Berlin: Decker, 1856), p. 37–38",
+    "url": "https://archive.org/details/bub_gb_9EBw8EMyjFYC"
+   },
+   "verification": "primary",
+   "verification_note": "French original matched in the 1856 Preuss edition (archive.org bub_gb_9EBw8EMyjFYC, OCR) — preceded by 'Les petits génies veulent tout conserver, les hommes sensés ne voient que l'objet principal'. English matched in Phillips 1940 (archive.org dli.ernet.6035). CAVEATS: (1) the popular wording 'He who defends everything defends nothing' is not in Phillips or in Foster's 1797/1818 translation (Foster omits the clause) — it echoes the German 'Wer alles defendieren will, defendieret gar nichts'; (2) Phillips introduces it as 'an ancient apothegm', so Frederick may be citing a proverb. Phillips 1940 copyright renewal not checked.",
+   "image": {
+    "file": "quote-images/v2-frederick-the-great.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Friedrich_der_Gro%C3%9Fe_(1781_or_1786)_-_Google_Art_Project.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/81/Friedrich_der_Gro%C3%9Fe_%281781_or_1786%29_-_Google_Art_Project.jpg",
+    "license": "Public domain (PD-Art, PD-old-100)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Anton Graff (1781–1786), oil painting; Google Art Project reproduction",
+    "attribution": "Anton Graff, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Friedrich_der_Gro%C3%9Fe_(1781_or_1786)_-_Google_Art_Project.jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "medium",
+   "fame_evidence": "Frederick's most-cited maxim in English strategy writing, usually as 'He who defends everything defends nothing'; NOT on his Wikiquote page and not confirmed in ODQ/Bartlett's. He has no genuine, on-theme line known to the general public. [Anthology listing cited from memory — not re-checked in the book.]"
+  },
+  {
+   "id": "A27",
+   "text": "Glorious are the deeds of those who undergo labour and run the risk of danger; and it is delightful to live a life of valour and to die leaving behind immortal glory.",
+   "original": "πονούντων τοι καὶ κινδυνευόντων τὰ καλὰ ἔργα, καὶ ζῆν τε ξὺν ἀρετῇ ἡδὺ καὶ ἀποθνήσκειν κλέος ἀθάνατον ὑπολειπομένους.",
+   "translation": {
+    "translator": "E. J. Chinnock",
+    "edition": "The Anabasis of Alexander (London: Hodder & Stoughton)",
+    "year": 1884
+   },
+   "author": "Alexander the Great",
+   "author_dates": "356–323 BCE",
+   "theme": "courage",
+   "source": {
+    "work": "Arrian, Anabasis of Alexander (speech to the army at the Hyphasis, 326 BCE)",
+    "year": "2nd century CE (Arrian)",
+    "locator": "Book V, ch. 26 (§4)",
+    "url": "https://www.gutenberg.org/ebooks/46976"
+   },
+   "verification": "primary",
+   "verification_note": "Chinnock's English matched in Gutenberg #46976 (Book V, ch. XXVI) = True; sentence opens 'But, O Macedonians and Grecian allies, stand firm!'. Greek matched in PerseusDL canonical-greekLit tlg0074.tlg001 (grc2). CAVEAT: a speech composed by Arrian ~450 years later from earlier histories — the standard ancient attribution, not a transcript. The well-known wording 'It is a lovely thing to live with courage…' is de Sélincourt's 1958 Penguin translation (in copyright).",
+   "image": {
+    "file": "quote-images/v2-alexander-the-great.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Bust_of_Alexander_the_Great.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Bust_of_Alexander_the_Great.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "creator": "Satdeep Gill (photo); marble bust from Cyme, 2nd century BCE, Istanbul Archaeological Museums",
+    "attribution": "Satdeep Gill, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bust_of_Alexander_the_Great.jpg)"
+   },
+   "verified": "PASS",
+   "category": "conqueror",
+   "fame": "high",
+   "fame_evidence": "In its de Sélincourt wording one of the most-quoted Alexander lines (Wikiquote 'Sourced', Arrian V.26); Chinnock's wording is less familiar."
+  },
+  {
+   "id": "A28",
+   "text": "I will not steal my victory.",
+   "original": "οὐ κλέπτω τὴν νίκην",
+   "translation": {
+    "translator": "Bernadotte Perrin",
+    "edition": "Plutarch's Lives, vol. VII (Loeb Classical Library, Harvard / Heinemann)",
+    "year": 1919
+   },
+   "author": "Alexander the Great",
+   "author_dates": "356–323 BCE",
+   "theme": "courage",
+   "source": {
+    "work": "Plutarch, Life of Alexander (eve of Gaugamela, 331 BCE, refusing Parmenio's night attack)",
+    "year": "c. 100 CE (Plutarch)",
+    "locator": "ch. 31, §12",
+    "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Plutarch/Lives/Alexander*/4.html"
+   },
+   "verification": "primary",
+   "verification_note": "Perrin's wording matched on LacusCurtius (page 4 of the Life) = True; Plutarch himself calls it 'the celebrated answer'. Greek 'οὐ κλέπτω τὴν νίκην' matched in PerseusDL tlg0007.tlg047 (grc2). Arrian III.10 reports the same refusal in indirect speech. Ancient anecdote, recorded ~400 years later.",
+   "image": {
+    "file": "quote-images/v2-alexander-the-great.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Bust_of_Alexander_the_Great.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Bust_of_Alexander_the_Great.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "creator": "Satdeep Gill (photo); marble bust from Cyme, 2nd century BCE, Istanbul Archaeological Museums",
+    "attribution": "Satdeep Gill, CC BY-SA 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Bust_of_Alexander_the_Great.jpg)"
+   },
+   "verified": "PASS",
+   "category": "conqueror",
+   "fame": "high",
+   "fame_evidence": "Called 'the celebrated answer' already by Plutarch; Wikiquote 'Sourced' (Plutarch, Alexander 31); standard in Alexander quotation lists."
+  },
+  {
+   "id": "A29",
+   "text": "“It is not possible,” you write: that is not French.",
+   "original": "« Ce n'est pas possible », m'écrivez-vous : cela n'est pas français.",
+   "translation": {
+    "translator": "Edward Latham",
+    "edition": "Famous Sayings and their Authors (London: Swan Sonnenschein), entry 'Le mot impossible n'est pas français'",
+    "year": 1906
+   },
+   "author": "Napoleon Bonaparte",
+   "author_dates": "1769–1821",
+   "theme": "perseverance",
+   "source": {
+    "work": "Letter no. 20256 to General Comte Lemarois, governor of Magdeburg, Dresden",
+    "year": "1813 (9 July)",
+    "locator": "Correspondance de Napoléon Ier, vol. XXV (Paris: Imprimerie impériale, 1868), no. 20256",
+    "url": "https://archive.org/details/bub_gb_XWGDSFQ6choC"
+   },
+   "verification": "primary",
+   "verification_note": "French matched (normalised = True) in Correspondance vol. XXV on archive.org, ~190 characters after the header '20256. — Au général comte Lemarois … Dresde, 9 juillet 1813'. Latham's English and the letter citation matched in the 1906 edition on archive.org. Origin of the proverb 'Impossible n'est pas français'.",
+   "image": {
+    "file": "quote-images/v2-napoleon-bonaparte.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Jacques-Louis_David_-_The_Emperor_Napoleon_in_His_Study_at_the_Tuileries_-_Google_Art_Project_(3x4_close_cropped).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Jacques-Louis_David_-_The_Emperor_Napoleon_in_His_Study_at_the_Tuileries_-_Google_Art_Project_%283x4_close_cropped%29.jpg",
+    "license": "Public domain (PD-Art)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Jacques-Louis David, The Emperor Napoleon in His Study at the Tuileries (1812), National Gallery of Art, Washington; Google Art Project reproduction, close crop",
+    "attribution": "Jacques-Louis David, public domain, via Wikimedia Commons"
+   },
+   "verified": "PASS",
+   "category": "conqueror",
+   "fame": "top",
+   "fame_evidence": "Source of 'Impossible n'est pas français' / 'The word impossible is not French'; Wikiquote 'Quotes' section citing this letter; Latham's Famous Sayings (1906)."
+  },
+  {
+   "id": "A30",
+   "text": "In war, three-quarters are matters of morale; the balance of real forces counts only for the other quarter.",
+   "original": "À la guerre, les trois quarts sont des affaires morales ; la balance des forces réelles n'est que pour un autre quart.",
+   "translation": {
+    "translator": "LockedIn research (literal) — no published translation checked",
+    "edition": null,
+    "year": 2026
+   },
+   "author": "Napoleon Bonaparte",
+   "author_dates": "1769–1821",
+   "theme": "discipline",
+   "source": {
+    "work": "'Observations sur les affaires d'Espagne', Saint-Cloud",
+    "year": "1808 (27 August)",
+    "locator": "Correspondance de Napoléon Ier, vol. XVII (Paris: Plon / Dumaine, series 1858–70), no. 14276, 7th observation",
+    "url": "https://archive.org/details/correspondancede17napouoft"
+   },
+   "verification": "primary",
+   "verification_note": "French matched in Correspondance vol. XVII on archive.org (OCR), inside no. 14276 'Observations sur les affaires d'Espagne, Saint-Cloud, 27 août 1808'. English is a literal rendering: FLAG — owner may prefer a published translation (commonly paraphrased as 'the moral is to the physical as three to one'). 'affaires morales' = morale/character, not ethics.",
+   "image": {
+    "file": "quote-images/v2-napoleon-bonaparte.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Jacques-Louis_David_-_The_Emperor_Napoleon_in_His_Study_at_the_Tuileries_-_Google_Art_Project_(3x4_close_cropped).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Jacques-Louis_David_-_The_Emperor_Napoleon_in_His_Study_at_the_Tuileries_-_Google_Art_Project_%283x4_close_cropped%29.jpg",
+    "license": "Public domain (PD-Art)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Jacques-Louis David, The Emperor Napoleon in His Study at the Tuileries (1812), National Gallery of Art, Washington; Google Art Project reproduction, close crop",
+    "attribution": "Jacques-Louis David, public domain, via Wikimedia Commons"
+   },
+   "verified": "PASS",
+   "category": "conqueror",
+   "fame": "high",
+   "fame_evidence": "Usually cited as 'In war, the moral is to the physical as three to one' — a staple of military-quotation collections; Oxford Dictionary of Quotations carries the 1808 French (from memory — not re-checked)."
+  },
+  {
+   "id": "A31",
+   "text": "If you know the enemy and know yourself, you need not fear the result of a hundred battles.",
+   "original": "知彼知己，百戰不殆",
+   "translation": {
+    "translator": "Lionel Giles",
+    "edition": "Sun Tzu on the Art of War: The Oldest Military Treatise in the World (London: Luzac & Co.)",
+    "year": 1910
+   },
+   "author": "Sun Tzu",
+   "author_dates": "c. 544–496 BCE (traditional)",
+   "theme": "focus",
+   "source": {
+    "work": "The Art of War (Sunzi bingfa)",
+    "year": "c. 5th century BCE (traditional attribution)",
+    "url": "https://www.gutenberg.org/ebooks/132",
+    "locator": "Ch. III 'Attack by Stratagem', §18"
+   },
+   "verification": "primary",
+   "verification_note": "Giles's main-text paragraph III.18 matched in Gutenberg #132 = True (preceded by 'Hence the saying:'; not the commentary). Chinese matched on zh.wikisource 孫子兵法 (謀攻). Giles renders 百戰不殆 'need not fear the result of a hundred battles'.",
+   "image": {
+    "file": "quote-images/v2-sun-tzu.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Enchoen27n3200.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Enchoen27n3200.jpg",
+    "license": "CC BY 2.5",
+    "license_url": "https://creativecommons.org/licenses/by/2.5",
+    "creator": "663highland (photo, 27 Sept 2008); modern bronze statue of Sun Tzu, Enchoen garden, Yurihama, Tottori, Japan",
+    "attribution": "663highland, CC BY 2.5, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Enchoen27n3200.jpg)",
+    "flag": "No authentic likeness of Sun Tzu exists; this is a modern statue (sculptor unknown). Japanese freedom of panorama (Copyright Act Art. 46) covers photos of outdoor artworks except copies made for sale — check before any merchandise use."
+   },
+   "verified": "PASS",
+   "category": "conqueror",
+   "fame": "top",
+   "fame_evidence": "The best-known line of The Art of War; Oxford Dictionary of Quotations / Yale Book of Quotations list Sun Tzu's 'know the enemy and know yourself'; Wikiquote 'Sourced' (Giles). [Anthology listing cited from memory — not re-checked in the book.]"
+  },
+  {
+   "id": "A32",
+   "text": "In war the victorious strategist only seeks battle after the victory has been won, whereas he who is destined to defeat first fights and afterwards looks for victory.",
+   "original": "是故勝兵先勝而後求戰，敗兵先戰而後求勝。",
+   "translation": {
+    "translator": "Lionel Giles",
+    "edition": "Sun Tzu on the Art of War: The Oldest Military Treatise in the World (London: Luzac & Co.)",
+    "year": 1910
+   },
+   "author": "Sun Tzu",
+   "author_dates": "c. 544–496 BCE (traditional)",
+   "theme": "discipline",
+   "source": {
+    "work": "The Art of War (Sunzi bingfa)",
+    "year": "c. 5th century BCE (traditional attribution)",
+    "url": "https://www.gutenberg.org/ebooks/132",
+    "locator": "Ch. IV 'Tactical Dispositions', §15"
+   },
+   "verification": "primary",
+   "verification_note": "Giles's main-text paragraph IV.15 matched in Gutenberg #132 = True; it opens 'Thus it is that in war …' — excerpt drops 'Thus it is that'. Chinese matched on zh.wikisource (軍形).",
+   "image": {
+    "file": "quote-images/v2-sun-tzu.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Enchoen27n3200.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Enchoen27n3200.jpg",
+    "license": "CC BY 2.5",
+    "license_url": "https://creativecommons.org/licenses/by/2.5",
+    "creator": "663highland (photo, 27 Sept 2008); modern bronze statue of Sun Tzu, Enchoen garden, Yurihama, Tottori, Japan",
+    "attribution": "663highland, CC BY 2.5, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Enchoen27n3200.jpg)",
+    "flag": "No authentic likeness of Sun Tzu exists; this is a modern statue (sculptor unknown). Japanese freedom of panorama (Copyright Act Art. 46) covers photos of outdoor artworks except copies made for sale — check before any merchandise use."
+   },
+   "verified": "PASS",
+   "category": "conqueror",
+   "fame": "high",
+   "fame_evidence": "Widely cited as 'Every battle is won before it is fought' / 'Victorious warriors win first and then go to war' (modern translations); Wikiquote 'Sourced' (IV.15)."
+  },
+  {
+   "id": "A33",
+   "text": "Discipline is the soul of an army. It makes small numbers formidable; procures success to the weak, and esteem to all.",
+   "original": null,
+   "translation": null,
+   "author": "George Washington",
+   "author_dates": "1732–1799",
+   "theme": "discipline",
+   "source": {
+    "work": "Instructions to the Captains of Companies of the Virginia Regiment, Fort Loudoun",
+    "year": "1757 (29 July)",
+    "locator": "The Writings of George Washington, ed. John C. Fitzpatrick (Washington: GPO, 1931–44), vol. 2; Founders Online (Papers, Colonial Series vol. 4)",
+    "url": "https://archive.org/details/writingsofgeorge002wash"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match in Fitzpatrick vol. 2 on archive.org = True, inside 'Instructions to all the Captains of Companies, July 29, 1757'. Sentence continues '; and may, in a peculiar manner to us, …' — excerpt ends at 'all'. Founders Online blocked to my tools.",
+   "image": {
+    "file": "quote-images/v2-george-washington.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg",
+    "license": "Public domain (PD-Art)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Gilbert Stuart (1803), Clark Art Institute, Williamstown",
+    "attribution": "Gilbert Stuart, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "high",
+   "fame_evidence": "Wikiquote 'Sourced' (1757 instructions); one of Washington's most-reprinted lines in leadership and military quotation collections."
+  },
+  {
+   "id": "A34",
+   "text": "It is better to offer no excuse than a bad one.",
+   "original": null,
+   "translation": null,
+   "author": "George Washington",
+   "author_dates": "1732–1799",
+   "theme": "discipline",
+   "source": {
+    "work": "Letter to his niece Harriot Washington, Philadelphia",
+    "year": "1791 (30 October)",
+    "locator": "The Writings of George Washington, ed. Fitzpatrick, vol. 31 (GPO, 1931–44); Founders Online (Papers, Presidential Series vol. 9)",
+    "url": "https://archive.org/details/writingsofgeorge31wash"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match in Fitzpatrick vol. 31 on archive.org = True, in the letter headed 'To Harriet Washington, Philadelphia, October 30, 1791'. Original: '…to shew you it is better to offer no excuse than a bad one, if at any time …' — excerpt is the clause, capitalised.",
+   "image": {
+    "file": "quote-images/v2-george-washington.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg",
+    "license": "Public domain (PD-Art)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Gilbert Stuart (1803), Clark Art Institute, Williamstown",
+    "attribution": "Gilbert Stuart, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg)"
+   },
+   "verified": "PASS",
+   "category": "leader",
+   "fame": "high",
+   "fame_evidence": "Wikiquote 'Sourced' (1791 letter); among the most-cited genuine Washington lines on personal conduct."
+  }
+ ]
+}

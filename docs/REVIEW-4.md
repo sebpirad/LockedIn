@@ -286,3 +286,38 @@ The 14-day window with 50 weekly periods × 7 days (the maximum, with `skip` set
 
 ## Round 6 verdict: **SHIP**
 No way found to shorten or end a running lock through editing, deleting, skipping or unskipping. R6-1/2/3 are low and can follow.
+
+---
+
+# Round 7 (neverClose / "Lukkes aldrig") — daemon API 1.4.0 (working tree on bb580c5)
+Method:
+- `CoreTests` **180/180**, `node --test` **144/144**.
+- The Chrome for Testing suites were **not** run, because a real lock was running (until 10:00Z) and the daemon would close Chrome for Testing.
+- Probe `review/r8`. The live daemon was not contacted beyond earlier GETs.
+
+| Attempt during a lock | Result |
+|---|---|
+| neverClose ON for an app on an **active** list | **423** (CONFIRMED) |
+| neverClose ON for an "always closed" unknown engine (Discord) | **423** (CONFIRMED) |
+| neverClose ON for a browser (Safari), even unlocked | **400** (CONFIRMED) |
+| An app in `lockLists` (a list that was active earlier in this lock) | 423: `activeListIds` includes the remembered lists, so `closedNow` is true (code) |
+| Bundle-id spoof of a neverClose app (unsigned copy claiming `com.readdle.SparkDesktop`) | `killAndRecord`: the team check still applies, because `effectiveAppRules` keeps `teamId` (CONFIRMED). neverClose web-engine apps are still deep-verified (`blocked=false`, `kind=webengine`). |
+| neverClose ON for an app that is only on the list of a **later period chained to the running lock** | **Allowed, a weakening (R7-1)** |
+
+**R7-1 (MEDIUM, CONFIRMED) — neverClose strips an app from a frozen list mid-lock.**
+- Where: `Engine.setNeverClose`.
+- The guard only asks whether the app is closed **right now** (`effectiveAppRules`, i.e. the lists active this second). The lists frozen for the whole running chain (`frozenListIds`, L4-2) are not consulted, and turning neverClose on then **removes the app from every list**, frozen ones included.
+- Probe: a timer 10–11 on list A is chained to a period 11–13 on list B, which contains Spark.
+  - At 10:00, a direct shrink of B → 423.
+  - But `PATCH /v1/apps/com.readdle.SparkDesktop {"neverClose":true}` → **200**, and `B.apps = []`.
+  - At 11:30 the lock is still running, and Spark is judged **`allow`**.
+- This re-opens the L4-2 hole through a side door.
+- Fix: during a lock, refuse neverClose ON if the app is in **any** list in `frozenListIds(now)` (or is always-closed). And never remove it from frozen lists; strip list memberships only when unlocked.
+
+**R7-2 (LOW) — a neverClose app can still be put on a list.** `cleanList` refuses list membership for neverClose apps, but `addApp(…, list:)` still appends them (CONFIRMED: Spark ends up on the list). Nothing is weakened, since neverClose wins in `effectiveAppRules`, but the UI then shows an app on a list that will never be closed. Apply the same filter in `addApp`.
+
+## Round 7 verdict: **FIX FIRST**
+R7-1 is a one-condition fix in `setNeverClose`. Everything else holds:
+- the owner's use (Spark, Wispr Flow, Claude set before a lock) is safe;
+- browsers cannot be exempted;
+- spoofed bundle ids are still caught by the team check.

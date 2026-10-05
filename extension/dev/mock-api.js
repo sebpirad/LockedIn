@@ -5,7 +5,7 @@
 // elapsed=N (the lock started N minutes ago), down=1, broken=1, stale=1.
 
 import { ApiError } from '../lib/api.js';
-import { cphDate, dateTimeInstant, occurrences, chainEnd, nextOccurrence } from '../lib/plan.js';
+import { cphDate, dateTimeInstant, occurrences, chainEnd, nextOccurrence, chainOverLimit } from '../lib/plan.js';
 import { cphParts } from '../lib/time.js';
 
 const locked423 = () => new ApiError(423, 'locked', 'Kan ikke ændres under en aktiv session.');
@@ -44,6 +44,8 @@ export async function createMockApi(params = new URLSearchParams()) {
   const isActive = () => until != null && until > Date.now();
   // The running lock: the timer, continued through any planned period it touches (like the daemon).
   const lockEnd = () => (isActive() ? chainEnd(Date.now(), until, occurrences(s.schedules, Date.now(), Date.now() + 2 * DAY)).end : null);
+  // The 24-hour rule, like the daemon: the running lock is one interval in the chain.
+  const runningLock = () => (isActive() ? { since, until: lockEnd() } : null);
   const frozenIds = () => {
     const end = lockEnd();
     if (!end) return new Set();
@@ -98,7 +100,7 @@ export async function createMockApi(params = new URLSearchParams()) {
       schedules: s.schedules.map((x) => ({ ...x, frozen: frozenIds().has(x.id) })),
       nextSession: nextSession(),
       sites: s.sites.map((x) => ({ ...x, blocked: sitesOn.has(x.id) })),
-      apps: s.apps.map((a) => ({ ...a, inActiveList: appsOn.has(a.bundleId) })),
+      apps: s.apps.map((a) => ({ ...a, neverClose: !!a.neverClose, inActiveList: !a.neverClose && appsOn.has(a.bundleId) })),
       enforcement: {
         ...s.enforcement,
         lastTick: new Date(stale ? Date.now() - 600000 : Date.now() - 4000).toISOString(),
@@ -168,7 +170,7 @@ export async function createMockApi(params = new URLSearchParams()) {
       if (s.lists.length >= 20) throw bad('Der kan højst være 20 lister.');
       s.lists.push({
         id: 'l' + Math.random().toString(16).slice(2, 8), name: cleanName(name),
-        sites: sites.filter((id) => s.sites.some((x) => x.id === id)), apps: apps.filter((id) => s.apps.some((a) => a.bundleId === id)),
+        sites: sites.filter((id) => s.sites.some((x) => x.id === id)), apps: apps.filter((id) => s.apps.some((a) => a.bundleId === id && !a.neverClose)),
       });
       return snapshot();
     },
@@ -177,7 +179,7 @@ export async function createMockApi(params = new URLSearchParams()) {
       const l = listById(id);
       const name = cleanName(body.name);
       const sites = (body.sites || []).filter((x) => s.sites.some((y) => y.id === x));
-      const apps = (body.apps || []).filter((x) => s.apps.some((y) => y.bundleId === x));
+      const apps = (body.apps || []).filter((x) => s.apps.some((y) => y.bundleId === x && !y.neverClose)); // the daemon drops never-close apps
       if (activeLists().includes(id) && (!l.sites.every((x) => sites.includes(x)) || !l.apps.every((x) => apps.includes(x)))) throw locked423();
       Object.assign(l, { name, sites, apps });
       return snapshot();
@@ -214,8 +216,10 @@ export async function createMockApi(params = new URLSearchParams()) {
       await guard();
       const a = installed.find((x) => x.bundleId === bundleId);
       if (!a) throw bad('Vælg en app fra listen.');
-      if (!s.apps.some((x) => x.bundleId === bundleId)) s.apps.push({ bundleId, name: a.name, kind: a.kind, blocked: a.kind === 'browser' });
-      if (list) { const l = listById(list); if (!l.apps.includes(bundleId)) l.apps.push(bundleId); }
+      // Like the daemon: an app registered during a lock is "always closed" until allowed afterwards.
+      if (!s.apps.some((x) => x.bundleId === bundleId)) s.apps.push({ bundleId, name: a.name, kind: a.kind, blocked: a.kind === 'browser' || isActive(), neverClose: false });
+      const reg = s.apps.find((x) => x.bundleId === bundleId);
+      if (list && !reg.neverClose) { const l = listById(list); if (!l.apps.includes(bundleId)) l.apps.push(bundleId); }
       return snapshot();
     },
     async setAppBlocked(bundleId, blocked) {
@@ -225,6 +229,18 @@ export async function createMockApi(params = new URLSearchParams()) {
       if (!blocked && a.kind === 'browser') throw bad('Andre browsere end Chrome er altid lukket under fokus.');
       if (!blocked && a.blocked && isActive()) throw locked423();
       a.blocked = blocked;
+      return snapshot();
+    },
+    // "Lukkes aldrig": turning it on removes the app from every list; refused during a lock if the app is closed now.
+    async setNeverClose(bundleId, on) {
+      await guard();
+      const a = s.apps.find((x) => x.bundleId === bundleId);
+      if (!a) throw new ApiError(404, 'not_found', 'Appen findes ikke.');
+      if (on && a.kind === 'browser') throw bad('Andre browsere end Chrome er altid lukket under fokus.');
+      const closedNow = isActive() && !a.neverClose && (a.blocked || activeLists().some((id) => listById(id).apps.includes(bundleId)));
+      if (on && closedNow) throw locked423();
+      a.neverClose = !!on;
+      if (on) { a.blocked = false; for (const l of s.lists) l.apps = l.apps.filter((x) => x !== bundleId); }
       return snapshot();
     },
     async deleteApp(bundleId) {
@@ -238,6 +254,7 @@ export async function createMockApi(params = new URLSearchParams()) {
       await guard();
       if (!s.lists.some((l) => l.id === body.list)) throw bad('Vælg en liste.');
       if (body.date && !(dateTimeInstant(body.date, body.start) > Date.now())) throw bad('En enkelt periode skal ligge i fremtiden.');
+      if (chainOverLimit(body, s.schedules, Date.now(), runningLock())) throw bad('En samlet lås kan højst vare 24 timer.');
       s.schedules.push({ id: Math.random().toString(16).slice(2, 6), name: '', enabled: true, weekdays: [], date: null, skip: [], ...body });
       return snapshot();
     },
@@ -246,6 +263,7 @@ export async function createMockApi(params = new URLSearchParams()) {
       const i = s.schedules.findIndex((x) => x.id === id);
       if (i < 0) throw new ApiError(404, 'not_found', 'Perioden findes ikke.');
       if (frozenIds().has(id)) throw locked423();
+      if (chainOverLimit({ ...s.schedules[i], ...body }, s.schedules, Date.now(), runningLock(), id)) throw bad('En samlet lås kan højst vare 24 timer.');
       s.schedules[i] = { ...s.schedules[i], ...body, id };
       return snapshot();
     },

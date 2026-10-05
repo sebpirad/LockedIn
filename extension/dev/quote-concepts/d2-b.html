@@ -1,0 +1,190 @@
+<!doctype html>
+<!-- DEV ONLY. Design direction 2, variant B "Titelkort": a centred title card. The portrait stands in the middle of
+     the frame, lit from above and falling into black; the quote is set over its lower half, the name under it as a
+     title, the countdown and the site in the top corners like a slate. Engine: d2-stage.js (same darkroom, framing
+     and type fitting as A). Fonts: macOS system fonts only (Big Caslon, SF Pro via system-ui). -->
+<html lang="da" data-variant="b">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<title>LockedIn</title>
+<link rel="icon" href="../../icons/icon32.png">
+<style>
+:root {
+  color-scheme: dark;
+  --black: #050505;
+  --ink: #f6f1e8;
+  --ink-2: #e8e1d4;
+  --mute: #aaa397;
+  --quiet: #969086;
+  --accent: #f2c14e;
+  --serif: 'Big Caslon', 'Hoefler Text', 'Iowan Old Style', Georgia, serif;
+  --sans: system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --fx: 50vw; --fy: 27vh; --fh: 24vh; --card-top: 58vh; --qpx: 44px; --grain: .36;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body {
+  background: var(--black); color: var(--ink);
+  font: 15px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+[hidden] { display: none !important; }
+a { color: inherit; text-decoration-color: rgba(255, 255, 255, .28); text-underline-offset: 2px; }
+a:hover { text-decoration-color: currentColor; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+/* ---------- scene: haze · plate · light · grain ---------- */
+.scene { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; background: var(--black); }
+#haze {
+  position: absolute; inset: -12%; width: 124%; height: 124%; object-fit: cover;
+  filter: blur(72px); opacity: 0; transition: opacity 600ms ease;
+}
+#haze:has(~ #plate.is-lit) { opacity: calc(var(--haze, .1) * 1.4); }
+#plate {
+  position: absolute; opacity: 0;
+  transition: opacity 600ms cubic-bezier(.4, 0, .2, 1);
+  --ml: 0px; --mr: 0px; --mt0: 0px; --mt: 0px; --mb: 0px; --fb0: 100%; --fb1: 100%;
+  mask-image:
+    linear-gradient(to right, transparent 0, rgba(0,0,0,.12) calc(var(--ml) * .3), rgba(0,0,0,.5) calc(var(--ml) * .62), #000 var(--ml)),
+    linear-gradient(to left, transparent 0, rgba(0,0,0,.12) calc(var(--mr) * .3), rgba(0,0,0,.5) calc(var(--mr) * .62), #000 var(--mr)),
+    linear-gradient(to bottom, transparent var(--mt0), #000 var(--mt)),
+    linear-gradient(to top, transparent 0, #000 var(--mb));
+  mask-composite: intersect;
+  will-change: transform;
+}
+#plate.fade-bottom {
+  mask-image:
+    linear-gradient(to right, transparent 0, #000 var(--ml)),
+    linear-gradient(to left, transparent 0, #000 var(--mr)),
+    linear-gradient(to bottom, transparent var(--mt0), #000 var(--mt)),
+    linear-gradient(to bottom, #000 var(--fb0), rgba(0,0,0,.55) calc(var(--fb0) + (var(--fb1) - var(--fb0)) * .35), rgba(0,0,0,.15) calc(var(--fb0) + (var(--fb1) - var(--fb0)) * .7), transparent var(--fb1));
+}
+#plate.is-lit { opacity: 1; animation: drift 60s cubic-bezier(.3, .1, .3, 1) 100ms both; }
+@keyframes drift { from { transform: scale(1); } to { transform: scale(1.055); } }
+#print { display: block; width: 100%; height: 100%; }
+
+/* Light from above: the face is lit, everything under it falls toward black where the quote stands. */
+.light {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at var(--fx) var(--fy), transparent 0, transparent calc(var(--fh) * 1.05), rgba(0,0,0,.3) calc(var(--fh) * 2.1), rgba(0,0,0,.66) calc(var(--fh) * 3.5)),
+    linear-gradient(180deg, rgba(0,0,0,.82) 0, rgba(0,0,0,.5) 8%, rgba(0,0,0,0) 19%),
+    linear-gradient(180deg, rgba(0,0,0,0) calc(var(--card-top) - 20vh), rgba(0,0,0,.62) calc(var(--card-top) - 4vh), rgba(0,0,0,.86) calc(var(--card-top) + 6vh), rgba(0,0,0,.92) 100%);
+}
+.grain {
+  position: absolute; inset: 0; background-image: var(--grain-img); background-size: 192px 192px;
+  mix-blend-mode: overlay; opacity: var(--grain);
+}
+.is-ended #plate.is-lit { filter: brightness(1.12); transition: opacity 600ms, filter 600ms ease; }
+
+/* ---------- stage ---------- */
+.stage {
+  position: relative; z-index: 1; min-height: 100vh; min-height: 100dvh;
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+  padding: clamp(20px, 3.8vh, 36px) clamp(24px, 4.2vw, 60px) clamp(18px, 3.4vh, 30px);
+}
+.slate { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+.host { margin: 0; font: 400 12px/1.4 var(--sans); letter-spacing: .02em; color: var(--quiet); min-height: 1.4em; padding-top: 6px; }
+.time { text-align: right; }
+#remain {
+  font: 300 clamp(26px, 3.6vh, 32px)/1 var(--sans); letter-spacing: 0; font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+}
+#ended { margin: 0; font: 400 clamp(18px, 2.4vh, 22px)/1.3 var(--serif); color: var(--ink); }
+#ended a { display: block; margin-top: 4px; font: 500 14px/1.4 var(--sans); color: var(--accent); text-decoration: none; }
+#ended a::after { content: " →"; }
+#ended a:hover { text-decoration: underline; }
+
+#middle { display: flex; align-items: flex-end; justify-content: center; min-height: 0; padding: 16px 0 clamp(22px, 4.4vh, 44px); }
+.card { margin: 0; width: min(68vw, 1000px); text-align: center; }
+#text {
+  margin: 0; font-family: var(--serif); font-weight: 400; color: var(--ink);
+  font-kerning: normal; font-variant-ligatures: common-ligatures;
+  text-wrap: balance; text-shadow: 0 0 36px rgba(0, 0, 0, .6);
+}
+#text.many { text-wrap: pretty; }
+.who { margin: calc(var(--qpx) * .5 + 14px) 0 0; display: flex; flex-direction: column; align-items: center; gap: 9px; }
+.who::before { content: ""; width: 36px; height: 1px; background: var(--accent); margin-bottom: 7px; }
+#name {
+  font: 600 clamp(15px, calc(var(--qpx) * .3), 22px)/1.2 var(--sans); letter-spacing: .3em; text-transform: uppercase;
+  color: var(--ink-2); padding-left: .3em; /* optical centring: tracking adds space after the last letter */
+}
+#dates { font: 400 13px/1.2 var(--sans); letter-spacing: .12em; color: var(--mute); font-variant-numeric: tabular-nums; padding-left: .12em; }
+
+.foot { display: flex; justify-content: center; }
+#credits {
+  margin: 0; max-width: min(84vw, 980px); text-align: center;
+  font: 400 12px/1.5 var(--sans); color: var(--quiet); text-wrap: balance;
+}
+
+/* entrance ≤ 600 ms */
+#text, .who, .foot, .slate { opacity: 0; }
+.is-in #text { animation: rise 520ms var(--ease) 40ms both; }
+.is-in .who { animation: rise 460ms var(--ease) 130ms both; }
+.is-in .foot, .is-in .slate { animation: fade 400ms ease 200ms both; }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+.no-portrait #middle { align-items: center; }
+
+/* ---------- tall: phone, narrow or portrait windows ---------- */
+@media (max-width: 759px), (max-aspect-ratio: 19/20) {
+  .stage { padding: max(14px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom)); }
+  #remain { font-size: 24px; }
+  #middle { padding: 0 0 22px; }
+  .card { width: 100%; max-width: 560px; }
+  #name { font-size: 14px; letter-spacing: .26em; }
+  #credits { font-size: 11.5px; }
+  .light {
+    background:
+      radial-gradient(circle at var(--fx) var(--fy), transparent 0, transparent calc(var(--fh) * 1.2), rgba(0,0,0,.22) calc(var(--fh) * 2.4), rgba(0,0,0,.45) calc(var(--fh) * 3.6)),
+      linear-gradient(180deg, rgba(0,0,0,.92) 0, rgba(0,0,0,.74) 52px, rgba(0,0,0,0) 140px),
+      linear-gradient(180deg, rgba(0,0,0,0) calc(var(--card-top) - 18vh), rgba(0,0,0,.6) calc(var(--card-top) - 2vh), rgba(0,0,0,.9) var(--card-top));
+  }
+}
+
+/* ---------- reduced motion: no drift, no travel; a short fade only ---------- */
+@media (prefers-reduced-motion: reduce) {
+  #plate.is-lit { animation: none; }
+  #plate { transition-duration: 200ms; }
+  .is-in #text, .is-in .who, .is-in .foot, .is-in .slate { animation: fade 200ms ease both; }
+}
+.still #plate.is-lit { animation: none; }
+.still #plate, .still #haze { transition: none; }
+/* small text over imagery gets a soft dark halo; invisible on black, not counted in the contrast audit */
+.host, #credits, #remain, #ended { text-shadow: 0 0 14px rgba(0, 0, 0, .85); }
+.notext .stage * { visibility: hidden !important; }
+</style>
+<script type="module" src="d2-stage.js"></script>
+</head>
+<body>
+<div class="scene" aria-hidden="true">
+  <canvas id="haze"></canvas>
+  <div id="plate"><canvas id="print"></canvas></div>
+  <div class="light"></div>
+  <div class="grain"></div>
+</div>
+<main class="stage">
+  <header class="slate">
+    <p class="host" id="host"></p>
+    <div class="time">
+      <div id="remain" role="timer" aria-label="Tid tilbage" hidden>00:00:00</div>
+      <p id="ended" hidden>Fokussessionen er slut <a id="backLink" href="#" hidden></a></p>
+    </div>
+  </header>
+  <div id="middle">
+    <figure class="card" id="card">
+      <blockquote id="text" lang="en"></blockquote>
+      <figcaption class="who"><span id="name"></span><span id="dates"></span></figcaption>
+    </figure>
+  </div>
+  <footer class="foot">
+    <p id="credits"></p>
+  </footer>
+</main>
+</body>
+</html>

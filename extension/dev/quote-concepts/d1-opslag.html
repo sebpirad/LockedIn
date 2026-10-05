@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="dark">
+<title>LockedIn</title>
+<!-- Retning 1 · Variant A "Opslag" (the magazine spread). Dev mockup — never shipped. -->
+<style>
+:root {
+  color-scheme: dark;
+  --ink: #0b0a09;          /* page + duotone shadow */
+  --paper: #ede7da;        /* quote, name            16.0:1 on ink */
+  --muted: #b3ac9f;        /* timer, dates, source    8.8:1 */
+  --faint: #8f897e;        /* photo credit            5.7:1 */
+  --rule: #2a2723;
+  --accent: #f2c14e;       /* LockedIn yellow        11.8:1 */
+  --display: Didot, "Bodoni 72", "Iowan Old Style", Georgia, serif;
+  --sans: system-ui, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --plate: clamp(300px, 39vw, 700px);
+  --pad-l: clamp(56px, 6.6vw, 128px);
+  --pad-r: clamp(40px, 5.2vw, 104px);
+  --ease: cubic-bezier(.2, .7, .1, 1);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--ink); color: var(--paper);
+  font: 15px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  overflow: hidden;
+}
+[hidden] { display: none !important; }
+a { color: inherit; text-decoration: underline; text-decoration-color: rgba(237, 231, 218, .22); text-decoration-thickness: 1px; text-underline-offset: 3px; transition: text-decoration-color .2s; }
+a:hover { text-decoration-color: currentColor; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+/* paper grain over the whole page, very faint */
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 5;
+  background-image: var(--grain); background-size: 180px; opacity: .035; mix-blend-mode: screen;
+}
+
+/* ---------------------------------------------------------------- grid */
+.spread {
+  display: grid; height: 100vh; height: 100svh;
+  grid-template-columns: var(--plate) minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  position: relative;
+}
+
+/* ---------------------------------------------------------------- the plate (portrait) */
+.plate { grid-column: 1; grid-row: 1 / -1; margin: 0; position: relative; overflow: hidden; background: #141210; }
+.plate canvas { position: absolute; display: block; }
+.plate .grain { position: absolute; inset: 0; background-image: var(--grain); background-size: 180px; opacity: .2; mix-blend-mode: overlay; }
+/* a hair of light where the photograph meets the page */
+.plate::after { content: ""; position: absolute; inset: 0 0 0 auto; width: 1px; background: rgba(237, 231, 218, .08); }
+
+/* photo credit runs up the gutter beside the plate, like a magazine credit */
+.photo-credit {
+  position: absolute; left: calc(var(--plate) + 14px); bottom: 34px; margin: 0;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font: 500 10.5px/1.2 var(--sans); letter-spacing: .04em; color: var(--faint);
+  max-height: calc(100% - 140px); overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+}
+.photo-credit a { text-underline-offset: 2px; }
+
+/* ---------------------------------------------------------------- folio (timer) */
+.folio {
+  grid-column: 2; grid-row: 1;
+  display: flex; justify-content: flex-end; align-items: center; gap: 10px;
+  padding: 30px var(--pad-r) 0 var(--pad-l); min-height: 76px;
+}
+.timer { display: flex; align-items: center; gap: 10px; color: var(--muted); font: 300 19px/1 var(--sans); letter-spacing: .05em; font-variant-numeric: tabular-nums; }
+.timer svg { width: 12px; height: 14px; color: var(--accent); flex: none; }
+.over { margin: 0; font: 400 16px/1.4 var(--sans); color: var(--paper); text-align: right; }
+.over a { color: var(--accent); text-decoration-color: rgba(242, 193, 78, .35); white-space: nowrap; }
+
+/* ---------------------------------------------------------------- the piece */
+.piece {
+  grid-column: 2; grid-row: 2; min-height: 0;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 0 var(--pad-r) 0 var(--pad-l);
+}
+blockquote {
+  margin: 0; font-family: var(--display); font-weight: 400; color: var(--paper);
+  font-kerning: normal; font-feature-settings: "kern", "liga";
+  text-wrap: balance; overflow: visible; white-space: pre-line;
+  max-width: 17em;
+}
+blockquote.many { text-wrap: pretty; max-width: 24em; }
+blockquote .ln { display: block; clip-path: inset(-.3em -2em -.28em -2em); }
+blockquote .ln > span { display: inline-block; position: relative; white-space: nowrap; }
+.hang { position: absolute; right: 100%; top: 0; padding-right: .04em; color: var(--accent); }
+
+.sig { display: flex; align-items: baseline; gap: 14px; margin: clamp(22px, 3.4vh, 40px) 0 0; font-family: var(--sans); white-space: nowrap; }
+.sig .rule { width: 44px; height: 1px; background: var(--accent); align-self: center; flex: none; transform-origin: left; }
+.sig .name { font-size: 13px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--paper); }
+.sig .dates { font-size: 13px; letter-spacing: .03em; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* ---------------------------------------------------------------- colophon */
+.colophon { grid-column: 2; grid-row: 3; padding: 0 var(--pad-r) 30px var(--pad-l); }
+.source { margin: 0; font: 400 12.5px/1.5 var(--sans); color: var(--muted); max-width: 64ch; }
+.source i { font-style: italic; }
+.no-plate .spread { grid-template-columns: 0 minmax(0, 1fr); }
+.no-plate .plate, .no-plate .photo-credit { display: none; }
+
+/* ---------------------------------------------------------------- entrance (≤ 600 ms) */
+.stage { visibility: hidden; }
+.stage.in { visibility: visible; }
+.in .plate canvas { animation: plateIn 600ms var(--ease) both; }
+.in .plate { animation: wipe 600ms var(--ease) both; }
+.in blockquote .ln > span { animation: lineUp 420ms var(--ease) both; animation-delay: calc(40ms + var(--i) * var(--stagger)); }
+.in .sig .rule { animation: draw 380ms var(--ease) 200ms both; }
+.in .sig .name, .in .sig .dates { animation: fade 340ms ease-out 260ms both; }
+.in .folio, .in .colophon, .in .photo-credit { animation: fade 400ms ease-out 200ms both; }
+@keyframes wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes plateIn { from { transform: scale(1.06); } to { transform: none; } }
+@keyframes lineUp { from { transform: translateY(.62em); opacity: 0; } 60% { opacity: 1; } to { transform: none; opacity: 1; } }
+@keyframes draw { from { transform: scaleX(0); } to { transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.swap { animation: fade 300ms ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .in *, .in .plate, .swap { animation: none !important; }
+}
+.still .in *, .still .in .plate { animation: none !important; }
+
+/* ---------------------------------------------------------------- phone */
+@media (max-width: 760px) {
+  body { overflow: auto; }
+  .over { font-size: 15px; text-align: left; }
+  .over .sep { display: none; }
+  .over a { display: block; margin-top: 2px; }
+  .spread { display: flex; flex-direction: column; height: auto; min-height: 100svh; padding-bottom: 22px; }
+  .folio { order: 0; } .plate { order: 1; flex: none; } .piece { order: 2; } .colophon { order: 3; } .photo-credit { order: 4; }
+  .folio { justify-content: space-between; padding: 14px 16px 12px; min-height: 0; }
+  .plate { height: 46svh; }
+  .plate::after { inset: auto 0 0 0; width: auto; height: 1px; }
+  .photo-credit { position: static; writing-mode: horizontal-tb; transform: none; padding: 4px 16px 0; white-space: normal; font: 400 11px/1.5 var(--sans); letter-spacing: 0; max-height: none; }
+  .piece { padding: 26px 16px 0; }
+  .hang { position: static; padding-right: 0; }
+  blockquote, blockquote.many { max-width: none; }
+  .sig { margin-top: 18px; gap: 12px; flex-wrap: wrap; white-space: normal; }
+  .sig .rule { width: 28px; }
+  .colophon { padding: 18px 16px 0; }
+  .source { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="lock" viewBox="0 0 12 14"><path d="M3 6V4.2a3 3 0 0 1 6 0V6" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="1" y="6" width="10" height="7.2" rx="1.6" fill="currentColor"/></symbol></svg>
+<main class="stage" id="stage">
+  <div class="spread">
+    <figure class="plate" id="plate"><div class="crop" id="crop"></div><div class="grain"></div></figure>
+    <p class="photo-credit" id="photoCredit"></p>
+
+    <header class="folio">
+      <div class="timer" id="timer"><svg aria-hidden="true"><use href="#lock"/></svg><span id="left" role="timer" aria-label="Tid tilbage af fokussessionen">00:00:00</span></div>
+      <p class="over" id="over" hidden><span>Fokussessionen er slut</span><span class="sep" aria-hidden="true"> · </span><a id="back" href="#">Fortsæt til <span id="host"></span>&nbsp;→</a></p>
+    </header>
+
+    <article class="piece" id="piece">
+      <blockquote id="quote" lang="en"></blockquote>
+      <p class="sig" id="sig"><span class="rule" aria-hidden="true"></span><span class="name" id="name"></span><span class="dates" id="dates"></span></p>
+    </article>
+
+    <footer class="colophon"><p class="source" id="source"></p></footer>
+  </div>
+</main>
+
+<script type="module">
+import * as K from './d1-common.js';
+const { $ } = K;
+
+const TREAT = { ink: '#0b0a09', mid: '#6d6152', light: '#e9dfcc', cap: 0.93, median: 0.42, contrast: 0.2, faceTone: 0.6 };
+const PHONE = () => innerWidth <= 760;
+
+document.documentElement.style.setProperty('--grain', `url(${K.grain()})`);
+if (K.params.get('still') === '1') document.documentElement.classList.add('still');
+
+// The timer must show even if the quotes cannot be read.
+const { list, focus } = await K.loadData().catch(() => ({ list: [], focus: {} }));
+let idx = K.pickIndex(list);
+let cur = null; // { q, text, canvas, face, nat }
+
+/** Phone: whatever still spills below the fold comes off the plate (never below minFrac). */
+function trimPlate(minFrac) {
+  const plate = $('#plate');
+  const over = document.documentElement.scrollHeight - innerHeight;
+  if (over > 0) plate.style.height = `${Math.max(Math.round(innerHeight * minFrac), plate.offsetHeight - over)}px`;
+}
+
+function layout() {
+  if (!cur) return;
+  const phone = PHONE();
+  const bq = $('#quote');
+  const words = cur.text.split(/[ \n]/).length;
+  const verse = cur.text.includes('\n') ? cur.text.split('\n').length : 0;
+  bq.classList.toggle('many', words > 22);
+  bq.textContent = (phone ? '“' : '') + cur.text + '”';
+  let size;
+  if (phone) {
+    // Quote first; the plate then takes what is left, so one screen holds everything.
+    $('#plate').style.height = '';
+    size = K.fit(bq, { min: 22, max: 64, maxH: innerHeight * 0.36, lh: [1.22, 1.02], track: [0, -0.012], range: [22, 64], maxLines: verse });
+    const chrome = $('.folio').offsetHeight + $('#sig').offsetHeight + $('.colophon').offsetHeight + $('#photoCredit').offsetHeight + 26 + 18 + 22 + 4;
+    const rest = innerHeight - chrome - bq.scrollHeight;
+    $('#plate').style.height = `${Math.round(K.clamp(rest, innerHeight * 0.28, innerHeight * 0.5))}px`;
+  } else {
+    $('#plate').style.height = '';
+    const piece = $('#piece');
+    const cs = getComputedStyle(piece);
+    const avail = piece.clientHeight - $('#sig').offsetHeight - parseFloat(getComputedStyle($('#sig')).marginTop) - innerHeight * 0.08;
+    const width = piece.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const max = Math.min(148, innerHeight * 0.16, width * 0.2);
+    size = K.fit(bq, { min: 24, max, maxH: avail, lh: [1.2, 1.0], track: [0.004, -0.018], range: [26, 140], maxLines: verse });
+  }
+  K.settle(bq, cur.text, size, { openMark: '“', closeMark: '”', hang: !phone });
+  if (phone) trimPlate(0.28);
+  bq.setAttribute('aria-label', `“${cur.text}”`);
+  // portrait, cropped around the face
+  if (cur.canvas) {
+    const box = $('#plate').getBoundingClientRect();
+    const r = K.cropTo(cur.canvas, box, cur.nat, cur.face, phone
+      ? { ax: 0.5, ay: 0.42, faceFrac: 0.36, maxPx: 1.25 }
+      : { ax: 0.5, ay: 0.36, faceFrac: 0.25, maxPx: 1.9 });
+    $('#plate').dataset.upscale = r.upscale.toFixed(2);
+  }
+}
+
+async function show(i, animate = true) {
+  idx = (i + list.length) % list.length;
+  const q = list[idx];
+  const stage = $('#stage');
+  stage.classList.remove('in');
+  const text = K.typeset(q.text);
+  $('#name').textContent = K.cleanName(q.author);
+  $('#dates').textContent = K.dates(q);
+  K.renderSource($('#source'), q);
+
+  let canvas = null, nat = null, face = null;
+  try {
+    face = K.faceOf(focus, q.image.file);
+    const img = await K.loadImage(new URL('../../quotes/' + q.image.file, location.href).href);
+    const t = K.treat(img, TREAT, face);
+    canvas = t.canvas; nat = { w: img.naturalWidth, h: img.naturalHeight };
+    canvas.setAttribute('role', 'img');
+    canvas.setAttribute('aria-label', `Portræt af ${K.cleanName(q.author)}`);
+    $('#crop').replaceChildren(canvas);
+    K.renderPhotoCredit($('#photoCredit'), q);
+    document.body.classList.remove('no-plate');
+  } catch {
+    $('#crop').replaceChildren();
+    $('#photoCredit').hidden = true;
+    document.body.classList.add('no-plate');
+  }
+  cur = { q, text, canvas, nat, face };
+  layout();
+  history.replaceState(null, '', `?${new URLSearchParams({ ...Object.fromEntries(K.params), q: q.id })}`);
+  void stage.offsetWidth;
+  stage.classList.add('in');
+}
+
+let lastState = null;
+const sess = K.session((s) => {
+  $('#left').textContent = s.left;
+  $('#timer').title = s.until ? `Låst til ${s.until}` : '';
+  if (lastState && lastState.ended !== s.ended) { $('#over').classList.add('swap'); $('#timer').classList.add('swap'); }
+  $('#timer').hidden = s.ended;
+  $('#over').hidden = !s.ended;
+  $('#host').textContent = s.host;
+  $('#back').href = `https://${s.host}/`;
+  lastState = s;
+});
+
+let rt = 0;
+addEventListener('resize', () => { cancelAnimationFrame(rt); rt = requestAnimationFrame(() => { layout(); }); });
+K.devKeys({ next: () => show(idx + 1), prev: () => show(idx - 1), toggleEnded: () => sess.toggle() });
+window.__d1 = { list, show, get idx() { return idx; } }; // dev: stress-test hook
+if (list.length) await show(idx);
+else { document.body.classList.add('no-plate'); $('#piece').hidden = true; $('#photoCredit').hidden = true; $('#stage').classList.add('in'); }
+</script>
+</body>
+</html>

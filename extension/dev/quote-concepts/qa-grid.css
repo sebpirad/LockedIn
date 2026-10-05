@@ -1,0 +1,5 @@
+html, body { margin: 0; background: #3a3a3a; overflow: hidden; }
+body { display: grid; gap: 4px; padding: 0; }
+.cell { position: relative; overflow: hidden; background: #000; }
+.cell iframe { border: 0; position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+.cell b { position: absolute; left: 4px; bottom: 2px; font: 600 11px system-ui; color: #ff6b6b; z-index: 2; }

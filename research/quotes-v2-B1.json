@@ -1,0 +1,745 @@
+{
+ "quotes": [
+  {
+   "id": "B01",
+   "text": "It is by doing just acts that we become just, by doing temperate acts that we become temperate, by doing courageous acts that we become courageous.",
+   "original": "οὕτω δὴ καὶ τὰ μὲν δίκαια πράττοντες δίκαιοι γινόμεθα, τὰ δὲ σώφρονα σώφρονες, τὰ δ᾽ ἀνδρεῖα ἀνδρεῖοι.",
+   "translation": {
+    "translator": "J. E. C. Welldon",
+    "edition": "The Nicomachean Ethics of Aristotle (London: Macmillan)",
+    "year": 1892
+   },
+   "author": "Aristotle",
+   "author_dates": "384–322 BCE",
+   "theme": "discipline",
+   "source": {
+    "work": "Nicomachean Ethics",
+    "year": "c. 340 BCE",
+    "locator": "Book II, ch. 1 (1103a34–b2); Welldon 1892, p. 35",
+    "url": "https://archive.org/details/nicomacheanethic1892aris"
+   },
+   "verification": "primary",
+   "verification_note": "Replaces quotes-final q064 (same passage, W. D. Ross 1908 wording 'we become just by doing just acts…'; Ross †1971, so that translation is protected in the EU until 2041). Re-checked 2026-10-04: normalised match in Welldon's 1892 text (archive.org nicomacheanethic1892aris djvu text) = True; archive.org search-inside puts it on leaf 105 = printed p. 35. Welldon †1937 (public domain). Greek matched on el.wikisource 'Ηθικά Νικομάχεια/2' (normalised, accents stripped) = True. This is the genuine source of 'We are what we repeatedly do. Excellence, then, is not an act but a habit' — Will Durant's 1926 paraphrase (see REJECTED-V2).",
+   "image": {
+    "file": "quote-images/q064.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Aristotle_Altemps_Inv8575.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Aristotle_Altemps_Inv8575.jpg",
+    "license": "Public domain (photo PD-self by Jastrow; bust PD-old)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Photo: Jastrow (Marie-Lan Nguyen), 2006; bust: Roman marble copy after a bronze by Lysippos (Palazzo Altemps, Rome, inv. 8575)",
+    "attribution": "Photo by Jastrow (2006), public domain; Roman copy after Lysippos; via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Aristotle_Altemps_Inv8575.jpg)"
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "top",
+   "fame_evidence": "The passage behind the most-quoted 'Aristotle' line of all ('We are what we repeatedly do…', Durant's paraphrase). The adjacent sentence of the same passage, 'What we have to learn to do, we learn by doing', is in the Oxford Dictionary of Quotations [anthology listing cited from memory — not re-checked in the book]. Wikiquote 'Sourced' (NE Book II)."
+  },
+  {
+   "id": "B02",
+   "text": "For as one swallow or one day does not make a spring, so one day or a short time does not make a fortunate or happy man.",
+   "original": "μία γὰρ χελιδὼν ἔαρ οὐ ποιεῖ, οὐδὲ μία ἡμέρα· οὕτω δὲ οὐδὲ μακάριον καὶ εὐδαίμονα μία ἡμέρα οὐδ᾽ ὀλίγος χρόνος.",
+   "translation": {
+    "translator": "J. E. C. Welldon",
+    "edition": "The Nicomachean Ethics of Aristotle (London: Macmillan)",
+    "year": 1892
+   },
+   "author": "Aristotle",
+   "author_dates": "384–322 BCE",
+   "theme": "perseverance",
+   "source": {
+    "work": "Nicomachean Ethics",
+    "year": "c. 340 BCE",
+    "locator": "Book I, ch. 6 in Welldon's numbering (ch. 7 in Bekker/Ross; 1098a18–20); Welldon 1892, p. 16",
+    "url": "https://archive.org/details/nicomacheanethic1892aris"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match in Welldon's 1892 text (archive.org djvu text) = True; search-inside leaf 86 = printed p. 16. Welldon †1937 (public domain). Greek matched on el.wikisource 'Ηθικά Νικομάχεια/1' = True. Ross's better-known wording ('For one swallow does not make a summer, nor does one day…') also matched at classics.mit.edu but is EU-protected (Ross †1971), so not used. Theme fit is 'consistency over a whole life' — a looser fit than B01.",
+   "image": {
+    "file": "quote-images/q064.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Aristotle_Altemps_Inv8575.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Aristotle_Altemps_Inv8575.jpg",
+    "license": "Public domain (photo PD-self by Jastrow; bust PD-old)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Photo: Jastrow (Marie-Lan Nguyen), 2006; bust: Roman marble copy after a bronze by Lysippos (Palazzo Altemps, Rome, inv. 8575)",
+    "attribution": "Photo by Jastrow (2006), public domain; Roman copy after Lysippos; via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Aristotle_Altemps_Inv8575.jpg)"
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "top",
+   "fame_evidence": "'One swallow does not make a summer' — Oxford Dictionary of Quotations and Bartlett's Familiar Quotations both list NE I.7 [anthology listings cited from memory — not re-checked in the books]; proverbial in English since."
+  },
+  {
+   "id": "B03",
+   "text": "The unexamined life is not worth living.",
+   "original": "ὁ δὲ ἀνεξέταστος βίος οὐ βιωτὸς ἀνθρώπῳ.",
+   "translation": {
+    "translator": "Benjamin Jowett",
+    "edition": "The Dialogues of Plato, 3rd ed., vol. 2 (Oxford: Clarendon Press); first published 1871",
+    "year": 1892
+   },
+   "author": "Socrates",
+   "author_dates": "c. 470–399 BCE",
+   "theme": "focus",
+   "source": {
+    "work": "Plato, Apology of Socrates (Socrates' defence speech, as written by Plato)",
+    "year": "c. 399–390 BCE",
+    "locator": "Apology 38a (Stephanus)",
+    "url": "https://www.gutenberg.org/ebooks/1656"
+   },
+   "verification": "primary",
+   "verification_note": "Known only through Plato, who was present at the trial. Re-checked 2026-10-04: normalised match in Jowett's Apology (Project Gutenberg #1656) = True; also 1 hit by archive.org search-inside of the 1892 3rd edition, vol. 2 (dialoguesofplato18922plat, scan leaf 145). Excerpt: Jowett's sentence runs on ('…and that the unexamined life is not worth living, you are still less likely to believe me'). Greek matched in the Perseus TEI of Burnet's text (tlg0059.tlg002) = True. Jowett †1893 (public domain). Theme fit: self-examination / deliberate living — tagged 'focus'.",
+   "image": {
+    "file": "quote-images/v2-socrates.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Socrates_Pio-Clementino_Inv314.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/9/92/Socrates_Pio-Clementino_Inv314.jpg",
+    "license": "Public domain (photo PD-self by Jastrow; Roman bust)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Photo: Jastrow (Marie-Lan Nguyen), 2006; bust: Roman marble copy after a 4th-century BC Greek original (Museo Pio-Clementino, Vatican, inv. 314)",
+    "attribution": "Photo by Jastrow (2006), public domain; Roman copy of a Greek original; via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Socrates_Pio-Clementino_Inv314.jpg)"
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "top",
+   "fame_evidence": "Socrates' most-quoted line; in the Oxford Dictionary of Quotations and Bartlett's Familiar Quotations under Socrates/Plato [anthology listings cited from memory — not re-checked in the books]; Wikiquote 'Sourced' (Apology 38a)."
+  },
+  {
+   "id": "B04",
+   "text": "No evil can happen to a good man, either in life or after death.",
+   "original": "οὐκ ἔστιν ἀνδρὶ ἀγαθῷ κακὸν οὐδὲν οὔτε ζῶντι οὔτε τελευτήσαντι.",
+   "translation": {
+    "translator": "Benjamin Jowett",
+    "edition": "The Dialogues of Plato, 3rd ed., vol. 2 (Oxford: Clarendon Press); first published 1871",
+    "year": 1892
+   },
+   "author": "Socrates",
+   "author_dates": "c. 470–399 BCE",
+   "theme": "courage",
+   "source": {
+    "work": "Plato, Apology of Socrates (closing words to the judges after the death sentence)",
+    "year": "c. 399–390 BCE",
+    "locator": "Apology 41c–d (Stephanus)",
+    "url": "https://www.gutenberg.org/ebooks/1656"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match in Jowett's Apology (Gutenberg #1656) = True; 1 hit in the 1892 vol. 2 scan (leaf 149). Excerpt: Jowett's sentence opens 'Wherefore, O judges, be of good cheer about death, and know of a certainty, that…'. Greek matched in the Perseus TEI (tlg0059.tlg002) = True. Jowett †1893 (public domain).",
+   "image": {
+    "file": "quote-images/v2-socrates.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Socrates_Pio-Clementino_Inv314.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/9/92/Socrates_Pio-Clementino_Inv314.jpg",
+    "license": "Public domain (photo PD-self by Jastrow; Roman bust)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Photo: Jastrow (Marie-Lan Nguyen), 2006; bust: Roman marble copy after a 4th-century BC Greek original (Museo Pio-Clementino, Vatican, inv. 314)",
+    "attribution": "Photo by Jastrow (2006), public domain; Roman copy of a Greek original; via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Socrates_Pio-Clementino_Inv314.jpg)"
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "high",
+   "fame_evidence": "One of the best-known sentences of the Apology; in Bartlett's Familiar Quotations (Plato section) [cited from memory — not re-checked in the book]; Wikiquote 'Sourced'. Clearly less famous than B03."
+  },
+  {
+   "id": "B05",
+   "text": "Genius is one per cent inspiration, ninety-nine per cent perspiration.",
+   "original": null,
+   "translation": null,
+   "author": "Thomas Edison",
+   "author_dates": "1847–1931",
+   "theme": "perseverance",
+   "source": {
+    "work": "M. A. Rosanoff, 'Edison in His Laboratory', Harper's Monthly Magazine vol. 165, p. 406 (Edison speaking); earlier as 'Genius is 1 per cent. inspiration and 99 per cent. perspiration' in F. L. Dyer & T. C. Martin, Edison: His Life and Inventions (1910), vol. II, p. 607",
+    "year": "1932 (1910 for the authorised biography)",
+    "locator": "Quote Investigator, 'Genius Is One Percent Inspiration, Ninety-Nine Percent Perspiration' (14 Dec 2012)",
+    "url": "https://quoteinvestigator.com/2012/12/14/genius-ratio/"
+   },
+   "verification": "secondary",
+   "verification_note": "Reused from quotes-final q099 (its FIX applied). Re-checked 2026-10-04: exact display wording present on the QI page = True, together with Rosanoff / 'Edison in His Laboratory' / vol. 165 / p. 406. Authorised biography checked directly: the numeral form ('1 per cent. inspiration and 99 per cent. perspiration', introduced as Edison's 'historic remark') is in Gutenberg #820 = True and by archive.org search-inside in the 1910 vol. II scan (leaf 159) and the 1929 reissue (p. 607). QI also records Edison's earlier 'two per cent is genius and ninety-eight per cent is hard work' (1898) and similar sayings by others before him; the attribution to Edison himself is solid. Harper's 1932 issue itself not opened.",
+   "image": {
+    "file": "quote-images/q099.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Thomas_Edison2.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Thomas_Edison2.jpg",
+    "license": "Public domain (PD-US; Library of Congress cph.3c05139)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Louis Bachrach, Bachrach Studios (c. 1922); restored by Michel Vuijlsteke",
+    "attribution": "Louis Bachrach, Bachrach Studios, c. 1922 (restored by Michel Vuijlsteke), public domain, Library of Congress, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Thomas_Edison2.jpg)",
+    "flag": "PD-US only (US photo c. 1922). EU use rests on the rule of the shorter term (Term Directive Art. 7(1)) for a US work — accepted in VERIFICATION.md."
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "top",
+   "fame_evidence": "Edison's best-known saying; Oxford Dictionary of Quotations and Bartlett's both list it (Harper's 1932) [anthology listings cited from memory — not re-checked in the books]; QI article devoted to it."
+  },
+  {
+   "id": "B06",
+   "text": "Results! Why, man, I have gotten a lot of results! I know several thousand things that won't work.",
+   "original": null,
+   "translation": null,
+   "author": "Thomas Edison",
+   "author_dates": "1847–1931",
+   "theme": "perseverance",
+   "source": {
+    "work": "F. L. Dyer & T. C. Martin, Edison: His Life and Inventions (New York: Harper & Brothers), vol. II — recollection of Edison's associate Walter S. Mallory, during the storage-battery experiments",
+    "year": "1910",
+    "locator": "Vol. II, p. 616 (pagination of the 1929 reissue; 1910 scan leaf 168)",
+    "url": "https://www.gutenberg.org/ebooks/820"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match in Gutenberg #820 = True; archive.org search-inside: 1 hit in the 1910 vol. II scan (edison.-his-life-and-inventions-volume-ii, leaf 168) and in the 1929 reissue (p. 616). Confirmed by QI (2012/07/31/edison-lot-results): exact sentence present = True, with Mallory/Dyer/1910. Edison's words as remembered by Mallory, printed in the authorised biography during Edison's lifetime. This is the documented source of the popular 'I have not failed. I've just found 10,000 ways that won't work' (see REJECTED-V2).",
+   "image": {
+    "file": "quote-images/q099.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Thomas_Edison2.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Thomas_Edison2.jpg",
+    "license": "Public domain (PD-US; Library of Congress cph.3c05139)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Louis Bachrach, Bachrach Studios (c. 1922); restored by Michel Vuijlsteke",
+    "attribution": "Louis Bachrach, Bachrach Studios, c. 1922 (restored by Michel Vuijlsteke), public domain, Library of Congress, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Thomas_Edison2.jpg)",
+    "flag": "PD-US only (US photo c. 1922). EU use rests on the rule of the shorter term (Term Directive Art. 7(1)) for a US work — accepted in VERIFICATION.md."
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "top",
+   "fame_evidence": "The documented original of one of the most-shared quotes anywhere ('10,000 ways that won't work'); QI article devoted to it. Fame attaches mostly to the popular rewording; this exact wording is less familiar."
+  },
+  {
+   "id": "B07",
+   "text": "Just as iron rusts unless it is used, and water putrifies or, in cold, turns to ice, so our intellect spoils unless it is kept in use.",
+   "original": "Si come il ferro s’arrugginisce sanza esercizio, e l’acqua si putrefà o nel freddo s’addiaccia, così lo ‘ngegno sanza esercizio si guasta.",
+   "translation": {
+    "translator": "Jean Paul Richter",
+    "edition": "The Literary Works of Leonardo da Vinci, vol. II (London: Sampson Low, Marston, Searle & Rivington)",
+    "year": 1883
+   },
+   "author": "Leonardo da Vinci",
+   "author_dates": "1452–1519",
+   "theme": "discipline",
+   "source": {
+    "work": "Notebooks (Codex Atlanticus), philosophical maxims",
+    "year": "c. 1490s–1510s",
+    "locator": "Richter no. 1177; 1883 ed. vol. II, p. 294",
+    "url": "https://www.gutenberg.org/ebooks/5000"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final q013. Re-checked 2026-10-04: normalised match in Gutenberg #5000 (Richter) = True; archive.org search-inside of the 1883 vol. II (literaryworksofl02leonuoft) puts the English and Richter's Italian ('Siccome il ferro s'arruginiscie sanza esercitio…') on leaf 430 = p. 294. 'original' is the modernised reading on it.wikisource 'Aforismi, novelle e profezie' (normalised match = True); Richter's diplomatic transcription spells it differently ('l'ingiegnio', 's'agghiaccia'). Richter's own spelling 'putrifies' kept.",
+   "image": {
+    "file": "quote-images/v2-leonardo-da-vinci.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Francesco_Melzi_-_Portrait_of_Leonardo_(colour_correction).png",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Francesco_Melzi_-_Portrait_of_Leonardo_%28colour_correction%29.png",
+    "license": "Public domain (PD-Art, PD-old-100)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Attributed to Francesco Melzi (c. 1515–1518), red chalk, Royal Collection",
+    "attribution": "Attributed to Francesco Melzi, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Francesco_Melzi_-_Portrait_of_Leonardo_(colour_correction).png)",
+    "flag": "Same Commons file as q013, re-exported at 800 px (transparent corners flattened to white) because q013.jpg is 206 KB."
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "high",
+   "fame_evidence": "One of the most-cited genuine Leonardo maxims (usually in the looser 'Iron rusts from disuse; stagnant water loses its purity…' form); Wikiquote 'Sourced' (Richter 1177). Leonardo's most-shared lines ('Simplicity is the ultimate sophistication', 'Learning never exhausts the mind') are not his."
+  },
+  {
+   "id": "B08",
+   "text": "Thou, O God, dost sell us all good things at the price of labour.",
+   "original": "Tu o Iddio ci vendi tutti li beni per prezzo di fatica.",
+   "translation": {
+    "translator": "Jean Paul Richter",
+    "edition": "The Literary Works of Leonardo da Vinci, vol. II (London: Sampson Low, Marston, Searle & Rivington)",
+    "year": 1883
+   },
+   "author": "Leonardo da Vinci",
+   "author_dates": "1452–1519",
+   "theme": "discipline",
+   "source": {
+    "work": "Notebooks — 'Oratio' (A prayer), among the philosophical maxims",
+    "year": "c. 1490s–1510s",
+    "locator": "Richter no. 1133; 1883 ed. vol. II, p. 285",
+    "url": "https://www.gutenberg.org/ebooks/5000"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match in Gutenberg #5000 (Richter) = True; archive.org search-inside of the 1883 vol. II: 1 hit, leaf 421 = p. 285, where Richter's Italian (OCR, line numbers removed) reads 'Tu o Iddio ci vendi tutti li beni per prezzo di fatica', headed ORATIO / A PRAYER. The it.wikisource edition has a third-person variant ('Iddio ci vende tutti li beni per prezzo di fatica', match = True).",
+   "image": {
+    "file": "quote-images/v2-leonardo-da-vinci.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Francesco_Melzi_-_Portrait_of_Leonardo_(colour_correction).png",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Francesco_Melzi_-_Portrait_of_Leonardo_%28colour_correction%29.png",
+    "license": "Public domain (PD-Art, PD-old-100)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Attributed to Francesco Melzi (c. 1515–1518), red chalk, Royal Collection",
+    "attribution": "Attributed to Francesco Melzi, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Francesco_Melzi_-_Portrait_of_Leonardo_(colour_correction).png)"
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "high",
+   "fame_evidence": "Long-standing anthology staple; in Bartlett's Familiar Quotations under Leonardo [cited from memory — not re-checked in the book]; Wikiquote 'Sourced' (Richter 1133). Less famous than the misattributed Leonardo lines."
+  },
+  {
+   "id": "B09",
+   "text": "A man who dares to waste one hour of time has not discovered the value of life.",
+   "original": null,
+   "translation": null,
+   "author": "Charles Darwin",
+   "author_dates": "1809–1882",
+   "theme": "focus",
+   "source": {
+    "work": "Letter to his sister Susan Darwin, written aboard HMS Beagle at Bahia, Brazil (4 August 1836)",
+    "year": "1836",
+    "locator": "Darwin Correspondence Project DCP-LETT-306; printed in F. Darwin (ed.), The Life and Letters of Charles Darwin, vol. 1 (1887), ch. 'The Voyage'",
+    "url": "https://www.darwinproject.ac.uk/letter/DCP-LETT-306.xml"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final q066. Re-checked 2026-10-04: normalised match in the Darwin Correspondence Project transcript DCP-LETT-306 (dated 4 August 1836, Bahia) = True, and in Gutenberg #2087 (Life and Letters, 1887) = True. Excerpt: Life and Letters prints it as the tail of a longer sentence ('…and that I shall act as I now think—as a man who dares…'); the DCP manuscript transcript reads '…think.—that a man who dares to waste one hour of time, has not discovered the value of life.—' (comma after 'time'). Display follows the 1887 printing.",
+   "image": {
+    "file": "quote-images/q066.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Charles_Darwin_seated_crop.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Charles_Darwin_seated_crop.jpg",
+    "license": "Public domain (PD-old-70; PD-US expired)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Maull & Fox (Henry Maull, 1829–1914; John Fox, 1832–1907), c. 1854; crop by Beao",
+    "attribution": "Maull & Fox, c. 1854 (crop by Beao), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Charles_Darwin_seated_crop.jpg)"
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "high",
+   "fame_evidence": "Darwin's most-cited genuine line on work and time (Wikiquote 'Sourced', Life and Letters 1887); widely reprinted in quotation collections. His single most-shared 'quote' ('It is not the strongest of the species that survives…') is not his — see REJECTED-V2."
+  },
+  {
+   "id": "B10",
+   "text": "Life is like riding a bicycle. To keep your balance you must keep moving.",
+   "original": "Beim Menschen ist es wie beim Velo. Nur wenn er fährt, kann er bequem die Balance halten.",
+   "translation": {
+    "translator": "Walter Isaacson",
+    "edition": "Einstein: His Life and Universe (New York: Simon & Schuster), p. 367",
+    "year": 2007
+   },
+   "author": "Albert Einstein",
+   "author_dates": "1879–1955",
+   "theme": "perseverance",
+   "source": {
+    "work": "Letter to his son Eduard Einstein (5 February 1930), Albert Einstein Archives, Hebrew University of Jerusalem",
+    "year": "1930",
+    "locator": "Quote Investigator, 'Life Is Like Riding a Bicycle. To Keep Your Balance You Must Keep Moving' (28 June 2015)",
+    "url": "https://quoteinvestigator.com/2015/06/28/bicycle/"
+   },
+   "verification": "secondary",
+   "verification_note": "Checked 2026-10-04 on the QI article: the display wording = True; the German letter text = True (QI spells 'faehrt'; 'fährt' here); 'Eduard', '1930', 'February 5, 1930', 'Isaacson', 'Einstein: His Life and Universe', 'Simon & Schuster' all present. Wikiquote 'Sourced' (1930s) gives this exact wording (normalised match = True) 'as quoted in Walter Isaacson, Einstein: His Life and Universe (2007), p. 367'. QI also records a more literal rendering ('It is the same with people as it is with riding a bike. Only when moving can one comfortably maintain one's balance.'). Isaacson's book (in copyright, lending-only scan) not opened; page number per Wikiquote [not re-checked]. Text rights: Einstein's German is public domain in the EU since 2026 (†1955); Isaacson's English is in copyright (short quotation).",
+   "image": {
+    "file": "quote-images/v2-albert-einstein.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Einstein_1921_by_F_Schmutzer_-_restoration.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Einstein_1921_by_F_Schmutzer_-_restoration.jpg",
+    "license": "Public domain (PD-Austria; PD-old-auto-expired, photographer †1928)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Ferdinand Schmutzer (1921, Vienna); restoration by Adam Cuerden",
+    "attribution": "Ferdinand Schmutzer, 1921 (restored by Adam Cuerden), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Einstein_1921_by_F_Schmutzer_-_restoration.jpg)"
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "top",
+   "fame_evidence": "Among Einstein's most-shared lines; QI article devoted to it confirms the letter; Wikiquote 'Sourced'. Evidence type: documented most-cited genuine line (QI / Wikiquote / Isaacson biography)."
+  },
+  {
+   "id": "B11",
+   "text": "Try not to become a man of success, but rather try to become a man of value.",
+   "original": null,
+   "translation": null,
+   "author": "Albert Einstein",
+   "author_dates": "1879–1955",
+   "theme": "ambition",
+   "source": {
+    "work": "William Miller, 'Death of a Genius', LIFE magazine (2 May 1955), p. 64 — Einstein's words to Miller, spoken in English",
+    "year": "1955",
+    "locator": "Quote Investigator, 'Try Not To Become a Man of Success But Rather Try To Become a Man of Value' (20 November 2017)",
+    "url": "https://quoteinvestigator.com/2017/11/20/value/"
+   },
+   "verification": "secondary",
+   "verification_note": "Checked 2026-10-04 on the QI article: display wording = True, followed on the page by the continuation 'He is considered successful in our day who gets more out of life than he puts in' and the citation (LIFE, May 2, 1955, 'Death of a Genius', William Miller, Quote Page 64). QI also carries the variant 'Try to become not a man of success, but try rather to become a man of value', which Wikiquote 'Sourced' (1950s) gives for the same LIFE issue — the two transcriptions differ in word order. LIFE scan itself not opened [not re-checked]. Text rights: LIFE/Miller (short quotation).",
+   "image": {
+    "file": "quote-images/v2-albert-einstein.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Einstein_1921_by_F_Schmutzer_-_restoration.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Einstein_1921_by_F_Schmutzer_-_restoration.jpg",
+    "license": "Public domain (PD-Austria; PD-old-auto-expired, photographer †1928)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Ferdinand Schmutzer (1921, Vienna); restoration by Adam Cuerden",
+    "attribution": "Ferdinand Schmutzer, 1921 (restored by Adam Cuerden), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Einstein_1921_by_F_Schmutzer_-_restoration.jpg)"
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "high",
+   "fame_evidence": "Widely quoted (usually as 'Strive not to be a success, but rather to be of value'); QI article devoted to it confirms LIFE 1955; Wikiquote 'Sourced'. Evidence type: documented most-cited genuine line (QI / Wikiquote); anthology listing not checked."
+  },
+  {
+   "id": "B12",
+   "text": "There is a tide in the affairs of men, / Which, taken at the flood, leads on to fortune; / Omitted, all the voyage of their life / Is bound in shallows and in miseries.",
+   "original": null,
+   "translation": null,
+   "author": "William Shakespeare",
+   "author_dates": "1564–1616",
+   "theme": "action",
+   "source": {
+    "work": "Julius Caesar (Brutus to Cassius)",
+    "year": "c. 1599 (First Folio 1623)",
+    "locator": "Act 4, Scene 3, lines 249–252 (Folger); 4.3.244–247 in the MIT/Moby numbering",
+    "url": "https://www.folger.edu/explore/shakespeares-works/julius-caesar/read/4/3/"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes.json q076. Re-checked 2026-10-04: normalised match in Gutenberg #100 = True and on the Folger Shakespeare text = True (line ids 4.3.249–4.3.252 read from the page markup); MIT Shakespeare anchors 4.3.244–247. Spoken by Brutus, arguing to march on Philippi.",
+   "image": {
+    "file": "quote-images/q075.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:William_Shakespeare_by_John_Taylor,_edited.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/William_Shakespeare_by_John_Taylor%2C_edited.jpg",
+    "license": "Public domain (PD-Art, PD-old-100-expired)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Attributed to John Taylor — the 'Chandos portrait', National Portrait Gallery, London (NPG 1)",
+    "attribution": "Attributed to John Taylor, Chandos portrait (National Portrait Gallery, London), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:William_Shakespeare_by_John_Taylor,_edited.jpg)",
+    "flag": "Commons tags the file 'Items with copyright claims': the NPG London has claimed rights in its photographs of PD paintings. In the EU a faithful reproduction of a PD artwork gets no new copyright (DSM Directive 2019/790 Art. 14), so EU use is fine; minor UK doubt only."
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "top",
+   "fame_evidence": "Oxford Dictionary of Quotations and Bartlett's Familiar Quotations (Julius Caesar IV.iii) [anthology listings cited from memory — not re-checked in the books]; one of the most-quoted passages in the play."
+  },
+  {
+   "id": "B13",
+   "text": "Our doubts are traitors, / And make us lose the good we oft might win / By fearing to attempt.",
+   "original": null,
+   "translation": null,
+   "author": "William Shakespeare",
+   "author_dates": "1564–1616",
+   "theme": "courage",
+   "source": {
+    "work": "Measure for Measure (Lucio to Isabella)",
+    "year": "c. 1603–04 (First Folio 1623)",
+    "locator": "Act 1, Scene 4, lines 85–87 (Folger); 1.4.84–86 in the MIT/Moby numbering",
+    "url": "https://www.gutenberg.org/ebooks/100"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes.json q075. Re-checked 2026-10-04: normalised match in Gutenberg #100 = True; MIT Shakespeare 1.4.84–86. The Folger edition keeps the Folio's 'And makes us lose' (match with 'makes' = True, Folger 1.4.85–87); Gutenberg/Globe-style texts print 'make'. Display follows Gutenberg. Spoken by Lucio, urging Isabella to plead for her brother.",
+   "image": {
+    "file": "quote-images/q075.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:William_Shakespeare_by_John_Taylor,_edited.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/21/William_Shakespeare_by_John_Taylor%2C_edited.jpg",
+    "license": "Public domain (PD-Art, PD-old-100-expired)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Attributed to John Taylor — the 'Chandos portrait', National Portrait Gallery, London (NPG 1)",
+    "attribution": "Attributed to John Taylor, Chandos portrait (National Portrait Gallery, London), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:William_Shakespeare_by_John_Taylor,_edited.jpg)",
+    "flag": "Commons tags the file 'Items with copyright claims' (NPG London reproduction claim). EU: no new copyright in a faithful reproduction of a PD artwork (DSM Art. 14)."
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "high",
+   "fame_evidence": "Oxford Dictionary of Quotations and Bartlett's list it under Measure for Measure [cited from memory — not re-checked in the books]; a staple of motivational quotation. Equally famous alternative on courage: 'Cowards die many times before their deaths' (JC 2.2.34–35 Folger, verified True) — not used only because of the 2-per-person cap."
+  },
+  {
+   "id": "B14",
+   "text": "But man is not made for defeat. A man can be destroyed but not defeated.",
+   "original": null,
+   "translation": null,
+   "author": "Ernest Hemingway",
+   "author_dates": "1899–1961",
+   "theme": "perseverance",
+   "source": {
+    "work": "The Old Man and the Sea (New York: Charles Scribner's Sons; first printed in LIFE, 1 September 1952)",
+    "year": "1952",
+    "locator": "Santiago, after the first shark attack; 1952 Scribner first edition, scan leaf 154 (printed page not read)",
+    "url": "https://openlibrary.org/search/inside?q=%22A+man+can+be+destroyed+but+not+defeated%22"
+   },
+   "verification": "primary",
+   "verification_note": "Novel is in copyright (US to 2047; EU to 2031), so checked by full-text search only, no text read: Open Library/archive.org search-inside finds 'But man is not made for defeat' and 'A man can be destroyed but not defeated' in 9–10 editions of the novel, including the 1952 Charles Scribner's Sons first edition (bwb_O8-BOU-944, leaf 154, same leaf for both) and Jonathan Cape (London). The phrase '…is not made for defeat he said A man can be destroyed but not defeated' also hits the same editions, so the two sentences are adjacent with the dialogue tag ''he said'' between them — omitted in the display. Spoken by the fictional Santiago. Text rights: Hemingway estate (short quotation).",
+   "image": {
+    "file": "quote-images/v2-ernest-hemingway.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:ErnestHemingway.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/28/ErnestHemingway.jpg",
+    "license": "Public domain (PD-US-not-renewed)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Lloyd Arnold (1939, Sun Valley Lodge, Idaho) — dust-jacket photo for the first edition of For Whom the Bell Tolls (1940)",
+    "attribution": "Lloyd Arnold, 1939, public domain (copyright not renewed), via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:ErnestHemingway.jpg)",
+    "flag": "EU-doubtful PD: PD in the US only because the 1940 copyright was not renewed. EU use rests on the rule of the shorter term for a US work (as accepted for other US photos in VERIFICATION.md); a stricter reading would protect it until 70 years after Arnold's death."
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "top",
+   "fame_evidence": "Hemingway's most-quoted line; Oxford Dictionary of Quotations and Bartlett's both list it [cited from memory — not re-checked in the books]; appears in hundreds of books (Open Library full-text search: 526 books contain 'A man can be destroyed but not defeated')."
+  },
+  {
+   "id": "B15",
+   "text": "The world breaks every one and afterward many are strong at the broken places.",
+   "original": null,
+   "translation": null,
+   "author": "Ernest Hemingway",
+   "author_dates": "1899–1961",
+   "theme": "adversity",
+   "source": {
+    "work": "A Farewell to Arms (New York: Charles Scribner's Sons)",
+    "year": "1929",
+    "locator": "Book IV, Chapter XXXIV (narrator Frederic Henry)",
+    "url": "https://www.gutenberg.org/ebooks/75201"
+   },
+   "verification": "primary",
+   "verification_note": "Normalised match in Project Gutenberg #75201 (public domain in the US since 2025) = True; chapter heading located programmatically (Book IV, Chapter XXXIV). The sentence is preceded by 'If people bring so much courage to this world the world has to kill them to break them…' (True) and followed by a darker clause; the display uses the single middle sentence. Original spelling 'every one' (two words; 'everyone' = False). Text rights: still protected in the EU until 2031 (short quotation).",
+   "image": {
+    "file": "quote-images/v2-ernest-hemingway.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:ErnestHemingway.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/28/ErnestHemingway.jpg",
+    "license": "Public domain (PD-US-not-renewed)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Lloyd Arnold (1939, Sun Valley Lodge, Idaho) — dust-jacket photo for the first edition of For Whom the Bell Tolls (1940)",
+    "attribution": "Lloyd Arnold, 1939, public domain (copyright not renewed), via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:ErnestHemingway.jpg)",
+    "flag": "EU-doubtful PD (US non-renewal) — see B14."
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "top",
+   "fame_evidence": "One of the most-quoted passages in American fiction; Oxford Dictionary of Quotations and Bartlett's list it [cited from memory — not re-checked in the books]; Wikiquote 'Sourced'."
+  },
+  {
+   "id": "B16",
+   "text": "For the great things are not done only by impulse, but are a series of small things brought together.",
+   "original": "Want het groote geschiedt niet bij impulsie alleen en is een aaneenschakeling van kleine dingen die tot elkaar gebragt zijn.",
+   "translation": {
+    "translator": "Johanna van Gogh-Bonger",
+    "edition": "The Letters of Vincent van Gogh to his Brother, 1872–1886, vol. I (London: Constable & Co.)",
+    "year": 1927
+   },
+   "author": "Vincent van Gogh",
+   "author_dates": "1853–1890",
+   "theme": "perseverance",
+   "source": {
+    "work": "Letter to Theo van Gogh, The Hague, 22 October 1882",
+    "year": "1882",
+    "locator": "Letter 237 (1914/1927 numbering; vangoghletters.org no. 274); 1927 ed. vol. I, p. 538",
+    "url": "https://archive.org/details/bwb_C0-BNZ-746_1"
+   },
+   "verification": "primary",
+   "verification_note": "Replaces quotes.json q077, which used the 2009 Van Gogh Museum translation ('© … All Rights Reserved', flagged in VERIFICATION.md). Checked 2026-10-04: sentence read from the archive.org OCR of the 1927 Constable edition, vol. I (bwb_C0-BNZ-746_1), search-inside leaf 616 = printed p. 538, under letter no. 237. The edition's preface states that Jo van Gogh-Bonger made the English translation of the letters to Theo herself; she died in 1925, so it is public domain in the EU (and in the US, published 1927). Dutch matched on vangoghletters.org let274 'original_text' (normalised) = True. This 1927 wording is the root of the popular 'Great things are not done by impulse, but by a series of small things brought together' (later editorial smoothing in the 1958 Complete Letters — not checked).",
+   "image": {
+    "file": "quote-images/v2-vincent-van-gogh.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_(454045).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg",
+    "license": "Public domain (PD-Art, PD-old-100-expired)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Vincent van Gogh, Self-Portrait (F345), 1887 — via Google Arts & Culture",
+    "attribution": "Vincent van Gogh, Self-Portrait, 1887, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_(454045).jpg)",
+    "flag": "Same Commons file as q077/q078, re-exported at 800 px because q077.jpg is 274 KB."
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "top",
+   "fame_evidence": "One of Van Gogh's two most-quoted lines (in its smoothed modern form); Wikiquote 'Sourced' (letter of 22 Oct 1882). Evidence type: documented most-cited genuine line; anthology listing not checked."
+  },
+  {
+   "id": "B17",
+   "text": "If you hear a voice within you saying: “you are no painter,” then paint by all means, lad, and that voice will be silenced.",
+   "original": "Als iets in U zelf zegt \"gij zijt geen schilder\" – SCHILDER DAN JUIST kerel, en die stem bedaart ook",
+   "translation": {
+    "translator": "Johanna van Gogh-Bonger",
+    "edition": "The Letters of Vincent van Gogh to his Brother, 1872–1886, vol. II (London: Constable & Co.)",
+    "year": 1927
+   },
+   "author": "Vincent van Gogh",
+   "author_dates": "1853–1890",
+   "theme": "courage",
+   "source": {
+    "work": "Letter to Theo van Gogh, Nieuw-Amsterdam (Drenthe), 28 October 1883",
+    "year": "1883",
+    "locator": "Letter 336 (1914/1927 numbering; vangoghletters.org no. 400); 1927 ed. vol. II, p. 332",
+    "url": "https://archive.org/details/bwb_C0-BNZ-755_2"
+   },
+   "verification": "primary",
+   "verification_note": "Replaces quotes.json q078 (2009 Van Gogh Museum translation, 'All Rights Reserved'). Checked 2026-10-04: sentence read from the archive.org OCR of the 1927 Constable edition, vol. II (bwb_C0-BNZ-755_2), search-inside leaf 346 = printed p. 332, under letter no. 336. Excerpt: the sentence continues '…will be silenced, but only by working; …'. Jo van Gogh-Bonger's translation (†1925) is public domain. Dutch matched on vangoghletters.org let400 'original_text' = True; capitals 'SCHILDER DAN JUIST' are Van Gogh's own emphasis. Source of the popular 'If you hear a voice within you say \"you cannot paint,\" then by all means paint, and that voice will be silenced.'",
+   "image": {
+    "file": "quote-images/v2-vincent-van-gogh.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_(454045).jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg",
+    "license": "Public domain (PD-Art, PD-old-100-expired)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Vincent van Gogh, Self-Portrait (F345), 1887 — via Google Arts & Culture",
+    "attribution": "Vincent van Gogh, Self-Portrait, 1887, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_(454045).jpg)"
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "top",
+   "fame_evidence": "Van Gogh's most-quoted line on self-doubt (in the paraphrased 'you cannot paint' form); Wikiquote 'Sourced' (letter of 28 Oct 1883). Evidence type: documented most-cited genuine line; anthology listing not checked."
+  },
+  {
+   "id": "B18",
+   "text": "Be alone, that is the secret of invention; be alone, that is when ideas are born.",
+   "original": null,
+   "translation": null,
+   "author": "Nikola Tesla",
+   "author_dates": "1856–1943",
+   "theme": "focus",
+   "source": {
+    "work": "Orrin E. Dunlap Jr., 'An Inventor's Seasoned Ideas: Nikola Tesla, Pointing to \"Grievous Errors\" of the Past…', The New York Times (8 April 1934), p. X9 — interview with Tesla",
+    "year": "1934",
+    "locator": "Quote Investigator, 'Be Alone, That Is the Secret of Invention; Be Alone, That Is When Ideas Are Born' (6 October 2021)",
+    "url": "https://quoteinvestigator.com/2021/10/06/invent-alone/"
+   },
+   "verification": "secondary",
+   "verification_note": "Checked 2026-10-04 on the QI article: display wording = True; the citation (1934 April 8, New York Times, Dunlap, Quote Page X9) read from QI's reference list; QI's conclusion credits Tesla with the statement in that 1934 interview. Wikiquote lists it in its sourced 'Quotes' section with the same NYT citation. NYT page itself (paywalled archive) not opened [not re-checked]. Text rights: NYT 1934 / Tesla (short quotation).",
+   "image": {
+    "file": "quote-images/v2-nikola-tesla.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Tesla_circa_1890.jpeg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/7/79/Tesla_circa_1890.jpeg",
+    "license": "Public domain (PD-old-100-expired)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Napoleon Sarony (c. 1890), New York; postcard in the Nikola Tesla Museum, Belgrade",
+    "attribution": "Napoleon Sarony, c. 1890, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Tesla_circa_1890.jpeg)"
+   },
+   "verified": "PASS",
+   "category": "thinker",
+   "fame": "high",
+   "fame_evidence": "One of Tesla's most-shared lines and the one QI has confirmed (most of his popular 'quotes' are unsourced); Wikiquote sourced section. Evidence type: documented most-cited genuine line (QI / Wikiquote). Not in ODQ/Bartlett's to my knowledge."
+  },
+  {
+   "id": "B19",
+   "text": "Victory awaits him who has everything in order—luck, people call it. Defeat is certain for him who has neglected to take the necessary precautions in time; this is called bad luck.",
+   "original": "Seier venter den, som har alt iorden — held kalder man det. Nederlag er en absolut følge for den, som har forsømt at ta de nødvendige forholdsregler i tide — uheld kaldes det.",
+   "translation": {
+    "translator": "A. G. Chater",
+    "edition": "The South Pole: An Account of the Norwegian Antarctic Expedition in the \"Fram,\" 1910–1912, vol. I (London: John Murray)",
+    "year": 1912
+   },
+   "author": "Roald Amundsen",
+   "author_dates": "1872–1928",
+   "theme": "discipline",
+   "source": {
+    "work": "Sydpolen: Den norske sydpolsfærd med Fram 1910–1912 (The South Pole)",
+    "year": "1912",
+    "locator": "Norwegian: Bind 1, p. 506 (Kristiania: Jacob Dybwad, 1912); English: Chater tr., vol. I, ch. IX 'The End of the Winter'",
+    "url": "https://www.gutenberg.org/ebooks/3414"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final x01. Re-checked 2026-10-04: normalised match in Chater's translation (Project Gutenberg #3414, vol. I) = True. Norwegian as read by the explorer pass from the National Library of Norway OCR of two 1912 copies of Bind 1, p. 506 (not re-read now). Chater's 1912 translation: public domain in the US; Chater's death date not checked here (EU status as in quotes-final).",
+   "image": {
+    "file": "quote-images/x01.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Roald_Amundsen_cph.3b17878.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Roald_Amundsen_cph.3b17878.jpg",
+    "license": "Public domain (PD-US-expired; Library of Congress cph.3b17878)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "Lomen Bros., Nome, Alaska (1920)",
+    "attribution": "Lomen Bros., Nome, Alaska, 1920, public domain, Library of Congress, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Roald_Amundsen_cph.3b17878.jpg)",
+    "flag": "PD-US only (US photo, 1920). EU use rests on the rule of the shorter term for a US work, as accepted in VERIFICATION.md."
+   },
+   "verified": "PASS",
+   "category": "explorer",
+   "fame": "top",
+   "fame_evidence": "Amundsen's most-cited line (and the genuine source behind the unsourced 'Adventure is just bad planning'); Wikiquote 'Sourced' under Sydpolen (1912). Evidence type: documented most-cited genuine line; anthology listing not checked."
+  },
+  {
+   "id": "B20",
+   "text": "Difficulties are just things to overcome after all.",
+   "original": null,
+   "translation": null,
+   "author": "Ernest Shackleton",
+   "author_dates": "1874–1922",
+   "theme": "perseverance",
+   "source": {
+    "work": "The Heart of the Antarctic: Being the Story of the British Antarctic Expedition 1907–1909, vol. I (London: William Heinemann)",
+    "year": "1909",
+    "locator": "Vol. I, ch. XXII 'On the Great Glacier', p. 321 — diary entry for 11 December 1908, ascending the Beardmore Glacier",
+    "url": "https://archive.org/details/heartofantarctic01shacuoft"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final x06. Re-checked 2026-10-04 in the archive.org OCR of the 1909 Heinemann vol. I (heartofantarctic01shacuoft): the sentence is there with an OCR line-break hyphen ('over- come'); search-inside puts 'Difficulties are just things' on leaf 585 (the item's page map reads '821', evidently an OCR slip for p. 321, the page recorded by the explorer pass). No comma before 'after all' in the source; often quoted with one.",
+   "image": {
+    "file": "quote-images/x05.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Ernest_Shackleton_before_1909.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Ernest_Shackleton_before_1909.jpg",
+    "license": "Public domain (photographer †1938; Commons tag PD-Norway)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "George Charles Beresford (before 1909); restoration by Adam Cuerden; National Library of Norway",
+    "attribution": "George Charles Beresford, before 1909 (restored by Adam Cuerden), public domain, National Library of Norway, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Ernest_Shackleton_before_1909.jpg)"
+   },
+   "verified": "PASS",
+   "category": "explorer",
+   "fame": "high",
+   "fame_evidence": "Shackleton's most-quoted genuine line (his best-known 'quotes' — the 'Men wanted' advertisement, 'Optimism is true moral courage' — are not sourced to him); Wikiquote 'Quotes' section. Evidence type: documented most-cited genuine line."
+  },
+  {
+   "id": "B21",
+   "text": "That's one small step for (a) man; one giant leap for mankind.",
+   "original": null,
+   "translation": null,
+   "author": "Neil Armstrong",
+   "author_dates": "1930–2012",
+   "theme": "ambition",
+   "source": {
+    "work": "Apollo 11 air-to-ground transmission, as transcribed in the Apollo 11 Lunar Surface Journal (NASA, ed. Eric M. Jones), 'One Small Step'",
+    "year": "1969",
+    "locator": "Mission elapsed time 109:24:23, 20 July 1969 (21 July UTC), stepping off the LM footpad",
+    "url": "https://www.nasa.gov/wp-content/uploads/static/history//alsj/a11/a11.step.html"
+   },
+   "verification": "primary",
+   "verification_note": "Reused from quotes-final x16. Re-checked 2026-10-04: normalised match on the NASA ALSJ page = True, at timestamp 109:24:23. The '(a)' is the Journal's bracketing — the article is not clearly audible; Armstrong said he intended it. The app may display it without brackets.",
+   "image": {
+    "file": "quote-images/x16.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Neil_Armstrong_pose.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Neil_Armstrong_pose.jpg",
+    "license": "Public domain (PD-NASA)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "creator": "NASA (photo S69-31741, July 1969)",
+    "attribution": "NASA (photo S69-31741), public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Neil_Armstrong_pose.jpg)"
+   },
+   "verified": "PASS",
+   "category": "explorer",
+   "fame": "top",
+   "fame_evidence": "Among the most famous sentences ever spoken; in the Oxford Dictionary of Quotations, Bartlett's and the Yale Book of Quotations [anthology listings cited from memory — not re-checked in the books]."
+  },
+  {
+   "id": "B22",
+   "text": "Nothing in life is worthwhile unless you take risks.",
+   "original": null,
+   "translation": null,
+   "author": "Denzel Washington",
+   "author_dates": "b. 1954",
+   "theme": "courage",
+   "source": {
+    "work": "'Fall Forward', Commencement Address at the University of Pennsylvania (16 May 2011), published in Almanac vol. 57, no. 34 (24 May 2011)",
+    "year": "2011",
+    "locator": "Penn Almanac transcript, 'Commencement Address by Denzel Washington: Fall Forward'",
+    "url": "https://almanac.upenn.edu/archive/volumes/v57/n34/comm-washington.html"
+   },
+   "verification": "primary",
+   "verification_note": "Checked 2026-10-04 against Penn's own published transcript (Almanac; the live site answers 403 to scripts, so read via the Wayback Machine snapshot of 27 Nov 2020, id_ raw copy): normalised match = True; 'May 16, 2011' = True. Excerpt: the transcript's sentence is 'Well, here it is: I've found that nothing in life is worthwhile unless you take risks.' Quote sites usually glue it to 'Fall forward. Every failed experiment is one step closer to success.' — those are separate sentences ~1,000 characters apart (see B23). Text rights: Washington (speech, short quotation).",
+   "image": {
+    "file": "quote-images/v2-denzel-washington.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Denzel_Washington_at_the_2024_Toronto_International_Film_Festival_04.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Denzel_Washington_at_the_2024_Toronto_International_Film_Festival_04.jpg",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "creator": "Adam Chitayat (TIFF, 10 September 2024)",
+    "attribution": "Adam Chitayat, CC BY 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Denzel_Washington_at_the_2024_Toronto_International_Film_Festival_04.jpg); cropped",
+    "flag": "Cropped to remove a second person (Pauletta Washington) at the right edge — a change that must be indicated under CC BY ('cropped' in attribution). TIFF sponsor logos remain in the background. Photo of a living person: personality rights apply to commercial/endorsement use."
+   },
+   "verified": "PASS",
+   "category": "screen",
+   "fame": "high",
+   "fame_evidence": "From his most-quoted speech ('Fall Forward', Penn 2011); the line heads the stitched quote that dominates quote sites (Goodreads, AZQuotes). Evidence type: documented most-cited genuine line (commencement transcript + wide circulation); not in ODQ/Bartlett's to my knowledge; Wikiquote does not list it."
+  },
+  {
+   "id": "B23",
+   "text": "Every failed experiment is one step closer to success.",
+   "original": null,
+   "translation": null,
+   "author": "Denzel Washington",
+   "author_dates": "b. 1954",
+   "theme": "perseverance",
+   "source": {
+    "work": "'Fall Forward', Commencement Address at the University of Pennsylvania (16 May 2011), published in Almanac vol. 57, no. 34 (24 May 2011)",
+    "year": "2011",
+    "locator": "Penn Almanac transcript, 'Commencement Address by Denzel Washington: Fall Forward'",
+    "url": "https://almanac.upenn.edu/archive/volumes/v57/n34/comm-washington.html"
+   },
+   "verification": "primary",
+   "verification_note": "Checked 2026-10-04 against Penn's published transcript (Wayback snapshot, as for B22): the exact sentence = True (a whole sentence in the transcript); 'Fall forward. Here's what I mean.' also present. In the speech it follows his Edison example. Text rights: Washington (short quotation).",
+   "image": {
+    "file": "quote-images/v2-denzel-washington.jpg",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:Denzel_Washington_at_the_2024_Toronto_International_Film_Festival_04.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Denzel_Washington_at_the_2024_Toronto_International_Film_Festival_04.jpg",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "creator": "Adam Chitayat (TIFF, 10 September 2024)",
+    "attribution": "Adam Chitayat, CC BY 4.0, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Denzel_Washington_at_the_2024_Toronto_International_Film_Festival_04.jpg); cropped",
+    "flag": "Cropped (see B22). Living person: personality rights."
+   },
+   "verified": "PASS",
+   "category": "screen",
+   "fame": "high",
+   "fame_evidence": "Part of the 'Fall Forward' passage that is his most-circulated quotation (Goodreads/AZQuotes/Quotefancy stitched version). Evidence type: documented most-cited genuine line; anthologies not checked."
+  }
+ ]
+}

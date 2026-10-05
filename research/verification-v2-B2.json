@@ -1,0 +1,106 @@
+[
+ {
+  "id": "C01",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Stanford's text (2012 Wayback copy; the live page has it too). Fame: Bartlett's 18th ed. (2012) p. 873, Jobs entry citing the Stanford address. Image: PD-Gotfryd is a rights holder's dedication through the Library of Congress gift, valid in the EU too; the doubt is only how well it is documented. Acceptable.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "C02",
+  "verdict": "REJECT",
+  "fix": null,
+  "reason": "Genuine (prepared text, 2012/2024 Wayback). Fame fails: not in ODQ 1999/2014, Bartlett's 17th/18th or Yale 2006/2021, and not documented as Jobs's signature line, so C01 carries Jobs. Note: the live Stanford page now reads 'life's gonna hit you'.",
+  "fame_confirmed": false
+ },
+ {
+  "id": "C03",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the CBS transcript (elision only removes the false start). Musk's best-evidenced genuine line: it is the real source of the paraphrase that leads his Wikiquote page. Not in the anthologies; the Yale 'important enough' hits are other authors. Chosen as Musk's one line.",
+  "fame_confirmed": "relative"
+ },
+ {
+  "id": "C04",
+  "verdict": "REJECT",
+  "fix": null,
+  "reason": "Genuine (CBS transcript, 2012). Fame fails: no anthology, no QI and not on Wikiquote. Musk keeps C03.",
+  "fame_confirmed": false
+ },
+ {
+  "id": "C05",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #7213. Ford's best-evidenced on-theme genuine line: Wikiquote Sourced, and the source of the much-shared 'simply the opportunity to begin again'. His anthology lines (ODQ 2014 p. 322) are not on-theme. Chosen as Ford's one line.",
+  "fame_confirmed": "relative"
+ },
+ {
+  "id": "C06",
+  "verdict": "REJECT",
+  "fix": null,
+  "reason": "Genuine (Gutenberg #7213, ch. XVII). Fame fails: not in the anthologies; Ford keeps C05.",
+  "fame_confirmed": false
+ },
+ {
+  "id": "C07",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the 2016 shareholder letter (SEC exhibit via Wayback 2018 copy; also on aboutamazon.com). Bezos's best-evidenced line: Amazon named its headquarters tower 'Day 1', and Amazon reprints the passage itself. Not in the anthologies (the 'Day 2' hits are other authors). Chosen as Bezos's one line.",
+  "fame_confirmed": "relative"
+ },
+ {
+  "id": "C08",
+  "verdict": "REJECT",
+  "fix": null,
+  "reason": "Genuine (Princeton 'as delivered' text, Wayback). Fame fails: not in the anthologies or on Wikiquote; Bezos keeps C07.",
+  "fame_confirmed": false
+ },
+ {
+  "id": "C09",
+  "verdict": "FIX",
+  "fix": {
+   "source.locator": "Speech at an NCR sales meeting, Dayton (1911); printed in Watson's lifetime in B. C. Forbes, America's Fifty Foremost Business Leaders (New York: B. C. Forbes & Sons, 1948), p. 427; also on IBM Heritage, 'The origins of THINK'",
+   "source.url": "https://archive.org/details/americasfiftyfor0000unse"
+  },
+  "reason": "Primary-side upgrade: both sentences together on p. 427 of Forbes 1948 (search-inside, whole passage), published in Watson's lifetime, so it is a better source than IBM's page (whose year, 1915, is wrong). Fame: Yale Book of Quotations 2006 p. 801 and 2021 p. 865, Watson entry citing IBM. Image: the Smithsonian's CC0 is an institutional release, valid in the EU if the Smithsonian holds the rights; mild doubt, acceptable.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "C10",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Exact two sentences on p. 35 of the Viking 1995 scan (earlier check). Fame: Bartlett's 18th ed. p. 873, Gates entry.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "C11",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in the 1986 Berkshire letter (dated 27 Feb 1987), a primary source. Fame: ODQ 2014 p. 161, Buffett entry.",
+  "fame_confirmed": true
+ },
+ {
+  "id": "C12",
+  "verdict": "REJECT",
+  "fix": null,
+  "reason": "Genuine (1985 Berkshire letter, dated 4 March 1986). Fame fails: not in the anthologies or on Wikiquote; Buffett keeps C11.",
+  "fame_confirmed": false
+ },
+ {
+  "id": "C13",
+  "verdict": "PASS",
+  "fix": null,
+  "reason": "Verbatim in Gutenberg #64059, in the Rockefeller chapter, inside his quoted answer after 'I asked Mr. Rockefeller'. Rockefeller's best on-theme genuine line (Wikiquote Sourced); his anthology lines (ODQ 2014 p. 652) are not on-theme. Chosen as his one line.",
+  "fame_confirmed": "relative"
+ },
+ {
+  "id": "C14",
+  "verdict": "FIX",
+  "fix": {
+   "source.locator": "Diane Disney Miller, The Story of Walt Disney (Henry Holt, 1957), p. 89, Walt quoted directly; earlier form ('a kick in the pants…') in the Saturday Evening Post serial, 1956",
+   "source.url": "https://archive.org/details/storyofwaltdisne0000mill"
+  },
+  "reason": "Primary-side upgrade: the exact sentence is on p. 89 of the 1957 Holt book itself (search-inside), in a passage with Walt speaking. Fame: a dedicated Quote Investigator article (2013/05/21) credits Disney; the Yale 'kick in the pants' hits are another author. Image: PD-NYWT&S, the newspaper's donation of its rights to the Library of Congress, valid in the EU; acceptable.",
+  "fame_confirmed": true
+ }
+]

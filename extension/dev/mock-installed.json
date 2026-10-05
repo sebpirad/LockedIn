@@ -88,5 +88,23 @@
     "name": "Telegram",
     "kind": "app",
     "path": "/Applications/Telegram.app"
+  },
+  {
+    "bundleId": "com.readdle.SparkDesktop",
+    "name": "Spark",
+    "kind": "webengine",
+    "path": "/Applications/Spark Desktop.app"
+  },
+  {
+    "bundleId": "com.anthropic.claudefordesktop",
+    "name": "Claude",
+    "kind": "webengine",
+    "path": "/Applications/Claude.app"
+  },
+  {
+    "bundleId": "com.electron.wispr-flow",
+    "name": "Wispr Flow",
+    "kind": "webengine",
+    "path": "/Applications/Wispr Flow.app"
   }
 ]

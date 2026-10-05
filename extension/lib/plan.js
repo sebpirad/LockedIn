@@ -185,3 +185,184 @@ export function assignLanes(items) {
   if (group.length) flush();
   return out;
 }
+
+// ---------- Plan page (v1.3): week grid, layout, keyboard, "locks now" ----------
+
+const DAYMS = 86400000;
+const noonOf = (date) => Date.parse(date + 'T12:00:00Z');
+/** "YYYY-MM-DD" + n days. */
+export const addDays = (date, n) => cphDate(noonOf(date), n);
+/** Weekday of a date, 1 = mandag … 7 = søndag. */
+export const weekdayOf = (date) => cphParts(dateTimeInstant(date, '12:00')).weekday;
+/** Monday of the week that contains `now` (Copenhagen), plus `weeks`. */
+export function weekStart(now, weeks = 0) {
+  const today = cphDate(now, 0);
+  return addDays(today, 1 - weekdayOf(today) + 7 * weeks);
+}
+/** Local midnight → next local midnight (23 or 25 hours on DST days). */
+export function dayBounds(date) {
+  return { d0: dateTimeInstant(date, '00:00'), d1: dateTimeInstant(addDays(date, 1), '00:00') };
+}
+/** Minutes since local midnight on the wall clock. */
+export function wallMinutes(t) {
+  const p = cphParts(t);
+  return p.hour * 60 + p.minute;
+}
+/** "Tirsdag 6. okt." */
+export function dateLong(date) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date || '');
+  if (!m) return '';
+  return `${cap(['mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag', 'søndag'][weekdayOf(date) - 1])} ${+m[3]}. ${MONTHS[+m[2] - 1]}`;
+}
+const toMin = (hhmm) => +hhmm.slice(0, 2) * 60 + +hhmm.slice(3, 5);
+/** "2 t", "1 t 30 min", "45 min"; over midnight: "næste dag · 12 t". */
+export function lengthText(start, end) {
+  const a = toMin(start), b = toMin(end);
+  const len = ((b - a) + 1440) % 1440 || 1440;
+  const h = Math.floor(len / 60), m = len % 60;
+  const t = h && m ? `${h} t ${m} min` : h ? `${h} t` : `${m} min`;
+  return b <= a ? `næste dag · ${t}` : t;
+}
+
+/**
+ * One day column. occs: occurrences that touch the day. → [{o, top, bottom, level, cont: {before, after}}]
+ * top/bottom are wall-clock minutes 0–1440. Overlapping active periods cascade (level 0, 1, 2 …, later ones
+ * indented and on top), like Google Calendar. Skipped days take part in no cascade: level -1, drawn underneath.
+ */
+export function dayLayout(occs, date) {
+  const { d0, d1 } = dayBounds(date);
+  const items = [];
+  for (const o of occs) {
+    if (o.end <= d0 || o.start >= d1) continue;
+    const top = o.start <= d0 ? 0 : wallMinutes(o.start);
+    let bottom = o.end >= d1 ? 1440 : wallMinutes(o.end);
+    if (bottom <= top) bottom = Math.min(1440, top + 15);
+    items.push({ o, top, bottom, cont: { before: o.start < d0, after: o.end > d1 } });
+  }
+  const isDraft = (x) => !!(x.o.sc && x.o.sc._draft);
+  const active = items.filter((x) => !x.o.skipped && !isDraft(x));
+  const lanes = assignLanes(active.map((x) => ({ start: x.top, end: x.bottom })));
+  active.forEach((x, i) => { x.level = lanes[i].lane; });
+  for (const x of items) if (x.o.skipped) x.level = -1;
+  // A new period being drawn is the newest: it goes on top, indented, and never hides what is under it.
+  for (const x of items.filter(isDraft)) {
+    const under = active.filter((y) => y.top < x.bottom && y.bottom > x.top);
+    x.level = under.length ? Math.max(...under.map((y) => y.level)) + 1 : 0;
+  }
+  return items.sort((a, b) => a.level - b.level || a.top - b.top);
+}
+
+/** Left indent of a cascade level, in px, for a column `colW` wide. */
+export function cascadeIndent(level, colW) {
+  if (level <= 0) return 0;
+  const step = Math.max(24, Math.round(colW * 0.28));
+  return Math.min(level * step, Math.max(0, colW - 30));
+}
+
+/**
+ * Which label fits a block — never an ellipsis. Widths are measured text widths in px.
+ * w/h: the block's inner width and height. → {time: 'full'|'start'|null, name: 'below'|'inline'|null}
+ *   time "13–15" if it fits, else the start "13" if it fits, else nothing (the tint carries the block);
+ *   the list name only whole: on its own line when the block is ≥ 40 px tall, else after the time on one line.
+ */
+export function labelFit({ w, h, timeW, startW, nameW, gap = 6 }) {
+  let time = null;
+  if (timeW <= w) time = 'full';
+  else if (startW <= w) time = 'start';
+  let name = null;
+  if (time === 'full' && nameW != null) {
+    if (h >= 40 && nameW <= w) name = 'below';
+    else if (timeW + gap + nameW <= w) name = 'inline';
+  }
+  return { time, name };
+}
+
+/** A pointer drag between two minute positions → a range snapped to `snap` minutes, at least one step, inside the day. */
+export function dragRange(a, b, snap = 15) {
+  const s = (m) => Math.max(0, Math.min(1440, Math.round(m / snap) * snap));
+  let start = s(Math.min(a, b)), end = s(Math.max(a, b));
+  if (end - start < snap) end = Math.min(1440, start + snap);
+  if (end - start < snap) start = end - snap;
+  return { start, end };
+}
+
+/**
+ * Keyboard slot cursor: {date, start, len} in minutes. ↑/↓ move 30 min, ←/→ a day,
+ * Shift+↑/↓ shorten/lengthen by 30 min. The slot always stays inside its day.
+ */
+export function moveSlot(slot, key, shift = false, step = 30) {
+  let { date, start, len } = slot;
+  if (shift && key === 'ArrowDown') len = Math.min(1440 - start, len + step);
+  else if (shift && key === 'ArrowUp') len = Math.max(step, len - step);
+  else if (key === 'ArrowDown') start = Math.min(1440 - len, start + step);
+  else if (key === 'ArrowUp') start = Math.max(0, start - step);
+  else if (key === 'ArrowRight') date = addDays(date, 1);
+  else if (key === 'ArrowLeft') date = addDays(date, -1);
+  else if (key === 'Home') start = 0;
+  else if (key === 'End') start = 1440 - len;
+  return { date, start, len };
+}
+
+/**
+ * Does saving this period start or lengthen a lock right now? Then it cannot be undone, and the button must say so.
+ * body: the POST/PUT body; editingId: the period being edited (its old version is ignored).
+ * → the instant the lock would then end, or null when saving changes nothing now.
+ */
+export function lockIfSaved(body, schedules, now, lockUntil = null, editingId = null) {
+  if (!body) return null;
+  const old = (schedules || []).find((s) => s.id === editingId);
+  const draft = { ...body, id: editingId || '__draft', skip: old ? old.skip || [] : [] };
+  const others = (schedules || []).filter((s) => s.id !== editingId);
+  const mine = occurrences([draft], now - DAYMS, now + 2 * DAYMS).filter((o) => !o.skipped && o.end > now);
+  const all = occurrences([...others, draft], now - DAYMS, now + 3 * DAYMS);
+  if (lockUntil && lockUntil > now) {
+    if (!mine.some((o) => o.start <= lockUntil)) return null;
+    const end = chainEnd(now, lockUntil, all).end;
+    return end > lockUntil ? end : null;
+  }
+  const cur = mine.find((o) => o.start <= now);
+  return cur ? chainEnd(now, cur.end, all).end : null;
+}
+
+/** Clicks and the keyboard slot reuse the last length only when it is a normal block (≤ 3 h); otherwise 1 h. */
+export const slotLength = (last) => (last > 0 && last <= 180 ? last : 60);
+
+/** 1500 → "25 t", 1470 → "24 t 30 min". */
+export function minutesText(min) {
+  const h = Math.floor(min / 60), m = min % 60;
+  return h && m ? `${h} t ${m} min` : h ? `${h} t` : `${m} min`;
+}
+
+/**
+ * The daemon's 24-hour rule, checked before saving: one continuous lock — the running lock and every period
+ * that overlaps or touches it, back to back — may last at most 24 hours. A chain that already existed
+ * without this period does not count (as in the daemon). lock: {since, until} of the running lock, or null.
+ * → the length in minutes of the longest chain this period would make too long, or null.
+ */
+export function chainOverLimit(body, schedules, now, lock = null, editingId = null, days = 15) {
+  if (!body) return null;
+  const all = (schedules || []).filter((s) => s.enabled !== false);
+  const old = all.find((s) => s.id === editingId);
+  const draft = { ...body, id: editingId || '__draft', skip: old ? old.skip || [] : [] };
+  const others = all.filter((s) => s.id !== editingId);
+  const from = now - DAYMS, to = now + days * DAYMS;
+  const chains = (list) => {
+    const ivs = occurrences(list, from, to).filter((o) => !o.skipped).map((o) => ({ s: o.start, e: o.end, mine: o.sc.id === draft.id }));
+    if (lock && lock.until > now) ivs.push({ s: Math.min(lock.since || now, now), e: lock.until, mine: false });
+    ivs.sort((a, b) => a.s - b.s);
+    const out = [];
+    for (const iv of ivs) {
+      const last = out[out.length - 1];
+      if (last && iv.s <= last.e) { last.e = Math.max(last.e, iv.e); last.mine = last.mine || iv.mine; } else out.push({ ...iv });
+    }
+    return out;
+  };
+  const before = chains(others);
+  let worst = null;
+  for (const c of chains([...others, draft])) {
+    if (!c.mine || c.e <= now || c.e - c.s <= DAYMS) continue;
+    if (before.some((b) => b.s <= c.s && b.e >= c.e)) continue;
+    worst = Math.max(worst || 0, c.e - c.s);
+  }
+  return worst == null ? null : Math.round(worst / 60000);
+}

@@ -217,7 +217,11 @@ public final class Engine {
     /// active list.
     public func effectiveAppRules(now: Date) -> [AppRule] {
         let ids = Set(activeLists(now).flatMap(\.apps))
-        return state.apps.map { a in var r = a; r.blocked = a.blocked || ids.contains(a.bundleId); return r }
+        return state.apps.map { a in
+            var r = a
+            r.blocked = !a.neverClose && (a.blocked || ids.contains(a.bundleId))
+            return r
+        }
     }
 
     func cleanList(name: String, sites: [String], apps: [String]) throws -> (String, [String], [String]) {
@@ -225,7 +229,7 @@ public final class Engine {
         guard !n.isEmpty, n.count <= Limits.maxLabel, Validation.isSafeLabel(n) else { throw EngineError.invalid("Navnet skal være 1–40 tegn.") }
         var seen = Set<String>()
         let sIds = sites.filter { id in state.sites.contains { $0.id == id } && seen.insert("s" + id).inserted }
-        let aIds = apps.filter { id in state.apps.contains { $0.bundleId == id } && seen.insert("a" + id).inserted }
+        let aIds = apps.filter { id in state.apps.contains { $0.bundleId == id && !$0.neverClose } && seen.insert("a" + id).inserted }
         return (n, sIds, aIds)
     }
 
@@ -348,8 +352,9 @@ public final class Engine {
             a.name = String(a.name.prefix(80))
             state.apps.append(a)
         }
-        if let list, let i = state.lists.firstIndex(where: { $0.id == list }), !state.lists[i].apps.contains(app.bundleId) {
-            state.lists[i].apps.append(app.bundleId)
+        let never = state.apps.first { $0.bundleId == app.bundleId }?.neverClose ?? false
+        if !never, let list, let i = state.lists.firstIndex(where: { $0.id == list }), !state.lists[i].apps.contains(app.bundleId) {
+            state.lists[i].apps.append(app.bundleId)   // a never-close app is never put on a list (R7-2)
         }
     }
 
@@ -369,6 +374,26 @@ public final class Engine {
         }
         if !blocked && state.apps[i].blocked && isLocked(now) { throw EngineError.locked() }
         state.apps[i].blocked = blocked
+    }
+
+    /// "Lukkes aldrig" on/off. Turning it ON is a weakening: refused (423) during a lock if the app is closed right now.
+    public func setNeverClose(bundleId: String, on: Bool, now: Date) throws {
+        guard let i = state.apps.firstIndex(where: { $0.bundleId == bundleId }) else { throw EngineError.notFound("Appen findes ikke.") }
+        if on && (state.apps[i].kind == .browser || AppPolicy.knownBrowsers.contains(bundleId)) {
+            throw EngineError.invalid("Andre browsere end Chrome er altid lukket under fokus.")
+        }
+        if on && isLocked(now) {
+            let closedNow = effectiveAppRules(now: now).first { $0.bundleId == bundleId }?.blocked ?? false
+            // Also any list that is part of the running lock later (a chained period) — review 7, R7-1.
+            let frozen = frozenListIds(now: now)
+            let onFrozenList = state.lists.contains { frozen.contains($0.id) && $0.apps.contains(bundleId) }
+            if closedNow || onFrozenList { throw EngineError.locked() }
+        }
+        state.apps[i].neverClose = on
+        if on {
+            state.apps[i].blocked = false
+            for j in state.lists.indices { state.lists[j].apps.removeAll { $0 == bundleId } }
+        }
     }
 
     public func removeApp(bundleId: String, now: Date) throws {

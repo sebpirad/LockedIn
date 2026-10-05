@@ -61,3 +61,12 @@ for (const f of fs.readdirSync(path.join(DST, "images"))) {
 fs.writeFileSync(path.join(DST, "quotes.json"), JSON.stringify(out, null, 2) + "\n");
 console.log(`sync-quotes: ${out.length} citater, ${used.size} billeder` + (dropped ? `, ${dropped} ugyldige sprunget over` : "") + (noImage ? `, ${noImage} uden billede` : ""));
 '
+
+# Art direction for the quote page: face box + yaw (Apple Vision, macOS only — skipped elsewhere, the last
+# tools/quote-faces.json is kept), then tone, credit names, short source titles and image sizes.
+if command -v swift >/dev/null 2>&1 && [ "$(uname)" = Darwin ]; then
+  swift "$ROOT/extension/tools/measure-faces.swift" "$DST/images" > "$ROOT/extension/tools/quote-faces.json.tmp" \
+    && mv "$ROOT/extension/tools/quote-faces.json.tmp" "$ROOT/extension/tools/quote-faces.json" \
+    || { rm -f "$ROOT/extension/tools/quote-faces.json.tmp"; echo "sync-quotes: ansigtsmåling sprunget over"; }
+fi
+node "$ROOT/extension/tools/quote-art.mjs"

@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="dark">
+<title>LockedIn</title>
+<!-- Retning 1 · Variant B "Omslag" (the cover). Dev mockup — never shipped. -->
+<style>
+:root {
+  color-scheme: dark;
+  --ink: #0a0a0b;          /* page + duotone shadow */
+  --paper: #efebe3;        /* quote, name                 16.6:1 on ink */
+  --muted: #aca79e;        /* source, timer, photo credit  8.3:1 on ink, ≥ 5.8:1 on the plate's foot */
+  --accent: #f2c14e;       /* LockedIn yellow             11.8:1 */
+  --display: Didot, "Bodoni 72", "Iowan Old Style", Georgia, serif;
+  --sans: system-ui, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --plate: clamp(420px, 60vw, 1180px);
+  --pad: clamp(48px, 7vw, 140px);
+  --col: clamp(520px, 56vw, 1060px);
+  --ease: cubic-bezier(.2, .7, .1, 1);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--ink); color: var(--paper);
+  font: 15px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  overflow: hidden;
+}
+[hidden] { display: none !important; }
+a { color: inherit; text-decoration: underline; text-decoration-color: rgba(239, 235, 227, .22); text-decoration-thickness: 1px; text-underline-offset: 3px; transition: text-decoration-color .2s; }
+a:hover { text-decoration-color: currentColor; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+.cover { position: relative; height: 100vh; height: 100svh; overflow: hidden; isolation: isolate; }
+
+/* ---------------------------------------------------------------- portrait: dissolves into the page */
+.plate {
+  position: absolute; top: 0; right: 0; bottom: 0; width: var(--plate); margin: 0; overflow: hidden; z-index: 0;
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,.16) 18%, rgba(0,0,0,.5) 36%, #000 60%), linear-gradient(to top, transparent 0%, #000 22%);
+  mask-composite: intersect;
+}
+.plate canvas { position: absolute; display: block; }
+.plate .grain { position: absolute; inset: 0; background-image: var(--grain); background-size: 180px; opacity: .22; mix-blend-mode: overlay; }
+/* a little light falls on the face side, never on the text side */
+.plate::after { content: ""; position: absolute; inset: 0; background: radial-gradient(70% 60% at 62% 38%, transparent 40%, rgba(10,10,11,.38) 100%); }
+
+/* ---------------------------------------------------------------- text column */
+.col {
+  position: relative; z-index: 2; height: 100%; width: var(--col);
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+  padding: 0 0 0 var(--pad);
+}
+.folio { display: flex; align-items: center; gap: 10px; padding-top: 34px; min-height: 76px; }
+.timer { display: flex; align-items: center; gap: 10px; color: var(--muted); font: 300 19px/1 var(--sans); letter-spacing: .05em; font-variant-numeric: tabular-nums; }
+.timer svg { width: 12px; height: 14px; color: var(--accent); flex: none; }
+.over { margin: 0; font: 400 16px/1.4 var(--sans); color: var(--paper); }
+.over a { color: var(--accent); text-decoration-color: rgba(242, 193, 78, .35); white-space: nowrap; }
+
+.piece { min-height: 0; display: flex; flex-direction: column; justify-content: center; padding-bottom: 2vh; }
+blockquote {
+  margin: 0; font-family: var(--display); font-style: italic; font-weight: 400; color: var(--paper);
+  font-kerning: normal; font-feature-settings: "kern", "liga";
+  text-wrap: balance; white-space: pre-line; max-width: 15em; box-sizing: content-box;
+  text-shadow: 0 0 40px rgba(10, 10, 11, .6);
+}
+blockquote.many { text-wrap: pretty; max-width: 22em; }
+blockquote .ln { display: block; clip-path: inset(-.3em -2em -.3em -2em); }
+blockquote .ln > span { display: inline-block; position: relative; white-space: nowrap; }
+
+.sig { margin: clamp(26px, 4.2vh, 48px) 0 0; }
+.sig .name { display: block; font: 400 clamp(24px, 2.3vw, 34px)/1.1 var(--display); letter-spacing: .005em; color: var(--paper); }
+.sig .meta { display: block; margin-top: 10px; font: 400 12.5px/1.5 var(--sans); color: var(--muted); max-width: 60ch; }
+.sig .dates { font-variant-numeric: tabular-nums; letter-spacing: .06em; font-weight: 500; color: var(--paper); opacity: .78; }
+.sig .meta i { font-style: italic; }
+.sig .dot { padding: 0 .55em; opacity: .7; }
+
+.colophon { padding-bottom: 30px; min-height: 30px; }
+
+/* photo credit sits on the photograph's own (dark) foot, like a cover credit */
+.photo-credit {
+  position: absolute; right: clamp(24px, 3vw, 48px); bottom: 26px; z-index: 2; margin: 0; max-width: min(46vw, 640px);
+  font: 400 10.5px/1.45 var(--sans); letter-spacing: .03em; color: var(--muted); text-align: right;
+}
+
+.no-plate .plate, .no-plate .photo-credit { display: none; }
+.no-plate .col { width: min(100%, 1100px); }
+
+/* ---------------------------------------------------------------- entrance (≤ 600 ms) */
+.stage { visibility: hidden; }
+.stage.in { visibility: visible; }
+.in .plate { animation: develop 600ms var(--ease) both; }
+.in .plate canvas { animation: settle 600ms var(--ease) both; }
+.in blockquote .ln > span { animation: lineUp 420ms var(--ease) both; animation-delay: calc(40ms + var(--i) * var(--stagger)); }
+.in .sig, .in .folio, .in .photo-credit { animation: fade 320ms ease-out 260ms both; }
+@keyframes develop { from { opacity: 0; } to { opacity: 1; } }
+@keyframes settle { from { transform: scale(1.045) translateX(-1.2%); } to { transform: none; } }
+@keyframes lineUp { from { transform: translateY(.5em); opacity: 0; } 60% { opacity: 1; } to { transform: none; opacity: 1; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.swap { animation: fade 300ms ease-out both; }
+@media (prefers-reduced-motion: reduce) { .in *, .in .plate, .swap { animation: none !important; } }
+.still .in *, .still .in .plate { animation: none !important; }
+
+/* ---------------------------------------------------------------- phone */
+@media (max-width: 760px) {
+  body { overflow: auto; }
+  .over { font-size: 15px; text-align: left; }
+  .over .sep { display: none; }
+  .over a { display: block; margin-top: 2px; }
+  .cover { height: auto; min-height: 100svh; overflow: visible; }
+  .plate {
+    position: relative; width: 100%; height: 60svh; inset: auto;
+    mask-composite: add;
+    mask-image: linear-gradient(to top, transparent 0%, rgba(0,0,0,.35) 22%, #000 50%);
+  }
+  .plate::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 96px; z-index: 1; background: linear-gradient(rgba(10,10,11,.78), transparent); }
+  .plate::after { background: radial-gradient(90% 70% at 50% 38%, transparent 45%, rgba(10,10,11,.4) 100%); }
+  .col { position: static; width: auto; height: auto; display: block; padding: 0 16px 22px; margin-top: var(--lift, -72px); }
+  .piece { position: relative; z-index: 2; padding-bottom: 0; }
+  .folio { position: absolute; top: 0; left: 16px; right: 16px; z-index: 3; padding-top: 14px; min-height: 0; }
+  .timer, .over { color: var(--paper); }
+  blockquote, blockquote.many { max-width: none; }
+  .sig { margin-top: 18px; }
+  .sig .name { font-size: 24px; }
+  .colophon { display: none; }
+  .photo-credit { position: static; max-width: none; text-align: left; padding: 14px 16px 22px; font-size: 11px; letter-spacing: 0; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="lock" viewBox="0 0 12 14"><path d="M3 6V4.2a3 3 0 0 1 6 0V6" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="1" y="6" width="10" height="7.2" rx="1.6" fill="currentColor"/></symbol></svg>
+<main class="stage" id="stage">
+  <div class="cover">
+    <figure class="plate" id="plate"><div class="crop" id="crop"></div><div class="grain"></div></figure>
+    <div class="col">
+      <header class="folio">
+        <div class="timer" id="timer"><svg aria-hidden="true"><use href="#lock"/></svg><span id="left" role="timer" aria-label="Tid tilbage af fokussessionen">00:00:00</span></div>
+        <p class="over" id="over" hidden><span>Fokussessionen er slut</span><span class="sep" aria-hidden="true"> · </span><a id="back" href="#">Fortsæt til <span id="host"></span>&nbsp;→</a></p>
+      </header>
+      <article class="piece" id="piece">
+        <blockquote id="quote" lang="en"></blockquote>
+        <p class="sig" id="sig"><span class="name" id="name"></span><span class="meta"><span class="dates" id="dates"></span><span class="dot" id="dot" aria-hidden="true">·</span><span id="source"></span></span></p>
+      </article>
+      <footer class="colophon"></footer>
+    </div>
+    <p class="photo-credit" id="photoCredit"></p>
+  </div>
+</main>
+
+<script type="module">
+import * as K from './d1-common.js';
+const { $ } = K;
+
+const TREAT = { ink: '#0a0a0b', mid: '#4d4a46', light: '#d9d3c8', cap: 0.9, median: 0.37, contrast: 0.22, faceTone: 0.54 };
+const PHONE = () => innerWidth <= 760;
+
+document.documentElement.style.setProperty('--grain', `url(${K.grain()})`);
+if (K.params.get('still') === '1') document.documentElement.classList.add('still');
+
+// The timer must show even if the quotes cannot be read.
+const { list, focus } = await K.loadData().catch(() => ({ list: [], focus: {} }));
+let idx = K.pickIndex(list);
+let cur = null;
+
+/** Desktop: crop the portrait first, then keep the quote clear of the sitter (face ± shoulders). */
+function cropPlate(phone) {
+  if (!cur.canvas) return null;
+  const box = $('#plate').getBoundingClientRect();
+  const r = K.cropTo(cur.canvas, box, cur.nat, cur.face, phone
+    ? { ax: 0.5, ay: 0.4, faceFrac: 0.34, maxPx: 1.25 }
+    : { ax: 0.66, ay: 0.4, faceFrac: 0.26, maxPx: 1.9, minX: 0.6 });
+  $('#plate').dataset.upscale = r.upscale.toFixed(2);
+  const left = box.left + parseFloat(cur.canvas.style.left);
+  const dw = parseFloat(cur.canvas.style.width);
+  const f = cur.face || { x: 0.5, w: 0.3 };
+  const subjectLeft = left + (f.x - 2 * f.w) * dw; // head-and-shoulders ≈ 4 face widths
+  const clear = Math.max(subjectLeft, box.left + box.width * 0.24);
+  $('#plate').dataset.clear = Math.round(clear);
+  return clear;
+}
+
+/** Phone: whatever still spills below the fold comes off the plate (never below minFrac). */
+function trimPlate(minFrac) {
+  const plate = $('#plate');
+  const over = document.documentElement.scrollHeight - innerHeight;
+  if (over > 0) plate.style.height = `${Math.max(Math.round(innerHeight * minFrac), plate.offsetHeight - over)}px`;
+}
+
+function layout() {
+  if (!cur) return;
+  const phone = PHONE();
+  const bq = $('#quote');
+  const words = cur.text.split(/[ \n]/).length;
+  const verse = cur.text.includes('\n') ? cur.text.split('\n').length : 0;
+  bq.classList.toggle('many', words > 22);
+  bq.textContent = cur.text;
+  bq.style.width = '';
+  let size;
+  if (phone) {
+    $('#plate').style.height = '';
+    size = K.fit(bq, { min: 22, max: 62, maxH: innerHeight * 0.36, lh: [1.2, 1.02], track: [0, -0.01], range: [23, 62], maxLines: verse });
+    const lift = Math.round(K.clamp(innerHeight * 0.085, 52, 80));
+    document.documentElement.style.setProperty('--lift', `-${lift}px`);
+    const chrome = $('#sig').offsetHeight + 18 + $('#photoCredit').offsetHeight + 4;
+    const rest = innerHeight - chrome - bq.scrollHeight + lift;
+    $('#plate').style.height = `${Math.round(K.clamp(rest, innerHeight * 0.32, innerHeight * 0.62))}px`;
+  } else {
+    $('#plate').style.height = '';
+    const clear = cropPlate(false);
+    const x0 = bq.getBoundingClientRect().left;
+    const full = bq.parentElement.clientWidth;
+    const room = clear ? clear - 36 - x0 : full;
+    const w = Math.round(K.clamp(room, Math.min(full, innerWidth * 0.32), full));
+    bq.style.width = `${w}px`;
+    const piece = $('#piece');
+    const avail = piece.clientHeight - $('#sig').offsetHeight - parseFloat(getComputedStyle($('#sig')).marginTop) - innerHeight * 0.07;
+    const max = Math.min(136, innerHeight * 0.15, w * 0.2);
+    size = K.fit(bq, { min: 24, max, maxH: avail, lh: [1.18, 1.02], track: [0.004, -0.012], range: [26, 136], maxLines: verse });
+  }
+  K.settle(bq, cur.text, size);
+  if (phone) { trimPlate(0.32); cropPlate(true); }
+  bq.setAttribute('aria-label', cur.text);
+}
+
+async function show(i) {
+  idx = (i + list.length) % list.length;
+  const q = list[idx];
+  const stage = $('#stage');
+  stage.classList.remove('in');
+  const text = K.typeset(q.text, { wrapped: false });
+  $('#name').textContent = K.cleanName(q.author);
+  $('#dates').textContent = K.dates(q);
+  K.renderSource($('#source'), q);
+  $('#dot').hidden = !$('#dates').textContent || $('#source').hidden;
+
+  let canvas = null, nat = null, face = null;
+  try {
+    face = K.faceOf(focus, q.image.file);
+    const img = await K.loadImage(new URL('../../quotes/' + q.image.file, location.href).href);
+    canvas = K.treat(img, TREAT, face).canvas;
+    nat = { w: img.naturalWidth, h: img.naturalHeight };
+    canvas.setAttribute('role', 'img');
+    canvas.setAttribute('aria-label', `Portræt af ${K.cleanName(q.author)}`);
+    $('#crop').replaceChildren(canvas);
+    K.renderPhotoCredit($('#photoCredit'), q);
+    document.body.classList.remove('no-plate');
+  } catch {
+    $('#crop').replaceChildren();
+    $('#photoCredit').hidden = true;
+    document.body.classList.add('no-plate');
+  }
+  cur = { q, text, canvas, nat, face };
+  layout();
+  history.replaceState(null, '', `?${new URLSearchParams({ ...Object.fromEntries(K.params), q: q.id })}`);
+  void stage.offsetWidth;
+  stage.classList.add('in');
+}
+
+let lastState = null;
+const sess = K.session((s) => {
+  $('#left').textContent = s.left;
+  $('#timer').title = s.until ? `Låst til ${s.until}` : '';
+  if (lastState && lastState.ended !== s.ended) { $('#over').classList.add('swap'); $('#timer').classList.add('swap'); }
+  $('#timer').hidden = s.ended;
+  $('#over').hidden = !s.ended;
+  $('#host').textContent = s.host;
+  $('#back').href = `https://${s.host}/`;
+  lastState = s;
+});
+
+let rt = 0;
+addEventListener('resize', () => { cancelAnimationFrame(rt); rt = requestAnimationFrame(layout); });
+K.devKeys({ next: () => show(idx + 1), prev: () => show(idx - 1), toggleEnded: () => sess.toggle() });
+window.__d1 = { list, show, get idx() { return idx; } }; // dev: stress-test hook
+if (list.length) await show(idx);
+else { document.body.classList.add('no-plate'); $('#piece').hidden = true; $('#photoCredit').hidden = true; $('#stage').classList.add('in'); }
+</script>
+</body>
+</html>

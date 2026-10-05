@@ -44,3 +44,18 @@ export function blockedNow(status) {
     apps: new Set((s.apps || []).filter((x) => x.inActiveList).map((x) => x.bundleId)),
   };
 }
+
+/** Apps that can be on a list: not "always closed" and not "never closed" (the daemon drops those from lists). */
+export const listableApps = (apps) => (apps || []).filter((a) => !a.blocked && !a.neverClose);
+
+/**
+ * The "Lukkes aldrig" section: every registered app, by name; browsers last (always closed, no switch).
+ * → [{app, browser}]
+ */
+export function neverCloseRows(apps) {
+  const isBrowser = (a) => a.kind === 'browser';
+  const byName = (a, b) => (a.name || a.bundleId).localeCompare(b.name || b.bundleId, 'da');
+  const all = [...(apps || [])];
+  return [...all.filter((a) => !isBrowser(a)).sort(byName), ...all.filter(isBrowser).sort(byName)]
+    .map((app) => ({ app, browser: isBrowser(app) }));
+}

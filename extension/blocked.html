@@ -2,7 +2,7 @@
 <html lang="da">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
 <title>LockedIn</title>
 <link rel="icon" href="icons/icon32.png">
@@ -10,22 +10,22 @@
 <script type="module" src="ui/blocked.js"></script>
 </head>
 <body>
-<main class="stage">
-  <p class="host" id="host"></p>
-
-  <article class="quote" id="quote" hidden>
-    <figure class="portrait" id="portrait" hidden><img id="img" alt="" decoding="async"></figure>
-    <div class="words">
-      <blockquote id="text" lang="en"></blockquote>
-      <p class="who"><span id="author"></span><span id="dates" class="dates"></span></p>
-    </div>
-  </article>
-
-  <footer class="foot">
-    <div id="remain" class="remain" hidden>00:00:00</div>
-    <p id="ended" class="ended" hidden>Fokussessionen er slut<span id="backWrap" hidden> · <a id="backLink" href="#"></a></span></p>
-    <p id="credits" class="credits"></p>
-  </footer>
+<div class="scene" aria-hidden="true">
+  <div class="zone" id="zone">
+    <div class="print" id="print"></div>
+    <div class="light"></div>
+  </div>
+</div>
+<main class="stage" id="stage">
+  <div class="slot" id="slot">
+    <div id="remain" class="remain" role="timer" aria-label="Tid tilbage" hidden>00:00:00</div>
+    <p id="ended" class="ended" hidden><span class="ended-title">Fokussessionen er slut</span><a id="backLink" href="#" hidden></a></p>
+  </div>
+  <figure class="quote" id="quote">
+    <blockquote id="text" lang="en"></blockquote>
+    <figcaption class="who"><span class="rule" aria-hidden="true"></span><span class="sig"><span id="author"></span><span id="dates"></span></span></figcaption>
+  </figure>
+  <p id="credits" class="credits"></p>
 </main>
 </body>
 </html>

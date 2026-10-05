@@ -1,65 +1,157 @@
+/* Quote page (blocked.html). Design: docs/QUOTE-DESIGN.md, "Afgørelse".
+   Layout numbers are computed in ui/blocked.js and arrive as custom properties on <html>;
+   this file only says how things look. All motion lives in the no-preference block at the end. */
 :root {
   color-scheme: dark;
-  --bg: #0b0b0c;
-  --text: #ecebe6;
-  --muted: #8e8c86;
-  --faint: #7b7973;
+  --black: #050505;
+  --paper: #f2ece1;
+  --name: rgba(242, 236, 225, .9);
+  --dates: #aaa397;
+  --timer: #c9c2b6;
+  --quiet: #969086;
   --accent: #f2c14e;
-  --serif: ui-serif, "New York", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --didot: Didot, "Bodoni 72", "Iowan Old Style", Georgia, serif;
+  --bodoni: "Bodoni 72", Didot, "Iowan Old Style", Georgia, serif;
+  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --ease: cubic-bezier(.2, .7, .1, 1);
+  --qpx: 52px; --lh: 1.12; --tr: 0em; --measure: 17;
+  --col-left: 64px; --col-width: 600px; --slot-top: 40px; --quote-top: 30vh; --credit-bottom: 32px;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; }
 body {
-  background: radial-gradient(1000px 600px at 20% 0%, rgba(242, 193, 78, .045), transparent 60%), var(--bg);
-  color: var(--text);
+  background: var(--black); color: var(--paper);
   font: 15px/1.5 var(--sans);
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  overflow: hidden;
+  touch-action: manipulation; /* a double-tap means "another quote", never a zoom */
 }
+html.overflow body { overflow-y: auto; }
 [hidden] { display: none !important; }
-a { color: inherit; text-decoration-color: rgba(255, 255, 255, .2); text-underline-offset: 2px; }
+a { color: inherit; text-decoration-color: rgba(255, 255, 255, .28); text-underline-offset: 2px; }
 a:hover { text-decoration-color: currentColor; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 
-.stage {
-  min-height: 100%; max-width: 1120px; margin: 0 auto; padding: 32px 32px 24px;
-  display: flex; flex-direction: column; justify-content: space-between; gap: 40px;
+/* ---------- the portrait: zone (clips, inner edge dissolves) › print (canvas + grain, own edges dissolve) ---------- */
+.scene { position: fixed; inset: 0; overflow: hidden; pointer-events: none; }
+.zone {
+  position: absolute; left: var(--zl, 54vw); top: var(--zt, 0); width: var(--zw, 46vw); height: var(--zh, 100vh);
+  overflow: hidden; --feather: 0px;
 }
-.host { margin: 0; min-height: 1.5em; color: var(--faint); font-size: 12px; letter-spacing: .03em; }
-
-.quote {
-  display: grid; grid-template-columns: minmax(0, 280px) minmax(0, 1fr); gap: 64px; align-items: center;
-  animation: rise .9s cubic-bezier(.2, .7, .2, 1) both;
+[data-side="right"] .zone {
+  mask-image: linear-gradient(to right, transparent 0, rgba(0, 0, 0, .1) calc(var(--feather) * .3), rgba(0, 0, 0, .45) calc(var(--feather) * .62), #000 var(--feather));
 }
-.quote:has(.portrait[hidden]) { grid-template-columns: minmax(0, 1fr); max-width: 860px; }
-@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
-
-.portrait { margin: 0; }
-.portrait img {
-  display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 4px;
-  filter: grayscale(.25) brightness(.88); box-shadow: 0 40px 80px -40px #000; background: #16161a;
+[data-side="left"] .zone {
+  mask-image: linear-gradient(to left, transparent 0, rgba(0, 0, 0, .1) calc(var(--feather) * .3), rgba(0, 0, 0, .45) calc(var(--feather) * .62), #000 var(--feather));
+}
+/* Phone: the print's own mask ends it (transparent from the end of its fade, see quote-frame.js); the zone only
+   sizes the light. A clip at the zone's edge could leave one unmasked row of print in a scaled raster (pinch zoom,
+   a scaled screenshot) — a hairline through the first line of the quote — so the phone zone does not clip. */
+[data-side="top"] .zone { overflow: visible; }
+.no-portrait .scene { display: none; }
+.print {
+  position: absolute; left: var(--pl, 0); top: var(--pt, 0); width: var(--pw, 100%); height: var(--ph, 100%);
+  opacity: 0;
+  --el: 0px; --er: 0px; --s0: 0px; --s1: 0px; --f0: 100%; --f1: 100%;
+  mask-image:
+    linear-gradient(to right, transparent 0, rgba(0, 0, 0, .45) calc(var(--el) * .55), #000 var(--el)),
+    linear-gradient(to left, transparent 0, rgba(0, 0, 0, .45) calc(var(--er) * .55), #000 var(--er)),
+    linear-gradient(to bottom, transparent var(--s0), #000 var(--s1)),
+    linear-gradient(to bottom, #000 var(--f0), rgba(0, 0, 0, .55) calc(var(--f0) + (var(--f1) - var(--f0)) * .35), rgba(0, 0, 0, .15) calc(var(--f0) + (var(--f1) - var(--f0)) * .7), transparent var(--f1));
+  mask-composite: intersect;
+}
+.print.is-lit { opacity: 1; }
+.is-ended .print.is-lit { filter: brightness(1.12); }
+.print canvas { display: block; width: 100%; height: 100%; }
+.grain {
+  position: absolute; inset: 0; background-image: var(--grain); background-size: 192px 192px;
+  mix-blend-mode: overlay; opacity: var(--grain-o, .34);
+}
+/* Light: the face is lit, the print falls toward black around it. The overlay is the page colour (#050505) at
+   partial alpha, never darker than the page, so it cannot draw an edge where it ends. */
+.light {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at var(--fx, 50%) var(--fy, 40%), transparent 0, transparent calc(var(--fh, 200px) * 1.05), rgba(5, 5, 5, .3) calc(var(--fh, 200px) * 1.9), rgba(5, 5, 5, .6) calc(var(--fh, 200px) * 3), rgba(5, 5, 5, .7) calc(var(--fh, 200px) * 4.2)),
+    linear-gradient(0deg, rgba(5, 5, 5, .5) 0, rgba(5, 5, 5, 0) 26%);
+}
+/* Phone: the timer strip sits over ≥ 0.9 black. */
+[data-side="top"] .light {
+  background:
+    linear-gradient(180deg, rgba(5, 5, 5, .94) 0, rgba(5, 5, 5, .9) var(--strip, 64px), rgba(5, 5, 5, 0) calc(var(--strip, 64px) + 56px)),
+    radial-gradient(circle at var(--fx, 50%) var(--fy, 30%), transparent 0, transparent calc(var(--fh, 120px) * 1.0), rgba(5, 5, 5, .34) calc(var(--fh, 120px) * 1.8), rgba(5, 5, 5, .66) calc(var(--fh, 120px) * 2.8), rgba(5, 5, 5, .76) calc(var(--fh, 120px) * 4));
 }
 
-.words { min-width: 0; }
-blockquote {
-  margin: 0; font: 400 clamp(28px, 3.3vw, 48px)/1.22 var(--serif); letter-spacing: -.005em;
-  text-wrap: pretty; hanging-punctuation: first;
+/* ---------- the words ---------- */
+.stage { position: fixed; inset: 0; }
+.slot { position: absolute; left: var(--col-left); top: var(--slot-top); display: grid; visibility: hidden; }
+.is-set .slot, .no-quotes .slot { visibility: visible; } /* never painted before the layout has placed it */
+.slot > * { grid-area: 1 / 1; }
+.remain {
+  font: 300 clamp(28px, 3.6vh, 36px)/1 var(--sans); font-variant-numeric: tabular-nums; letter-spacing: 0;
+  color: var(--timer);
 }
-blockquote.short { font-size: clamp(34px, 4.6vw, 64px); line-height: 1.15; }
-blockquote.long { font-size: clamp(24px, 2.6vw, 38px); line-height: 1.26; }
-blockquote.xlong { font-size: clamp(21px, 2.15vw, 31px); line-height: 1.3; }
-.who { margin: 26px 0 0; font-size: 16px; font-weight: 600; }
-.dates { margin-left: 10px; color: var(--faint); font-weight: 400; font-size: 13px; }
+.ended { margin: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.ended-title { font: 500 17px/1.3 var(--sans); color: var(--paper); }
+.ended a { font: 400 15px/1.4 var(--sans); color: var(--accent); text-decoration: none; }
+.ended a::after { content: " →"; }
+.ended a:hover { text-decoration: underline; }
 
-.foot { display: flex; flex-direction: column; gap: 14px; }
-.remain { font: 200 clamp(36px, 4.4vw, 56px)/1 var(--sans); font-variant-numeric: tabular-nums; letter-spacing: -.02em; color: var(--muted); }
-.ended { margin: 0; font: 400 clamp(22px, 2.4vw, 30px)/1.3 var(--serif); }
-.ended a { color: var(--accent); }
-.credits { margin: 0; color: var(--faint); font-size: 12px; line-height: 1.5; max-width: 900px; }
-.credits a { text-decoration-color: rgba(255, 255, 255, .12); }
-
-@media (max-width: 760px) {
-  .stage { padding: 20px 16px 16px; gap: 28px; }
-  .quote { grid-template-columns: 1fr; gap: 24px; }
-  .portrait { max-width: 140px; }
+.quote { position: absolute; left: var(--col-left); top: var(--quote-top); width: var(--col-width); margin: 0; visibility: hidden; }
+#text {
+  margin: 0; font-family: var(--didot); font-weight: 400; font-style: normal; color: var(--paper);
+  font-size: var(--qpx); line-height: var(--lh); letter-spacing: var(--tr);
+  max-width: min(100%, calc(var(--measure) * 1em));
+  font-kerning: normal; font-variant-ligatures: common-ligatures;
+  text-wrap: balance; overflow-wrap: normal;
 }
-@media (prefers-reduced-motion: reduce) { .quote { animation: none; } }
+#text.many { text-wrap: pretty; }
+#text.bodoni { font-family: var(--bodoni); }
+#text .tk { white-space: nowrap; }
+#text .ln { display: block; white-space: nowrap; }
+#text .vl { display: block; padding-left: .9em; text-indent: -.9em; }
+#text .ln.cont { padding-left: .9em; }
+#text .li { display: inline-block; position: relative; }
+.hang { position: absolute; right: 100%; top: 0; color: var(--accent); }
+.mark { color: var(--accent); }
+
+/* Signature: rule | name and dates. The dates wrap under the name, never under the rule. */
+.who { display: grid; grid-template-columns: 32px minmax(0, 1fr); column-gap: 14px; align-items: start; margin-top: calc(var(--qpx) * .36 + 10px); }
+.rule { width: 32px; height: 1px; background: var(--accent); margin-top: calc(.6em + 1px); transform-origin: left center; font-size: clamp(14px, calc(var(--qpx) * .22), 19px); }
+.sig { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; min-width: 0; }
+#author {
+  font: 600 clamp(14px, calc(var(--qpx) * .22), 19px)/1.2 var(--sans); letter-spacing: .22em; text-transform: uppercase;
+  color: var(--name);
+}
+#dates { font: 400 13px/1.2 var(--sans); color: var(--dates); font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+
+.credits {
+  position: absolute; left: var(--credit-left, var(--col-left)); width: var(--credit-width, var(--col-width)); bottom: var(--credit-bottom); margin: 0;
+  font: 400 12px/1.5 var(--sans); color: var(--quiet); visibility: hidden; text-wrap: balance;
+}
+.credits a { text-decoration-color: rgba(150, 144, 134, .5); white-space: nowrap; } /* "CC BY-SA 4.0 ↗" never breaks at its hyphen */
+.is-set .quote, .is-set .credits { visibility: visible; }
+
+[data-layout="phone"] .remain { font-size: 24px; }
+@media (max-width: 400px) { #author { letter-spacing: .16em; } }
+[data-layout="phone"] .ended-title { font-size: 16px; }
+
+/* ---------- motion: every animation ends by 600 ms; nothing at all under reduced motion ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .slot { animation: fade 400ms var(--ease) 200ms both; }
+  .is-set:not(.settled) #text .li { animation: rise 420ms var(--ease) both; animation-delay: calc(40ms + var(--i, 0) * var(--stagger, 0ms)); }
+  .is-set:not(.settled) .rule { animation: draw 360ms var(--ease) 200ms both; }
+  .is-set:not(.settled) #author, .is-set:not(.settled) #dates { animation: fade 340ms var(--ease) 260ms both; }
+  .is-set:not(.settled) .credits { animation: fade 400ms var(--ease) 200ms both; }
+  .print { transition: opacity 600ms cubic-bezier(.4, 0, .2, 1); }
+  .is-ended .print.is-lit { transition: opacity 600ms cubic-bezier(.4, 0, .2, 1), filter 600ms var(--ease); }
+  .remain.out { animation: fadeout 300ms var(--ease) both; }
+  .ended.in { animation: fade 300ms var(--ease) both; }
+  /* another quote: the old one fades in 180 ms, the new one enters as above (the timer slot never moves) */
+  .swap-out .quote, .swap-out .credits { opacity: 0; transition: opacity 180ms var(--ease); }
+  .swap-out .print.is-lit { opacity: 0; transition: opacity 180ms var(--ease); }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(.5em); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeout { from { opacity: 1; } to { opacity: 0; } }
+@keyframes draw { from { transform: scaleX(0); } to { transform: none; } }
